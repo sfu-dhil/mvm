@@ -16,6 +16,18 @@ class Place extends AbstractEntity
 {
 
     /**
+     * @var string
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $fullName;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $sortableName;
+
+    /**
      * @var Collection|PrintSource[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\PrintSource", mappedBy="place")
      */

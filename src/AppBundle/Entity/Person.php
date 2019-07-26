@@ -16,6 +16,18 @@ class Person extends AbstractEntity
 {
 
     /**
+     * @var string
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $fullName;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $sortableName;
+
+    /**
      * @var CircaDate
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\CircaDate", cascade={"persist", "remove"}, orphanRemoval=true)
      */

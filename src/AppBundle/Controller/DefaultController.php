@@ -20,9 +20,9 @@ class DefaultController extends Controller implements PaginatorAwareInterface
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
+        return array(
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        );
     }
 
     /**

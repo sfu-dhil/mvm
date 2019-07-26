@@ -15,6 +15,12 @@ class ManuscriptContribution extends AbstractEntity
 {
 
     /**
+     * @var string
+     * @ORM\Column(type="text", nullable=false)
+     */
+    private $note;
+
+    /**
      * @var Person
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person", inversedBy="manuscriptContributions")
      * @ORM\JoinColumn(nullable=false)

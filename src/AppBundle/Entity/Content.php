@@ -16,6 +16,30 @@ class Content extends AbstractEntity
 {
 
     /**
+     * @var string
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $transcription;
+
+    /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $context;
+
+    /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
      * @var Manuscript
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Manuscript", inversedBy="contents")
      * @ORM\JoinColumn(nullable=false)

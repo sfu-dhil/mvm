@@ -16,6 +16,12 @@ class ManuscriptFeature extends AbstractEntity
 {
 
     /**
+     * @var string
+     * @ORM\Column(type="text", nullable=false)
+     */
+    private $note;
+
+    /**
      * @var Feature
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Feature", inversedBy="manuscriptFeatures")
      * @ORM\JoinColumn(nullable=false)

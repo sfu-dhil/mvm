@@ -15,6 +15,12 @@ class ContentContribution extends AbstractEntity
 {
 
     /**
+     * @var string
+     * @ORM\Column(type="text", nullable=false)
+     */
+    private $note;
+
+    /**
      * @var ContentRole
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ContentRole", inversedBy="contributions")
      * @ORM\JoinColumn(nullable=false)

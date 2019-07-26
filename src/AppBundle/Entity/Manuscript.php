@@ -16,6 +16,36 @@ class Manuscript extends AbstractEntity
 {
 
     /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $blankPageCount;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $filledPageCount;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $itemCount;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $poemCount;
+
+    /**
+     * @var array|string[]
+     * @ORM\Column(type="array")
+     */
+    private $additionalGenres;
+
+    /**
      * @var Place
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Place", inversedBy="manuscripts")
      */
@@ -36,7 +66,7 @@ class Manuscript extends AbstractEntity
 
     /**
      * @var Collection|Content[]
-     * @ORM\OneToMany(targetEntity="content", mappedBy="manuscript")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Content", mappedBy="manuscript")
      */
     private $contents;
 
