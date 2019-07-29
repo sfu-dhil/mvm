@@ -19,18 +19,10 @@
             {% endif %}
         </div>
     </div>
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <tbody>
-            <tr>
-                <th>Created</th>
-                <td>{% if period.created %}{{ period.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if period.updated %}{{ period.updated|date }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+
+    {% embed 'NinesUtilBundle:term/partial:show.html.twig' with {'term': period} %}
+    {% endembed %}
+
     {% if period.manuscripts | length > 0 %}
         <h2>Manuscripts</h2>
         <ul>

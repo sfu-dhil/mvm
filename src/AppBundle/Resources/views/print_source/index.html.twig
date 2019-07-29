@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    {% include 'NinesUtilBundle:term/partial:index.html.twig' with {'terms': printSources} %}
+    {% include 'NinesUtilBundle:term/partial:index.html.twig' with {'terms': printSources, 'path': 'print_source_show'} %}
 
     <div class="navigation">
         {{ knp_pagination_render(printSources) }}

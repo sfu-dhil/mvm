@@ -32,6 +32,7 @@ class ContentType extends AbstractType
             'required' => false,
             'attr' => array(
                 'help_block' => '',
+                'class' => 'tinymce',
             ),
         ));
                 $builder->add('context', null, array(
@@ -39,6 +40,7 @@ class ContentType extends AbstractType
             'required' => false,
             'attr' => array(
                 'help_block' => '',
+                'class' => 'tinymce',
             ),
         ));
                 $builder->add('description', null, array(
@@ -46,10 +48,11 @@ class ContentType extends AbstractType
             'required' => false,
             'attr' => array(
                 'help_block' => '',
+                'class' => 'tinymce',
             ),
         ));
-                        $builder->add('manuscript');
-                        $builder->add('printSource');
+        $builder->add('manuscript');
+        $builder->add('printSource');
         
     }
     

@@ -19,18 +19,10 @@
             {% endif %}
         </div>
     </div>
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <tbody>
-            <tr>
-                <th>Created</th>
-                <td>{% if feature.created %}{{ feature.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if feature.updated %}{{ feature.updated|date }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+
+    {% embed 'NinesUtilBundle:term/partial:show.html.twig' with {'term': feature} %}
+    {% endembed %}
+
     {% if feature.images | length > 0 %}
         <h2>Images</h2>
         <ul>
@@ -43,6 +35,7 @@
             {% endfor %}
         </ul>
     {% endif %}
+
     {% if feature.manuscriptFeatures | length > 0 %}
         <h2>Manuscriptfeatures</h2>
         <ul>

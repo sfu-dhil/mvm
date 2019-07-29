@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    {% include 'NinesUtilBundle:term/partial:index.html.twig' with {'terms': themes} %}
+    {% include 'NinesUtilBundle:term/partial:index.html.twig' with {'terms': themes, 'path': 'theme_show'} %}
 
     <div class="navigation">
         {{ knp_pagination_render(themes) }}

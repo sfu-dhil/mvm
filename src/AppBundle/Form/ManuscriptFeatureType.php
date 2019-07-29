@@ -25,6 +25,7 @@ class ManuscriptFeatureType extends AbstractType
             'required' => true,
             'attr' => array(
                 'help_block' => '',
+                'class' => 'tinymce',
             ),
         ));
                         $builder->add('feature');

@@ -20,19 +20,20 @@ class ContentContributionType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('note', null, array(
+    {
+        $builder->add('note', null, array(
             'label' => 'Note',
             'required' => true,
             'attr' => array(
                 'help_block' => '',
+                'class' => 'tinymce'
             ),
         ));
-                        $builder->add('role');
-                        $builder->add('person');
-                        $builder->add('content');
-        
+        $builder->add('role');
+        $builder->add('person');
+        $builder->add('content');
     }
-    
+
     /**
      * Define options for the form.
      *

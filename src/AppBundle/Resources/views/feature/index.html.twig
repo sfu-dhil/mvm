@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    {% include 'NinesUtilBundle:term/partial:index.html.twig' with {'terms': features} %}
+    {% include 'NinesUtilBundle:term/partial:index.html.twig' with {'terms': features, 'path': 'feature_show'} %}
 
     <div class="navigation">
         {{ knp_pagination_render(features) }}

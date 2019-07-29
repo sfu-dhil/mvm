@@ -19,32 +19,19 @@
             {% endif %}
         </div>
     </div>
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <tbody>
-            <tr>
-                <th>Created</th>
-                <td>{% if theme.created %}{{ theme.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if theme.updated %}{{ theme.updated|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Manuscripts</th>
-                <td>
-                    {% if theme.manuscripts | length > 0 %}
-                        <ul>
-                            {% for manuscripts in theme.manuscripts %}
-                                <li>
-                                    <a href="{{ path("manuscript_show", {"id":manuscripts.id}) }}">
-                                        {{ manuscripts }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    {% embed 'NinesUtilBundle:term/partial:show.html.twig' with {'term': theme} %}
+    {% endembed %}
+
+    {% if theme.manuscripts | length > 0 %}
+        <h2>Manuscripts</h2>
+        <ul>
+            {% for manuscripts in theme.manuscripts %}
+                <li>
+                    <a href="{{ path("manuscript_show", {"id":manuscripts.id}) }}">
+                        {{ manuscripts }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}

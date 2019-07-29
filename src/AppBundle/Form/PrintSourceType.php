@@ -23,6 +23,12 @@ class PrintSourceType extends ArchiveSourceType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
+        $builder->add('place', null, array('label' => 'Full Name',
+            'required' => true,
+            'attr' => array(
+                'help_block' => '',
+            )
+        ));
     }
 
 

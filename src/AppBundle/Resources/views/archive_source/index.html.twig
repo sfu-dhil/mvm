@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    {% include 'NinesUtilBundle:term/partial:index.html.twig' with {'terms': archiveSources} %}
+    {% include 'NinesUtilBundle:term/partial:index.html.twig' with {'terms': archiveSources, 'path': 'archive_source_show'} %}
 
     <div class="navigation">
         {{ knp_pagination_render(archiveSources) }}

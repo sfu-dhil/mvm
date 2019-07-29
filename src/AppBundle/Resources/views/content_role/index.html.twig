@@ -21,8 +21,7 @@
         </div>
     </div>
 
-    {% include 'NinesUtilBundle:term/partial:index.html.twig' with {'terms': contentRoles} %}
-
+    {% include 'NinesUtilBundle:term/partial:index.html.twig' with {'terms': contentRoles, 'path': 'content_role_show'} %}
 
     <div class="navigation">
         {{ knp_pagination_render(contentRoles) }}

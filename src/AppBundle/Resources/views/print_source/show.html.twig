@@ -19,50 +19,34 @@
             {% endif %}
         </div>
     </div>
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <tbody>
-            <tr>
-                <th>Full Name</th>
-                <td>{{ printSource.fullName }}</td>
-            </tr>
-            <tr>
-                <th>Sortable Name</th>
-                <td>{{ printSource.sortableName }}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{% if printSource.created %}{{ printSource.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if printSource.updated %}{{ printSource.updated|date }}{% endif %}</td>
-            </tr>
+    {% embed 'NinesUtilBundle:term/partial:show.html.twig' with {'term': printSource} %}
+        {% block callback %}
             <tr>
                 <th>Place</th>
                 <td>
-                    <a href="{{ path('place_show', { 'id': printSource.place.id}) }}">
-                        {{ printSource.place }}
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th>Manuscripts</th>
-                <td>
-                    {% if printSource.manuscripts | length > 0 %}
-                        <ul>
-                            {% for manuscripts in printSource.manuscripts %}
-                                <li>
-                                    <a href="{{ path("manuscript_show", {"id":manuscripts.id}) }}">
-                                        {{ manuscripts }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
+                    {% if printSource.place %}
+                        <a href="{{ path('place_show', { 'id': printSource.place.id}) }}">
+                            {{ printSource.place }}
+                        </a>
                     {% endif %}
                 </td>
             </tr>
-        </tbody>
-    </table>
+        {% endblock %}
+    {% endembed %}
+
+    {% if printSource.manuscripts | length > 0 %}
+        <h2>Manuscripts</h2>
+        <ul>
+            {% for manuscripts in printSource.manuscripts %}
+                <li>
+                    <a href="{{ path("manuscript_show", {"id":manuscripts.id}) }}">
+                        {{ manuscripts }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     {% if printSource.contents | length > 0 %}
         <h2>Contents</h2>
         <ul>

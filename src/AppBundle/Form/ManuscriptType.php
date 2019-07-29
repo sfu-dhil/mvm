@@ -32,6 +32,7 @@ class ManuscriptType extends AbstractType
             'required' => true,
             'attr' => array(
                 'help_block' => '',
+                'class' => 'tinymce',
             ),
         ));
                 $builder->add('blankPageCount', null, array(

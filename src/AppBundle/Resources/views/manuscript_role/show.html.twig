@@ -19,18 +19,10 @@
             {% endif %}
         </div>
     </div>
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <tbody>
-            <tr>
-                <th>Created</th>
-                <td>{% if manuscriptRole.created %}{{ manuscriptRole.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if manuscriptRole.updated %}{{ manuscriptRole.updated|date }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+
+    {% embed 'NinesUtilBundle:term/partial:show.html.twig' with {'term': manuscriptRole} %}
+    {% endembed %}
+
     {% if manuscriptRole.contributions | length > 0 %}
         <h2>Contributions</h2>
         <ul>

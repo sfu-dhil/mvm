@@ -2,7 +2,6 @@
 
 {% block title %}New ContentContribution{% endblock %}
 
-
 {% block body %}
     <h1>New ContentContribution</h1>
 
@@ -17,4 +16,8 @@
     </div>
     {{ form_end(form) }}
 
+{% endblock %}
+
+{% block javascripts %}
+    {% include 'NinesEditorBundle:editor:widget.html.twig' %}
 {% endblock %}
