@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ContentContribution List{% endblock %}
+
+{% block pageheader %}
+    <h1>ContentContribution List</h1>
+    <p class="count">
+        Displaying {{ contentContributions|length }} contentContributions of {{ contentContributions.getTotalItemCount }} total.
+    </p>
+ {% endblock %} 
+
+{% block body %}
+
+    <div class='btn-toolbar pull-right'>
+        <div class='btn-group'>
+                        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('content_contribution_new') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span> New
+            </a>
+            {% endif %}
+                        <a href="{{ path('content_contribution_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Note</th>
+                </tr>
+        </thead>
+        <tbody>
+        {% for contentContribution in contentContributions %}
+            <tr>
+                <td>
+                    <a href="{{ path('content_contribution_show', { 'id': contentContribution.id }) }}">
+                        {{ contentContribution.note }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(contentContributions) }}
+    </div>
+
+{% endblock %}

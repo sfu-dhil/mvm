@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PrintSource{% endblock %}
+
+ {% block pageheader %} 
+    <h1>PrintSource Details</h1>
+ {% endblock %} 
+
+{% block body %}
+    <div class="btn-toolbar">
+    <div class="btn-group pull-right">
+        <a href="{{ path('print_source_index') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-arrow-left"></span> Back
+        </a>
+                {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('print_source_edit', { 'id': printSource.id }) }}" class="btn btn-default">
+            <span class='glyphicon glyphicon-edit'></span> Edit
+        </a>
+        <a href="{{ path('print_source_delete', { 'id': printSource.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this PrintSource?">
+            <span class='glyphicon glyphicon-remove'></span> Delete
+        </a>
+        {% endif %}
+            </div>
+</div>
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <tbody>
+            <tr>
+                <th>Full Name</th>
+                <td>{{ printSource.fullName }}</td>
+            </tr>
+            <tr>
+                <th>Sortable Name</th>
+                <td>{{ printSource.sortableName }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if printSource.created %}{{ printSource.created|date }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if printSource.updated %}{{ printSource.updated|date }}{% endif %}</td>
+            </tr>        
+            <tr>
+                <th>Place</th>
+                <td>
+                    <a href="{{ path('place_show', { 'id': printSource.place.id}) }}">
+                        {{ printSource.place }}
+                    </a>
+                </td>
+            </tr>        
+            <tr>
+                <th>Manuscripts</th>         
+                <td>
+                    {% if printSource.manuscripts | length > 0 %}
+                    <ul>
+                        {% for manuscripts in printSource.manuscripts %}
+                        <li>
+                            <a href="{{ path("manuscripts_show", {"id":manuscripts.id}) }}">
+                                {{ manuscripts }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+        </tbody>
+    </table>
+    {% if printSource.contents | length > 0 %}    
+    <h2>Contents</h2>
+    <ul>
+        {% for contents in printSource.contents %}
+        <li>
+            <a href="{{ path("contents_show", {"id":contents.id}) }}">
+                {{ contents }}
+            </a>
+        </li>
+        {% endfor %} 
+    </ul>
+    {% endif %}
+{% endblock %}
