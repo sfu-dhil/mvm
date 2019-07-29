@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "149fe8d1bf371b533f99ce567629e4ab",
+    "content-hash": "3d9608aa31bd2bcab8ce65d850461829",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -5778,6 +5778,65 @@
                 "validate"
             ],
             "time": "2018-12-25T11:19:39+00:00"
+        },
+        {
+            "name": "webonaute/doctrine-fixtures-generator-bundle",
+            "version": "v1.3.7",
+            "target-dir": "Webonaute/DoctrineFixturesGeneratorBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Webonaute/DoctrineFixturesGeneratorBundle.git",
+                "reference": "6f094cfd0502c07db106349046f8a441eb770029"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Webonaute/DoctrineFixturesGeneratorBundle/zipball/6f094cfd0502c07db106349046f8a441eb770029",
+                "reference": "6f094cfd0502c07db106349046f8a441eb770029",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": ">=1.2",
+                "doctrine/doctrine-fixtures-bundle": ">=2.2",
+                "doctrine/orm": ">=2.2",
+                "php": ">=7.0",
+                "sensio/generator-bundle": ">=2.3",
+                "symfony/framework-bundle": ">=2.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0",
+                "symfony/phpunit-bridge": "dev-master"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Webonaute\\DoctrineFixturesGeneratorBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mathieu Delisle",
+                    "email": "mdelisle@webonaute.ca"
+                }
+            ],
+            "description": "Generate Fixture from your existing data in your database. You can specify the Entity name and the IDs you want to import in your fixture.",
+            "keywords": [
+                "Fixture",
+                "Symfony2",
+                "database",
+                "development",
+                "doctrine",
+                "doctrine2",
+                "dumper",
+                "generator",
+                "migration",
+                "symfony",
+                "tests"
+            ],
+            "time": "2017-04-19T18:09:21+00:00"
         }
     ],
     "aliases": [],
