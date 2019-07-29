@@ -2,8 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use mysql_xdevapi\Collection;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
@@ -44,6 +45,12 @@ class PrintSource extends AbstractEntity
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Manuscript", mappedBy="printSources")
      */
     private $manuscripts;
+
+    public function __construct() {
+        parent::__construct();
+        $this->contents = new ArrayCollection();
+        $this->manuscripts = new ArrayCollection();
+    }
 
     /**
      * Get id.

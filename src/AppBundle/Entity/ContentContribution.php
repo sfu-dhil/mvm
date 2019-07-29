@@ -41,6 +41,10 @@ class ContentContribution extends AbstractEntity
      */
     private $content;
 
+    public function __construct() {
+        parent::__construct();
+    }
+
     /**
      * Force all entities to provide a stringify function.
      *

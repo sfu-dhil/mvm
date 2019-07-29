@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
@@ -20,6 +21,11 @@ class ManuscriptRole extends AbstractTerm
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptContribution", mappedBy="role")
      */
     private $contributions;
+
+    public function __construct() {
+        parent::__construct();
+        $this->contributions = new ArrayCollection();
+    }
 
     /**
      * Add contribution.

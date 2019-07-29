@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
@@ -40,6 +41,11 @@ class ManuscriptFeature extends AbstractEntity
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="feature")
      */
     private $images;
+
+    public function __construct() {
+        parent::__construct();
+        $this->images = new ArrayCollection();
+    }
 
     /**
      * Force all entities to provide a stringify function.

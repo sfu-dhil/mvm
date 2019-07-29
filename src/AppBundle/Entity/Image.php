@@ -34,6 +34,10 @@ abstract class Image extends AbstractEntity
 
     abstract public function getType();
 
+    public function __construct() {
+        parent::__construct();
+    }
+
     /**
      * Set feature.
      *

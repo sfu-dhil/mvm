@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
@@ -25,6 +27,12 @@ class Feature extends AbstractTerm
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptFeature", mappedBy="feature")
      */
     private $manuscriptFeatures;
+
+    public function __construct() {
+        parent::__construct();
+        $this->images = new ArrayCollection();
+        $this->manuscriptFeatures = new ArrayCollection();
+    }
 
     /**
      * Force all entities to provide a stringify function.

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
@@ -52,6 +53,14 @@ class Place extends AbstractEntity
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Person", mappedBy="deathPlace")
      */
     private $peopleDied;
+
+    public function __construct() {
+        parent::__construct();
+        $this->manuscripts = new ArrayCollection();
+        $this->printSources = new ArrayCollection();
+        $this->peopleDied = new ArrayCollection();
+        $this->peopleBorn = new ArrayCollection();
+    }
 
     /**
      * Force all entities to provide a stringify function.

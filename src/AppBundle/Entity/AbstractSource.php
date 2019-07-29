@@ -14,4 +14,8 @@ use Nines\UtilBundle\Entity\AbstractTerm;
  */
 class AbstractSource extends AbstractTerm
 {
+    public function __construct() {
+        parent::__construct();
+    }
+
 }

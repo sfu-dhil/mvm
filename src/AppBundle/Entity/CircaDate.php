@@ -14,7 +14,7 @@ define('RANGE_RE', '/^(?:' . CIRCA_RE . ')?-(?:' . CIRCA_RE . ')?$/');
  * Date
  *
  * @ORM\Table(name="circa_date")
- * @ORM\Entity(repositoryClass="CircaDateRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CircaDateRepository")
  */
 class CircaDate extends AbstractEntity {
 

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
@@ -20,6 +21,11 @@ class Period extends AbstractTerm
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Manuscript", mappedBy="period")
      */
     private $manuscripts;
+
+    public function __construct() {
+        parent::__construct();
+        $this->manuscripts = new ArrayCollection();
+    }
 
     /**
      * Add manuscript.

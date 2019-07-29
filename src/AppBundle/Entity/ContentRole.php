@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
@@ -33,6 +34,11 @@ class ContentRole extends AbstractTerm
         $this->contributions[] = $contribution;
 
         return $this;
+    }
+
+    public function __construct() {
+        parent::__construct();
+        $this->contributions = new ArrayCollection();
     }
 
     /**

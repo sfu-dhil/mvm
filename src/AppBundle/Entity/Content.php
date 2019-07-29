@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
@@ -63,6 +64,12 @@ class Content extends AbstractEntity
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="content")
      */
     private $images;
+
+    public function __construct() {
+        parent::__construct();
+        $this->contributions = new ArrayCollection();
+        $this->images = new ArrayCollection();
+    }
 
     /**
      * Force all entities to provide a stringify function.

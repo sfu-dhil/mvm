@@ -13,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class ImageUrl extends Image
 {
 
+    public function __construct() {
+        parent::__construct();
+    }
+
     /**
      * Force all entities to provide a stringify function.
      *

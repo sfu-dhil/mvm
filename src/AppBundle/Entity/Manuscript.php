@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
@@ -105,6 +106,14 @@ class Manuscript extends AbstractEntity
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Theme", inversedBy="manuscripts")
      */
     private $themes;
+
+    public function __construct() {
+        parent::__construct();
+        $this->manuscriptContributions = new ArrayCollection();
+        $this->manuscriptFeatures = new ArrayCollection();
+        $this->printSources = new ArrayCollection();
+        $this->themes = new ArrayCollection();
+    }
 
     /**
      * Force all entities to provide a stringify function.
