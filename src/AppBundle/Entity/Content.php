@@ -192,4 +192,100 @@ class Content extends AbstractEntity
     {
         return $this->images;
     }
+
+    /**
+     * Set title.
+     *
+     * @param string $title
+     *
+     * @return Content
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set transcription.
+     *
+     * @param string|null $transcription
+     *
+     * @return Content
+     */
+    public function setTranscription($transcription = null)
+    {
+        $this->transcription = $transcription;
+
+        return $this;
+    }
+
+    /**
+     * Get transcription.
+     *
+     * @return string|null
+     */
+    public function getTranscription()
+    {
+        return $this->transcription;
+    }
+
+    /**
+     * Set context.
+     *
+     * @param string|null $context
+     *
+     * @return Content
+     */
+    public function setContext($context = null)
+    {
+        $this->context = $context;
+
+        return $this;
+    }
+
+    /**
+     * Get context.
+     *
+     * @return string|null
+     */
+    public function getContext()
+    {
+        return $this->context;
+    }
+
+    /**
+     * Set description.
+     *
+     * @param string|null $description
+     *
+     * @return Content
+     */
+    public function setDescription($description = null)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description.
+     *
+     * @return string|null
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 }

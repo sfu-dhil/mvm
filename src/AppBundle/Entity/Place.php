@@ -205,4 +205,52 @@ class Place extends AbstractEntity
     {
         return $this->peopleDied;
     }
+
+    /**
+     * Set fullName.
+     *
+     * @param string $fullName
+     *
+     * @return Place
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    /**
+     * Get fullName.
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * Set sortableName.
+     *
+     * @param string $sortableName
+     *
+     * @return Place
+     */
+    public function setSortableName($sortableName)
+    {
+        $this->sortableName = $sortableName;
+
+        return $this;
+    }
+
+    /**
+     * Get sortableName.
+     *
+     * @return string
+     */
+    public function getSortableName()
+    {
+        return $this->sortableName;
+    }
 }

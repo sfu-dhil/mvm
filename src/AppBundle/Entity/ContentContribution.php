@@ -121,4 +121,28 @@ class ContentContribution extends AbstractEntity
     {
         return $this->content;
     }
+
+    /**
+     * Set note.
+     *
+     * @param string $note
+     *
+     * @return ContentContribution
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note.
+     *
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
 }

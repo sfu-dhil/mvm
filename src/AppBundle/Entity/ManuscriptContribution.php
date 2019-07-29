@@ -121,4 +121,28 @@ class ManuscriptContribution extends AbstractEntity
     {
         return $this->manuscript;
     }
+
+    /**
+     * Set note.
+     *
+     * @param string $note
+     *
+     * @return ManuscriptContribution
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note.
+     *
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
 }

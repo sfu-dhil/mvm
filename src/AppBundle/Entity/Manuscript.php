@@ -366,4 +366,172 @@ class Manuscript extends AbstractEntity
     {
         return $this->themes;
     }
+
+    /**
+     * Set title.
+     *
+     * @param string $title
+     *
+     * @return Manuscript
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set description.
+     *
+     * @param string $description
+     *
+     * @return Manuscript
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set blankPageCount.
+     *
+     * @param int $blankPageCount
+     *
+     * @return Manuscript
+     */
+    public function setBlankPageCount($blankPageCount)
+    {
+        $this->blankPageCount = $blankPageCount;
+
+        return $this;
+    }
+
+    /**
+     * Get blankPageCount.
+     *
+     * @return int
+     */
+    public function getBlankPageCount()
+    {
+        return $this->blankPageCount;
+    }
+
+    /**
+     * Set filledPageCount.
+     *
+     * @param int $filledPageCount
+     *
+     * @return Manuscript
+     */
+    public function setFilledPageCount($filledPageCount)
+    {
+        $this->filledPageCount = $filledPageCount;
+
+        return $this;
+    }
+
+    /**
+     * Get filledPageCount.
+     *
+     * @return int
+     */
+    public function getFilledPageCount()
+    {
+        return $this->filledPageCount;
+    }
+
+    /**
+     * Set itemCount.
+     *
+     * @param int $itemCount
+     *
+     * @return Manuscript
+     */
+    public function setItemCount($itemCount)
+    {
+        $this->itemCount = $itemCount;
+
+        return $this;
+    }
+
+    /**
+     * Get itemCount.
+     *
+     * @return int
+     */
+    public function getItemCount()
+    {
+        return $this->itemCount;
+    }
+
+    /**
+     * Set poemCount.
+     *
+     * @param int $poemCount
+     *
+     * @return Manuscript
+     */
+    public function setPoemCount($poemCount)
+    {
+        $this->poemCount = $poemCount;
+
+        return $this;
+    }
+
+    /**
+     * Get poemCount.
+     *
+     * @return int
+     */
+    public function getPoemCount()
+    {
+        return $this->poemCount;
+    }
+
+    /**
+     * Set additionalGenres.
+     *
+     * @param array $additionalGenres
+     *
+     * @return Manuscript
+     */
+    public function setAdditionalGenres($additionalGenres)
+    {
+        $this->additionalGenres = $additionalGenres;
+
+        return $this;
+    }
+
+    /**
+     * Get additionalGenres.
+     *
+     * @return array
+     */
+    public function getAdditionalGenres()
+    {
+        return $this->additionalGenres;
+    }
 }

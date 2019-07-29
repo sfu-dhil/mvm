@@ -239,4 +239,52 @@ class Person extends AbstractEntity
     {
         return $this->manuscriptContributions;
     }
+
+    /**
+     * Set fullName.
+     *
+     * @param string $fullName
+     *
+     * @return Person
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    /**
+     * Get fullName.
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * Set sortableName.
+     *
+     * @param string $sortableName
+     *
+     * @return Person
+     */
+    public function setSortableName($sortableName)
+    {
+        $this->sortableName = $sortableName;
+
+        return $this;
+    }
+
+    /**
+     * Get sortableName.
+     *
+     * @return string
+     */
+    public function getSortableName()
+    {
+        return $this->sortableName;
+    }
 }

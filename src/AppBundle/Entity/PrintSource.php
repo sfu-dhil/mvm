@@ -159,4 +159,52 @@ class PrintSource extends AbstractEntity
     {
         return $this->manuscripts;
     }
+
+    /**
+     * Set fullName.
+     *
+     * @param string $fullName
+     *
+     * @return PrintSource
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    /**
+     * Get fullName.
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * Set sortableName.
+     *
+     * @param string $sortableName
+     *
+     * @return PrintSource
+     */
+    public function setSortableName($sortableName)
+    {
+        $this->sortableName = $sortableName;
+
+        return $this;
+    }
+
+    /**
+     * Get sortableName.
+     *
+     * @return string
+     */
+    public function getSortableName()
+    {
+        return $this->sortableName;
+    }
 }

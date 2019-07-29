@@ -133,4 +133,28 @@ class ManuscriptFeature extends AbstractEntity
     {
         return $this->images;
     }
+
+    /**
+     * Set note.
+     *
+     * @param string $note
+     *
+     * @return ManuscriptFeature
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note.
+     *
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
 }
