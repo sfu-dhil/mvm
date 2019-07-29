@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Nines\UtilBundle\Form\TermType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -11,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ThemeType form.
  */
-class ThemeType extends AbstractType
+class ThemeType extends TermType
 {
     /**
      * Add form fields to $builder.
@@ -20,10 +21,11 @@ class ThemeType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {                $builder->add('manuscripts');
-        
+    {
+        parent::buildForm($builder, $options);
     }
-    
+
+
     /**
      * Define options for the form.
      *

@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Nines\UtilBundle\Entity\AbstractEntity;
+use Nines\UtilBundle\Entity\AbstractTerm;
 
 /**
  * PrintSource
@@ -13,20 +13,8 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * @ORM\Table(name="print_source")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PrintSourceRepository")
  */
-class PrintSource extends AbstractEntity
+class PrintSource extends AbstractTerm
 {
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=false)
-     */
-    private $fullName;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=false)
-     */
-    private $sortableName;
 
     /**
      * @var Place
@@ -166,52 +154,5 @@ class PrintSource extends AbstractEntity
     {
         return $this->manuscripts;
     }
-
-    /**
-     * Set fullName.
-     *
-     * @param string $fullName
-     *
-     * @return PrintSource
-     */
-    public function setFullName($fullName)
-    {
-        $this->fullName = $fullName;
-
-        return $this;
-    }
-
-    /**
-     * Get fullName.
-     *
-     * @return string
-     */
-    public function getFullName()
-    {
-        return $this->fullName;
-    }
-
-    /**
-     * Set sortableName.
-     *
-     * @param string $sortableName
-     *
-     * @return PrintSource
-     */
-    public function setSortableName($sortableName)
-    {
-        $this->sortableName = $sortableName;
-
-        return $this;
-    }
-
-    /**
-     * Get sortableName.
-     *
-     * @return string
-     */
-    public function getSortableName()
-    {
-        return $this->sortableName;
-    }
+    
 }

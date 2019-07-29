@@ -5,22 +5,19 @@
 {% block pageheader %}
     <h1>Place List</h1>
     <p class="count">
-        Displaying {{ places|length }} places of {{ places.getTotalItemCount }} total.
-    </p>
- {% endblock %} 
+        Displaying {{ places|length }} places of {{ places.getTotalItemCount }} total. </p>
+{% endblock %}
 
 {% block body %}
 
     <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
-                        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('place_new') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus"></span> New
-            </a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('place_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New </a>
             {% endif %}
-                        <a href="{{ path('place_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search
-            </a>
+            <a href="{{ path('place_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search </a>
         </div>
     </div>
 
@@ -29,19 +26,19 @@
             <tr>
                 <th>Full Name</th>
                 <th>Sortable Name</th>
-                </tr>
+            </tr>
         </thead>
         <tbody>
-        {% for place in places %}
-            <tr>
-                <td>
-                    <a href="{{ path('place_show', { 'id': place.id }) }}">
-                        {{ place.fullName }}
-                    </a>
-                </td>
-                <td>{{ place.sortableName }}</td>
-            </tr>
-        {% endfor %}
+            {% for place in places %}
+                <tr>
+                    <td>
+                        <a href="{{ path('place_show', { 'id': place.id }) }}">
+                            {{ place.fullName }}
+                        </a>
+                    </td>
+                    <td>{{ place.sortableName }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

@@ -1,8 +1,16 @@
 
 /* Move the content down, to make room for the nav bar. */
 body > .container {
-  padding-top: 70px;
+  padding-top: 0px;
   flex: 1;
+}
+
+.page-header {
+  margin-top: 0;
+}
+
+.navbar {
+  margin-bottom: 0;
 }
 
 /* Custom app styles */

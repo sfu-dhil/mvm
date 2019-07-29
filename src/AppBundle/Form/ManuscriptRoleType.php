@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Nines\UtilBundle\Form\TermType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -11,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ManuscriptRoleType form.
  */
-class ManuscriptRoleType extends AbstractType
+class ManuscriptRoleType extends TermType
 {
     /**
      * Add form fields to $builder.
@@ -21,8 +22,9 @@ class ManuscriptRoleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
     }
-    
+
     /**
      * Define options for the form.
      *

@@ -8,11 +8,9 @@ use Nines\UtilBundle\Entity\AbstractTerm;
 /**
  * AbstractSource
  *
- * @ORM\Table(name="abstract_source")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AbstractSourceRepository")
- * @ORM\MappedSuperclass()
+ * @ORM\MappedSuperclass
  */
-class AbstractSource extends AbstractTerm
+abstract class AbstractSource extends AbstractTerm
 {
     public function __construct() {
         parent::__construct();

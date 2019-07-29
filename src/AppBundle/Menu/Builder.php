@@ -88,6 +88,52 @@ class Builder implements ContainerAwareInterface
         $browse->setLinkAttribute('data-toggle', 'dropdown');
         $browse->setChildrenAttribute('class', 'dropdown-menu');
 
+        $browse->addChild("Archive Sources", array(
+            'route' => 'archive_source_index',
+        ));
+        $browse->addChild("Content Contributions", array(
+            'route' => 'content_contribution_index',
+        ));
+        $browse->addChild("Contents", array(
+            'route' => 'content_index',
+        ));
+        $browse->addChild("Content Roles", array(
+            'route' => 'content_role_index',
+        ));
+        $browse->addChild("Features", array(
+            'route' => 'feature_index',
+        ));
+        $browse->addChild("Images", array(
+            'uri' => '#',
+        ));
+        $browse->addChild("Manuscript Contributions", array(
+            'route' => 'manuscript_contribution_index',
+        ));
+        $browse->addChild("Manuscripts", array(
+            'route' => 'manuscript_index',
+        ));
+        $browse->addChild("Manuscript Features", array(
+            'route' => 'manuscript_feature_index',
+        ));
+        $browse->addChild("Manuscript Roles", array(
+            'route' => 'manuscript_role_index',
+        ));
+        $browse->addChild("Periods", array(
+            'route' => 'period_index',
+        ));
+        $browse->addChild("People", array(
+            'route' => 'person_index',
+        ));
+        $browse->addChild("Places", array(
+            'route' => 'place_index',
+        ));
+        $browse->addChild("Print Sources", array(
+            'route' => 'print_source_index',
+        ));
+        $browse->addChild("Themes", array(
+            'route' => 'theme_index',
+        ));
+
         if ($this->hasRole('ROLE_USER')) {
             $divider = $browse->addChild('divider', array(
                 'label' => '',

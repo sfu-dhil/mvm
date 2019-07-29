@@ -5,22 +5,19 @@
 {% block pageheader %}
     <h1>Person List</h1>
     <p class="count">
-        Displaying {{ people|length }} people of {{ people.getTotalItemCount }} total.
-    </p>
- {% endblock %} 
+        Displaying {{ people|length }} people of {{ people.getTotalItemCount }} total. </p>
+{% endblock %}
 
 {% block body %}
 
     <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
-                        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('person_new') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus"></span> New
-            </a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('person_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New </a>
             {% endif %}
-                        <a href="{{ path('person_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search
-            </a>
+            <a href="{{ path('person_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search </a>
         </div>
     </div>
 
@@ -29,19 +26,19 @@
             <tr>
                 <th>Full Name</th>
                 <th>Sortable Name</th>
-                </tr>
+            </tr>
         </thead>
         <tbody>
-        {% for person in people %}
-            <tr>
-                <td>
-                    <a href="{{ path('person_show', { 'id': person.id }) }}">
-                        {{ person.fullName }}
-                    </a>
-                </td>
-                <td>{{ person.sortableName }}</td>
-            </tr>
-        {% endfor %}
+            {% for person in people %}
+                <tr>
+                    <td>
+                        <a href="{{ path('person_show', { 'id': person.id }) }}">
+                            {{ person.fullName }}
+                        </a>
+                    </td>
+                    <td>{{ person.sortableName }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

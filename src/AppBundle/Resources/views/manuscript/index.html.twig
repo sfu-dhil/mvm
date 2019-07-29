@@ -5,22 +5,19 @@
 {% block pageheader %}
     <h1>Manuscript List</h1>
     <p class="count">
-        Displaying {{ manuscripts|length }} manuscripts of {{ manuscripts.getTotalItemCount }} total.
-    </p>
- {% endblock %} 
+        Displaying {{ manuscripts|length }} manuscripts of {{ manuscripts.getTotalItemCount }} total. </p>
+{% endblock %}
 
 {% block body %}
 
     <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
-                        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('manuscript_new') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus"></span> New
-            </a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('manuscript_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New </a>
             {% endif %}
-                        <a href="{{ path('manuscript_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search
-            </a>
+            <a href="{{ path('manuscript_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search </a>
         </div>
     </div>
 
@@ -34,24 +31,24 @@
                 <th>Item Count</th>
                 <th>Poem Count</th>
                 <th>Additional Genres</th>
-                </tr>
+            </tr>
         </thead>
         <tbody>
-        {% for manuscript in manuscripts %}
-            <tr>
-                <td>
-                    <a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">
-                        {{ manuscript.title }}
-                    </a>
-                </td>
-                <td>{{ manuscript.description }}</td>
-                <td>{{ manuscript.blankPageCount }}</td>
-                <td>{{ manuscript.filledPageCount }}</td>
-                <td>{{ manuscript.itemCount }}</td>
-                <td>{{ manuscript.poemCount }}</td>
-                <td>{% if manuscript.additionalGenres %}{{ manuscript.additionalGenres|join(', ') }}{% endif %}</td>
-            </tr>
-        {% endfor %}
+            {% for manuscript in manuscripts %}
+                <tr>
+                    <td>
+                        <a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">
+                            {{ manuscript.title }}
+                        </a>
+                    </td>
+                    <td>{{ manuscript.description }}</td>
+                    <td>{{ manuscript.blankPageCount }}</td>
+                    <td>{{ manuscript.filledPageCount }}</td>
+                    <td>{{ manuscript.itemCount }}</td>
+                    <td>{{ manuscript.poemCount }}</td>
+                    <td>{% if manuscript.additionalGenres %}{{ manuscript.additionalGenres|join(', ') }}{% endif %}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

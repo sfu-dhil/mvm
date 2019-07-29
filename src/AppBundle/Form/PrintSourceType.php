@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Nines\UtilBundle\Form\TermType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -11,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * PrintSourceType form.
  */
-class PrintSourceType extends AbstractType
+class PrintSourceType extends ArchiveSourceType
 {
     /**
      * Add form fields to $builder.
@@ -20,25 +21,11 @@ class PrintSourceType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('fullName', null, array(
-            'label' => 'Full Name',
-            'required' => true,
-            'attr' => array(
-                'help_block' => '',
-            ),
-        ));
-                $builder->add('sortableName', null, array(
-            'label' => 'Sortable Name',
-            'required' => true,
-            'attr' => array(
-                'help_block' => '',
-            ),
-        ));
-                        $builder->add('place');
-                        $builder->add('manuscripts');
-        
+    {
+        parent::buildForm($builder, $options);
     }
-    
+
+
     /**
      * Define options for the form.
      *

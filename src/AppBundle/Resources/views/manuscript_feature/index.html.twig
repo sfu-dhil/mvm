@@ -5,22 +5,20 @@
 {% block pageheader %}
     <h1>ManuscriptFeature List</h1>
     <p class="count">
-        Displaying {{ manuscriptFeatures|length }} manuscriptFeatures of {{ manuscriptFeatures.getTotalItemCount }} total.
-    </p>
- {% endblock %} 
+        Displaying {{ manuscriptFeatures|length }} manuscriptFeatures of {{ manuscriptFeatures.getTotalItemCount }}
+        total. </p>
+{% endblock %}
 
 {% block body %}
 
     <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
-                        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('manuscript_feature_new') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus"></span> New
-            </a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('manuscript_feature_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New </a>
             {% endif %}
-                        <a href="{{ path('manuscript_feature_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search
-            </a>
+            <a href="{{ path('manuscript_feature_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search </a>
         </div>
     </div>
 
@@ -28,18 +26,18 @@
         <thead>
             <tr>
                 <th>Note</th>
-                </tr>
+            </tr>
         </thead>
         <tbody>
-        {% for manuscriptFeature in manuscriptFeatures %}
-            <tr>
-                <td>
-                    <a href="{{ path('manuscript_feature_show', { 'id': manuscriptFeature.id }) }}">
-                        {{ manuscriptFeature.note }}
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for manuscriptFeature in manuscriptFeatures %}
+                <tr>
+                    <td>
+                        <a href="{{ path('manuscript_feature_show', { 'id': manuscriptFeature.id }) }}">
+                            {{ manuscriptFeature.note }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

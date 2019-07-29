@@ -5,37 +5,23 @@
 {% block pageheader %}
     <h1>ManuscriptRole List</h1>
     <p class="count">
-        Displaying {{ manuscriptRoles|length }} manuscriptRoles of {{ manuscriptRoles.getTotalItemCount }} total.
-    </p>
- {% endblock %} 
+        Displaying {{ manuscriptRoles|length }} manuscriptRoles of {{ manuscriptRoles.getTotalItemCount }} total. </p>
+{% endblock %}
 
 {% block body %}
 
     <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
-                        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('manuscript_role_new') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus"></span> New
-            </a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('manuscript_role_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New </a>
             {% endif %}
-                        <a href="{{ path('manuscript_role_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search
-            </a>
+            <a href="{{ path('manuscript_role_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search </a>
         </div>
     </div>
 
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                </tr>
-        </thead>
-        <tbody>
-        {% for manuscriptRole in manuscriptRoles %}
-            <tr>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% include 'NinesUtilBundle:term/partial:index.html.twig' with {'terms': manuscriptRoles} %}
 
     <div class="navigation">
         {{ knp_pagination_render(manuscriptRoles) }}
