@@ -41,25 +41,6 @@ class PrintSource extends AbstractTerm
     }
 
     /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Force all entities to provide a stringify function.
-     *
-     * @return string
-     */
-    public function __toString() {
-        return get_class() . ' #' . $this->id;
-    }
-
-    /**
      * Set place.
      *
      * @param \AppBundle\Entity\Place|null $place

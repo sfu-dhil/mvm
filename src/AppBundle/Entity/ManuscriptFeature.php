@@ -53,7 +53,7 @@ class ManuscriptFeature extends AbstractEntity
      * @return string
      */
     public function __toString() {
-        return get_class() . ' #' . $this->id;
+        return implode(", ", array($this->manuscript, $this->feature));
     }
 
     /**

@@ -35,15 +35,6 @@ class Feature extends AbstractTerm
     }
 
     /**
-     * Force all entities to provide a stringify function.
-     *
-     * @return string
-     */
-    public function __toString() {
-        return get_class() . ' #' . $this->id;
-    }
-
-    /**
      * Add image.
      *
      * @param \AppBundle\Entity\Image $image

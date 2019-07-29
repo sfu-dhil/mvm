@@ -77,7 +77,7 @@ class Content extends AbstractEntity
      * @return string
      */
     public function __toString() {
-        return get_class() . ' #' . $this->id;
+        return $this->title;
     }
 
     /**

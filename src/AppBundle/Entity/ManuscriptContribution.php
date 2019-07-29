@@ -51,7 +51,7 @@ class ManuscriptContribution extends AbstractEntity
      * @return string
      */
     public function __toString() {
-        return get_class() . ' #' . $this->id;
+        return implode(", ", array($this->person, $this->role, $this->manuscript));
     }
 
     /**
