@@ -33,7 +33,7 @@
                 <tr>
                     <td>
                         <a href="{{ path('manuscript_feature_show', { 'id': manuscriptFeature.id }) }}">
-                            {{ manuscriptFeature.note }}
+                            {{ manuscriptFeature.note|raw }}
                         </a>
                     </td>
                 </tr>

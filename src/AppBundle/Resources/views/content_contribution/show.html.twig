@@ -23,7 +23,7 @@
         <tbody>
             <tr>
                 <th>Note</th>
-                <td>{{ contentContribution.note }}</td>
+                <td>{{ contentContribution.note|raw }}</td>
             </tr>
             <tr>
                 <th>Created</th>
@@ -36,7 +36,7 @@
             <tr>
                 <th>Role</th>
                 <td>
-                    <a href="{{ path('role_show', { 'id': contentContribution.role.id}) }}">
+                    <a href="{{ path('content_role_show', { 'id': contentContribution.role.id}) }}">
                         {{ contentContribution.role }}
                     </a>
                 </td>

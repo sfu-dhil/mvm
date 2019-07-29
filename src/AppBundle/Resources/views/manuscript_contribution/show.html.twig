@@ -23,7 +23,7 @@
         <tbody>
             <tr>
                 <th>Note</th>
-                <td>{{ manuscriptContribution.note }}</td>
+                <td>{{ manuscriptContribution.note|raw }}</td>
             </tr>
             <tr>
                 <th>Created</th>
@@ -44,7 +44,7 @@
             <tr>
                 <th>Role</th>
                 <td>
-                    <a href="{{ path('role_show', { 'id': manuscriptContribution.role.id}) }}">
+                    <a href="{{ path('manuscript_role_show', { 'id': manuscriptContribution.role.id}) }}">
                         {{ manuscriptContribution.role }}
                     </a>
                 </td>

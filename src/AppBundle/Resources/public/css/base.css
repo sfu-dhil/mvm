@@ -80,6 +80,10 @@ html {
   min-height: 100vh;
 }
 
+hr {
+  border-top: 1px solid #ccc;
+}
+
 body {
   min-height: 100vh;
   display: flex;

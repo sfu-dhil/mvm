@@ -27,7 +27,7 @@
             </tr>
             <tr>
                 <th>Description</th>
-                <td>{{ manuscript.description }}</td>
+                <td>{{ manuscript.description|raw }}</td>
             </tr>
             <tr>
                 <th>Blank Page Count</th>
@@ -60,23 +60,27 @@
             <tr>
                 <th>Place</th>
                 <td>
+                    {% if manuscript.place %}
                     <a href="{{ path('place_show', { 'id': manuscript.place.id}) }}">
                         {{ manuscript.place }}
                     </a>
+                    {% endif %}
                 </td>
             </tr>
             <tr>
                 <th>Period</th>
                 <td>
+                    {% if manuscript.period %}
                     <a href="{{ path('period_show', { 'id': manuscript.period.id}) }}">
                         {{ manuscript.period }}
                     </a>
+                    {% endif %}
                 </td>
             </tr>
             <tr>
                 <th>Archivesource</th>
                 <td>
-                    <a href="{{ path('archiveSource_show', { 'id': manuscript.archiveSource.id}) }}">
+                    <a href="{{ path('archive_source_show', { 'id': manuscript.archiveSource.id}) }}">
                         {{ manuscript.archiveSource }}
                     </a>
                 </td>
@@ -88,7 +92,7 @@
                         <ul>
                             {% for printSources in manuscript.printSources %}
                                 <li>
-                                    <a href="{{ path("printSource_show", {"id":printSources.id}) }}">
+                                    <a href="{{ path("print_source_show", {"id":printSources.id}) }}">
                                         {{ printSources }}
                                     </a>
                                 </li>
@@ -132,7 +136,7 @@
         <ul>
             {% for manuscriptContributions in manuscript.manuscriptContributions %}
                 <li>
-                    <a href="{{ path("manuscriptContribution_show", {"id":manuscriptContributions.id}) }}">
+                    <a href="{{ path("manuscript_contribution_show", {"id":manuscriptContributions.id}) }}">
                         {{ manuscriptContributions }}
                     </a>
                 </li>
@@ -144,7 +148,7 @@
         <ul>
             {% for manuscriptFeatures in manuscript.manuscriptFeatures %}
                 <li>
-                    <a href="{{ path("manuscriptFeature_show", {"id":manuscriptFeatures.id}) }}">
+                    <a href="{{ path("manuscript_feature_show", {"id":manuscriptFeatures.id}) }}">
                         {{ manuscriptFeatures }}
                     </a>
                 </li>

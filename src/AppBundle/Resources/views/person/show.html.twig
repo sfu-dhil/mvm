@@ -40,17 +40,21 @@
             <tr>
                 <th>Birthplace</th>
                 <td>
-                    <a href="{{ path('birthPlace_show', { 'id': person.birthPlace.id}) }}">
-                        {{ person.birthPlace }}
-                    </a>
+                    {% if person.birthPlace %}
+                        <a href="{{ path('birthPlace_show', { 'id': person.birthPlace.id}) }}">
+                            {{ person.birthPlace }}
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
             <tr>
                 <th>Deathplace</th>
                 <td>
-                    <a href="{{ path('deathPlace_show', { 'id': person.deathPlace.id}) }}">
-                        {{ person.deathPlace }}
-                    </a>
+                    {% if person.deathPlace %}
+                        <a href="{{ path('deathPlace_show', { 'id': person.deathPlace.id}) }}">
+                            {{ person.deathPlace }}
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         </tbody>

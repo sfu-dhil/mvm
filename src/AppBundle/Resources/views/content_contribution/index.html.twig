@@ -33,7 +33,7 @@
                 <tr>
                     <td>
                         <a href="{{ path('content_contribution_show', { 'id': contentContribution.id }) }}">
-                            {{ contentContribution.note }}
+                            {{ contentContribution.note|raw }}
                         </a>
                     </td>
                 </tr>

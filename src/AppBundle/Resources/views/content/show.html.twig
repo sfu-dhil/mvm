@@ -27,15 +27,15 @@
             </tr>
             <tr>
                 <th>Transcription</th>
-                <td>{{ content.transcription }}</td>
+                <td>{{ content.transcription|raw }}</td>
             </tr>
             <tr>
                 <th>Context</th>
-                <td>{{ content.context }}</td>
+                <td>{{ content.context|raw }}</td>
             </tr>
             <tr>
                 <th>Description</th>
-                <td>{{ content.description }}</td>
+                <td>{{ content.description|raw }}</td>
             </tr>
             <tr>
                 <th>Created</th>
@@ -56,7 +56,7 @@
             <tr>
                 <th>Printsource</th>
                 <td>
-                    <a href="{{ path('printSource_show', { 'id': content.printSource.id}) }}">
+                    <a href="{{ path('print_source_show', { 'id': content.printSource.id}) }}">
                         {{ content.printSource }}
                     </a>
                 </td>
