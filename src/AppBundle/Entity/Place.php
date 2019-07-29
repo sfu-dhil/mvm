@@ -9,6 +9,8 @@ use Nines\UtilBundle\Entity\AbstractEntity;
 /**
  * Place
  *
+ * @todo Make this GeoNames compatible.
+ *
  * @ORM\Table(name="place")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceRepository")
  */

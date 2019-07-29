@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Nines\UtilBundle\Entity\AbstractEntity;
+use Nines\UtilBundle\Entity\AbstractTerm;
 
 /**
  * Feature
@@ -11,7 +11,7 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * @ORM\Table(name="feature")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FeatureRepository")
  */
-class Feature extends AbstractEntity
+class Feature extends AbstractTerm
 {
 
     /**

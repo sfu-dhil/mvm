@@ -20,8 +20,6 @@ abstract class Image extends AbstractEntity
 
     const FILE = 'file';
 
-    abstract public function getType();
-
     /**
      * @var Feature
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Feature", inversedBy="images")
@@ -34,6 +32,7 @@ abstract class Image extends AbstractEntity
      */
     private $content;
 
+    abstract public function getType();
 
     /**
      * Set feature.

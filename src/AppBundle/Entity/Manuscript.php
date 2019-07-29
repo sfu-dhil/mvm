@@ -16,6 +16,18 @@ class Manuscript extends AbstractEntity
 {
 
     /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $title;
+
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
      * @var int
      * @ORM\Column(type="integer")
      */
