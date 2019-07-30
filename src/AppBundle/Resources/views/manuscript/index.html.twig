@@ -26,11 +26,6 @@
             <tr>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Blank Page Count</th>
-                <th>Filled Page Count</th>
-                <th>Item Count</th>
-                <th>Poem Count</th>
-                <th>Additional Genres</th>
             </tr>
         </thead>
         <tbody>
@@ -41,12 +36,7 @@
                             {{ manuscript.title }}
                         </a>
                     </td>
-                    <td>{{ manuscript.description }}</td>
-                    <td>{{ manuscript.blankPageCount }}</td>
-                    <td>{{ manuscript.filledPageCount }}</td>
-                    <td>{{ manuscript.itemCount }}</td>
-                    <td>{{ manuscript.poemCount }}</td>
-                    <td>{% if manuscript.additionalGenres %}{{ manuscript.additionalGenres|join(', ') }}{% endif %}</td>
+                    <td>{{ manuscript.description|raw }}</td>
                 </tr>
             {% endfor %}
         </tbody>

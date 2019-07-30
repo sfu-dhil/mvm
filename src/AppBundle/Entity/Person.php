@@ -10,7 +10,9 @@ use Nines\UtilBundle\Entity\AbstractEntity;
 /**
  * Person
  *
- * @ORM\Table(name="person")
+ * @ORM\Table(name="person", indexes={
+ *  @ORM\Index(name="person_ft", columns={"full_name"}, flags={"fulltext"})
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonRepository")
  */
 class Person extends AbstractEntity
@@ -86,9 +88,15 @@ class Person extends AbstractEntity
      *
      * @return Person
      */
-    public function setBirthDate(\AppBundle\Entity\CircaDate $birthDate = null)
+    public function setBirthDate($birthDate = null)
     {
-        $this->birthDate = $birthDate;
+        if(is_string($birthDate) || is_numeric($birthDate)) {
+            $dateYear = new CircaDate();
+            $dateYear->setValue($birthDate);
+            $this->birthDate = $dateYear;
+        } else {
+            $this->birthDate = $birthDate;
+        }
 
         return $this;
     }
@@ -110,11 +118,15 @@ class Person extends AbstractEntity
      *
      * @return Person
      */
-    public function setDeathDate(\AppBundle\Entity\CircaDate $deathDate = null)
+    public function setDeathDate($deathDate = null)
     {
-        $this->deathDate = $deathDate;
-
-        return $this;
+        if(is_string($deathDate) || is_numeric($deathDate)) {
+            $dateYear = new CircaDate();
+            $dateYear->setValue($deathDate);
+            $this->birthDate = $dateYear;
+        } else {
+            $this->birthDate = $deathDate;
+        }
     }
 
     /**

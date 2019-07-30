@@ -2,11 +2,19 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\ArchiveSource;
+use AppBundle\Entity\Period;
+use AppBundle\Entity\Place;
+use AppBundle\Entity\PrintSource;
+use AppBundle\Entity\Theme;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 /**
  * ManuscriptType form.
@@ -63,18 +71,61 @@ class ManuscriptType extends AbstractType
                 'help_block' => '',
             ),
         ));
-                $builder->add('additionalGenres', null, array(
+        $builder->add('additionalGenres', CollectionType::class, array(
             'label' => 'Additional Genres',
-            'required' => true,
+            'allow_add' => true,
+            'allow_delete' => true,
+            'prototype' => true,
+            'entry_type' => TextType::class,
+            'entry_options' => array(
+                'label' => false,
+            ),
+            'required' => false,
             'attr' => array(
                 'help_block' => '',
+                'class' => 'collection collection-simple',
             ),
         ));
-                        $builder->add('place');
-                        $builder->add('period');
-                        $builder->add('archiveSource');
-                        $builder->add('printSources');
-                        $builder->add('themes');
+        $builder->add('place', Select2EntityType::class, array(
+            'label' => 'Place',
+            'multiple' => false,
+            'remote_route' => 'place_typeahead',
+            'class' => Place::class,
+            'required' => true,
+            'allow_clear' => true,
+        ));
+        $builder->add('period', Select2EntityType::class, array(
+            'label' => 'Period',
+            'multiple' => false,
+            'remote_route' => 'period_typeahead',
+            'class' => Period::class,
+            'required' => true,
+            'allow_clear' => true,
+        ));
+        $builder->add('archiveSource', Select2EntityType::class, array(
+            'label' => 'Archive Source',
+            'multiple' => false,
+            'remote_route' => 'archive_source_typeahead',
+            'class' => ArchiveSource::class,
+            'required' => true,
+            'allow_clear' => true,
+        ));
+        $builder->add('printSources', Select2EntityType::class, array(
+            'label' => 'Print Sources',
+            'multiple' => true,
+            'remote_route' => 'print_source_typeahead',
+            'class' => PrintSource::class,
+            'required' => false,
+            'allow_clear' => true,
+        ));
+        $builder->add('themes', Select2EntityType::class, array(
+            'label' => 'Themes',
+            'multiple' => true,
+            'remote_route' => 'theme_typeahead',
+            'class' => Theme::class,
+            'required' => true,
+            'allow_clear' => true,
+        ));
         
     }
     

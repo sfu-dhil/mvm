@@ -10,7 +10,9 @@ use Nines\UtilBundle\Entity\AbstractEntity;
 /**
  * Content
  *
- * @ORM\Table(name="content")
+ * @ORM\Table(name="content", indexes={
+ *  @ORM\Index(name="content_ft", columns={"title", "transcription"}, flags={"fulltext"})
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentRepository")
  */
 class Content extends AbstractEntity

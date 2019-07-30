@@ -10,4 +10,21 @@ namespace AppBundle\Repository;
  */
 class ManuscriptRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function typeaheadQuery($q) {
+        $qb = $this->createQueryBuilder('e');
+        $qb->andWhere("e.title LIKE :q");
+        $qb->orderBy('e.title');
+        $qb->setParameter('q', "{$q}%");
+
+        return $qb->getQuery()->execute();
+    }
+
+    public function searchQuery($q) {
+        $qb = $this->createQueryBuilder('e');
+        $qb->addSelect("MATCH (e.title, e.description) AGAINST(:q BOOLEAN) as HIDDEN score");
+        $qb->orderBy('score', 'DESC');
+        $qb->setParameter('q', $q);
+
+        return $qb->getQuery();
+    }
 }

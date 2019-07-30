@@ -30,6 +30,14 @@
                 <td>{{ person.sortableName }}</td>
             </tr>
             <tr>
+                <th>Birth date</th>
+                <td>{{ person.birthDate }}</td>
+            </tr>
+            <tr>
+                <th>Death date</th>
+                <th>{{ person.deathDate }}</th>
+            </tr>
+            <tr>
                 <th>Created</th>
                 <td>{% if person.created %}{{ person.created|date }}{% endif %}</td>
             </tr>
@@ -41,7 +49,7 @@
                 <th>Birthplace</th>
                 <td>
                     {% if person.birthPlace %}
-                        <a href="{{ path('birthPlace_show', { 'id': person.birthPlace.id}) }}">
+                        <a href="{{ path('place_show', { 'id': person.birthPlace.id}) }}">
                             {{ person.birthPlace }}
                         </a>
                     {% endif %}
@@ -51,7 +59,7 @@
                 <th>Deathplace</th>
                 <td>
                     {% if person.deathPlace %}
-                        <a href="{{ path('deathPlace_show', { 'id': person.deathPlace.id}) }}">
+                        <a href="{{ path('place_show', { 'id': person.deathPlace.id}) }}">
                             {{ person.deathPlace }}
                         </a>
                     {% endif %}
@@ -64,7 +72,7 @@
         <ul>
             {% for contentContributions in person.contentContributions %}
                 <li>
-                    <a href="{{ path("contentContribution_show", {"id":contentContributions.id}) }}">
+                    <a href="{{ path("content_contribution_show", {"id":contentContributions.id}) }}">
                         {{ contentContributions }}
                     </a>
                 </li>
@@ -76,7 +84,7 @@
         <ul>
             {% for manuscriptContributions in person.manuscriptContributions %}
                 <li>
-                    <a href="{{ path("manuscriptContribution_show", {"id":manuscriptContributions.id}) }}">
+                    <a href="{{ path("manuscript_contribution_show", {"id":manuscriptContributions.id}) }}">
                         {{ manuscriptContributions }}
                     </a>
                 </li>

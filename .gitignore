@@ -19,3 +19,4 @@
 /web/bower
 /web/js
 /app/Resources/views/jquery.collection.html.twig
+.phpunit.result.cache

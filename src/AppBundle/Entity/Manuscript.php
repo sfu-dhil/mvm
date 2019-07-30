@@ -10,7 +10,9 @@ use Nines\UtilBundle\Entity\AbstractEntity;
 /**
  * Manuscript
  *
- * @ORM\Table(name="manuscript")
+ * @ORM\Table(name="manuscript", indexes={
+ *  @ORM\Index(name="manuscript_ft", columns={"title", "description"}, flags={"fulltext"})
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ManuscriptRepository")
  */
 class Manuscript extends AbstractEntity

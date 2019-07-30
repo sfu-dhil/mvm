@@ -10,4 +10,21 @@ namespace AppBundle\Repository;
  */
 class PersonRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function typeaheadQuery($q) {
+        $qb = $this->createQueryBuilder('e');
+        $qb->andWhere("e.fullName LIKE :q");
+        $qb->orderBy('e.sortableName');
+        $qb->setParameter('q', "%{$q}%");
+
+        return $qb->getQuery()->execute();
+    }
+
+    public function searchQuery($q) {
+        $qb = $this->createQueryBuilder('e');
+        $qb->addSelect("MATCH (e.fullName) AGAINST(:q BOOLEAN) as HIDDEN score");
+        $qb->orderBy('score', 'DESC');
+        $qb->setParameter('q', $q);
+
+        return $qb->getQuery();
+    }
 }

@@ -2,11 +2,13 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Place;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 /**
  * PersonType form.
@@ -34,10 +36,36 @@ class PersonType extends AbstractType
                 'help_block' => '',
             ),
         ));
-                        $builder->add('birthDate');
-                        $builder->add('deathDate');
-                        $builder->add('birthPlace');
-                        $builder->add('deathPlace');
+        $builder->add('birthDate', TextType::class, array(
+            'label' => 'Birth date',
+            'required' => false,
+            'attr' => array(
+                'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
+            ),
+        ));
+        $builder->add('deathDate', TextType::class, array(
+            'label' => 'Birth date',
+            'required' => false,
+            'attr' => array(
+                'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
+            ),
+        ));
+        $builder->add('birthPlace', Select2EntityType::class, array(
+            'label' => 'Place',
+            'multiple' => false,
+            'remote_route' => 'place_typeahead',
+            'class' => Place::class,
+            'required' => false,
+            'allow_clear' => true,
+        ));
+        $builder->add('deathPlace', Select2EntityType::class, array(
+            'label' => 'Place',
+            'multiple' => false,
+            'remote_route' => 'place_typeahead',
+            'class' => Place::class,
+            'required' => false,
+            'allow_clear' => true,
+        ));
         
     }
     

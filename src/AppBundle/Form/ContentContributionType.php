@@ -2,11 +2,15 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Content;
+use AppBundle\Entity\ContentRole;
+use AppBundle\Entity\Person;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 /**
  * ContentContributionType form.
@@ -21,17 +25,38 @@ class ContentContributionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->add('role', Select2EntityType::class, array(
+            'label' => 'Content Role',
+            'multiple' => false,
+            'remote_route' => 'content_role_typeahead',
+            'class' => ContentRole::class,
+            'required' => true,
+            'allow_clear' => true,
+        ));
+        $builder->add('person', Select2EntityType::class, array(
+            'label' => 'Contributor',
+            'multiple' => false,
+            'remote_route' => 'person_typeahead',
+            'class' => Person::class,
+            'required' => true,
+            'allow_clear' => true,
+        ));
+        $builder->add('content', Select2EntityType::class, array(
+            'label' => 'Content',
+            'multiple' => false,
+            'remote_route' => 'content_typeahead',
+            'class' => Content::class,
+            'required' => true,
+            'allow_clear' => true,
+        ));
         $builder->add('note', null, array(
             'label' => 'Note',
-            'required' => true,
+            'required' => false,
             'attr' => array(
                 'help_block' => '',
                 'class' => 'tinymce'
             ),
         ));
-        $builder->add('role');
-        $builder->add('person');
-        $builder->add('content');
     }
 
     /**

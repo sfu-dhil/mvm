@@ -2,11 +2,15 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Manuscript;
+use AppBundle\Entity\ManuscriptRole;
+use AppBundle\Entity\Person;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 /**
  * ManuscriptContributionType form.
@@ -28,9 +32,30 @@ class ManuscriptContributionType extends AbstractType
                 'class' => 'tinymce',
             ),
         ));
-                        $builder->add('person');
-                        $builder->add('role');
-                        $builder->add('manuscript');
+        $builder->add('person', Select2EntityType::class, array(
+            'label' => 'Contributor',
+            'multiple' => false,
+            'remote_route' => 'person_typeahead',
+            'class' => Person::class,
+            'required' => true,
+            'allow_clear' => true,
+        ));
+        $builder->add('role', Select2EntityType::class, array(
+            'label' => 'Manuscript Role',
+            'multiple' => false,
+            'remote_route' => 'manuscript_role_typeahead',
+            'class' => ManuscriptRole::class,
+            'required' => true,
+            'allow_clear' => true,
+        ));
+        $builder->add('manuscript', Select2EntityType::class, array(
+            'label' => 'Manuscript',
+            'multiple' => false,
+            'remote_route' => 'manuscript_typeahead',
+            'class' => Manuscript::class,
+            'required' => true,
+            'allow_clear' => true,
+        ));
         
     }
     
