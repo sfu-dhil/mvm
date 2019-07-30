@@ -69,6 +69,10 @@ class ContentType extends AbstractType
             'class' => PrintSource::class,
             'required' => true,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'print_source_new_popup',
+                'add_label' => 'Add Source',
+            )
         ));
         
     }

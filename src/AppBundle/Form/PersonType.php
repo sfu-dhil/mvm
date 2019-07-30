@@ -51,20 +51,28 @@ class PersonType extends AbstractType
             ),
         ));
         $builder->add('birthPlace', Select2EntityType::class, array(
-            'label' => 'Place',
+            'label' => 'Birth place',
             'multiple' => false,
             'remote_route' => 'place_typeahead',
             'class' => Place::class,
             'required' => false,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'place_new_popup',
+                'add_label' => 'Add Place',
+            )
         ));
         $builder->add('deathPlace', Select2EntityType::class, array(
-            'label' => 'Place',
+            'label' => 'Death place',
             'multiple' => false,
             'remote_route' => 'place_typeahead',
             'class' => Place::class,
             'required' => false,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'place_new_popup',
+                'add_label' => 'Add Place',
+            )
         ));
         
     }

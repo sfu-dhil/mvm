@@ -32,6 +32,10 @@ class PrintSourceType extends ArchiveSourceType
             'class' => Place::class,
             'required' => false,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'place_new_popup',
+                'add_label' => 'Add Place',
+            )
         ));
     }
 

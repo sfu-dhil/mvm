@@ -93,6 +93,10 @@ class ManuscriptType extends AbstractType
             'class' => Place::class,
             'required' => true,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'place_new_popup',
+                'add_label' => 'Add Place',
+            )
         ));
         $builder->add('period', Select2EntityType::class, array(
             'label' => 'Period',
@@ -101,6 +105,10 @@ class ManuscriptType extends AbstractType
             'class' => Period::class,
             'required' => true,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'period_new_popup',
+                'add_label' => 'Add Period',
+            )
         ));
         $builder->add('archiveSource', Select2EntityType::class, array(
             'label' => 'Archive Source',
@@ -109,6 +117,10 @@ class ManuscriptType extends AbstractType
             'class' => ArchiveSource::class,
             'required' => true,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'archive_source_new_popup',
+                'add_label' => 'Add Archive Source',
+            )
         ));
         $builder->add('printSources', Select2EntityType::class, array(
             'label' => 'Print Sources',
@@ -117,6 +129,10 @@ class ManuscriptType extends AbstractType
             'class' => PrintSource::class,
             'required' => false,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'print_source_new_popup',
+                'add_label' => 'Add Print Source',
+            )
         ));
         $builder->add('themes', Select2EntityType::class, array(
             'label' => 'Themes',
@@ -125,6 +141,10 @@ class ManuscriptType extends AbstractType
             'class' => Theme::class,
             'required' => true,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'theme_new_popup',
+                'add_label' => 'Add Theme',
+            )
         ));
         
     }

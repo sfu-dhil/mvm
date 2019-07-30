@@ -39,6 +39,10 @@ class ManuscriptContributionType extends AbstractType
             'class' => Person::class,
             'required' => true,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'person_new_popup',
+                'add_label' => 'Add Person',
+            )
         ));
         $builder->add('role', Select2EntityType::class, array(
             'label' => 'Manuscript Role',
@@ -47,6 +51,10 @@ class ManuscriptContributionType extends AbstractType
             'class' => ManuscriptRole::class,
             'required' => true,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'manuscript_role_new_popup',
+                'add_label' => 'Add Role',
+            )
         ));
         $builder->add('manuscript', Select2EntityType::class, array(
             'label' => 'Manuscript',

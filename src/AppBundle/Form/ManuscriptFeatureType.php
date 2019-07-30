@@ -38,6 +38,10 @@ class ManuscriptFeatureType extends AbstractType
             'class' => Feature::class,
             'required' => true,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'feature_new_popup',
+                'add_label' => 'Add Feature',
+            )
         ));
         $builder->add('manuscript', Select2EntityType::class, array(
             'label' => 'Manuscript',

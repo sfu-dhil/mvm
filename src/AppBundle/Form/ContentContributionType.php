@@ -32,6 +32,10 @@ class ContentContributionType extends AbstractType
             'class' => ContentRole::class,
             'required' => true,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'content_role_new_popup',
+                'add_label' => 'Add Role',
+            )
         ));
         $builder->add('person', Select2EntityType::class, array(
             'label' => 'Contributor',
@@ -40,6 +44,10 @@ class ContentContributionType extends AbstractType
             'class' => Person::class,
             'required' => true,
             'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'person_new_popup',
+                'add_label' => 'Add Person',
+            )
         ));
         $builder->add('content', Select2EntityType::class, array(
             'label' => 'Content',
