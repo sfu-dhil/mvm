@@ -25,10 +25,22 @@ class Person extends AbstractEntity
     private $fullName;
 
     /**
+     * @var array
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $variantNames;
+
+    /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
     private $sortableName;
+
+    /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
 
     /**
      * @var CircaDate
@@ -305,5 +317,53 @@ class Person extends AbstractEntity
     public function getSortableName()
     {
         return $this->sortableName;
+    }
+
+    /**
+     * Set variantNames.
+     *
+     * @param array|null $variantNames
+     *
+     * @return Person
+     */
+    public function setVariantNames($variantNames = null)
+    {
+        $this->variantNames = $variantNames;
+
+        return $this;
+    }
+
+    /**
+     * Get variantNames.
+     *
+     * @return array|null
+     */
+    public function getVariantNames()
+    {
+        return $this->variantNames;
+    }
+
+    /**
+     * Set description.
+     *
+     * @param string $description
+     *
+     * @return Person
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

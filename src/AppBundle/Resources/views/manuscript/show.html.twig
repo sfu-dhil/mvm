@@ -30,6 +30,10 @@
                 <td>{{ manuscript.description|raw }}</td>
             </tr>
             <tr>
+                <th>Bibliography</th>
+                <td>{{ manuscript.bibliography }}</td>
+            </tr>
+            <tr>
                 <th>Blank Page Count</th>
                 <td>{{ manuscript.blankPageCount }}</td>
             </tr>
@@ -84,6 +88,10 @@
                         {{ manuscript.archiveSource }}
                     </a>
                 </td>
+            </tr>
+            <tr>
+                <th>Call number</th>
+                <td>{{ manuscript.callNumber }}</td>
             </tr>
             <tr>
                 <th>Printsources</th>

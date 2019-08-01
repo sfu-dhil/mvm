@@ -43,6 +43,15 @@ class ManuscriptType extends AbstractType
                 'class' => 'tinymce',
             ),
         ));
+        $builder->add('bibliography', TextType::class, array(
+            'label' => 'Bibliography',
+            'required' => false,
+            'attr' => array(
+                'help_block' => 'Formatted bibliography of works which reference this manuscript',
+                'class' => 'tinymce',
+            ),
+
+        ));
                 $builder->add('blankPageCount', null, array(
             'label' => 'Blank Page Count',
             'required' => true,
@@ -110,6 +119,14 @@ class ManuscriptType extends AbstractType
                 'add_label' => 'Add Period',
             )
         ));
+
+        $builder->add('callNumber', null, array(
+            'label' => 'Call Number',
+            'attr' => array(
+                'help_block' => 'May also be called shelf mark. Do not include the name of the institution here, unless it is part of the call number.'
+            ),
+        ));
+
         $builder->add('archiveSource', Select2EntityType::class, array(
             'label' => 'Archive Source',
             'multiple' => false,
@@ -132,6 +149,7 @@ class ManuscriptType extends AbstractType
             'attr' => array(
                 'add_path' => 'print_source_new_popup',
                 'add_label' => 'Add Print Source',
+                'help_block' => 'Any print sources of the content listed in the manuscript, if not included with selected content entries.'
             )
         ));
         $builder->add('themes', Select2EntityType::class, array(
@@ -139,7 +157,7 @@ class ManuscriptType extends AbstractType
             'multiple' => true,
             'remote_route' => 'theme_typeahead',
             'class' => Theme::class,
-            'required' => true,
+            'required' => false,
             'allow_clear' => true,
             'attr' => array(
                 'add_path' => 'theme_new_popup',

@@ -26,9 +26,24 @@ class PersonType extends AbstractType
             'label' => 'Full Name',
             'required' => true,
             'attr' => array(
-                'help_block' => '',
+                'help_block' => 'A canonical name for a person.',
             ),
         ));
+        $builder->add('variantNames', null, array(
+            'allow_add' => true,
+            'allow_delete' => true,
+            'prototype' => true,
+            'entry_type' => TextType::class,
+            'entry_options' => array(
+                'label' => false,
+            ),
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+                'class' => 'collection collection-simple',
+            ),
+        ));
+
                 $builder->add('sortableName', null, array(
             'label' => 'Sortable Name',
             'required' => true,
@@ -36,6 +51,16 @@ class PersonType extends AbstractType
                 'help_block' => '',
             ),
         ));
+
+        $builder->add('description', null, array(
+            'label' => 'Description',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+                'class' => 'tinymce',
+            ),
+        ));
+
         $builder->add('birthDate', TextType::class, array(
             'label' => 'Birth date',
             'required' => false,

@@ -31,6 +31,12 @@ class Manuscript extends AbstractEntity
     private $description;
 
     /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $bibliography;
+
+    /**
      * @var int
      * @ORM\Column(type="integer")
      */
@@ -59,6 +65,12 @@ class Manuscript extends AbstractEntity
      * @ORM\Column(type="array")
      */
     private $additionalGenres;
+    
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $callNumber;
 
     /**
      * @var Place
@@ -544,5 +556,53 @@ class Manuscript extends AbstractEntity
     public function getAdditionalGenres()
     {
         return $this->additionalGenres;
+    }
+
+    /**
+     * Set callNumber.
+     *
+     * @param string $callNumber
+     *
+     * @return Manuscript
+     */
+    public function setCallNumber($callNumber)
+    {
+        $this->callNumber = $callNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get callNumber.
+     *
+     * @return string
+     */
+    public function getCallNumber()
+    {
+        return $this->callNumber;
+    }
+
+    /**
+     * Set bibliography.
+     *
+     * @param string $bibliography
+     *
+     * @return Manuscript
+     */
+    public function setBibliography($bibliography)
+    {
+        $this->bibliography = $bibliography;
+
+        return $this;
+    }
+
+    /**
+     * Get bibliography.
+     *
+     * @return string
+     */
+    public function getBibliography()
+    {
+        return $this->bibliography;
     }
 }

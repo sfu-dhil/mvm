@@ -22,12 +22,20 @@
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody>
             <tr>
-                <th>Full Name</th>
+                <th>Full name</th>
                 <td>{{ person.fullName }}</td>
             </tr>
             <tr>
-                <th>Sortable Name</th>
+                <th>Variant names</th>
+                <td>{% if person.variantNames|length > 0 %}{{ person.variantNames|join(', ') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Sortable name</th>
                 <td>{{ person.sortableName }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ person.description|raw }}</td>
             </tr>
             <tr>
                 <th>Birth date</th>

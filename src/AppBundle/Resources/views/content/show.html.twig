@@ -68,7 +68,7 @@
         <ul>
             {% for contributions in content.contributions %}
                 <li>
-                    <a href="{{ path("contribution_show", {"id":contributions.id}) }}">
+                    <a href="{{ path("content_contribution_show", {"id":contributions.id}) }}">
                         {{ contributions }}
                     </a>
                 </li>
