@@ -19,6 +19,12 @@ class Manuscript extends AbstractEntity
 {
 
     /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    private $untitled;
+
+    /**
      * @var string
      * @ORM\Column(type="string")
      */
@@ -32,7 +38,7 @@ class Manuscript extends AbstractEntity
 
     /**
      * @var string
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $bibliography;
 
@@ -68,7 +74,7 @@ class Manuscript extends AbstractEntity
     
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $callNumber;
 
@@ -135,7 +141,10 @@ class Manuscript extends AbstractEntity
      * @return string
      */
     public function __toString() {
-        return $this->title;
+        if( ! $this->untitled) {
+            return $this->title;
+        }
+        return '[' . $this->title . ']';
     }
 
     /**
@@ -604,5 +613,29 @@ class Manuscript extends AbstractEntity
     public function getBibliography()
     {
         return $this->bibliography;
+    }
+
+    /**
+     * Set untitled.
+     *
+     * @param bool $untitled
+     *
+     * @return Manuscript
+     */
+    public function setUntitled($untitled)
+    {
+        $this->untitled = $untitled;
+
+        return $this;
+    }
+
+    /**
+     * Get untitled.
+     *
+     * @return bool
+     */
+    public function getUntitled()
+    {
+        return $this->untitled;
     }
 }

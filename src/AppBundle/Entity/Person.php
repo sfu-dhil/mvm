@@ -19,6 +19,12 @@ class Person extends AbstractEntity
 {
 
     /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    private $anonymous;
+
+    /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
@@ -90,7 +96,10 @@ class Person extends AbstractEntity
      * @return string
      */
     public function __toString() {
-        return $this->fullName;
+        if( ! $this->anonymous) {
+            return $this->fullName;
+        }
+        return '[' . $this->fullName . ']';
     }
 
     /**
@@ -365,5 +374,29 @@ class Person extends AbstractEntity
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set anonymous.
+     *
+     * @param bool $anonymous
+     *
+     * @return Person
+     */
+    public function setAnonymous($anonymous)
+    {
+        $this->anonymous = $anonymous;
+
+        return $this;
+    }
+
+    /**
+     * Get anonymous.
+     *
+     * @return bool
+     */
+    public function getAnonymous()
+    {
+        return $this->anonymous;
     }
 }

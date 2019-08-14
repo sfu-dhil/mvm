@@ -9,6 +9,7 @@ use AppBundle\Entity\PrintSource;
 use AppBundle\Entity\Theme;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,14 +29,22 @@ class ManuscriptType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('title', null, array(
+    {
+        $builder->add('untitled', CheckboxType::class, array(
+            'label' => 'Untitled',
+            'required' => false,
+            'attr' => array(
+                'help_block' => 'Is the manuscript untitled?'
+            ),
+        ));
+        $builder->add('title', null, array(
             'label' => 'Title',
             'required' => true,
             'attr' => array(
-                'help_block' => '',
+                'help_block' => 'Enter the title of the manuscript or a descriptive identifier for an untitled manuscript. Do not include square brackets.',
             ),
         ));
-                $builder->add('description', null, array(
+        $builder->add('description', null, array(
             'label' => 'Description',
             'required' => true,
             'attr' => array(
@@ -122,6 +131,7 @@ class ManuscriptType extends AbstractType
 
         $builder->add('callNumber', null, array(
             'label' => 'Call Number',
+            'required' => false,
             'attr' => array(
                 'help_block' => 'May also be called shelf mark. Do not include the name of the institution here, unless it is part of the call number.'
             ),

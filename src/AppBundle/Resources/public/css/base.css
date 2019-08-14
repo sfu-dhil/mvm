@@ -15,7 +15,7 @@ body > .container {
 
 /* Custom app styles */
 
-label.required::after {
+label.control-label.required::after {
   content: ' *';
   color: red;
   font-weight: bold;

@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Place;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -22,11 +23,20 @@ class PersonType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('fullName', null, array(
+    {
+        $builder->add('anonymous', CheckboxType::class, array(
+            'label' => 'Anonymous',
+            'required' => false,
+            'attr' => array(
+                'help_block' => 'Is the person anonymous?'
+            ),
+        ));
+
+        $builder->add('fullName', null, array(
             'label' => 'Full Name',
             'required' => true,
             'attr' => array(
-                'help_block' => 'A canonical name for a person.',
+                'help_block' => 'A canonical name for a person if known, or a descriptive identifier. Do not include square brackets.',
             ),
         ));
         $builder->add('variantNames', null, array(
