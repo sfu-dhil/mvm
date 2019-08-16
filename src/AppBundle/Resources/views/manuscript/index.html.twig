@@ -25,6 +25,7 @@
         <thead>
             <tr>
                 <th>Title</th>
+                <th>Call number</th>
                 <th>Description</th>
             </tr>
         </thead>
@@ -34,6 +35,11 @@
                     <td>
                         <a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">
                             {{ manuscript }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">
+                            {{ manuscript.callNumber }}
                         </a>
                     </td>
                     <td>{{ manuscript.description|raw }}</td>

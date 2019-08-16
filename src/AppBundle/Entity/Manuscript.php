@@ -43,26 +43,44 @@ class Manuscript extends AbstractEntity
     private $bibliography;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer")
+     * @var boolean
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $blankPageCount;
+    private $firstLineIndex;
+
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $digitized;
+
+    /**
+     * @var boolean
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $format;
+
+    /**
+     * @var boolean
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $size;
 
     /**
      * @var int
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $filledPageCount;
 
     /**
      * @var int
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $itemCount;
 
     /**
      * @var int
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $poemCount;
 
@@ -74,15 +92,21 @@ class Manuscript extends AbstractEntity
     
     /**
      * @var string
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
     private $callNumber;
 
     /**
-     * @var Place
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Place", inversedBy="manuscripts")
+     * @var boolean
+     * @ORM\Column(type="boolean")
      */
-    private $place;
+    private $complete;
+
+    /**
+     * @var Region
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Region", inversedBy="manuscripts")
+     */
+    private $region;
 
     /**
      * @var Period
@@ -129,6 +153,7 @@ class Manuscript extends AbstractEntity
 
     public function __construct() {
         parent::__construct();
+        $this->complete = false;
         $this->manuscriptContributions = new ArrayCollection();
         $this->manuscriptFeatures = new ArrayCollection();
         $this->printSources = new ArrayCollection();
@@ -148,27 +173,27 @@ class Manuscript extends AbstractEntity
     }
 
     /**
-     * Set place.
+     * Set region.
      *
-     * @param \AppBundle\Entity\Place|null $place
+     * @param \AppBundle\Entity\Region|null $region
      *
      * @return Manuscript
      */
-    public function setPlace(\AppBundle\Entity\Place $place = null)
+    public function setRegion(\AppBundle\Entity\Region $region = null)
     {
-        $this->place = $place;
+        $this->region = $region;
 
         return $this;
     }
 
     /**
-     * Get place.
+     * Get region.
      *
-     * @return \AppBundle\Entity\Place|null
+     * @return \AppBundle\Entity\Region|null
      */
-    public function getPlace()
+    public function getRegion()
     {
-        return $this->place;
+        return $this->region;
     }
 
     /**

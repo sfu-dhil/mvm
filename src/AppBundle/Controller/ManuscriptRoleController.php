@@ -85,7 +85,7 @@ class ManuscriptRoleController extends Controller implements PaginatorAwareInter
      * Search for ManuscriptRole entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:ManuscriptRole repository. Replace the fieldName with
+     * AppBundle:ManuscriptRole repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *

@@ -23,7 +23,7 @@ class LoadPrintSource extends Fixture implements DependentFixtureInterface
      */
     public function getDependencies()
     {
-        return array(LoadPlace::class);
+        return array(LoadRegion::class);
     }
 
 
@@ -35,7 +35,7 @@ class LoadPrintSource extends Fixture implements DependentFixtureInterface
         $manager->getClassMetadata(PrintSource::class)->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
     
         $item1 = new PrintSource();
-        $item1->setPlace($this->getReference('_reference_Place1'));
+        $item1->setRegion($this->getReference('_reference_Region1'));
         $item1->setCreated(new \DateTime("2019-07-29 22:19:33"));
         $item1->setUpdated(new \DateTime("2019-07-29 22:19:33"));
         $item1->setName("sgm");

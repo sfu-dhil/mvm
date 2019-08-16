@@ -85,7 +85,7 @@ class ContentContributionController extends Controller implements PaginatorAware
      * Search for ContentContribution entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:ContentContribution repository. Replace the fieldName with
+     * AppBundle:ContentContribution repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *

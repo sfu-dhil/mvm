@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Place;
+use AppBundle\Entity\Region;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -85,28 +85,28 @@ class PersonType extends AbstractType
                 'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
             ),
         ));
-        $builder->add('birthPlace', Select2EntityType::class, array(
-            'label' => 'Birth place',
+        $builder->add('birthRegion', Select2EntityType::class, array(
+            'label' => 'Birth region',
             'multiple' => false,
-            'remote_route' => 'place_typeahead',
-            'class' => Place::class,
+            'remote_route' => 'region_typeahead',
+            'class' => Region::class,
             'required' => false,
             'allow_clear' => true,
             'attr' => array(
-                'add_path' => 'place_new_popup',
-                'add_label' => 'Add Place',
+                'add_path' => 'region_new_popup',
+                'add_label' => 'Add Region',
             )
         ));
-        $builder->add('deathPlace', Select2EntityType::class, array(
-            'label' => 'Death place',
+        $builder->add('deathRegion', Select2EntityType::class, array(
+            'label' => 'Death region',
             'multiple' => false,
-            'remote_route' => 'place_typeahead',
-            'class' => Place::class,
+            'remote_route' => 'region_typeahead',
+            'class' => Region::class,
             'required' => false,
             'allow_clear' => true,
             'attr' => array(
-                'add_path' => 'place_new_popup',
-                'add_label' => 'Add Place',
+                'add_path' => 'region_new_popup',
+                'add_label' => 'Add Region',
             )
         ));
         

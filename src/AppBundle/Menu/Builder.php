@@ -124,8 +124,8 @@ class Builder implements ContainerAwareInterface
         $browse->addChild("People", array(
             'route' => 'person_index',
         ));
-        $browse->addChild("Places", array(
-            'route' => 'place_index',
+        $browse->addChild("Regions", array(
+            'route' => 'region_index',
         ));
         $browse->addChild("Print Sources", array(
             'route' => 'print_source_index',

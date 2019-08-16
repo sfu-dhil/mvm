@@ -85,7 +85,7 @@ class PersonController extends Controller implements PaginatorAwareInterface
      * Search for Person entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:Person repository. Replace the fieldName with
+     * AppBundle:Person repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *

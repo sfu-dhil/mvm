@@ -85,7 +85,7 @@ class ManuscriptFeatureController extends Controller implements PaginatorAwareIn
      * Search for ManuscriptFeature entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:ManuscriptFeature repository. Replace the fieldName with
+     * AppBundle:ManuscriptFeature repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *

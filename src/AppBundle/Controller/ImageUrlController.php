@@ -85,7 +85,7 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
      * Search for ImageUrl entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:ImageUrl repository. Replace the fieldName with
+     * AppBundle:ImageUrl repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *

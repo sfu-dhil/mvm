@@ -4,7 +4,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\ArchiveSource;
 use AppBundle\Entity\Period;
-use AppBundle\Entity\Place;
+use AppBundle\Entity\Region;
 use AppBundle\Entity\PrintSource;
 use AppBundle\Entity\Theme;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -44,9 +44,16 @@ class ManuscriptType extends AbstractType
                 'help_block' => 'Enter the title of the manuscript or a descriptive identifier for an untitled manuscript. Do not include square brackets.',
             ),
         ));
+        $builder->add('callNumber', null, array(
+            'label' => 'Call Number',
+            'required' => true,
+            'attr' => array(
+                'help_block' => 'May also be called shelf mark. Do not include the name of the institution here, unless it is part of the call number.'
+            ),
+        ));
         $builder->add('description', null, array(
             'label' => 'Description',
-            'required' => true,
+            'required' => false,
             'attr' => array(
                 'help_block' => '',
                 'class' => 'tinymce',
@@ -61,13 +68,6 @@ class ManuscriptType extends AbstractType
             ),
 
         ));
-                $builder->add('blankPageCount', null, array(
-            'label' => 'Blank Page Count',
-            'required' => true,
-            'attr' => array(
-                'help_block' => '',
-            ),
-        ));
                 $builder->add('filledPageCount', null, array(
             'label' => 'Filled Page Count',
             'required' => true,
@@ -77,14 +77,14 @@ class ManuscriptType extends AbstractType
         ));
                 $builder->add('itemCount', null, array(
             'label' => 'Item Count',
-            'required' => true,
+            'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
                 $builder->add('poemCount', null, array(
             'label' => 'Poem Count',
-            'required' => true,
+            'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
@@ -104,16 +104,16 @@ class ManuscriptType extends AbstractType
                 'class' => 'collection collection-simple',
             ),
         ));
-        $builder->add('place', Select2EntityType::class, array(
-            'label' => 'Place',
+        $builder->add('region', Select2EntityType::class, array(
+            'label' => 'Region',
             'multiple' => false,
-            'remote_route' => 'place_typeahead',
-            'class' => Place::class,
-            'required' => true,
+            'remote_route' => 'region_typeahead',
+            'class' => Region::class,
+            'required' => false,
             'allow_clear' => true,
             'attr' => array(
-                'add_path' => 'place_new_popup',
-                'add_label' => 'Add Place',
+                'add_path' => 'region_new_popup',
+                'add_label' => 'Add Region',
             )
         ));
         $builder->add('period', Select2EntityType::class, array(
@@ -127,14 +127,6 @@ class ManuscriptType extends AbstractType
                 'add_path' => 'period_new_popup',
                 'add_label' => 'Add Period',
             )
-        ));
-
-        $builder->add('callNumber', null, array(
-            'label' => 'Call Number',
-            'required' => false,
-            'attr' => array(
-                'help_block' => 'May also be called shelf mark. Do not include the name of the institution here, unless it is part of the call number.'
-            ),
         ));
 
         $builder->add('archiveSource', Select2EntityType::class, array(

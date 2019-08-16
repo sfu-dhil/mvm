@@ -85,7 +85,7 @@ class PeriodController extends Controller implements PaginatorAwareInterface
      * Search for Period entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:Period repository. Replace the fieldName with
+     * AppBundle:Period repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *

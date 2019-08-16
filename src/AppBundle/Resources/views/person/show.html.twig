@@ -56,21 +56,21 @@
                 <td>{% if person.updated %}{{ person.updated|date }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Birthplace</th>
+                <th>Birthregion</th>
                 <td>
-                    {% if person.birthPlace %}
-                        <a href="{{ path('place_show', { 'id': person.birthPlace.id}) }}">
-                            {{ person.birthPlace }}
+                    {% if person.birthRegion %}
+                        <a href="{{ path('region_show', { 'id': person.birthRegion.id}) }}">
+                            {{ person.birthRegion }}
                         </a>
                     {% endif %}
                 </td>
             </tr>
             <tr>
-                <th>Deathplace</th>
+                <th>Deathregion</th>
                 <td>
-                    {% if person.deathPlace %}
-                        <a href="{{ path('place_show', { 'id': person.deathPlace.id}) }}">
-                            {{ person.deathPlace }}
+                    {% if person.deathRegion %}
+                        <a href="{{ path('region_show', { 'id': person.deathRegion.id}) }}">
+                            {{ person.deathRegion }}
                         </a>
                     {% endif %}
                 </td>

@@ -9,9 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * PlaceType form.
+ * RegionType form.
  */
-class PlaceType extends AbstractType
+class RegionType extends AbstractType
 {
     /**
      * Add form fields to $builder.
@@ -20,21 +20,14 @@ class PlaceType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('fullName', null, array(
-            'label' => 'Full Name',
+    {        $builder->add('name', null, array(
+            'label' => 'Name',
             'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('sortableName', null, array(
-            'label' => 'Sortable Name',
-            'required' => true,
-            'attr' => array(
-                'help_block' => '',
-            ),
-        ));
-        
+
     }
     
     /**
@@ -48,7 +41,7 @@ class PlaceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Place'
+            'data_class' => 'AppBundle\Entity\Region'
         ));
     }
 

@@ -24,7 +24,7 @@ class LoadManuscript extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return array(
-            LoadPlace::class,
+            LoadRegion::class,
             LoadPeriod::class,
             LoadArchiveSource::class,
         );
@@ -41,13 +41,14 @@ class LoadManuscript extends Fixture implements DependentFixtureInterface
         $item1 = new Manuscript();
         $item1->setUntitled(false);
         $item1->setTitle("Marge's favourite poems");
+        $item1->setCallNumber('SLC 123');
         $item1->setDescription("<p>Found hidden in an attic by Lisa, who later added new content.</p>");
         $item1->setBlankPageCount(23);
         $item1->setFilledPageCount(41);
         $item1->setItemCount(25);
         $item1->setPoemCount(23);
         $item1->setAdditionalGenres(unserialize('a:0:{}'));
-        $item1->setPlace($this->getReference('_reference_Place1'));
+        $item1->setRegion($this->getReference('_reference_Region1'));
         $item1->setPeriod($this->getReference('_reference_Period1'));
         $item1->setArchiveSource($this->getReference('_reference_ArchiveSource1'));
         $item1->setCreated(new \DateTime("2019-07-29 22:35:10"));

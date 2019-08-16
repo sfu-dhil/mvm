@@ -85,7 +85,7 @@ class ManuscriptContributionController extends Controller implements PaginatorAw
      * Search for ManuscriptContribution entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:ManuscriptContribution repository. Replace the fieldName with
+     * AppBundle:ManuscriptContribution repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *

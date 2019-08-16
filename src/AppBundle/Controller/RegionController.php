@@ -10,47 +10,47 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Place;
-use AppBundle\Form\PlaceType;
+use AppBundle\Entity\Region;
+use AppBundle\Form\RegionType;
 
 /**
- * Place controller.
+ * Region controller.
  *
  * @IsGranted("ROLE_USER")
- * @Route("/place")
+ * @Route("/region")
  */
-class PlaceController extends Controller implements PaginatorAwareInterface
+class RegionController extends Controller implements PaginatorAwareInterface
 {
     use PaginatorTrait;
 
     /**
-     * Lists all Place entities.
+     * Lists all Region entities.
      *
      * @param Request $request
      *
      * @return array
      *
-     * @Route("/", name="place_index", methods={"GET"})
+     * @Route("/", name="region_index", methods={"GET"})
      * @Template()
      */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Place::class, 'e')->orderBy('e.id', 'ASC');
+        $qb->select('e')->from(Region::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
-        $places = $paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $regions = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
         return array(
-            'places' => $places,
+            'regions' => $regions,
         );
     }
 
 /**
-     * Typeahead API endpoint for Place entities.
+     * Typeahead API endpoint for Region entities.
      *
-     * To make this work, add something like this to PlaceRepository:
+     * To make this work, add something like this to RegionRepository:
         //    public function typeaheadQuery($q) {
         //        $qb = $this->createQueryBuilder('e');
         //        $qb->andWhere("e.name LIKE :q");
@@ -61,7 +61,7 @@ class PlaceController extends Controller implements PaginatorAwareInterface
      *
      * @param Request $request
      *
-     * @Route("/typeahead", name="place_typeahead", methods={"GET"})
+     * @Route("/typeahead", name="region_typeahead", methods={"GET"})
      * @return JsonResponse
      */
     public function typeahead(Request $request)
@@ -71,7 +71,7 @@ class PlaceController extends Controller implements PaginatorAwareInterface
             return new JsonResponse([]);
         }
         $em = $this->getDoctrine()->getManager();
-	    $repo = $em->getRepository(Place::class);
+	    $repo = $em->getRepository(Region::class);
         $data = [];
         foreach($repo->typeaheadQuery($q) as $result) {
             $data[] = [
@@ -82,10 +82,10 @@ class PlaceController extends Controller implements PaginatorAwareInterface
         return new JsonResponse($data);
     }
     /**
-     * Search for Place entities.
+     * Search for Region entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:Place repository. Replace the fieldName with
+     * AppBundle:Region repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *
@@ -101,70 +101,70 @@ class PlaceController extends Controller implements PaginatorAwareInterface
      *
      * @param Request $request
      *
-     * @Route("/search", name="place_search", methods={"GET"})
+     * @Route("/search", name="region_search", methods={"GET"})
      * @Template()
     * @return array
     */
     public function searchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-	$repo = $em->getRepository('AppBundle:Place');
+	$repo = $em->getRepository('AppBundle:Region');
 	$q = $request->query->get('q');
 	if($q) {
 	    $query = $repo->searchQuery($q);
             $paginator = $this->get('knp_paginator');
-            $places = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
+            $regions = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
 	} else {
-            $places = array();
+            $regions = array();
 	}
 
         return array(
-            'places' => $places,
+            'regions' => $regions,
             'q' => $q,
         );
     }
 
     /**
-     * Creates a new Place entity.
+     * Creates a new Region entity.
      *
      * @param Request $request
      *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="place_new", methods={"GET","POST"})
+     * @Route("/new", name="region_new", methods={"GET","POST"})
      * @Template()
      */
     public function newAction(Request $request)
     {
-        $place = new Place();
-        $form = $this->createForm(PlaceType::class, $place);
+        $region = new Region();
+        $form = $this->createForm(RegionType::class, $region);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($place);
+            $em->persist($region);
             $em->flush();
 
-            $this->addFlash('success', 'The new place was created.');
-            return $this->redirectToRoute('place_show', array('id' => $place->getId()));
+            $this->addFlash('success', 'The new region was created.');
+            return $this->redirectToRoute('region_show', array('id' => $region->getId()));
         }
 
         return array(
-            'place' => $place,
+            'region' => $region,
             'form' => $form->createView(),
         );
     }
 
     /**
-     * Creates a new Place entity in a popup.
+     * Creates a new Region entity in a popup.
      *
      * @param Request $request
      *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="place_new_popup", methods={"GET","POST"})
+     * @Route("/new_popup", name="region_new_popup", methods={"GET","POST"})
      * @Template()
      */
     public function newPopupAction(Request $request)
@@ -173,73 +173,73 @@ class PlaceController extends Controller implements PaginatorAwareInterface
     }
 
     /**
-     * Finds and displays a Place entity.
+     * Finds and displays a Region entity.
      *
-     * @param Place $place
+     * @param Region $region
      *
      * @return array
      *
-     * @Route("/{id}", name="place_show", methods={"GET"})
+     * @Route("/{id}", name="region_show", methods={"GET"})
      * @Template()
      */
-    public function showAction(Place $place)
+    public function showAction(Region $region)
     {
 
         return array(
-            'place' => $place,
+            'region' => $region,
         );
     }
 
     /**
-     * Displays a form to edit an existing Place entity.
+     * Displays a form to edit an existing Region entity.
      *
      *
      * @param Request $request
-     * @param Place $place
+     * @param Region $region
      *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="place_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="region_edit", methods={"GET","POST"})
      * @Template()
      */
-    public function editAction(Request $request, Place $place)
+    public function editAction(Request $request, Region $region)
     {
-        $editForm = $this->createForm(PlaceType::class, $place);
+        $editForm = $this->createForm(RegionType::class, $region);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            $this->addFlash('success', 'The place has been updated.');
-            return $this->redirectToRoute('place_show', array('id' => $place->getId()));
+            $this->addFlash('success', 'The region has been updated.');
+            return $this->redirectToRoute('region_show', array('id' => $region->getId()));
         }
 
         return array(
-            'place' => $place,
+            'region' => $region,
             'edit_form' => $editForm->createView(),
         );
     }
 
     /**
-     * Deletes a Place entity.
+     * Deletes a Region entity.
      *
      *
      * @param Request $request
-     * @param Place $place
+     * @param Region $region
      *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/delete", name="place_delete", methods={"GET"})
+     * @Route("/{id}/delete", name="region_delete", methods={"GET"})
      */
-    public function deleteAction(Request $request, Place $place)
+    public function deleteAction(Request $request, Region $region)
     {
         $em = $this->getDoctrine()->getManager();
-        $em->remove($place);
+        $em->remove($region);
         $em->flush();
-        $this->addFlash('success', 'The place was deleted.');
+        $this->addFlash('success', 'The region was deleted.');
 
-        return $this->redirectToRoute('place_index');
+        return $this->redirectToRoute('region_index');
     }
 }

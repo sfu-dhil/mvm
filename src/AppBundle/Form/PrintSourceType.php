@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Place;
+use AppBundle\Entity\Region;
 use Nines\UtilBundle\Form\TermType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,16 +25,16 @@ class PrintSourceType extends ArchiveSourceType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        $builder->add('place', Select2EntityType::class, array(
-            'label' => 'Place',
+        $builder->add('region', Select2EntityType::class, array(
+            'label' => 'Region',
             'multiple' => false,
-            'remote_route' => 'place_typeahead',
-            'class' => Place::class,
+            'remote_route' => 'region_typeahead',
+            'class' => Region::class,
             'required' => false,
             'allow_clear' => true,
             'attr' => array(
-                'add_path' => 'place_new_popup',
-                'add_label' => 'Add Place',
+                'add_path' => 'region_new_popup',
+                'add_label' => 'Add Region',
             )
         ));
     }

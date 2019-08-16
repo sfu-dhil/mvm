@@ -85,7 +85,7 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
      * Search for ImageFile entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:ImageFile repository. Replace the fieldName with
+     * AppBundle:ImageFile repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *

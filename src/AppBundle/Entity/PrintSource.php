@@ -17,10 +17,10 @@ class PrintSource extends AbstractTerm
 {
 
     /**
-     * @var Place
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Place", inversedBy="printSources")
+     * @var Region
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Region", inversedBy="printSources")
      */
-    private $place;
+    private $region;
 
     /**
      * @var Collection|Content
@@ -41,27 +41,27 @@ class PrintSource extends AbstractTerm
     }
 
     /**
-     * Set place.
+     * Set region.
      *
-     * @param \AppBundle\Entity\Place|null $place
+     * @param \AppBundle\Entity\Region|null $region
      *
      * @return PrintSource
      */
-    public function setPlace(\AppBundle\Entity\Place $place = null)
+    public function setRegion(\AppBundle\Entity\Region $region = null)
     {
-        $this->place = $place;
+        $this->region = $region;
 
         return $this;
     }
 
     /**
-     * Get place.
+     * Get region.
      *
-     * @return \AppBundle\Entity\Place|null
+     * @return \AppBundle\Entity\Region|null
      */
-    public function getPlace()
+    public function getRegion()
     {
-        return $this->place;
+        return $this->region;
     }
 
     /**

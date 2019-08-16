@@ -85,7 +85,7 @@ class ContentController extends Controller implements PaginatorAwareInterface
      * Search for Content entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:Content repository. Replace the fieldName with
+     * AppBundle:Content repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *

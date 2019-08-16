@@ -22,11 +22,11 @@
     {% embed 'NinesUtilBundle:term/partial:show.html.twig' with {'term': printSource} %}
         {% block callback %}
             <tr>
-                <th>Place</th>
+                <th>Region</th>
                 <td>
-                    {% if printSource.place %}
-                        <a href="{{ path('place_show', { 'id': printSource.place.id}) }}">
-                            {{ printSource.place }}
+                    {% if printSource.region %}
+                        <a href="{{ path('region_show', { 'id': printSource.region.id}) }}">
+                            {{ printSource.region }}
                         </a>
                     {% endif %}
                 </td>

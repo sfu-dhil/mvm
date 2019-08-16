@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Place{% endblock %}
+{% block title %}New Region{% endblock %}
 
 
 {% block body %}
-    <h1>New Place</h1>
+    <h1>New Region</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
@@ -12,7 +12,7 @@
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
             <input type="submit" value="Create" class="btn btn-primary" />
-            <a href="{{ path('place_index') }}" class="btn btn-warning">Cancel</a>
+            <a href="{{ path('region_index') }}" class="btn btn-warning">Cancel</a>
         </div>
     </div>
     {{ form_end(form) }}

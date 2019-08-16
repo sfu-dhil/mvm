@@ -8,49 +8,43 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
- * Place
+ * Region
  *
  * @todo Make this GeoNames compatible.
  *
- * @ORM\Table(name="place")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceRepository")
+ * @ORM\Table(name="region")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RegionRepository")
  */
-class Place extends AbstractEntity
+class Region extends AbstractEntity
 {
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $fullName;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=false)
-     */
-    private $sortableName;
+    private $name;
 
     /**
      * @var Collection|PrintSource[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PrintSource", mappedBy="place")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PrintSource", mappedBy="region")
      */
     private $printSources;
 
     /**
      * @var Collection|Manuscript[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Manuscript", mappedBy="place")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Manuscript", mappedBy="region")
      */
     private $manuscripts;
 
     /**
      * @var Collection|People[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Person", mappedBy="birthPlace")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Person", mappedBy="birthRegion")
      */
     private $peopleBorn;
 
     /**
      * @var Collection|People[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Person", mappedBy="deathPlace")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Person", mappedBy="deathRegion")
      */
     private $peopleDied;
 
@@ -68,7 +62,7 @@ class Place extends AbstractEntity
      * @return string
      */
     public function __toString() {
-        return $this->fullName;
+        return $this->name;
     }
 
     /**
@@ -76,7 +70,7 @@ class Place extends AbstractEntity
      *
      * @param \AppBundle\Entity\PrintSource $printSource
      *
-     * @return Place
+     * @return Region
      */
     public function addPrintSource(\AppBundle\Entity\PrintSource $printSource)
     {
@@ -112,7 +106,7 @@ class Place extends AbstractEntity
      *
      * @param \AppBundle\Entity\Manuscript $manuscript
      *
-     * @return Place
+     * @return Region
      */
     public function addManuscript(\AppBundle\Entity\Manuscript $manuscript)
     {
@@ -148,7 +142,7 @@ class Place extends AbstractEntity
      *
      * @param \AppBundle\Entity\Person $peopleBorn
      *
-     * @return Place
+     * @return Region
      */
     public function addPeopleBorn(\AppBundle\Entity\Person $peopleBorn)
     {
@@ -184,7 +178,7 @@ class Place extends AbstractEntity
      *
      * @param \AppBundle\Entity\Person $peopleDied
      *
-     * @return Place
+     * @return Region
      */
     public function addPeopleDied(\AppBundle\Entity\Person $peopleDied)
     {
@@ -216,27 +210,27 @@ class Place extends AbstractEntity
     }
 
     /**
-     * Set fullName.
+     * Set name.
      *
-     * @param string $fullName
+     * @param string $name
      *
-     * @return Place
+     * @return Region
      */
-    public function setFullName($fullName)
+    public function setName($name)
     {
-        $this->fullName = $fullName;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get fullName.
+     * Get name.
      *
      * @return string
      */
-    public function getFullName()
+    public function getName()
     {
-        return $this->fullName;
+        return $this->name;
     }
 
     /**
@@ -244,7 +238,7 @@ class Place extends AbstractEntity
      *
      * @param string $sortableName
      *
-     * @return Place
+     * @return Region
      */
     public function setSortableName($sortableName)
     {

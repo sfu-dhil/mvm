@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Place List{% endblock %}
+{% block title %}Region List{% endblock %}
 
 {% block pageheader %}
-    <h1>Place List</h1>
+    <h1>Region List</h1>
     <p class="count">
-        Displaying {{ places|length }} places of {{ places.getTotalItemCount }} total. </p>
+        Displaying {{ regions|length }} regions of {{ regions.getTotalItemCount }} total. </p>
 {% endblock %}
 
 {% block body %}
@@ -13,10 +13,10 @@
     <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
             {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('place_new') }}" class="btn btn-default">
+                <a href="{{ path('region_new') }}" class="btn btn-default">
                     <span class="glyphicon glyphicon-plus"></span> New </a>
             {% endif %}
-            <a href="{{ path('place_search') }}" class="btn btn-default">
+            <a href="{{ path('region_search') }}" class="btn btn-default">
                 <span class="glyphicon glyphicon-search"></span> Search </a>
         </div>
     </div>
@@ -24,26 +24,24 @@
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
             <tr>
-                <th>Full Name</th>
-                <th>Sortable Name</th>
+                <th>Name</th>
             </tr>
         </thead>
         <tbody>
-            {% for place in places %}
+            {% for region in regions %}
                 <tr>
                     <td>
-                        <a href="{{ path('place_show', { 'id': place.id }) }}">
-                            {{ place.fullName }}
+                        <a href="{{ path('region_show', { 'id': region.id }) }}">
+                            {{ region.name }}
                         </a>
                     </td>
-                    <td>{{ place.sortableName }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 
     <div class="navigation">
-        {{ knp_pagination_render(places) }}
+        {{ knp_pagination_render(regions) }}
     </div>
 
 {% endblock %}

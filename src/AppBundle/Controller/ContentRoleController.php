@@ -85,7 +85,7 @@ class ContentRoleController extends Controller implements PaginatorAwareInterfac
      * Search for ContentRole entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:ContentRole repository. Replace the fieldName with
+     * AppBundle:ContentRole repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *

@@ -61,16 +61,16 @@ class Person extends AbstractEntity
     private $deathDate;
 
     /**
-     * @var Place
-     * @ORM\ManyToOne(targetEntity="Place", inversedBy="peopleBorn")
+     * @var Region
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="peopleBorn")
      */
-    private $birthPlace;
+    private $birthRegion;
 
     /**
-     * @var Place
-     * @ORM\ManyToOne(targetEntity="Place", inversedBy="peopleDied")
+     * @var Region
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="peopleDied")
      */
-    private $deathPlace;
+    private $deathRegion;
 
     /**
      * @var Collection|ContentContribution[]
@@ -161,51 +161,51 @@ class Person extends AbstractEntity
     }
 
     /**
-     * Set birthPlace.
+     * Set birthRegion.
      *
-     * @param \AppBundle\Entity\Place|null $birthPlace
+     * @param \AppBundle\Entity\Region|null $birthRegion
      *
      * @return Person
      */
-    public function setBirthPlace(\AppBundle\Entity\Place $birthPlace = null)
+    public function setBirthRegion(\AppBundle\Entity\Region $birthRegion = null)
     {
-        $this->birthPlace = $birthPlace;
+        $this->birthRegion = $birthRegion;
 
         return $this;
     }
 
     /**
-     * Get birthPlace.
+     * Get birthRegion.
      *
-     * @return \AppBundle\Entity\Place|null
+     * @return \AppBundle\Entity\Region|null
      */
-    public function getBirthPlace()
+    public function getBirthRegion()
     {
-        return $this->birthPlace;
+        return $this->birthRegion;
     }
 
     /**
-     * Set deathPlace.
+     * Set deathRegion.
      *
-     * @param \AppBundle\Entity\Place|null $deathPlace
+     * @param \AppBundle\Entity\Region|null $deathRegion
      *
      * @return Person
      */
-    public function setDeathPlace(\AppBundle\Entity\Place $deathPlace = null)
+    public function setDeathRegion(\AppBundle\Entity\Region $deathRegion = null)
     {
-        $this->deathPlace = $deathPlace;
+        $this->deathRegion = $deathRegion;
 
         return $this;
     }
 
     /**
-     * Get deathPlace.
+     * Get deathRegion.
      *
-     * @return \AppBundle\Entity\Place|null
+     * @return \AppBundle\Entity\Region|null
      */
-    public function getDeathPlace()
+    public function getDeathRegion()
     {
-        return $this->deathPlace;
+        return $this->deathRegion;
     }
 
     /**

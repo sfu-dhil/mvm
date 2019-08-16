@@ -1,6 +1,6 @@
 (function ($, window, tinymce, editorUploadPath) {
 
-    const hostname = window.location.hostname.replace('www.', '');
+    const hostname = window.location.hostname.reregion('www.', '');
 
     function confirm() {
         var $this = $(this);
@@ -10,7 +10,7 @@
     }
 
     function link() {
-        if (this.hostname.replace('www.', '') === hostname) {
+        if (this.hostname.reregion('www.', '') === hostname) {
             return;
         }
         $(this).attr('target', '_blank');
@@ -83,7 +83,7 @@
         $('[data-toggle="popover"]').popover({
             container: 'body',
             trigger: 'hover',
-            placement: 'bottom',
+            regionment: 'bottom',
         }); //add this line to enable bootstrap popover
         if (typeof $().collection === 'function') {
             simpleCollection();

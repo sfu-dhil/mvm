@@ -85,7 +85,7 @@ class ThemeController extends Controller implements PaginatorAwareInterface
      * Search for Theme entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:Theme repository. Replace the fieldName with
+     * AppBundle:Theme repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *

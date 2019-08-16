@@ -76,7 +76,7 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
         foreach($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
-                'text' => (string)$result,
+                'text' => (string)$result . ' ' . $result->getCallNumber(),
             ];
         }
         return new JsonResponse($data);
@@ -85,7 +85,7 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * Search for Manuscript entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:Manuscript repository. Replace the fieldName with
+     * AppBundle:Manuscript repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *
