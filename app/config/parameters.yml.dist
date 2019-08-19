@@ -45,6 +45,9 @@ parameters:
     # A number.
     dhil.piwik_siteid: ~
 
+    # Prevent logins by setting this to false
+    dhil.allow_logins: true
+
     # Where the application lives
     # eg. "*.example.com/application"
     dhil.piwik_domain: ~
