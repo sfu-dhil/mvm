@@ -147,7 +147,6 @@ task('deploy', [
     'deploy:cache:clear',
     'deploy:writable',
     'dhil:db:backup',
-    'dhil:db:migrate',
     'dhil:sphinx',
     'dhil:bower',
     'deploy:symlink',
