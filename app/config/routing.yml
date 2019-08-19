@@ -10,5 +10,9 @@ nines_editor:
     resource: "@NinesEditorBundle/Controller/"
     type: annotation
 
+nines_blog:
+    resource: "@NinesBlogBundle/Controller"
+    type: annotation
+
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

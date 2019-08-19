@@ -37,3 +37,7 @@ services:
     AppBundle\Menu\Builder:
         tags:
             - { name: knp_menu.menu_builder, method: mainMenu, alias: main}
+
+    NinesBlogBundle\Menu\Builder:
+        tags:
+            - { name: knp_menu.menu_builder, method: pageNavMenu, alias: pages}
