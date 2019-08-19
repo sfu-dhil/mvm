@@ -35,11 +35,7 @@
             </tr>
             <tr>
                 <th>Bibliography</th>
-                <td>{{ manuscript.bibliography }}</td>
-            </tr>
-            <tr>
-                <th>Blank Page Count</th>
-                <td>{{ manuscript.blankPageCount }}</td>
+                <td>{{ manuscript.bibliography|raw }}</td>
             </tr>
             <tr>
                 <th>Filled Page Count</th>
@@ -54,16 +50,24 @@
                 <td>{{ manuscript.poemCount }}</td>
             </tr>
             <tr>
+                <th>First Line Index</th>
+                <td>{% if manuscript.firstLineIndex %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Digitized</th>
+                <td>{% if manuscript.digitized %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Size</th>
+                <td>{{ manuscript.size}}</td>
+            </tr>
+            <tr>
+                <th>Format</th>
+                <td>{{ manuscript.format }}</td>
+            </tr>
+            <tr>
                 <th>Additional Genres</th>
                 <td>{% if manuscript.additionalGenres %}{{ manuscript.additionalGenres|join(', ') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{% if manuscript.created %}{{ manuscript.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if manuscript.updated %}{{ manuscript.updated|date }}{% endif %}</td>
             </tr>
             <tr>
                 <th>Region</th>
@@ -88,9 +92,11 @@
             <tr>
                 <th>Archivesource</th>
                 <td>
+                    {% if manuscript.archiveSource %}
                     <a href="{{ path('archive_source_show', { 'id': manuscript.archiveSource.id}) }}">
                         {{ manuscript.archiveSource }}
                     </a>
+                    {% endif %}
                 </td>
             </tr>
             <tr>
@@ -124,6 +130,14 @@
                         </ul>
                     {% endif %}
                 </td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if manuscript.created %}{{ manuscript.created|date }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if manuscript.updated %}{{ manuscript.updated|date }}{% endif %}</td>
             </tr>
         </tbody>
     </table>

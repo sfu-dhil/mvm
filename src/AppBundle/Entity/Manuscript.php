@@ -32,7 +32,7 @@ class Manuscript extends AbstractEntity
 
     /**
      * @var string
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
@@ -105,21 +105,36 @@ class Manuscript extends AbstractEntity
     /**
      * @var Region
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Region", inversedBy="manuscripts")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $region;
 
     /**
      * @var Period
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Period", inversedBy="manuscripts")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $period;
 
     /**
      * @var ArchiveSource
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ArchiveSource", inversedBy="manuscripts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $archiveSource;
+
+    /**
+     * @var Collection|PrintSource[]
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\PrintSource", inversedBy="manuscripts")
+     */
+    private $printSources;
+
+    /**
+     * @var Collection|Theme[]
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Theme", inversedBy="manuscripts")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $themes;
 
     /**
      * @var Collection|Content[]
@@ -138,18 +153,6 @@ class Manuscript extends AbstractEntity
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptFeature", mappedBy="manuscript")
      */
     private $manuscriptFeatures;
-
-    /**
-     * @var Collection|PrintSource[]
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\PrintSource", inversedBy="manuscripts")
-     */
-    private $printSources;
-
-    /**
-     * @var Collection|Theme[]
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Theme", inversedBy="manuscripts")
-     */
-    private $themes;
 
     public function __construct() {
         parent::__construct();
@@ -662,5 +665,125 @@ class Manuscript extends AbstractEntity
     public function getUntitled()
     {
         return $this->untitled;
+    }
+
+    /**
+     * Set firstLineIndex.
+     *
+     * @param bool|null $firstLineIndex
+     *
+     * @return Manuscript
+     */
+    public function setFirstLineIndex($firstLineIndex = null)
+    {
+        $this->firstLineIndex = $firstLineIndex;
+
+        return $this;
+    }
+
+    /**
+     * Get firstLineIndex.
+     *
+     * @return bool|null
+     */
+    public function getFirstLineIndex()
+    {
+        return $this->firstLineIndex;
+    }
+
+    /**
+     * Set digitized.
+     *
+     * @param bool|null $digitized
+     *
+     * @return Manuscript
+     */
+    public function setDigitized($digitized = null)
+    {
+        $this->digitized = $digitized;
+
+        return $this;
+    }
+
+    /**
+     * Get digitized.
+     *
+     * @return bool|null
+     */
+    public function getDigitized()
+    {
+        return $this->digitized;
+    }
+
+    /**
+     * Set format.
+     *
+     * @param string|null $format
+     *
+     * @return Manuscript
+     */
+    public function setFormat($format = null)
+    {
+        $this->format = $format;
+
+        return $this;
+    }
+
+    /**
+     * Get format.
+     *
+     * @return string|null
+     */
+    public function getFormat()
+    {
+        return $this->format;
+    }
+
+    /**
+     * Set size.
+     *
+     * @param string|null $size
+     *
+     * @return Manuscript
+     */
+    public function setSize($size = null)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size.
+     *
+     * @return string|null
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * Set complete.
+     *
+     * @param bool $complete
+     *
+     * @return Manuscript
+     */
+    public function setComplete($complete)
+    {
+        $this->complete = $complete;
+
+        return $this;
+    }
+
+    /**
+     * Get complete.
+     *
+     * @return bool
+     */
+    public function getComplete()
+    {
+        return $this->complete;
     }
 }

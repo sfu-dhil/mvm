@@ -70,7 +70,7 @@ class ManuscriptType extends AbstractType
         ));
                 $builder->add('filledPageCount', null, array(
             'label' => 'Filled Page Count',
-            'required' => true,
+            'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
@@ -89,7 +89,36 @@ class ManuscriptType extends AbstractType
                 'help_block' => '',
             ),
         ));
-        $builder->add('additionalGenres', CollectionType::class, array(
+        $builder->add('firstLineIndex', CheckboxType::class, array(
+            'label' => 'First Line Index',
+            'required' => false,
+            'attr' => array(
+                'help_block' => 'Does the archive catalog include a first line index?',
+            ),
+        ));
+        $builder->add('digitized', CheckboxType::class, array(
+            'label' => 'Digitized',
+            'required' => false,
+            'attr' => array(
+                'help_block' => 'Has the archive digitized the manuscript?'
+            ),
+        ));
+        $builder->add('format', TextType::class, array(
+            'label' => 'Format',
+            'required' => false,
+            'attr' => array(
+                'help_block' => 'What is the paper format of the manuscript? Quarto, folio, etc.'
+            )
+        ));
+        $builder->add('size', TextType::class, array(
+            'label' => 'Size',
+            'required' => false,
+            'attr' => array(
+                'help_block' => 'What is the paper size? Use width x height and include units. Eg. 18cm x 10cm'
+            ),
+        ));
+
+            $builder->add('additionalGenres', CollectionType::class, array(
             'label' => 'Additional Genres',
             'allow_add' => true,
             'allow_delete' => true,
@@ -119,9 +148,9 @@ class ManuscriptType extends AbstractType
         $builder->add('period', Select2EntityType::class, array(
             'label' => 'Period',
             'multiple' => false,
+            'required' => false,
             'remote_route' => 'period_typeahead',
             'class' => Period::class,
-            'required' => true,
             'allow_clear' => true,
             'attr' => array(
                 'add_path' => 'period_new_popup',
@@ -134,7 +163,7 @@ class ManuscriptType extends AbstractType
             'multiple' => false,
             'remote_route' => 'archive_source_typeahead',
             'class' => ArchiveSource::class,
-            'required' => true,
+            'required' => false,
             'allow_clear' => true,
             'attr' => array(
                 'add_path' => 'archive_source_new_popup',

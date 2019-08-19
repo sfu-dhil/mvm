@@ -1,6 +1,6 @@
 (function ($, window, tinymce, editorUploadPath) {
 
-    const hostname = window.location.hostname.reregion('www.', '');
+    const hostname = window.location.hostname.replace('www.', '');
 
     function confirm() {
         var $this = $(this);
@@ -10,7 +10,7 @@
     }
 
     function link() {
-        if (this.hostname.reregion('www.', '') === hostname) {
+        if (this.hostname.replace('www.', '') === hostname) {
             return;
         }
         $(this).attr('target', '_blank');
