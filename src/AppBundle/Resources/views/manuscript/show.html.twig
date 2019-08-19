@@ -30,6 +30,10 @@
                 <td>{{ manuscript.callNumber }}</td>
             </tr>
             <tr>
+                <th>Complete</th>
+                <td>{% if manuscript.complete %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
                 <th>Description</th>
                 <td>{{ manuscript.description|raw }}</td>
             </tr>

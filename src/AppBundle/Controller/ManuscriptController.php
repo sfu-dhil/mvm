@@ -207,8 +207,12 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
     {
         $editForm = $this->createForm(ManuscriptType::class, $manuscript);
         $editForm->handleRequest($request);
-
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            if($request->request->get('submit', '') === 'complete') {
+                $manuscript->setComplete(true);
+            } else {
+                $manuscript->setComplete(false);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The manuscript has been updated.');
