@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\ArchiveSource;
+use AppBundle\Entity\Archive;
 use AppBundle\Entity\Period;
 use AppBundle\Entity\Region;
 use AppBundle\Entity\PrintSource;
@@ -158,15 +158,15 @@ class ManuscriptType extends AbstractType
             )
         ));
 
-        $builder->add('archiveSource', Select2EntityType::class, array(
+        $builder->add('archive', Select2EntityType::class, array(
             'label' => 'Archive Source',
             'multiple' => false,
-            'remote_route' => 'archive_source_typeahead',
-            'class' => ArchiveSource::class,
+            'remote_route' => 'archive_typeahead',
+            'class' => Archive::class,
             'required' => false,
             'allow_clear' => true,
             'attr' => array(
-                'add_path' => 'archive_source_new_popup',
+                'add_path' => 'archive_new_popup',
                 'add_label' => 'Add Archive Source',
             )
         ));

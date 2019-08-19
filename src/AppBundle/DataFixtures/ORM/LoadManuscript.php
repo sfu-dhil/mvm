@@ -26,7 +26,7 @@ class LoadManuscript extends Fixture implements DependentFixtureInterface
         return array(
             LoadRegion::class,
             LoadPeriod::class,
-            LoadArchiveSource::class,
+            LoadArchive::class,
         );
     }
 
@@ -50,7 +50,7 @@ class LoadManuscript extends Fixture implements DependentFixtureInterface
         $item1->setAdditionalGenres(unserialize('a:0:{}'));
         $item1->setRegion($this->getReference('_reference_Region1'));
         $item1->setPeriod($this->getReference('_reference_Period1'));
-        $item1->setArchiveSource($this->getReference('_reference_ArchiveSource1'));
+        $item1->setArchive($this->getReference('_reference_Archive1'));
         $item1->setCreated(new \DateTime("2019-07-29 22:35:10"));
         $item1->setUpdated(new \DateTime("2019-07-29 22:35:10"));
         $this->addReference('_reference_Manuscript1', $item1);

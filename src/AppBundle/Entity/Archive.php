@@ -7,16 +7,16 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ArchiveSource
+ * Archive
  *
- * @ORM\Table(name="archive_source")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ArchiveSourceRepository")
+ * @ORM\Table(name="archive")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ArchiveRepository")
  */
-class ArchiveSource extends AbstractSource
+class Archive extends AbstractSource
 {
     /**
      * @var Collection|Manuscript[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Manuscript", mappedBy="archiveSource")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Manuscript", mappedBy="archive")
      */
     private $manuscripts;
 
@@ -30,7 +30,7 @@ class ArchiveSource extends AbstractSource
      *
      * @param \AppBundle\Entity\Manuscript $manuscript
      *
-     * @return ArchiveSource
+     * @return Archive
      */
     public function addManuscript(\AppBundle\Entity\Manuscript $manuscript)
     {

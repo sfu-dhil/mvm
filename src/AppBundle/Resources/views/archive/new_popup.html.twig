@@ -1,10 +1,10 @@
 {% extends 'popup.html.twig' %}
 
-{% block title %}New ArchiveSource{% endblock %}
+{% block title %}New Archive{% endblock %}
 
 
 {% block body %}
-    <h1>New ArchiveSource</h1>
+    <h1>New Archive</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
@@ -12,7 +12,7 @@
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
             <input type="submit" value="Create" class="btn btn-primary" />
-            <a href="{{ path('archive_source_index') }}" class="btn btn-warning">Cancel</a>
+            <a href="{{ path('archive_index') }}" class="btn btn-warning">Cancel</a>
         </div>
     </div>
     {{ form_end(form) }}

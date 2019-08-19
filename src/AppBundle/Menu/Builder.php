@@ -89,7 +89,7 @@ class Builder implements ContainerAwareInterface
         $browse->setChildrenAttribute('class', 'dropdown-menu');
 
         $browse->addChild("Archive Sources", array(
-            'route' => 'archive_source_index',
+            'route' => 'archive_index',
         ));
         $browse->addChild("Content Contributions", array(
             'route' => 'content_contribution_index',

@@ -14,7 +14,7 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 /**
  * PrintSourceType form.
  */
-class PrintSourceType extends ArchiveSourceType
+class PrintSourceType extends ArchiveType
 {
     /**
      * Add form fields to $builder.

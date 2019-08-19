@@ -92,9 +92,9 @@
             <tr>
                 <th>Archivesource</th>
                 <td>
-                    {% if manuscript.archiveSource %}
-                    <a href="{{ path('archive_source_show', { 'id': manuscript.archiveSource.id}) }}">
-                        {{ manuscript.archiveSource }}
+                    {% if manuscript.archive %}
+                    <a href="{{ path('archive_show', { 'id': manuscript.archive.id}) }}">
+                        {{ manuscript.archive }}
                     </a>
                     {% endif %}
                 </td>

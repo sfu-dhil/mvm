@@ -2,18 +2,18 @@
 
 namespace AppBundle\Tests\Controller;
 
-use AppBundle\Entity\ArchiveSource;
-use AppBundle\DataFixtures\ORM\LoadArchiveSource;
+use AppBundle\Entity\Archive;
+use AppBundle\DataFixtures\ORM\LoadArchive;
 use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 use Nines\UtilBundle\Tests\Util\BaseTestCase;
 
-class ArchiveSourceControllerTest extends BaseTestCase
+class ArchiveControllerTest extends BaseTestCase
 {
 
     protected function getFixtures() {
         return [
             LoadUser::class,
-            LoadArchiveSource::class
+            LoadArchive::class
         ];
     }
     
@@ -23,7 +23,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAnonIndex() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/archive_source/');
+        $crawler = $client->request('GET', '/archive/');
         $this->assertStatusCode(302, $client);
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
@@ -34,7 +34,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testUserIndex() {
         $client = $this->makeClient(LoadUser::USER);
-        $crawler = $client->request('GET', '/archive_source/');
+        $crawler = $client->request('GET', '/archive/');
         $this->assertStatusCode(200, $client);
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
@@ -45,7 +45,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAdminIndex() {
         $client = $this->makeClient(LoadUser::ADMIN);
-        $crawler = $client->request('GET', '/archive_source/');
+        $crawler = $client->request('GET', '/archive/');
         $this->assertStatusCode(200, $client);
         $this->assertEquals(1, $crawler->selectLink('New')->count());
     }
@@ -56,7 +56,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAnonShow() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/archive_source/1');
+        $crawler = $client->request('GET', '/archive/1');
         $this->assertStatusCode(302, $client);
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
@@ -68,7 +68,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testUserShow() {
         $client = $this->makeClient(LoadUser::USER);
-        $crawler = $client->request('GET', '/archive_source/1');
+        $crawler = $client->request('GET', '/archive/1');
         $this->assertStatusCode(200, $client);
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
@@ -80,7 +80,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAdminShow() {
         $client = $this->makeClient(LoadUser::ADMIN);
-        $crawler = $client->request('GET', '/archive_source/1');
+        $crawler = $client->request('GET', '/archive/1');
         $this->assertStatusCode(200, $client);
         $this->assertEquals(1, $crawler->selectLink('Edit')->count());
         $this->assertEquals(1, $crawler->selectLink('Delete')->count());
@@ -92,7 +92,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAnonTypeahead() {
         $client = $this->makeClient();
-        $client->request('GET', '/archive_source/typeahead?q=STUFF');
+        $client->request('GET', '/archive/typeahead?q=STUFF');
         $response = $client->getResponse();
         $this->assertStatusCode(302, $client);
 //        $this->assertEquals('application/json', $response->headers->get('content-type'));
@@ -109,7 +109,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testUserTypeahead() {
         $client = $this->makeClient(LoadUser::USER);
-        $client->request('GET', '/archive_source/typeahead?q=STUFF');
+        $client->request('GET', '/archive/typeahead?q=STUFF');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $client);
         $this->assertEquals('application/json', $response->headers->get('content-type'));
@@ -126,7 +126,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAdminTypeahead() {
         $client = $this->makeClient(LoadUser::ADMIN);
-        $client->request('GET', '/archive_source/typeahead?q=STUFF');
+        $client->request('GET', '/archive/typeahead?q=STUFF');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $client);
         $this->assertEquals('application/json', $response->headers->get('content-type'));
@@ -142,7 +142,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAnonEdit() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/archive_source/1/edit');
+        $crawler = $client->request('GET', '/archive/1/edit');
         $this->assertStatusCode(302, $client);
         $this->assertTrue($client->getResponse()->isRedirect());
     }
@@ -153,7 +153,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testUserEdit() {
         $client = $this->makeClient(LoadUser::USER);
-        $crawler = $client->request('GET', '/archive_source/1/edit');
+        $crawler = $client->request('GET', '/archive/1/edit');
         $this->assertStatusCode(403, $client);
     }
 
@@ -163,7 +163,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAdminEdit() {
         $client = $this->makeClient(LoadUser::ADMIN);
-        $formCrawler = $client->request('GET', '/archive_source/1/edit');
+        $formCrawler = $client->request('GET', '/archive/1/edit');
         $this->assertStatusCode(200, $client);
 
         $this->markTestIncomplete(
@@ -171,11 +171,11 @@ class ArchiveSourceControllerTest extends BaseTestCase
         );
         $form = $formCrawler->selectButton('Update')->form([
             // DO STUFF HERE.
-            // 'archive_sources[FIELDNAME]' => 'FIELDVALUE',
+            // 'archives[FIELDNAME]' => 'FIELDVALUE',
         ]);
 
         $client->submit($form);
-        $this->assertTrue($client->getResponse()->isRedirect('/archive_source/1'));
+        $this->assertTrue($client->getResponse()->isRedirect('/archive/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
@@ -187,7 +187,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAnonNew() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/archive_source/new');
+        $crawler = $client->request('GET', '/archive/new');
         $this->assertStatusCode(302, $client);
         $this->assertTrue($client->getResponse()->isRedirect());
     }
@@ -198,7 +198,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAnonNewPopup() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/archive_source/new_popup');
+        $crawler = $client->request('GET', '/archive/new_popup');
         $this->assertStatusCode(302, $client);
         $this->assertTrue($client->getResponse()->isRedirect());
     }
@@ -209,7 +209,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testUserNew() {
         $client = $this->makeClient(LoadUser::USER);
-        $crawler = $client->request('GET', '/archive_source/new');
+        $crawler = $client->request('GET', '/archive/new');
         $this->assertStatusCode(403, $client);
     }
 
@@ -219,7 +219,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testUserNewPopup() {
         $client = $this->makeClient(LoadUser::USER);
-        $crawler = $client->request('GET', '/archive_source/new_popup');
+        $crawler = $client->request('GET', '/archive/new_popup');
         $this->assertStatusCode(403, $client);
     }
 
@@ -229,7 +229,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAdminNew() {
         $client = $this->makeClient(LoadUser::ADMIN);
-        $formCrawler = $client->request('GET', '/archive_source/new');
+        $formCrawler = $client->request('GET', '/archive/new');
         $this->assertStatusCode(200, $client);
 
         $this->markTestIncomplete(
@@ -237,7 +237,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
         );
         $form = $formCrawler->selectButton('Create')->form([
             // DO STUFF HERE.
-            // 'archive_sources[FIELDNAME]' => 'FIELDVALUE',
+            // 'archives[FIELDNAME]' => 'FIELDVALUE',
         ]);
 
         $client->submit($form);
@@ -253,7 +253,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAdminNewPopup() {
         $client = $this->makeClient(LoadUser::ADMIN);
-        $formCrawler = $client->request('GET', '/archive_source/new_popup');
+        $formCrawler = $client->request('GET', '/archive/new_popup');
         $this->assertStatusCode(200, $client);
 
         $this->markTestIncomplete(
@@ -261,7 +261,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
         );
         $form = $formCrawler->selectButton('Create')->form([
             // DO STUFF HERE.
-            // 'archive_sources[FIELDNAME]' => 'FIELDVALUE',
+            // 'archives[FIELDNAME]' => 'FIELDVALUE',
         ]);
 
         $client->submit($form);
@@ -277,7 +277,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testAnonDelete() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/archive_source/1/delete');
+        $crawler = $client->request('GET', '/archive/1/delete');
         $this->assertStatusCode(302, $client);
         $this->assertTrue($client->getResponse()->isRedirect());
     }
@@ -288,7 +288,7 @@ class ArchiveSourceControllerTest extends BaseTestCase
      */
     public function testUserDelete() {
         $client = $this->makeClient(LoadUser::USER);
-        $crawler = $client->request('GET', '/archive_source/1/delete');
+        $crawler = $client->request('GET', '/archive/1/delete');
         $this->assertStatusCode(403, $client);
     }
 
@@ -297,16 +297,16 @@ class ArchiveSourceControllerTest extends BaseTestCase
      * @group delete
      */
     public function testAdminDelete() {
-        $preCount = count($this->em->getRepository(ArchiveSource::class)->findAll());
+        $preCount = count($this->em->getRepository(Archive::class)->findAll());
         $client = $this->makeClient(LoadUser::ADMIN);
-        $crawler = $client->request('GET', '/archive_source/1/delete');
+        $crawler = $client->request('GET', '/archive/1/delete');
         $this->assertStatusCode(302, $client);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertStatusCode(200, $client);
 
         $this->em->clear();
-        $postCount = count($this->em->getRepository(ArchiveSource::class)->findAll());
+        $postCount = count($this->em->getRepository(Archive::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);
     }
 

@@ -117,11 +117,11 @@ class Manuscript extends AbstractEntity
     private $period;
 
     /**
-     * @var ArchiveSource
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ArchiveSource", inversedBy="manuscripts")
+     * @var Archive
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Archive", inversedBy="manuscripts")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $archiveSource;
+    private $archive;
 
     /**
      * @var Collection|PrintSource[]
@@ -224,27 +224,27 @@ class Manuscript extends AbstractEntity
     }
 
     /**
-     * Set archiveSource.
+     * Set archive.
      *
-     * @param \AppBundle\Entity\ArchiveSource $archiveSource
+     * @param \AppBundle\Entity\Archive $archive
      *
      * @return Manuscript
      */
-    public function setArchiveSource(\AppBundle\Entity\ArchiveSource $archiveSource)
+    public function setArchive(\AppBundle\Entity\Archive $archive)
     {
-        $this->archiveSource = $archiveSource;
+        $this->archive = $archive;
 
         return $this;
     }
 
     /**
-     * Get archiveSource.
+     * Get archive.
      *
-     * @return \AppBundle\Entity\ArchiveSource
+     * @return \AppBundle\Entity\Archive
      */
-    public function getArchiveSource()
+    public function getArchive()
     {
-        return $this->archiveSource;
+        return $this->archive;
     }
 
     /**

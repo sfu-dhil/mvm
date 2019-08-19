@@ -10,47 +10,47 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\ArchiveSource;
-use AppBundle\Form\ArchiveSourceType;
+use AppBundle\Entity\Archive;
+use AppBundle\Form\ArchiveType;
 
 /**
- * ArchiveSource controller.
+ * Archive controller.
  *
  * @IsGranted("ROLE_USER")
- * @Route("/archive_source")
+ * @Route("/archive")
  */
-class ArchiveSourceController extends Controller implements PaginatorAwareInterface
+class ArchiveController extends Controller implements PaginatorAwareInterface
 {
     use PaginatorTrait;
 
     /**
-     * Lists all ArchiveSource entities.
+     * Lists all Archive entities.
      *
      * @param Request $request
      *
      * @return array
      *
-     * @Route("/", name="archive_source_index", methods={"GET"})
+     * @Route("/", name="archive_index", methods={"GET"})
      * @Template()
      */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(ArchiveSource::class, 'e')->orderBy('e.id', 'ASC');
+        $qb->select('e')->from(Archive::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
-        $archiveSources = $paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $archives = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
         return array(
-            'archiveSources' => $archiveSources,
+            'archives' => $archives,
         );
     }
 
 /**
-     * Typeahead API endpoint for ArchiveSource entities.
+     * Typeahead API endpoint for Archive entities.
      *
-     * To make this work, add something like this to ArchiveSourceRepository:
+     * To make this work, add something like this to ArchiveRepository:
         //    public function typeaheadQuery($q) {
         //        $qb = $this->createQueryBuilder('e');
         //        $qb->andWhere("e.name LIKE :q");
@@ -61,7 +61,7 @@ class ArchiveSourceController extends Controller implements PaginatorAwareInterf
      *
      * @param Request $request
      *
-     * @Route("/typeahead", name="archive_source_typeahead", methods={"GET"})
+     * @Route("/typeahead", name="archive_typeahead", methods={"GET"})
      * @return JsonResponse
      */
     public function typeahead(Request $request)
@@ -71,7 +71,7 @@ class ArchiveSourceController extends Controller implements PaginatorAwareInterf
             return new JsonResponse([]);
         }
         $em = $this->getDoctrine()->getManager();
-	    $repo = $em->getRepository(ArchiveSource::class);
+	    $repo = $em->getRepository(Archive::class);
         $data = [];
         foreach($repo->typeaheadQuery($q) as $result) {
             $data[] = [
@@ -82,10 +82,10 @@ class ArchiveSourceController extends Controller implements PaginatorAwareInterf
         return new JsonResponse($data);
     }
     /**
-     * Search for ArchiveSource entities.
+     * Search for Archive entities.
      *
      * To make this work, add a method like this one to the
-     * AppBundle:ArchiveSource repository. Reregion the fieldName with
+     * AppBundle:Archive repository. Reregion the fieldName with
      * something appropriate, and adjust the generated search.html.twig
      * template.
      *
@@ -101,70 +101,70 @@ class ArchiveSourceController extends Controller implements PaginatorAwareInterf
      *
      * @param Request $request
      *
-     * @Route("/search", name="archive_source_search", methods={"GET"})
+     * @Route("/search", name="archive_search", methods={"GET"})
      * @Template()
     * @return array
     */
     public function searchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-	$repo = $em->getRepository('AppBundle:ArchiveSource');
+	$repo = $em->getRepository('AppBundle:Archive');
 	$q = $request->query->get('q');
 	if($q) {
 	    $query = $repo->searchQuery($q);
             $paginator = $this->get('knp_paginator');
-            $archiveSources = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
+            $archives = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
 	} else {
-            $archiveSources = array();
+            $archives = array();
 	}
 
         return array(
-            'archiveSources' => $archiveSources,
+            'archives' => $archives,
             'q' => $q,
         );
     }
 
     /**
-     * Creates a new ArchiveSource entity.
+     * Creates a new Archive entity.
      *
      * @param Request $request
      *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="archive_source_new", methods={"GET","POST"})
+     * @Route("/new", name="archive_new", methods={"GET","POST"})
      * @Template()
      */
     public function newAction(Request $request)
     {
-        $archiveSource = new ArchiveSource();
-        $form = $this->createForm(ArchiveSourceType::class, $archiveSource);
+        $archive = new Archive();
+        $form = $this->createForm(ArchiveType::class, $archive);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($archiveSource);
+            $em->persist($archive);
             $em->flush();
 
-            $this->addFlash('success', 'The new archiveSource was created.');
-            return $this->redirectToRoute('archive_source_show', array('id' => $archiveSource->getId()));
+            $this->addFlash('success', 'The new archive was created.');
+            return $this->redirectToRoute('archive_show', array('id' => $archive->getId()));
         }
 
         return array(
-            'archiveSource' => $archiveSource,
+            'archive' => $archive,
             'form' => $form->createView(),
         );
     }
 
     /**
-     * Creates a new ArchiveSource entity in a popup.
+     * Creates a new Archive entity in a popup.
      *
      * @param Request $request
      *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="archive_source_new_popup", methods={"GET","POST"})
+     * @Route("/new_popup", name="archive_new_popup", methods={"GET","POST"})
      * @Template()
      */
     public function newPopupAction(Request $request)
@@ -173,73 +173,73 @@ class ArchiveSourceController extends Controller implements PaginatorAwareInterf
     }
 
     /**
-     * Finds and displays a ArchiveSource entity.
+     * Finds and displays a Archive entity.
      *
-     * @param ArchiveSource $archiveSource
+     * @param Archive $archive
      *
      * @return array
      *
-     * @Route("/{id}", name="archive_source_show", methods={"GET"})
+     * @Route("/{id}", name="archive_show", methods={"GET"})
      * @Template()
      */
-    public function showAction(ArchiveSource $archiveSource)
+    public function showAction(Archive $archive)
     {
 
         return array(
-            'archiveSource' => $archiveSource,
+            'archive' => $archive,
         );
     }
 
     /**
-     * Displays a form to edit an existing ArchiveSource entity.
+     * Displays a form to edit an existing Archive entity.
      *
      *
      * @param Request $request
-     * @param ArchiveSource $archiveSource
+     * @param Archive $archive
      *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="archive_source_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="archive_edit", methods={"GET","POST"})
      * @Template()
      */
-    public function editAction(Request $request, ArchiveSource $archiveSource)
+    public function editAction(Request $request, Archive $archive)
     {
-        $editForm = $this->createForm(ArchiveSourceType::class, $archiveSource);
+        $editForm = $this->createForm(ArchiveType::class, $archive);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            $this->addFlash('success', 'The archiveSource has been updated.');
-            return $this->redirectToRoute('archive_source_show', array('id' => $archiveSource->getId()));
+            $this->addFlash('success', 'The archive has been updated.');
+            return $this->redirectToRoute('archive_show', array('id' => $archive->getId()));
         }
 
         return array(
-            'archiveSource' => $archiveSource,
+            'archive' => $archive,
             'edit_form' => $editForm->createView(),
         );
     }
 
     /**
-     * Deletes a ArchiveSource entity.
+     * Deletes a Archive entity.
      *
      *
      * @param Request $request
-     * @param ArchiveSource $archiveSource
+     * @param Archive $archive
      *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/delete", name="archive_source_delete", methods={"GET"})
+     * @Route("/{id}/delete", name="archive_delete", methods={"GET"})
      */
-    public function deleteAction(Request $request, ArchiveSource $archiveSource)
+    public function deleteAction(Request $request, Archive $archive)
     {
         $em = $this->getDoctrine()->getManager();
-        $em->remove($archiveSource);
+        $em->remove($archive);
         $em->flush();
-        $this->addFlash('success', 'The archiveSource was deleted.');
+        $this->addFlash('success', 'The archive was deleted.');
 
-        return $this->redirectToRoute('archive_source_index');
+        return $this->redirectToRoute('archive_index');
     }
 }

@@ -10,9 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * ArchiveSourceType form.
+ * ArchiveType form.
  */
-class ArchiveSourceType extends TermType
+class ArchiveType extends TermType
 {
     /**
      * Add form fields to $builder.
@@ -36,7 +36,7 @@ class ArchiveSourceType extends TermType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\ArchiveSource'
+            'data_class' => 'AppBundle\Entity\Archive'
         ));
     }
 
