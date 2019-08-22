@@ -12,9 +12,10 @@ class ManuscriptRepository extends \Doctrine\ORM\EntityRepository
 {
     public function typeaheadQuery($q) {
         $qb = $this->createQueryBuilder('e');
-        $qb->andWhere("e.title LIKE :q");
+        $qb->where("e.title LIKE :q");
+        $qb->orWhere('e.callNumber like :q');
         $qb->orderBy('e.title');
-        $qb->setParameter('q', "{$q}%");
+        $qb->setParameter('q', "%{$q}%");
 
         return $qb->getQuery()->execute();
     }

@@ -23,16 +23,9 @@ class ManuscriptFeatureType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('note', null, array(
-            'label' => 'Note',
-            'required' => true,
-            'attr' => array(
-                'help_block' => '',
-                'class' => 'tinymce',
-            ),
-        ));
+    {
         $builder->add('feature', Select2EntityType::class, array(
-            'label' => 'Manuscript',
+            'label' => 'Feature',
             'multiple' => false,
             'remote_route' => 'feature_typeahead',
             'class' => Feature::class,
@@ -51,7 +44,14 @@ class ManuscriptFeatureType extends AbstractType
             'required' => true,
             'allow_clear' => true,
         ));
-        
+        $builder->add('note', null, array(
+            'label' => 'Note',
+            'required' => true,
+            'attr' => array(
+                'help_block' => '',
+                'class' => 'tinymce small',
+            ),
+        ));
     }
     
     /**
