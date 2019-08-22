@@ -3,34 +3,41 @@
 {% block title %}Manuscript Contribution List{% endblock %}
 
 {% block pageheader %}
-    <h1>  List</h1>
+    <h1> List</h1>
     <p class="count">
-        Displaying {{ manuscriptContributions|length }} manuscriptContributions
+        Displaying {{ manuscriptContributions|length }} manuscript contributions
         of {{ manuscriptContributions.getTotalItemCount }} total. </p>
 {% endblock %}
 
 {% block body %}
 
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('manuscript_contribution_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-            <a href="{{ path('manuscript_contribution_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search </a>
-        </div>
-    </div>
-
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
             <tr>
+                <th>Manuscript</th>
+                <th>Person</th>
+                <th>Role</th>
                 <th>Note</th>
             </tr>
         </thead>
         <tbody>
             {% for manuscriptContribution in manuscriptContributions %}
                 <tr>
+                    <td>
+                        <a href="{{ path('manuscript_show', {'id': manuscriptContribution.manuscript.id}) }}">
+                            {{ manuscriptContribution.manuscript }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('person_show', {'id': manuscriptContribution.person.id }) }}">
+                            {{ manuscriptContribution.person }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('manuscript_role_show', {'id': manuscriptContribution.role.id }) }}">
+                            {{ manuscriptContribution.role }}
+                        </a>
+                    </td>
                     <td>
                         <a href="{{ path('manuscript_contribution_show', { 'id': manuscriptContribution.id }) }}">
                             {{ manuscriptContribution.note|raw }}

@@ -24,14 +24,7 @@ class ManuscriptContributionType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('note', null, array(
-            'label' => 'Note',
-            'required' => true,
-            'attr' => array(
-                'help_block' => '',
-                'class' => 'tinymce',
-            ),
-        ));
+    {
         $builder->add('person', Select2EntityType::class, array(
             'label' => 'Contributor',
             'multiple' => false,
@@ -56,15 +49,14 @@ class ManuscriptContributionType extends AbstractType
                 'add_label' => 'Add Role',
             )
         ));
-        $builder->add('manuscript', Select2EntityType::class, array(
-            'label' => 'Manuscript',
-            'multiple' => false,
-            'remote_route' => 'manuscript_typeahead',
-            'class' => Manuscript::class,
+        $builder->add('note', null, array(
+            'label' => 'Note',
             'required' => true,
-            'allow_clear' => true,
+            'attr' => array(
+                'help_block' => '',
+                'class' => 'tinymce',
+            ),
         ));
-        
     }
     
     /**

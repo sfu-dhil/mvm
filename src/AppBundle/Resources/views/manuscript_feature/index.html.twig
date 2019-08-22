@@ -11,26 +11,27 @@
 
 {% block body %}
 
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('manuscript_feature_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-            <a href="{{ path('manuscript_feature_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search </a>
-        </div>
-    </div>
-
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
             <tr>
+                <th>Manuscript</th>
+                <th>Feature</th>
                 <th>Note</th>
             </tr>
         </thead>
         <tbody>
             {% for manuscriptFeature in manuscriptFeatures %}
                 <tr>
+                    <td>
+                        <a href="{{ path('manuscript_show', {'id': manuscriptFeature.manuscript.id}) }}">
+                            {{ manuscriptFeature.manuscript }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('feature_show', {'id': manuscriptFeature.feature.id}) }}">
+                            {{ manuscriptFeature.feature }}
+                        </a>
+                    </td>
                     <td>
                         <a href="{{ path('manuscript_feature_show', { 'id': manuscriptFeature.id }) }}">
                             {{ manuscriptFeature.note|raw }}

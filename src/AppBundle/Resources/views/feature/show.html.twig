@@ -38,14 +38,15 @@
 
     {% if feature.manuscriptFeatures | length > 0 %}
         <h2>Manuscript Features</h2>
-        <ul>
+        <dl>
             {% for manuscriptFeature in feature.manuscriptFeatures %}
-                <li>
-                    <a href="{{ path("manuscriptFeature_show", {"id":manuscriptFeature.id}) }}">
-                        {{ manuscriptFeature }}
+                <dt>
+                    <a href="{{ path('manuscript_show', {'id': manuscriptFeature.manuscript.id}) }}">
+                        {{ manuscriptFeature.manuscript.title }} {{ manuscriptFeature.manuscript.callNumber }}
                     </a>
-                </li>
+                </dt>
+                <dd>{{ manuscriptFeature.note|raw }}</dd>
             {% endfor %}
-        </ul>
+        </dl>
     {% endif %}
 {% endblock %}

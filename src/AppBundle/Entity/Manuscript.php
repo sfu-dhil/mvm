@@ -138,19 +138,19 @@ class Manuscript extends AbstractEntity
 
     /**
      * @var Collection|Content[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Content", mappedBy="manuscript")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Content", mappedBy="manuscript", cascade={"persist"})
      */
     private $contents;
 
     /**
      * @var Collection|ManuscriptContribution[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptContribution", mappedBy="manuscript")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptContribution", mappedBy="manuscript", cascade={"persist"})
      */
     private $manuscriptContributions;
 
     /**
      * @var Collection|ManuscriptFeature[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptFeature", mappedBy="manuscript")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptFeature", mappedBy="manuscript", cascade={"persist"})
      */
     private $manuscriptFeatures;
 

@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\ManuscriptContributionsType;
+use AppBundle\Form\ManuscriptFeaturesType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
@@ -246,4 +248,81 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
 
         return $this->redirectToRoute('manuscript_index');
     }
+
+    /**
+     * Edits a Manuscript's content entities
+     *
+     * @param Request $request
+     * @param Manuscript $manuscript
+     *
+     * @return array|RedirectResponse
+     *
+     * @IsGranted("ROLE_CONTENT_ADMIN")
+     * @Route("/{id}/contents", name="manuscript_contents", methods={"GET"})
+     * @Template()
+     */
+    public function contentAction(Request $request, Manuscript $manuscript) {
+
+    }
+
+    /**
+     * Edits a Manuscript's contributions entities
+     *
+     * @param Request $request
+     * @param Manuscript $manuscript
+     *
+     * @return array|RedirectResponse
+     *
+     * @IsGranted("ROLE_CONTENT_ADMIN")
+     * @Route("/{id}/contributions", name="manuscript_contributions", methods={"GET", "POST"})
+     * @Template()
+     */
+    public function contributionsAction(Request $request, Manuscript $manuscript) {
+        $editForm = $this->createForm(ManuscriptContributionsType::class, $manuscript);
+        $editForm->handleRequest($request);
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            foreach($manuscript->getManuscriptContributions() as $contribution) {
+                $contribution->setManuscript($manuscript);
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $this->addFlash('success', 'The manuscript has been updated.');
+            return $this->redirectToRoute('manuscript_show', array('id' => $manuscript->getId()));
+        }
+        return array(
+            'manuscript' => $manuscript,
+            'edit_form' => $editForm->createView(),
+        );
+    }
+
+    /**
+     * Edits a Manuscript's feature entities
+     *
+     * @param Request $request
+     * @param Manuscript $manuscript
+     *
+     * @return array|RedirectResponse
+     *
+     * @IsGranted("ROLE_CONTENT_ADMIN")
+     * @Route("/{id}/features", name="manuscript_features", methods={"GET", "POST"})
+     * @Template()
+     */
+    public function featuresAction(Request $request, Manuscript $manuscript) {
+        $editForm = $this->createForm(ManuscriptFeaturesType::class, $manuscript);
+        $editForm->handleRequest($request);
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            foreach($manuscript->getManuscriptFeatures() as $feature) {
+                $feature->setManuscript($manuscript);
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $this->addFlash('success', 'The manuscript has been updated.');
+            return $this->redirectToRoute('manuscript_show', array('id' => $manuscript->getId()));
+        }
+        return array(
+            'manuscript' => $manuscript,
+            'edit_form' => $editForm->createView(),
+        );
+    }
+
 }

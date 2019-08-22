@@ -63,7 +63,7 @@
             </tr>
             <tr>
                 <th>Size</th>
-                <td>{{ manuscript.size}}</td>
+                <td>{{ manuscript.size }}</td>
             </tr>
             <tr>
                 <th>Format</th>
@@ -77,9 +77,9 @@
                 <th>Region</th>
                 <td>
                     {% if manuscript.region %}
-                    <a href="{{ path('region_show', { 'id': manuscript.region.id}) }}">
-                        {{ manuscript.region }}
-                    </a>
+                        <a href="{{ path('region_show', { 'id': manuscript.region.id}) }}">
+                            {{ manuscript.region }}
+                        </a>
                     {% endif %}
                 </td>
             </tr>
@@ -87,9 +87,9 @@
                 <th>Period</th>
                 <td>
                     {% if manuscript.period %}
-                    <a href="{{ path('period_show', { 'id': manuscript.period.id}) }}">
-                        {{ manuscript.period }}
-                    </a>
+                        <a href="{{ path('period_show', { 'id': manuscript.period.id}) }}">
+                            {{ manuscript.period }}
+                        </a>
                     {% endif %}
                 </td>
             </tr>
@@ -97,9 +97,9 @@
                 <th>Archive</th>
                 <td>
                     {% if manuscript.archive %}
-                    <a href="{{ path('archive_show', { 'id': manuscript.archive.id}) }}">
-                        {{ manuscript.archive }}
-                    </a>
+                        <a href="{{ path('archive_show', { 'id': manuscript.archive.id}) }}">
+                            {{ manuscript.archive }}
+                        </a>
                     {% endif %}
                 </td>
             </tr>
@@ -146,8 +146,8 @@
         </tbody>
     </table>
 
+    <h2>Contents</h2>
     {% if manuscript.contents | length > 0 %}
-        <h2>Contents</h2>
         <ul>
             {% for content in manuscript.contents %}
                 <li>
@@ -157,29 +157,54 @@
                 </li>
             {% endfor %}
         </ul>
+    {% else %}
+        <p>No content is associated with this manuscript.</p>
+    {% endif %}
+
+    <h2>Manuscript Contributions</h2>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="pull-right">
+            <a href="{{ path('manuscript_contributions', { 'id': manuscript.id }) }}" class="btn btn-default">
+                <span class='glyphicon glyphicon-edit'></span> Edit Contributions</a>
+        </div>
     {% endif %}
     {% if manuscript.manuscriptContributions | length > 0 %}
-        <h2>Manuscript Contributions</h2>
-        <ul>
+        <dl>
             {% for manuscriptContribution in manuscript.manuscriptContributions %}
-                <li>
-                    <a href="{{ path("manuscript_contribution_show", {"id":manuscriptContribution.id}) }}">
-                        {{ manuscriptContribution }}
-                    </a>
-                </li>
+                <dt>
+                    <a href="{{ path('person_show', {'id': manuscriptContribution.person.id}) }}">
+                        {{ manuscriptContribution.person }}
+                    </a> <i>{{ manuscriptContribution.role }}</i>
+                </dt>
+                <dd>
+                    {{ manuscriptContribution.note|raw }}
+                </dd>
             {% endfor %}
-        </ul>
+        </dl>
+    {% else %}
+        <p>No contributions to this manuscript are recorded.</p>
     {% endif %}
+
+    <h2>Manuscript Features</h2>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="pull-right">
+            <a href="{{ path('manuscript_features', { 'id': manuscript.id }) }}" class="btn btn-default">
+                <span class='glyphicon glyphicon-edit'></span> Edit Features</a>
+        </div>
+    {% endif %}
+
     {% if manuscript.manuscriptFeatures | length > 0 %}
-        <h2>Manuscript Features</h2>
-        <ul>
+        <dl>
             {% for manuscriptFeature in manuscript.manuscriptFeatures %}
-                <li>
-                    <a href="{{ path("manuscript_feature_show", {"id":manuscriptFeature.id}) }}">
-                        {{ manuscriptFeature }}
+                <dt>
+                    <a href="{{ path('feature_show', {'id': manuscriptFeature.feature.id}) }}">
+                        {{ manuscriptFeature.feature.label }}
                     </a>
-                </li>
+                </dt>
+                <dd>{{ manuscriptFeature.note|raw }}</dd>
             {% endfor %}
-        </ul>
+        </dl>
+    {% else %}
+        <p>No features for this manuscript have been described.</p>
     {% endif %}
 {% endblock %}

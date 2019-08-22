@@ -70,6 +70,11 @@ a[href ^= 'https://']::after {
   width: 100% !important;
 }
 
+.collection-complex > .form-group {
+  border: 1px solid gray;
+  padding-top: 30px;
+}
+
 /* Footer styles. */
 html {
   min-height: 100vh;
@@ -87,7 +92,6 @@ body {
 
 #content {
   flex-grow: 1;
-  /* padding-bottom: 6em; */
 }
 
 .footer {

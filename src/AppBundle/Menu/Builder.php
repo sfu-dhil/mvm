@@ -106,14 +106,8 @@ class Builder implements ContainerAwareInterface
         $browse->addChild("Images", array(
             'uri' => '#',
         ));
-        $browse->addChild("Manuscript Contributions", array(
-            'route' => 'manuscript_contribution_index',
-        ));
         $browse->addChild("Manuscripts", array(
             'route' => 'manuscript_index',
-        ));
-        $browse->addChild("Manuscript Features", array(
-            'route' => 'manuscript_feature_index',
         ));
         $browse->addChild("Manuscript Roles", array(
             'route' => 'manuscript_role_index',
@@ -141,6 +135,12 @@ class Builder implements ContainerAwareInterface
             $divider->setAttributes(array(
                 'role' => 'separator',
                 'class' => 'divider',
+            ));
+            $browse->addChild("Manuscript Contributions", array(
+                'route' => 'manuscript_contribution_index',
+            ));
+            $browse->addChild("Manuscript Features", array(
+                'route' => 'manuscript_feature_index',
             ));
         }
 

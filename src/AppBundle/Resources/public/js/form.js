@@ -1,4 +1,4 @@
-(function ($, window, tinymce, editorUploadPath) {
+(function ($, window) {
 
     const hostname = window.location.hostname.replace('www.', '');
 
@@ -45,7 +45,7 @@
     function formPopup(e) {
         e.preventDefault();
         var url = $(this).prop('href');
-        window.open(url, "_blank", "toolbar=no,scrollbars=yes,resizable=yes,top=60,left=60,width=500,height=600");
+        window.open(url, '_blank', 'toolbar=no,scrollbars=yes,resizable=yes,top=60,left=60,width=500,height=600');
     }
 
     function simpleCollection() {
@@ -70,6 +70,8 @@
             after_add: function (collection, element) {
                 $(element).find('.select2entity').select2entity();
                 $(element).find('.select2-container').css('width', '100%');
+                $(element).find('a.popup').click(formPopup);
+                window.tinymce.EditorManager.execCommand('mceAddEditor', false, $(element).find('.tinymce').attr('id'));
                 return true;
             },
         });
@@ -77,13 +79,14 @@
     $(document).ready(function () {
         $(window).bind('beforeunload', windowBeforeUnload);
         $('form').each(formDirty);
-        $("a.popup").click(formPopup);
-        $("a").each(link);
-        $("*[data-confirm]").each(confirm);
+        $('a.popup').click(formPopup);
+        console.log($('a.popup').click(formPopup));
+        $('a').each(link);
+        $('*[data-confirm]').each(confirm);
         $('[data-toggle="popover"]').popover({
             container: 'body',
             trigger: 'hover',
-            regionment: 'bottom',
+            alignment: 'bottom',
         }); //add this line to enable bootstrap popover
         if (typeof $().collection === 'function') {
             simpleCollection();
