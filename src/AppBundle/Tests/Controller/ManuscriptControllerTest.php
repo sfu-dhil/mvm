@@ -82,7 +82,7 @@ class ManuscriptControllerTest extends BaseTestCase
         $client = $this->makeClient(LoadUser::ADMIN);
         $crawler = $client->request('GET', '/manuscript/1');
         $this->assertStatusCode(200, $client);
-        $this->assertEquals(1, $crawler->selectLink('Edit')->count());
+        $this->assertEquals(3, $crawler->selectLink('Edit')->count());
         $this->assertEquals(1, $crawler->selectLink('Delete')->count());
     }
 
