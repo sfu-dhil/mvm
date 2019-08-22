@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PrintSource{% endblock %}
+{% block title %}Print Source{% endblock %}
 
  {% block pageheader %}
-     <h1>PrintSource Details</h1>
+     <h1>Print Source Details</h1>
  {% endblock %} 
 
 {% block body %}
@@ -37,10 +37,10 @@
     {% if printSource.manuscripts | length > 0 %}
         <h2>Manuscripts</h2>
         <ul>
-            {% for manuscripts in printSource.manuscripts %}
+            {% for manuscript in printSource.manuscripts %}
                 <li>
-                    <a href="{{ path("manuscript_show", {"id":manuscripts.id}) }}">
-                        {{ manuscripts }}
+                    <a href="{{ path("manuscript_show", {"id":manuscript.id}) }}">
+                        {{ manuscript }}
                     </a>
                 </li>
             {% endfor %}
@@ -50,10 +50,10 @@
     {% if printSource.contents | length > 0 %}
         <h2>Contents</h2>
         <ul>
-            {% for contents in printSource.contents %}
+            {% for content in printSource.contents %}
                 <li>
-                    <a href="{{ path("content_show", {"id":contents.id}) }}">
-                        {{ contents }}
+                    <a href="{{ path("content_show", {"id":content.id}) }}">
+                        {{ content }}
                     </a>
                 </li>
             {% endfor %}

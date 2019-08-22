@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ManuscriptRole{% endblock %}
+{% block title %}Manuscript Role{% endblock %}
 
  {% block pageheader %}
-     <h1>ManuscriptRole Details</h1>
+     <h1>Manuscript Role Details</h1>
  {% endblock %} 
 
 {% block body %}
@@ -26,10 +26,10 @@
     {% if manuscriptRole.contributions | length > 0 %}
         <h2>Contributions</h2>
         <ul>
-            {% for contributions in manuscriptRole.contributions %}
+            {% for contribution in manuscriptRole.contributions %}
                 <li>
-                    <a href="{{ path("contribution_show", {"id":contributions.id}) }}">
-                        {{ contributions }}
+                    <a href="{{ path("contribution_show", {"id":contribution.id}) }}">
+                        {{ contribution }}
                     </a>
                 </li>
             {% endfor %}

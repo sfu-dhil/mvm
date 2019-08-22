@@ -38,14 +38,6 @@
                 <td>{{ content.description|raw }}</td>
             </tr>
             <tr>
-                <th>Created</th>
-                <td>{% if content.created %}{{ content.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if content.updated %}{{ content.updated|date }}{% endif %}</td>
-            </tr>
-            <tr>
                 <th>Manuscript</th>
                 <td>
                     <a href="{{ path('manuscript_show', { 'id': content.manuscript.id}) }}">
@@ -54,22 +46,30 @@
                 </td>
             </tr>
             <tr>
-                <th>Printsource</th>
+                <th>Print Source</th>
                 <td>
                     <a href="{{ path('print_source_show', { 'id': content.printSource.id}) }}">
                         {{ content.printSource }}
                     </a>
                 </td>
             </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if content.created %}{{ content.created|date }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if content.updated %}{{ content.updated|date }}{% endif %}</td>
+            </tr>
         </tbody>
     </table>
     {% if content.contributions | length > 0 %}
         <h2>Contributions</h2>
         <ul>
-            {% for contributions in content.contributions %}
+            {% for contribution in content.contributions %}
                 <li>
-                    <a href="{{ path("content_contribution_show", {"id":contributions.id}) }}">
-                        {{ contributions }}
+                    <a href="{{ path("content_contribution_show", {"id":contribution.id}) }}">
+                        {{ contribution }}
                     </a>
                 </li>
             {% endfor %}
@@ -78,10 +78,10 @@
     {% if content.images | length > 0 %}
         <h2>Images</h2>
         <ul>
-            {% for images in content.images %}
+            {% for image in content.images %}
                 <li>
-                    <a href="{{ path("image_show", {"id":images.id}) }}">
-                        {{ images }}
+                    <a href="{{ path("image_show", {"id":image.id}) }}">
+                        {{ image }}
                     </a>
                 </li>
             {% endfor %}

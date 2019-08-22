@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ManuscriptContribution List{% endblock %}
+{% block title %}Manuscript Contribution List{% endblock %}
 
 {% block pageheader %}
-    <h1>ManuscriptContribution List</h1>
+    <h1>  List</h1>
     <p class="count">
         Displaying {{ manuscriptContributions|length }} manuscriptContributions
         of {{ manuscriptContributions.getTotalItemCount }} total. </p>
@@ -33,7 +33,7 @@
                 <tr>
                     <td>
                         <a href="{{ path('manuscript_contribution_show', { 'id': manuscriptContribution.id }) }}">
-                            {{ manuscriptContribution.note }}
+                            {{ manuscriptContribution.note|raw }}
                         </a>
                     </td>
                 </tr>

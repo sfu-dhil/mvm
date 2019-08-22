@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ManuscriptFeature{% endblock %}
+{% block title %}Manuscript Feature{% endblock %}
 
  {% block pageheader %}
-     <h1>ManuscriptFeature Details</h1>
+     <h1>Manuscript Feature Details</h1>
  {% endblock %} 
 
 {% block body %}
@@ -22,18 +22,6 @@
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody>
             <tr>
-                <th>Note</th>
-                <td>{{ manuscriptFeature.note|raw }}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{% if manuscriptFeature.created %}{{ manuscriptFeature.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if manuscriptFeature.updated %}{{ manuscriptFeature.updated|date }}{% endif %}</td>
-            </tr>
-            <tr>
                 <th>Feature</th>
                 <td>
                     <a href="{{ path('feature_show', { 'id': manuscriptFeature.feature.id}) }}">
@@ -49,15 +37,27 @@
                     </a>
                 </td>
             </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ manuscriptFeature.note|raw }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if manuscriptFeature.created %}{{ manuscriptFeature.created|date }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if manuscriptFeature.updated %}{{ manuscriptFeature.updated|date }}{% endif %}</td>
+            </tr>
         </tbody>
     </table>
     {% if manuscriptFeature.images | length > 0 %}
         <h2>Images</h2>
         <ul>
-            {% for images in manuscriptFeature.images %}
+            {% for image in manuscriptFeature.images %}
                 <li>
-                    <a href="{{ path("image_show", {"id":images.id}) }}">
-                        {{ images }}
+                    <a href="{{ path("image_show", {"id":image.id}) }}">
+                        {{ image }}
                     </a>
                 </li>
             {% endfor %}

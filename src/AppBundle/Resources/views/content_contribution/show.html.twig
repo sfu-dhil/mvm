@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ContentContribution{% endblock %}
+{% block title %}Content Contribution{% endblock %}
 
  {% block pageheader %}
-     <h1>ContentContribution Details</h1>
+     <h1>Content Contribution Details</h1>
  {% endblock %} 
 
 {% block body %}
@@ -22,16 +22,12 @@
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody>
             <tr>
-                <th>Note</th>
-                <td>{{ contentContribution.note|raw }}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{% if contentContribution.created %}{{ contentContribution.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if contentContribution.updated %}{{ contentContribution.updated|date }}{% endif %}</td>
+                <th>Content</th>
+                <td>
+                    <a href="{{ path('content_show', { 'id': contentContribution.content.id}) }}">
+                        {{ contentContribution.content }}
+                    </a>
+                </td>
             </tr>
             <tr>
                 <th>Role</th>
@@ -50,12 +46,16 @@
                 </td>
             </tr>
             <tr>
-                <th>Content</th>
-                <td>
-                    <a href="{{ path('content_show', { 'id': contentContribution.content.id}) }}">
-                        {{ contentContribution.content }}
-                    </a>
-                </td>
+                <th>Note</th>
+                <td>{{ contentContribution.note|raw }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if contentContribution.created %}{{ contentContribution.created|date }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if contentContribution.updated %}{{ contentContribution.updated|date }}{% endif %}</td>
             </tr>
         </tbody>
     </table>

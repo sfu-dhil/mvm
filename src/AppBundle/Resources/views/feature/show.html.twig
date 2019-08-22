@@ -26,10 +26,10 @@
     {% if feature.images | length > 0 %}
         <h2>Images</h2>
         <ul>
-            {% for images in feature.images %}
+            {% for image in feature.images %}
                 <li>
-                    <a href="{{ path("image_show", {"id":images.id}) }}">
-                        {{ images }}
+                    <a href="{{ path("image_show", {"id":image.id}) }}">
+                        {{ image }}
                     </a>
                 </li>
             {% endfor %}
@@ -37,12 +37,12 @@
     {% endif %}
 
     {% if feature.manuscriptFeatures | length > 0 %}
-        <h2>Manuscriptfeatures</h2>
+        <h2>Manuscript Features</h2>
         <ul>
-            {% for manuscriptFeatures in feature.manuscriptFeatures %}
+            {% for manuscriptFeature in feature.manuscriptFeatures %}
                 <li>
-                    <a href="{{ path("manuscriptFeature_show", {"id":manuscriptFeatures.id}) }}">
-                        {{ manuscriptFeatures }}
+                    <a href="{{ path("manuscriptFeature_show", {"id":manuscriptFeature.id}) }}">
+                        {{ manuscriptFeature }}
                     </a>
                 </li>
             {% endfor %}

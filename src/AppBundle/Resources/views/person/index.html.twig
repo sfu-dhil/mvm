@@ -25,7 +25,9 @@
         <thead>
             <tr>
                 <th>Full Name</th>
+                {% if is_granted('ROLE_CONTENT_ADMIN') %}
                 <th>Sortable Name</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -36,7 +38,9 @@
                             {{ person }}
                         </a>
                     </td>
-                    <td>{{ person.sortableName }}</td>
+                    {% if is_granted('ROLE_CONTENT_ADMIN') %}
+                   <td>{{ person.sortableName }}</td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

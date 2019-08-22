@@ -25,10 +25,10 @@
     {% if theme.manuscripts | length > 0 %}
         <h2>Manuscripts</h2>
         <ul>
-            {% for manuscripts in theme.manuscripts %}
+            {% for manuscript in theme.manuscripts %}
                 <li>
-                    <a href="{{ path("manuscript_show", {"id":manuscripts.id}) }}">
-                        {{ manuscripts }}
+                    <a href="{{ path("manuscript_show", {"id":manuscript.id}) }}">
+                        {{ manuscript }}
                     </a>
                 </li>
             {% endfor %}

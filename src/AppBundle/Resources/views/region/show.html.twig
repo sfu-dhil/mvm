@@ -36,12 +36,12 @@
         </tbody>
     </table>
     {% if region.printSources | length > 0 %}
-        <h2>Printsources</h2>
+        <h2>Print Sources</h2>
         <ul>
-            {% for printSources in region.printSources %}
+            {% for printSource in region.printSources %}
                 <li>
-                    <a href="{{ path("printSource_show", {"id":printSources.id}) }}">
-                        {{ printSources }}
+                    <a href="{{ path("printSource_show", {"id":printSource.id}) }}">
+                        {{ printSource }}
                     </a>
                 </li>
             {% endfor %}
@@ -50,34 +50,34 @@
     {% if region.manuscripts | length > 0 %}
         <h2>Manuscripts</h2>
         <ul>
-            {% for manuscripts in region.manuscripts %}
+            {% for manuscript in region.manuscripts %}
                 <li>
-                    <a href="{{ path("manuscript_show", {"id":manuscripts.id}) }}">
-                        {{ manuscripts }}
+                    <a href="{{ path("manuscript_show", {"id":manuscript.id}) }}">
+                        {{ manuscript }}
                     </a>
                 </li>
             {% endfor %}
         </ul>
     {% endif %}
     {% if region.peopleBorn | length > 0 %}
-        <h2>Peopleborn</h2>
+        <h2>People Born</h2>
         <ul>
-            {% for peopleBorn in region.peopleBorn %}
+            {% for person in region.peopleBorn %}
                 <li>
-                    <a href="{{ path("peopleBorn_show", {"id":peopleBorn.id}) }}">
-                        {{ peopleBorn }}
+                    <a href="{{ path("peopleBorn_show", {"id":person.id}) }}">
+                        {{ person }}
                     </a>
                 </li>
             {% endfor %}
         </ul>
     {% endif %}
     {% if region.peopleDied | length > 0 %}
-        <h2>Peopledied</h2>
+        <h2>People Died</h2>
         <ul>
-            {% for peopleDied in region.peopleDied %}
+            {% for person in region.peopleDied %}
                 <li>
-                    <a href="{{ path("peopleDied_show", {"id":peopleDied.id}) }}">
-                        {{ peopleDied }}
+                    <a href="{{ path("peopleDied_show", {"id":person.id}) }}">
+                        {{ person }}
                     </a>
                 </li>
             {% endfor %}

@@ -38,9 +38,9 @@
                             {{ content.title }}
                         </a>
                     </td>
-                    <td>{{ content.transcription }}</td>
-                    <td>{{ content.context }}</td>
-                    <td>{{ content.description }}</td>
+                    <td>{{ content.transcription|raw }}</td>
+                    <td>{{ content.context|raw }}</td>
+                    <td>{{ content.description|raw }}</td>
                 </tr>
             {% endfor %}
         </tbody>

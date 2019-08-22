@@ -23,21 +23,17 @@
         <tbody>
             <tr>
                 <th>Full name</th>
-                <td>
-                    {{ person }}
-                </td>
+                <td>{{ person }}</td>
             </tr>
-            <tr>
-                <th>Variant names</th>
-                <td>{% if person.variantNames|length > 0 %}{{ person.variantNames|join(', ') }}{% endif %}</td>
-            </tr>
+            {% if is_granted('ROLE_CONTENT_ADMIN') %}
             <tr>
                 <th>Sortable name</th>
                 <td>{{ person.sortableName }}</td>
             </tr>
+            {% endif %}
             <tr>
-                <th>Description</th>
-                <td>{{ person.description|raw }}</td>
+                <th>Variant names</th>
+                <td>{% if person.variantNames|length > 0 %}{{ person.variantNames|join(', ') }}{% endif %}</td>
             </tr>
             <tr>
                 <th>Birth date</th>
@@ -48,15 +44,11 @@
                 <th>{{ person.deathDate }}</th>
             </tr>
             <tr>
-                <th>Created</th>
-                <td>{% if person.created %}{{ person.created|date }}{% endif %}</td>
+                <th>Description</th>
+                <td>{{ person.description|raw }}</td>
             </tr>
             <tr>
-                <th>Updated</th>
-                <td>{% if person.updated %}{{ person.updated|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Birthregion</th>
+                <th>Birth Region</th>
                 <td>
                     {% if person.birthRegion %}
                         <a href="{{ path('region_show', { 'id': person.birthRegion.id}) }}">
@@ -66,7 +58,7 @@
                 </td>
             </tr>
             <tr>
-                <th>Deathregion</th>
+                <th>Death Region</th>
                 <td>
                     {% if person.deathRegion %}
                         <a href="{{ path('region_show', { 'id': person.deathRegion.id}) }}">
@@ -75,27 +67,35 @@
                     {% endif %}
                 </td>
             </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if person.created %}{{ person.created|date }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if person.updated %}{{ person.updated|date }}{% endif %}</td>
+            </tr>
         </tbody>
     </table>
     {% if person.contentContributions | length > 0 %}
-        <h2>Contentcontributions</h2>
+        <h2>Content Contributions</h2>
         <ul>
-            {% for contentContributions in person.contentContributions %}
+            {% for contentContribution in person.contentContributions %}
                 <li>
-                    <a href="{{ path("content_contribution_show", {"id":contentContributions.id}) }}">
-                        {{ contentContributions }}
+                    <a href="{{ path("content_contribution_show", {"id":contentContribution.id}) }}">
+                        {{ contentContribution }}
                     </a>
                 </li>
             {% endfor %}
         </ul>
     {% endif %}
     {% if person.manuscriptContributions | length > 0 %}
-        <h2>Manuscriptcontributions</h2>
+        <h2>Manuscript Contribution</h2>
         <ul>
-            {% for manuscriptContributions in person.manuscriptContributions %}
+            {% for manuscriptContribution in person.manuscriptContributions %}
                 <li>
-                    <a href="{{ path("manuscript_contribution_show", {"id":manuscriptContributions.id}) }}">
-                        {{ manuscriptContributions }}
+                    <a href="{{ path("manuscript_contribution_show", {"id":manuscriptContribution.id}) }}">
+                        {{ manuscriptContribution }}
                     </a>
                 </li>
             {% endfor %}

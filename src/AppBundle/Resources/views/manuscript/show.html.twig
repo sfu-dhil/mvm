@@ -26,7 +26,7 @@
                 <td>{{ manuscript }}</td>
             </tr>
             <tr>
-                <th>Call number</th>
+                <th>Call Number</th>
                 <td>{{ manuscript.callNumber }}</td>
             </tr>
             <tr>
@@ -104,14 +104,14 @@
                 </td>
             </tr>
             <tr>
-                <th>Printsources</th>
+                <th>Print Sources</th>
                 <td>
                     {% if manuscript.printSources | length > 0 %}
                         <ul>
-                            {% for printSources in manuscript.printSources %}
+                            {% for printSource in manuscript.printSources %}
                                 <li>
-                                    <a href="{{ path("print_source_show", {"id":printSources.id}) }}">
-                                        {{ printSources }}
+                                    <a href="{{ path("print_source_show", {"id":printSource.id}) }}">
+                                        {{ printSource }}
                                     </a>
                                 </li>
                             {% endfor %}
@@ -124,10 +124,10 @@
                 <td>
                     {% if manuscript.themes | length > 0 %}
                         <ul>
-                            {% for themes in manuscript.themes %}
+                            {% for theme in manuscript.themes %}
                                 <li>
-                                    <a href="{{ path("theme_show", {"id":themes.id}) }}">
-                                        {{ themes }}
+                                    <a href="{{ path("theme_show", {"id":theme.id}) }}">
+                                        {{ theme }}
                                     </a>
                                 </li>
                             {% endfor %}
@@ -145,37 +145,38 @@
             </tr>
         </tbody>
     </table>
+
     {% if manuscript.contents | length > 0 %}
         <h2>Contents</h2>
         <ul>
-            {% for contents in manuscript.contents %}
+            {% for content in manuscript.contents %}
                 <li>
-                    <a href="{{ path("content_show", {"id":contents.id}) }}">
-                        {{ contents }}
+                    <a href="{{ path("content_show", {"id":content.id}) }}">
+                        {{ content }}
                     </a>
                 </li>
             {% endfor %}
         </ul>
     {% endif %}
     {% if manuscript.manuscriptContributions | length > 0 %}
-        <h2>Manuscriptcontributions</h2>
+        <h2>Manuscript Contributions</h2>
         <ul>
-            {% for manuscriptContributions in manuscript.manuscriptContributions %}
+            {% for manuscriptContribution in manuscript.manuscriptContributions %}
                 <li>
-                    <a href="{{ path("manuscript_contribution_show", {"id":manuscriptContributions.id}) }}">
-                        {{ manuscriptContributions }}
+                    <a href="{{ path("manuscript_contribution_show", {"id":manuscriptContribution.id}) }}">
+                        {{ manuscriptContribution }}
                     </a>
                 </li>
             {% endfor %}
         </ul>
     {% endif %}
     {% if manuscript.manuscriptFeatures | length > 0 %}
-        <h2>Manuscriptfeatures</h2>
+        <h2>Manuscript Features</h2>
         <ul>
-            {% for manuscriptFeatures in manuscript.manuscriptFeatures %}
+            {% for manuscriptFeature in manuscript.manuscriptFeatures %}
                 <li>
-                    <a href="{{ path("manuscript_feature_show", {"id":manuscriptFeatures.id}) }}">
-                        {{ manuscriptFeatures }}
+                    <a href="{{ path("manuscript_feature_show", {"id":manuscriptFeature.id}) }}">
+                        {{ manuscriptFeature }}
                     </a>
                 </li>
             {% endfor %}
