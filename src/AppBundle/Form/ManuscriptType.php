@@ -114,11 +114,11 @@ class ManuscriptType extends AbstractType
             'label' => 'Size',
             'required' => false,
             'attr' => array(
-                'help_block' => 'What is the paper size? Use width x height and include units. Eg. 18cm x 10cm'
+                'help_block' => 'What is the paper size? Use height x width and include units. Eg. 18cm x 10cm'
             ),
         ));
 
-            $builder->add('additionalGenres', CollectionType::class, array(
+        $builder->add('additionalGenres', CollectionType::class, array(
             'label' => 'Additional Genres',
             'allow_add' => true,
             'allow_delete' => true,

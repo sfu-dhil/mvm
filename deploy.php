@@ -78,7 +78,7 @@ task('dhil:sphinx', function() {
         $become = get('become');
 
         runLocally('/usr/local/bin/sphinx-build docs/source web/docs/sphinx');
-        runLocally("rsync -av -e 'ssh' --rsync-path='sudo -u $become rsync' ./web/docs/ $user@$host:{{release_path}}/web/docs", ['timeout' => null]);
+        runLocally("scp -r web/docs/ $user@$host:{{release_path}}/web/docs");
     }
 })->desc('Build sphinx docs locally and upload to server.');
 
@@ -103,20 +103,18 @@ task('dhil:db:migrate', function(){
 
 task('dhil:db:fetch', function() {
     $user = get('user');
-    $become = get('become');
+    $host = get('hostname');
     $app = get('application');
     $stage = get('stage');
 
     $date = date('Y-m-d');
     $current = get('release_name');
 
-    set('become', $user); // prevent sudo -u from failing.
+    set('become', $user);
     $file = "/home/{$user}/{$app}-{$date}-{$stage}-r{$current}.sql";
     run("sudo mysqldump {$app} -r {$file}");
     run("sudo chown {$user} {$file}");
-    // set('become', $become);
-
-    download($file, basename($file));
+    runLocally("scp -v $user@$host:$file " . basename($file));
     writeln("Downloaded database dump to " . basename($file));
 })->desc('Make a database backup and download it.');
 
