@@ -161,7 +161,7 @@
         <p>No content is associated with this manuscript.</p>
     {% endif %}
 
-    <h2>Manuscript Contributions</h2>
+    <h2>Manuscript Contributors</h2>
     {% if is_granted('ROLE_ADMIN') %}
         <div class="pull-right">
             <a href="{{ path('manuscript_contributions', { 'id': manuscript.id }) }}" class="btn btn-default">
