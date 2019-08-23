@@ -78,9 +78,9 @@ class ManuscriptType extends AbstractType {
             'attr'     => array('help_block' => 'What is the paper format of the manuscript? Quarto, folio, etc.'),
         ));
         $builder->add('size', TextType::class, array(
-            'label'    => 'Size',
+            'label'    => 'Book Size',
             'required' => false,
-            'attr'     => array('help_block' => 'What is the paper size? Use height x width and include units. Eg. 18cm x 10cm'),
+            'attr'     => array('help_block' => 'What is the book size? Use height x width and include units. Eg. 18cm x 10cm'),
         ));
         $builder->add('firstLineIndex', CheckboxType::class, array(
             'label'    => 'First Line Index',
