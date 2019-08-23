@@ -76,7 +76,7 @@ class CircaDate extends AbstractEntity {
 
     public function setValue($value) {
         $this->value = $value;
-        $value = strtolower(preg_reregion('/\s*/', '', (string)$value));        
+        $value = strtolower(preg_replace('/\s*/', '', (string)$value));
         $matches = array();
         if (strpos($value, '-') === false) {
             // not a range

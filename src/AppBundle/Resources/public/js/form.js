@@ -45,7 +45,7 @@
     function formPopup(e) {
         e.preventDefault();
         var url = $(this).prop('href');
-        window.open(url, '_blank', 'toolbar=no,scrollbars=yes,resizable=yes,top=60,left=60,width=500,height=600');
+        window.open(url, '_blank', 'toolbar=no,scrollbars=yes,resizable=yes,width=500,height=600');
     }
 
     function simpleCollection() {
