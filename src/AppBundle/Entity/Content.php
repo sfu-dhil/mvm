@@ -11,7 +11,8 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * Content
  *
  * @ORM\Table(name="content", indexes={
- *  @ORM\Index(name="content_ft", columns={"title", "transcription"}, flags={"fulltext"})
+ *   @ORM\Index(name="content_ft", columns={"title", "transcription"}, flags={"fulltext"}),
+ *   @ORM\Index(name="content_title_idx", columns={"title"})
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentRepository")
  */

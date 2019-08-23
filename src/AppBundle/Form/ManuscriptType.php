@@ -93,9 +93,9 @@ class ManuscriptType extends AbstractType {
             'attr'     => array('help_block' => 'Has the archive digitized the manuscript?'),
         ));
         $builder->add('filledPageCount', null, array(
-            'label'    => 'Filled Page Count',
+            'label'    => 'Filled Count',
             'required' => false,
-            'attr'     => array('help_block' => '',),
+            'attr'     => array('help_block' => 'Use filled page or leaf count and include the unit.',),
         ));
         $builder->add('itemCount', null, array(
             'label'    => 'Item Count',

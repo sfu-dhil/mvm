@@ -11,7 +11,8 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * Manuscript
  *
  * @ORM\Table(name="manuscript", indexes={
- *  @ORM\Index(name="manuscript_ft", columns={"title", "description"}, flags={"fulltext"})
+ *   @ORM\Index(name="manuscript_ft", columns={"title", "description"}, flags={"fulltext"}),
+ *   @ORM\Index(name="manuscript_title_idx", columns={"title"})
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ManuscriptRepository")
  */
@@ -68,7 +69,7 @@ class Manuscript extends AbstractEntity
 
     /**
      * @var int
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $filledPageCount;
 

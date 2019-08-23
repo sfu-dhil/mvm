@@ -14,104 +14,102 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 /**
  * PersonType form.
  */
-class PersonType extends AbstractType
-{
+class PersonType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('anonymous', CheckboxType::class, array(
-            'label' => 'Anonymous',
+            'label'    => 'Anonymous',
             'required' => false,
-            'attr' => array(
-                'help_block' => 'Is the person anonymous?'
+            'attr'     => array(
+                'help_block' => 'Is the person anonymous?',
             ),
         ));
 
         $builder->add('fullName', null, array(
-            'label' => 'Full Name',
+            'label'    => 'Full Name',
             'required' => true,
-            'attr' => array(
+            'attr'     => array(
                 'help_block' => 'A canonical name for a person if known, or a descriptive identifier. Do not include square brackets.',
             ),
         ));
         $builder->add('variantNames', null, array(
-            'allow_add' => true,
-            'allow_delete' => true,
-            'prototype' => true,
-            'entry_type' => TextType::class,
+            'allow_add'     => true,
+            'allow_delete'  => true,
+            'prototype'     => true,
+            'entry_type'    => TextType::class,
             'entry_options' => array(
                 'label' => false,
             ),
-            'required' => false,
-            'attr' => array(
+            'required'      => false,
+            'attr'          => array(
                 'help_block' => '',
-                'class' => 'collection collection-simple',
+                'class'      => 'collection collection-simple',
             ),
         ));
 
-                $builder->add('sortableName', null, array(
-            'label' => 'Sortable Name',
+        $builder->add('sortableName', null, array(
+            'label'    => 'Sortable Name',
             'required' => true,
-            'attr' => array(
+            'attr'     => array(
                 'help_block' => '',
             ),
         ));
 
         $builder->add('description', null, array(
-            'label' => 'Description',
+            'label'    => 'Description',
             'required' => false,
-            'attr' => array(
+            'attr'     => array(
                 'help_block' => '',
-                'class' => 'tinymce',
+                'class'      => 'tinymce',
             ),
         ));
 
         $builder->add('birthDate', TextType::class, array(
-            'label' => 'Birth date',
+            'label'    => 'Birth date',
             'required' => false,
-            'attr' => array(
+            'attr'     => array(
                 'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
             ),
         ));
         $builder->add('deathDate', TextType::class, array(
-            'label' => 'Birth date',
+            'label'    => 'Death date',
             'required' => false,
-            'attr' => array(
+            'attr'     => array(
                 'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
             ),
         ));
         $builder->add('birthRegion', Select2EntityType::class, array(
-            'label' => 'Birth region',
-            'multiple' => false,
+            'label'        => 'Birth region',
+            'multiple'     => false,
             'remote_route' => 'region_typeahead',
-            'class' => Region::class,
-            'required' => false,
-            'allow_clear' => true,
-            'attr' => array(
-                'add_path' => 'region_new_popup',
+            'class'        => Region::class,
+            'required'     => false,
+            'allow_clear'  => true,
+            'attr'         => array(
+                'add_path'  => 'region_new_popup',
                 'add_label' => 'Add Region',
-            )
+            ),
         ));
         $builder->add('deathRegion', Select2EntityType::class, array(
-            'label' => 'Death region',
-            'multiple' => false,
+            'label'        => 'Death region',
+            'multiple'     => false,
             'remote_route' => 'region_typeahead',
-            'class' => Region::class,
-            'required' => false,
-            'allow_clear' => true,
-            'attr' => array(
-                'add_path' => 'region_new_popup',
+            'class'        => Region::class,
+            'required'     => false,
+            'allow_clear'  => true,
+            'attr'         => array(
+                'add_path'  => 'region_new_popup',
                 'add_label' => 'Add Region',
-            )
+            ),
         ));
-        
     }
-    
+
     /**
      * Define options for the form.
      *
@@ -120,10 +118,9 @@ class PersonType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Person'
+            'data_class' => 'AppBundle\Entity\Person',
         ));
     }
 

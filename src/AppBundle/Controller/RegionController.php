@@ -37,7 +37,7 @@ class RegionController extends Controller implements PaginatorAwareInterface
     {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Region::class, 'e')->orderBy('e.id', 'ASC');
+        $qb->select('e')->from(Region::class, 'e')->orderBy('e.name', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $regions = $paginator->paginate($query, $request->query->getint('page', 1), 25);

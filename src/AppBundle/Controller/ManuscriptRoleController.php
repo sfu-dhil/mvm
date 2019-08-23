@@ -37,7 +37,7 @@ class ManuscriptRoleController extends Controller implements PaginatorAwareInter
     {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(ManuscriptRole::class, 'e')->orderBy('e.id', 'ASC');
+        $qb->select('e')->from(ManuscriptRole::class, 'e')->orderBy('e.label', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $manuscriptRoles = $paginator->paginate($query, $request->query->getint('page', 1), 25);

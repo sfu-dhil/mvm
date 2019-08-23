@@ -12,7 +12,9 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  *
  * @todo Make this GeoNames compatible.
  *
- * @ORM\Table(name="region")
+ * @ORM\Table(name="region", indexes={
+ *   @ORM\Index(name="region_name_idx", columns={"name"})
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\RegionRepository")
  */
 class Region extends AbstractEntity
