@@ -34,51 +34,11 @@
                 <td>{% if manuscript.complete %}Yes{% else %}No{% endif %}</td>
             </tr>
             <tr>
-                <th>Description</th>
-                <td>{{ manuscript.description|raw }}</td>
-            </tr>
-            <tr>
-                <th>Bibliography</th>
-                <td>{{ manuscript.bibliography|raw }}</td>
-            </tr>
-            <tr>
-                <th>Filled Page Count</th>
-                <td>{{ manuscript.filledPageCount }}</td>
-            </tr>
-            <tr>
-                <th>Item Count</th>
-                <td>{{ manuscript.itemCount }}</td>
-            </tr>
-            <tr>
-                <th>Poem Count</th>
-                <td>{{ manuscript.poemCount }}</td>
-            </tr>
-            <tr>
-                <th>First Line Index</th>
-                <td>{% if manuscript.firstLineIndex %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Digitized</th>
-                <td>{% if manuscript.digitized %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Size</th>
-                <td>{{ manuscript.size }}</td>
-            </tr>
-            <tr>
-                <th>Format</th>
-                <td>{{ manuscript.format }}</td>
-            </tr>
-            <tr>
-                <th>Additional Genres</th>
-                <td>{% if manuscript.additionalGenres %}{{ manuscript.additionalGenres|join(', ') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Region</th>
+                <th>Archive</th>
                 <td>
-                    {% if manuscript.region %}
-                        <a href="{{ path('region_show', { 'id': manuscript.region.id}) }}">
-                            {{ manuscript.region }}
+                    {% if manuscript.archive %}
+                        <a href="{{ path('archive_show', { 'id': manuscript.archive.id}) }}">
+                            {{ manuscript.archive }}
                         </a>
                     {% endif %}
                 </td>
@@ -94,14 +54,46 @@
                 </td>
             </tr>
             <tr>
-                <th>Archive</th>
+                <th>Format</th>
+                <td>{{ manuscript.format }}</td>
+            </tr>
+            <tr>
+                <th>Size</th>
+                <td>{{ manuscript.size }}</td>
+            </tr>
+            <tr>
+                <th>First Line Index</th>
+                <td>{% if manuscript.firstLineIndex %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Digitized</th>
+                <td>{% if manuscript.digitized %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Filled Page Count</th>
+                <td>{{ manuscript.filledPageCount }}</td>
+            </tr>
+            <tr>
+                <th>Item Count</th>
+                <td>{{ manuscript.itemCount }}</td>
+            </tr>
+            <tr>
+                <th>Poem Count</th>
+                <td>{{ manuscript.poemCount }}</td>
+            </tr>
+            <tr>
+                <th>Region</th>
                 <td>
-                    {% if manuscript.archive %}
-                        <a href="{{ path('archive_show', { 'id': manuscript.archive.id}) }}">
-                            {{ manuscript.archive }}
+                    {% if manuscript.region %}
+                        <a href="{{ path('region_show', { 'id': manuscript.region.id}) }}">
+                            {{ manuscript.region }}
                         </a>
                     {% endif %}
                 </td>
+            </tr>
+            <tr>
+                <th>Additional Genres</th>
+                <td>{% if manuscript.additionalGenres %}{{ manuscript.additionalGenres|join(', ') }}{% endif %}</td>
             </tr>
             <tr>
                 <th>Print Sources</th>
@@ -134,6 +126,14 @@
                         </ul>
                     {% endif %}
                 </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ manuscript.description|raw }}</td>
+            </tr>
+            <tr>
+                <th>Bibliography</th>
+                <td>{{ manuscript.bibliography|raw }}</td>
             </tr>
             <tr>
                 <th>Created</th>
