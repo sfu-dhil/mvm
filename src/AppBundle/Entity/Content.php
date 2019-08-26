@@ -41,32 +41,19 @@ class Content extends AbstractEntity
      * @var string
      * @ORM\Column(type="text", nullable=true)
      */
-    private $context;
-
-    /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
     private $description;
-
-    /**
-     * @var Manuscript
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Manuscript", inversedBy="contents")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $manuscript;
-
-    /**
-     * @var PrintSource
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PrintSource", inversedBy="contents")
-     */
-    private $printSource;
 
     /**
      * @var Collection|ContentContribution
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ContentContribution", mappedBy="content")
      */
     private $contributions;
+
+    /**
+     * @var Collection|ManuscriptContent
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptContent", mappedBy="content")
+     */
+    private $manuscriptContents;
 
     /**
      * @var Collection|Image[]
@@ -77,6 +64,7 @@ class Content extends AbstractEntity
     public function __construct() {
         parent::__construct();
         $this->contributions = new ArrayCollection();
+        $this->manuscriptContents = new ArrayCollection();
         $this->images = new ArrayCollection();
     }
 
@@ -87,54 +75,6 @@ class Content extends AbstractEntity
      */
     public function __toString() {
         return $this->firstLine;
-    }
-
-    /**
-     * Set manuscript.
-     *
-     * @param \AppBundle\Entity\Manuscript $manuscript
-     *
-     * @return Content
-     */
-    public function setManuscript(\AppBundle\Entity\Manuscript $manuscript)
-    {
-        $this->manuscript = $manuscript;
-
-        return $this;
-    }
-
-    /**
-     * Get manuscript.
-     *
-     * @return \AppBundle\Entity\Manuscript
-     */
-    public function getManuscript()
-    {
-        return $this->manuscript;
-    }
-
-    /**
-     * Set printSource.
-     *
-     * @param \AppBundle\Entity\PrintSource|null $printSource
-     *
-     * @return Content
-     */
-    public function setPrintSource(\AppBundle\Entity\PrintSource $printSource = null)
-    {
-        $this->printSource = $printSource;
-
-        return $this;
-    }
-
-    /**
-     * Get printSource.
-     *
-     * @return \AppBundle\Entity\PrintSource|null
-     */
-    public function getPrintSource()
-    {
-        return $this->printSource;
     }
 
     /**
@@ -258,30 +198,6 @@ class Content extends AbstractEntity
     }
 
     /**
-     * Set context.
-     *
-     * @param string|null $context
-     *
-     * @return Content
-     */
-    public function setContext($context = null)
-    {
-        $this->context = $context;
-
-        return $this;
-    }
-
-    /**
-     * Get context.
-     *
-     * @return string|null
-     */
-    public function getContext()
-    {
-        return $this->context;
-    }
-
-    /**
      * Set description.
      *
      * @param string|null $description
@@ -327,5 +243,41 @@ class Content extends AbstractEntity
     public function getFirstLine()
     {
         return $this->firstLine;
+    }
+
+    /**
+     * Add manuscriptContent.
+     *
+     * @param \AppBundle\Entity\ManuscriptContent $manuscriptContent
+     *
+     * @return Content
+     */
+    public function addManuscriptContent(\AppBundle\Entity\ManuscriptContent $manuscriptContent)
+    {
+        $this->manuscriptContents[] = $manuscriptContent;
+
+        return $this;
+    }
+
+    /**
+     * Remove manuscriptContent.
+     *
+     * @param \AppBundle\Entity\ManuscriptContent $manuscriptContent
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeManuscriptContent(\AppBundle\Entity\ManuscriptContent $manuscriptContent)
+    {
+        return $this->manuscriptContents->removeElement($manuscriptContent);
+    }
+
+    /**
+     * Get manuscriptContents.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getManuscriptContents()
+    {
+        return $this->manuscriptContents;
     }
 }

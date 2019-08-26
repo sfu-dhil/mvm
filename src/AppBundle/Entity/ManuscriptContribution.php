@@ -36,7 +36,7 @@ class ManuscriptContribution extends AbstractEntity
 
     /**
      * @var Manuscript
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Manuscript", inversedBy="")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Manuscript", inversedBy="manuscriptContributions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $manuscript;

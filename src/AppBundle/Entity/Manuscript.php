@@ -138,16 +138,16 @@ class Manuscript extends AbstractEntity
     private $themes;
 
     /**
-     * @var Collection|Content[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Content", mappedBy="manuscript", cascade={"persist"})
-     */
-    private $contents;
-
-    /**
      * @var Collection|ManuscriptContribution[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptContribution", mappedBy="manuscript", cascade={"persist"})
      */
     private $manuscriptContributions;
+
+    /**
+     * @var Collection|ManuscriptContent[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptContent", mappedBy="manuscript")
+     */
+    private $manuscriptContents;
 
     /**
      * @var Collection|ManuscriptFeature[]
@@ -158,6 +158,7 @@ class Manuscript extends AbstractEntity
     public function __construct() {
         parent::__construct();
         $this->complete = false;
+        $this->manuscriptContents = new ArrayCollection();
         $this->manuscriptContributions = new ArrayCollection();
         $this->manuscriptFeatures = new ArrayCollection();
         $this->printSources = new ArrayCollection();
@@ -246,42 +247,6 @@ class Manuscript extends AbstractEntity
     public function getArchive()
     {
         return $this->archive;
-    }
-
-    /**
-     * Add content.
-     *
-     * @param \AppBundle\Entity\content $content
-     *
-     * @return Manuscript
-     */
-    public function addContent(\AppBundle\Entity\content $content)
-    {
-        $this->contents[] = $content;
-
-        return $this;
-    }
-
-    /**
-     * Remove content.
-     *
-     * @param \AppBundle\Entity\content $content
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeContent(\AppBundle\Entity\content $content)
-    {
-        return $this->contents->removeElement($content);
-    }
-
-    /**
-     * Get contents.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getContents()
-    {
-        return $this->contents;
     }
 
     /**
@@ -786,5 +751,41 @@ class Manuscript extends AbstractEntity
     public function getComplete()
     {
         return $this->complete;
+    }
+
+    /**
+     * Add manuscriptContent.
+     *
+     * @param \AppBundle\Entity\ManuscriptContent $manuscriptContent
+     *
+     * @return Manuscript
+     */
+    public function addManuscriptContent(\AppBundle\Entity\ManuscriptContent $manuscriptContent)
+    {
+        $this->manuscriptContents[] = $manuscriptContent;
+
+        return $this;
+    }
+
+    /**
+     * Remove manuscriptContent.
+     *
+     * @param \AppBundle\Entity\ManuscriptContent $manuscriptContent
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeManuscriptContent(\AppBundle\Entity\ManuscriptContent $manuscriptContent)
+    {
+        return $this->manuscriptContents->removeElement($manuscriptContent);
+    }
+
+    /**
+     * Get manuscriptContents.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getManuscriptContents()
+    {
+        return $this->manuscriptContents;
     }
 }

@@ -23,10 +23,10 @@ class PrintSource extends AbstractTerm
     private $region;
 
     /**
-     * @var Collection|Content
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Content", mappedBy="printSource")
+     * @var Collection|ManuscriptContent
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptContent", mappedBy="printSource")
      */
-    private $contents;
+    private $manuscriptContents;
 
     /**
      * @var Collection|Manuscript
@@ -36,7 +36,7 @@ class PrintSource extends AbstractTerm
 
     public function __construct() {
         parent::__construct();
-        $this->contents = new ArrayCollection();
+        $this->manuscriptContents = new ArrayCollection();
         $this->manuscripts = new ArrayCollection();
     }
 
@@ -62,42 +62,6 @@ class PrintSource extends AbstractTerm
     public function getRegion()
     {
         return $this->region;
-    }
-
-    /**
-     * Add content.
-     *
-     * @param \AppBundle\Entity\Content $content
-     *
-     * @return PrintSource
-     */
-    public function addContent(\AppBundle\Entity\Content $content)
-    {
-        $this->contents[] = $content;
-
-        return $this;
-    }
-
-    /**
-     * Remove content.
-     *
-     * @param \AppBundle\Entity\Content $content
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeContent(\AppBundle\Entity\Content $content)
-    {
-        return $this->contents->removeElement($content);
-    }
-
-    /**
-     * Get contents.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getContents()
-    {
-        return $this->contents;
     }
 
     /**
@@ -136,4 +100,40 @@ class PrintSource extends AbstractTerm
         return $this->manuscripts;
     }
     
+
+    /**
+     * Add manuscriptContent.
+     *
+     * @param \AppBundle\Entity\ManuscriptContent $manuscriptContent
+     *
+     * @return PrintSource
+     */
+    public function addManuscriptContent(\AppBundle\Entity\ManuscriptContent $manuscriptContent)
+    {
+        $this->manuscriptContents[] = $manuscriptContent;
+
+        return $this;
+    }
+
+    /**
+     * Remove manuscriptContent.
+     *
+     * @param \AppBundle\Entity\ManuscriptContent $manuscriptContent
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeManuscriptContent(\AppBundle\Entity\ManuscriptContent $manuscriptContent)
+    {
+        return $this->manuscriptContents->removeElement($manuscriptContent);
+    }
+
+    /**
+     * Get manuscriptContents.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getManuscriptContents()
+    {
+        return $this->manuscriptContents;
+    }
 }
