@@ -86,7 +86,7 @@ class Content extends AbstractEntity
      * @return string
      */
     public function __toString() {
-        return $this->title;
+        return $this->firstLine;
     }
 
     /**

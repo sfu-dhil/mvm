@@ -38,7 +38,7 @@ class LoadContent extends Fixture implements DependentFixtureInterface
         $manager->getClassMetadata(Content::class)->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
     
         $item1 = new Content();
-        $item1->setTitle("To a Butterfly");
+        $item1->setFirstLine("To a Butterfly");
         $item1->setTranscription("<p>I've watched you now a full half-hour;<br />Self-poised upon that yellow flower<br />And, little Butterfly! indeed<br />I know not if you sleep or feed.<br />How motionless!--not frozen seas<br />More motionless! and then<br />What joy awaits you, when the breeze<br />Hath found you out among the trees,<br />And calls you forth again!</p>
 <p>This plot of orchard-ground is ours;<br />My trees they are, my Sister's flowers;<br />Here rest your wings when they are weary;<br />Here lodge as in a sanctuary!<br />Come often to us, fear no wrong;<br />Sit near us on the bough!<br />We'll talk of sunshine and of song,<br />And summer days, when we were young;<br />Sweet childish days, that were as long<br />As twenty days are now.</p>
 <hr />
