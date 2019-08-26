@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ManuscriptContent List{% endblock %}
+
+{% block pageheader %}
+    <h1>ManuscriptContent List</h1>
+    <p class="count">
+        Displaying {{ manuscriptContents|length }} manuscriptContents of {{ manuscriptContents.getTotalItemCount }} total.
+    </p>
+ {% endblock %} 
+
+{% block body %}
+
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Context</th>
+                </tr>
+        </thead>
+        <tbody>
+        {% for manuscriptContent in manuscriptContents %}
+            <tr>
+                <td>
+                    <a href="{{ path('manuscript_content_show', { 'id': manuscriptContent.id }) }}">
+                        {{ manuscriptContent.context }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(manuscriptContents) }}
+    </div>
+
+{% endblock %}

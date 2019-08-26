@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ManuscriptContent;
+use AppBundle\Form\ManuscriptContentsType;
+use AppBundle\Form\ManuscriptContentType;
 use AppBundle\Form\ManuscriptContributionsType;
 use AppBundle\Form\ManuscriptFeaturesType;
 use Symfony\Component\HttpFoundation\Request;
@@ -258,11 +261,25 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/contents", name="manuscript_contents", methods={"GET"})
+     * @Route("/{id}/contents", name="manuscript_contents", methods={"GET", "POST"})
      * @Template()
      */
-    public function contentAction(Request $request, Manuscript $manuscript) {
-
+    public function contentsAction(Request $request, Manuscript $manuscript) {
+        $editForm = $this->createForm(ManuscriptContentsType::class, $manuscript);
+        $editForm->handleRequest($request);
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            foreach($manuscript->getManuscriptContents() as $content) {
+                $content->setManuscript($manuscript);
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $this->addFlash('success', 'The manuscript has been updated.');
+            return $this->redirectToRoute('manuscript_show', array('id' => $manuscript->getId()));
+        }
+        return array(
+            'manuscript' => $manuscript,
+            'edit_form' => $editForm->createView(),
+        );
     }
 
     /**

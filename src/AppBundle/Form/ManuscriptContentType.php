@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Manuscript;
+use AppBundle\Entity\Content;
 use AppBundle\Entity\PrintSource;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,9 +12,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 /**
- * ContentType form.
+ * ManuscriptContentType form.
  */
-class ContentType extends AbstractType {
+class ManuscriptContentType extends AbstractType {
 
     /**
      * Add form fields to $builder.
@@ -23,34 +23,39 @@ class ContentType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('firstLine', null, array(
-            'label'    => 'First Line',
+
+        $builder->add('content', Select2EntityType::class, array(
+            'label' => 'Content',
+            'multiple' => false,
+            'remote_route' => 'content_typeahead',
+            'class' => Content::class,
             'required' => true,
-            'attr'     => array(
-                'help_block' => '',
+            'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'content_new_popup',
+                'add_label' => 'Add Content',
             ),
         ));
-        $builder->add('title', null, array(
-            'label'    => 'Title',
+
+        $builder->add('printSource', Select2EntityType::class, array(
+            'label' => 'Print Source',
+            'multiple' => false,
+            'remote_route' => 'print_source_typeahead',
+            'class' => PrintSource::class,
+            'required' => true,
+            'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'print_source_new_popup',
+                'add_label' => 'Add Print Source',
+            ),
+        ));
+
+        $builder->add('context', null, array(
+            'label'    => 'Context',
             'required' => false,
             'attr'     => array(
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('transcription', null, array(
-            'label'    => 'Transcription',
-            'required' => false,
-            'attr'     => array(
-                'help_block' => '',
-                'class'      => 'tinymce',
-            ),
-        ));
-        $builder->add('description', null, array(
-            'label'    => 'Description',
-            'required' => false,
-            'attr'     => array(
-                'help_block' => '',
-                'class'      => 'tinymce',
+                'class' => 'tinymce',
             ),
         ));
     }
@@ -65,7 +70,7 @@ class ContentType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Content',
+            'data_class' => 'AppBundle\Entity\ManuscriptContent',
         ));
     }
 

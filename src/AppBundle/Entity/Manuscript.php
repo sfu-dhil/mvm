@@ -145,7 +145,7 @@ class Manuscript extends AbstractEntity
 
     /**
      * @var Collection|ManuscriptContent[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptContent", mappedBy="manuscript")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptContent", mappedBy="manuscript", cascade={"persist"})
      */
     private $manuscriptContents;
 

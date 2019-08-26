@@ -146,6 +146,31 @@
         </tbody>
     </table>
 
+    <h2>Manuscript Contents</h2>
+    {% if is_granted('ROLE_CONTENT_ADMIN') %}
+        <div class="pull-right">
+            <a href="{{ path('manuscript_contents', { 'id': manuscript.id }) }}" class="btn btn-default">
+                <span class='glyphicon glyphicon-edit'></span> Edit Contents</a>
+        </div>
+    {% endif %}
+    {% if manuscript.manuscriptContents | length > 0 %}
+        <dl>
+            {% for manuscriptContent in manuscript.manuscriptContents %}
+                <dt>
+                    <a href="{{ path('content_show', {'id': manuscriptContent.content.id}) }}">{{ manuscriptContent.content }}</a>
+                </dt>
+                {% if manuscriptContent.context %}
+                    <dd>{{ manuscriptContent.context|raw }}</dd>
+                {% endif %}
+                {% if manuscriptContent.printSource %}
+                    <dd>Print source: {{ manuscriptContent.printSource }}</dd>
+                {% endif %}
+            {% endfor %}
+        </dl>
+    {% else %}
+        <p>No contents in this manuscript are recorded.</p>
+    {% endif %}
+
     <h2>Manuscript Contributors</h2>
     {% if is_granted('ROLE_CONTENT_ADMIN') %}
         <div class="pull-right">

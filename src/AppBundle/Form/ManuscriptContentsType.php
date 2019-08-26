@@ -2,9 +2,10 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Manuscript;
+use AppBundle\Entity\ManuscriptContent;
 use AppBundle\Entity\PrintSource;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -12,9 +13,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 /**
- * ContentType form.
+ * ManuscriptContentType form.
  */
-class ContentType extends AbstractType {
+class ManuscriptContentsType extends AbstractType {
 
     /**
      * Add form fields to $builder.
@@ -23,35 +24,21 @@ class ContentType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('firstLine', null, array(
-            'label'    => 'First Line',
-            'required' => true,
-            'attr'     => array(
-                'help_block' => '',
+
+        $builder->add('manuscript_contents', CollectionType::class, array(
+            'label' => 'Contents',
+            'allow_add' => true,
+            'allow_delete' => true,
+            'prototype' => true,
+            'entry_type' => ManuscriptContentType::class,
+            'entry_options' => array(
+                'label' => false,
             ),
-        ));
-        $builder->add('title', null, array(
-            'label'    => 'Title',
             'required' => false,
-            'attr'     => array(
+            'attr' => array(
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('transcription', null, array(
-            'label'    => 'Transcription',
-            'required' => false,
-            'attr'     => array(
-                'help_block' => '',
-                'class'      => 'tinymce',
-            ),
-        ));
-        $builder->add('description', null, array(
-            'label'    => 'Description',
-            'required' => false,
-            'attr'     => array(
-                'help_block' => '',
-                'class'      => 'tinymce',
-            ),
+                'class' => 'collection collection-complex',
+            )
         ));
     }
 
@@ -65,7 +52,7 @@ class ContentType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Content',
+            'data_class' => 'AppBundle\Entity\Manuscript',
         ));
     }
 
