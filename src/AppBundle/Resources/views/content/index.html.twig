@@ -26,8 +26,6 @@
             <tr>
                 <th>First Line</th>
                 <th>Transcription</th>
-                <th>Context</th>
-                <th>Description</th>
             </tr>
         </thead>
         <tbody>
@@ -38,8 +36,6 @@
                             {{ content.firstLine }}
                         </a>
                     </td>
-                    <td>{{ content.transcription|raw }}</td>
-                    <td>{{ content.context|raw }}</td>
                     <td>{{ content.description|raw }}</td>
                 </tr>
             {% endfor %}

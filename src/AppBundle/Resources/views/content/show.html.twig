@@ -34,30 +34,8 @@
                 <td>{{ content.transcription|raw }}</td>
             </tr>
             <tr>
-                <th>Context</th>
-                <td>{{ content.context|raw }}</td>
-            </tr>
-            <tr>
                 <th>Description</th>
                 <td>{{ content.description|raw }}</td>
-            </tr>
-            <tr>
-                <th>Manuscript</th>
-                <td>
-                    <a href="{{ path('manuscript_show', { 'id': content.manuscript.id}) }}">
-                        {{ content.manuscript }}
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th>Print Source</th>
-                <td>
-                    {% if content.printSource %}
-                        <a href="{{ path('print_source_show', { 'id': content.printSource.id}) }}">
-                            {{ content.printSource }}
-                        </a>
-                    {% endif %}
-                </td>
             </tr>
             <tr>
                 <th>Created</th>

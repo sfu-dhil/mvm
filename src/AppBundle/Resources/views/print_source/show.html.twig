@@ -47,16 +47,4 @@
         </ul>
     {% endif %}
 
-    {% if printSource.contents | length > 0 %}
-        <h2>Contents</h2>
-        <ul>
-            {% for content in printSource.contents %}
-                <li>
-                    <a href="{{ path("content_show", {"id":content.id}) }}">
-                        {{ content }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
 {% endblock %}
