@@ -17,6 +17,9 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  */
 class Person extends AbstractEntity
 {
+    const MALE = 'M';
+
+    const FEMALE = 'F';
 
     /**
      * @var boolean
@@ -41,6 +44,12 @@ class Person extends AbstractEntity
      * @ORM\Column(type="string", nullable=false)
      */
     private $sortableName;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=1, nullable=true)
+     */
+    private $gender;
 
     /**
      * @var string
@@ -398,5 +407,29 @@ class Person extends AbstractEntity
     public function getAnonymous()
     {
         return $this->anonymous;
+    }
+
+    /**
+     * Set gender.
+     *
+     * @param string|null $gender
+     *
+     * @return Person
+     */
+    public function setGender($gender = null)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get gender.
+     *
+     * @return string|null
+     */
+    public function getGender()
+    {
+        return $this->gender;
     }
 }

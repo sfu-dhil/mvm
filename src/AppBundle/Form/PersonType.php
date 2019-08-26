@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Person;
 use AppBundle\Entity\Region;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -39,6 +40,7 @@ class PersonType extends AbstractType {
             ),
         ));
         $builder->add('variantNames', null, array(
+            'label' => 'Variant Names',
             'allow_add'     => true,
             'allow_delete'  => true,
             'prototype'     => true,
@@ -61,6 +63,18 @@ class PersonType extends AbstractType {
             ),
         ));
 
+        $builder->add('gender', ChoiceType::class, array(
+            'expanded' => true,
+            'multiple' => false,
+            'required' => false,
+            'choices' => array(
+                'Female' => Person::FEMALE,
+                'Male' => Person::MALE,
+                'Unknown' => '',
+            ),
+            'preferred_choices' => [Person::FEMALE, Person::MALE]
+        ));
+
         $builder->add('description', null, array(
             'label'    => 'Description',
             'required' => false,
@@ -71,21 +85,21 @@ class PersonType extends AbstractType {
         ));
 
         $builder->add('birthDate', TextType::class, array(
-            'label'    => 'Birth date',
+            'label'    => 'Birth Date',
             'required' => false,
             'attr'     => array(
                 'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
             ),
         ));
         $builder->add('deathDate', TextType::class, array(
-            'label'    => 'Death date',
+            'label'    => 'Death Date',
             'required' => false,
             'attr'     => array(
                 'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
             ),
         ));
         $builder->add('birthRegion', Select2EntityType::class, array(
-            'label'        => 'Birth region',
+            'label'        => 'Birth Region',
             'multiple'     => false,
             'remote_route' => 'region_typeahead',
             'class'        => Region::class,
@@ -97,7 +111,7 @@ class PersonType extends AbstractType {
             ),
         ));
         $builder->add('deathRegion', Select2EntityType::class, array(
-            'label'        => 'Death region',
+            'label'        => 'Death Region',
             'multiple'     => false,
             'remote_route' => 'region_typeahead',
             'class'        => Region::class,

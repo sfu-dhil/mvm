@@ -22,25 +22,32 @@
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody>
             <tr>
-                <th>Full name</th>
+                <th>Full Name</th>
                 <td>{{ person }}</td>
             </tr>
             {% if is_granted('ROLE_CONTENT_ADMIN') %}
-            <tr>
-                <th>Sortable name</th>
-                <td>{{ person.sortableName }}</td>
-            </tr>
+                <tr>
+                    <th>Sortable Name</th>
+                    <td>{{ person.sortableName }}</td>
+                </tr>
             {% endif %}
             <tr>
-                <th>Variant names</th>
+                <th>Variant Names</th>
                 <td>{% if person.variantNames|length > 0 %}{{ person.variantNames|join(', ') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Birth date</th>
+                <th>Gender</th>
+                <td>
+                    {% include 'AppBundle:person/partial:gender.html.twig' %}
+                </td>
+
+            </tr>
+            <tr>
+                <th>Birth Date</th>
                 <td>{{ person.birthDate }}</td>
             </tr>
             <tr>
-                <th>Death date</th>
+                <th>Death Date</th>
                 <th>{{ person.deathDate }}</th>
             </tr>
             <tr>

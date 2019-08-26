@@ -28,6 +28,7 @@
                 {% if is_granted('ROLE_CONTENT_ADMIN') %}
                 <th>Sortable Name</th>
                 {% endif %}
+                <th>Gender</th>
             </tr>
         </thead>
         <tbody>
@@ -39,8 +40,13 @@
                         </a>
                     </td>
                     {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                   <td>{{ person.sortableName }}</td>
+                        <td>
+                            {{ person.sortableName }}
+                        </td>
                     {% endif %}
+                    <td>
+                        {% include 'AppBundle:person/partial:gender.html.twig' %}
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

@@ -11,8 +11,8 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * Content
  *
  * @ORM\Table(name="content", indexes={
- *   @ORM\Index(name="content_ft", columns={"title", "transcription"}, flags={"fulltext"}),
- *   @ORM\Index(name="content_title_idx", columns={"title"})
+ *   @ORM\Index(name="content_ft", columns={"title", "first_line", "transcription"}, flags={"fulltext"}),
+ *   @ORM\Index(name="content_firstline_idx", columns={"first_line"})
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentRepository")
  */
@@ -22,6 +22,12 @@ class Content extends AbstractEntity
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
+     */
+    private $firstLine;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
      */
     private $title;
 
@@ -297,5 +303,29 @@ class Content extends AbstractEntity
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set firstLine.
+     *
+     * @param string $firstLine
+     *
+     * @return Content
+     */
+    public function setFirstLine($firstLine)
+    {
+        $this->firstLine = $firstLine;
+
+        return $this;
+    }
+
+    /**
+     * Get firstLine.
+     *
+     * @return string
+     */
+    public function getFirstLine()
+    {
+        return $this->firstLine;
     }
 }
