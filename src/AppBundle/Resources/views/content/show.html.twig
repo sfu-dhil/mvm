@@ -47,18 +47,25 @@
             </tr>
         </tbody>
     </table>
-    {% if content.contributions | length > 0 %}
-        <h2>Contributions</h2>
-        <ul>
-            {% for contribution in content.contributions %}
-                <li>
-                    <a href="{{ path("content_contribution_show", {"id":contribution.id}) }}">
-                        {{ contribution }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
+
+    <h2>Contributions</h2>
+    {% if is_granted('ROLE_CONTENT_ADMIN') %}
+        <div class="pull-right">
+            <a href="#" class="btn btn-default"> <span class='glyphicon glyphicon-edit'></span> Edit Features</a>
+        </div>
     {% endif %}
+
+    {% if content.contributions | length > 0 %}
+        <dl>
+            {% for contribution in content.contributions %}
+                <dt>{{ contribution.role }}</dt>
+                <dd>{{ contribution.person }}</dd>
+            {% endfor %}
+        </dl>
+    {% else %}
+        <p>No contributions have been recorded for this content.</p>
+    {% endif %}
+
     {% if content.images | length > 0 %}
         <h2>Images</h2>
         <ul>
