@@ -65,6 +65,7 @@ twig:
         piwik_url: '%dhil.piwik_url%'
         piwik_siteid: '%dhil.piwik_siteid%'
         piwik_domain: '%dhil.piwik_domain%'
+        nines_editor_config: bundles/app/js/editor-config.js
     date:
         format: Y-m-d, H:i:s
         interval_format: '%%d days'
