@@ -45,7 +45,7 @@ class Content extends AbstractEntity
 
     /**
      * @var Collection|ContentContribution
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ContentContribution", mappedBy="content")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ContentContribution", mappedBy="content", cascade={"persist"})
      */
     private $contributions;
 

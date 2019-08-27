@@ -51,15 +51,24 @@
     <h2>Contributions</h2>
     {% if is_granted('ROLE_CONTENT_ADMIN') %}
         <div class="pull-right">
-            <a href="#" class="btn btn-default"> <span class='glyphicon glyphicon-edit'></span> Edit Features</a>
+            <a href="{{ path('content_contributions', {'id': content.id}) }}" class="btn btn-default">
+                <span class='glyphicon glyphicon-edit'></span> Edit Contributions</a>
         </div>
     {% endif %}
 
     {% if content.contributions | length > 0 %}
         <dl>
             {% for contribution in content.contributions %}
-                <dt>{{ contribution.role }}</dt>
-                <dd>{{ contribution.person }}</dd>
+                <dt>{{ contribution.role }}:
+                    <a href="{{ path('person_show', {'id': contribution.person.id}) }}">
+                        {{ contribution.person }}
+                    </a>
+                </dt>
+                {% if contribution.note %}
+                    <dd>
+                        {{ contribution.note|raw }}
+                    </dd>
+                {% endif %}
             {% endfor %}
         </dl>
     {% else %}

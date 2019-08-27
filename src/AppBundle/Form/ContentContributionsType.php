@@ -6,6 +6,7 @@ use AppBundle\Entity\Content;
 use AppBundle\Entity\ContentRole;
 use AppBundle\Entity\Person;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -15,7 +16,7 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 /**
  * ContentContributionType form.
  */
-class ContentContributionType extends AbstractType
+class ContentContributionsType extends AbstractType
 {
     /**
      * Add form fields to $builder.
@@ -25,37 +26,20 @@ class ContentContributionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('role', Select2EntityType::class, array(
-            'label' => 'Content Role',
-            'multiple' => false,
-            'remote_route' => 'content_role_typeahead',
-            'class' => ContentRole::class,
-            'required' => true,
-            'allow_clear' => true,
-            'attr' => array(
-                'add_path' => 'content_role_new_popup',
-                'add_label' => 'Add Role',
-            )
-        ));
-        $builder->add('person', Select2EntityType::class, array(
-            'label' => 'Contributor',
-            'multiple' => false,
-            'remote_route' => 'person_typeahead',
-            'class' => Person::class,
-            'required' => true,
-            'allow_clear' => true,
-            'attr' => array(
-                'add_path' => 'person_new_popup',
-                'add_label' => 'Add Person',
-            )
-        ));
-        $builder->add('note', null, array(
-            'label' => 'Note',
+        $builder->add('contributions', CollectionType::class,array(
+            'label' => 'Contributions',
+            'allow_add' => true,
+            'allow_delete' => true,
+            'prototype' => true,
+            'entry_type' => ContentContributionType::class,
+            'entry_options' => array(
+                'label' => false,
+            ),
             'required' => false,
             'attr' => array(
                 'help_block' => '',
-                'class' => 'tinymce'
-            ),
+                'class' => 'collection collection-complex',
+            )
         ));
     }
 
@@ -70,7 +54,7 @@ class ContentContributionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\ContentContribution'
+            'data_class' => 'AppBundle\Entity\Content'
         ));
     }
 
