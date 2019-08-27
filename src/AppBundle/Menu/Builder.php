@@ -91,9 +91,6 @@ class Builder implements ContainerAwareInterface
         $browse->addChild("Archive Sources", array(
             'route' => 'archive_index',
         ));
-        $browse->addChild("Content Contributions", array(
-            'route' => 'content_contribution_index',
-        ));
         $browse->addChild("Contents", array(
             'route' => 'content_index',
         ));
@@ -135,6 +132,9 @@ class Builder implements ContainerAwareInterface
             $divider->setAttributes(array(
                 'role' => 'separator',
                 'class' => 'divider',
+            ));
+            $browse->addChild("Content Contributions", array(
+                'route' => 'content_contribution_index',
             ));
             $browse->addChild("Manuscript Contributions", array(
                 'route' => 'manuscript_contribution_index',
