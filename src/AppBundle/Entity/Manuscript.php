@@ -111,11 +111,10 @@ class Manuscript extends AbstractEntity
     private $region;
 
     /**
-     * @var Period
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Period", inversedBy="manuscripts")
-     * @ORM\JoinColumn(nullable=true)
+     * @var Collection|Period[]
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Period", inversedBy="manuscripts")
      */
-    private $period;
+    private $periods;
 
     /**
      * @var Archive
@@ -158,6 +157,7 @@ class Manuscript extends AbstractEntity
     public function __construct() {
         parent::__construct();
         $this->complete = false;
+        $this->periods = new ArrayCollection();
         $this->manuscriptContents = new ArrayCollection();
         $this->manuscriptContributions = new ArrayCollection();
         $this->manuscriptFeatures = new ArrayCollection();
@@ -202,30 +202,6 @@ class Manuscript extends AbstractEntity
     public function getRegion()
     {
         return $this->region;
-    }
-
-    /**
-     * Set period.
-     *
-     * @param \AppBundle\Entity\Period|null $period
-     *
-     * @return Manuscript
-     */
-    public function setPeriod(\AppBundle\Entity\Period $period = null)
-    {
-        $this->period = $period;
-
-        return $this;
-    }
-
-    /**
-     * Get period.
-     *
-     * @return \AppBundle\Entity\Period|null
-     */
-    public function getPeriod()
-    {
-        return $this->period;
     }
 
     /**
@@ -790,5 +766,41 @@ class Manuscript extends AbstractEntity
     public function getManuscriptContents()
     {
         return $this->manuscriptContents;
+    }
+
+    /**
+     * Add period.
+     *
+     * @param \AppBundle\Entity\Period $period
+     *
+     * @return Manuscript
+     */
+    public function addPeriod(\AppBundle\Entity\Period $period)
+    {
+        $this->periods[] = $period;
+
+        return $this;
+    }
+
+    /**
+     * Remove period.
+     *
+     * @param \AppBundle\Entity\Period $period
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removePeriod(\AppBundle\Entity\Period $period)
+    {
+        return $this->periods->removeElement($period);
+    }
+
+    /**
+     * Get periods.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPeriods()
+    {
+        return $this->periods;
     }
 }

@@ -60,9 +60,9 @@ class ManuscriptType extends AbstractType {
                 'add_label' => 'Add Archive Source',
             ),
         ));
-        $builder->add('period', Select2EntityType::class, array(
-            'label'        => 'Period',
-            'multiple'     => false,
+        $builder->add('periods', Select2EntityType::class, array(
+            'label'        => 'Periods',
+            'multiple'     => true,
             'required'     => false,
             'remote_route' => 'period_typeahead',
             'class'        => Period::class,

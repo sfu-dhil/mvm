@@ -26,7 +26,7 @@
             <tr>
                 <th>Title</th>
                 <th>Call number</th>
-                <th>Period</th>
+                <th>Periods</th>
                 <th>Description</th>
             </tr>
         </thead>
@@ -43,7 +43,7 @@
                             {{ manuscript.callNumber }}
                         </a>
                     </td>
-                    <td>{{ manuscript.period }}</td>
+                    <td>{{ manuscript.periods|join(", ") }}</td>
                     <td>{{ manuscript.description|raw }}</td>
                 </tr>
             {% endfor %}

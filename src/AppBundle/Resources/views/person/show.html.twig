@@ -40,7 +40,6 @@
                 <td>
                     {% include 'AppBundle:person/partial:gender.html.twig' %}
                 </td>
-
             </tr>
             <tr>
                 <th>Birth Date</th>
@@ -55,23 +54,14 @@
                 <td>{{ person.description|raw }}</td>
             </tr>
             <tr>
-                <th>Birth Region</th>
+                <th>Regions</th>
                 <td>
-                    {% if person.birthRegion %}
-                        <a href="{{ path('region_show', { 'id': person.birthRegion.id}) }}">
-                            {{ person.birthRegion }}
+                    {% for region in person.regions %}
+                        <a href="{{ path('region_show', { 'id': region.id}) }}">
+                            {{ region -}}
                         </a>
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Death Region</th>
-                <td>
-                    {% if person.deathRegion %}
-                        <a href="{{ path('region_show', { 'id': person.deathRegion.id}) }}">
-                            {{ person.deathRegion }}
-                        </a>
-                    {% endif %}
+                        {%- if not loop.last %}, {% endif %}
+                    {% endfor %}
                 </td>
             </tr>
             <tr>

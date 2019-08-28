@@ -18,7 +18,7 @@ class Period extends AbstractTerm
 
     /**
      * @var Collection|Manuscript[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Manuscript", mappedBy="period")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Manuscript", mappedBy="periods")
      */
     private $manuscripts;
 

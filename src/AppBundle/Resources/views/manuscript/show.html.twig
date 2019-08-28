@@ -46,11 +46,12 @@
             <tr>
                 <th>Period</th>
                 <td>
-                    {% if manuscript.period %}
-                        <a href="{{ path('period_show', { 'id': manuscript.period.id}) }}">
-                            {{ manuscript.period }}
+                    {% for period in manuscript.periods %}
+                        <a href="{{ path('period_show', { 'id': period.id}) }}">
+                            {{ period -}}
                         </a>
-                    {% endif %}
+                        {%- if not loop.last %}, {% endif %}
+                    {% endfor %}
                 </td>
             </tr>
             <tr>

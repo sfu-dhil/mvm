@@ -98,21 +98,9 @@ class PersonType extends AbstractType {
                 'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
             ),
         ));
-        $builder->add('birthRegion', Select2EntityType::class, array(
-            'label'        => 'Birth Region',
-            'multiple'     => false,
-            'remote_route' => 'region_typeahead',
-            'class'        => Region::class,
-            'required'     => false,
-            'allow_clear'  => true,
-            'attr'         => array(
-                'add_path'  => 'region_new_popup',
-                'add_label' => 'Add Region',
-            ),
-        ));
-        $builder->add('deathRegion', Select2EntityType::class, array(
-            'label'        => 'Death Region',
-            'multiple'     => false,
+        $builder->add('regions', Select2EntityType::class, array(
+            'label'        => 'Regions',
+            'multiple'     => true,
             'remote_route' => 'region_typeahead',
             'class'        => Region::class,
             'required'     => false,

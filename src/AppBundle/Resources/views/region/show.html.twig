@@ -59,24 +59,12 @@
             {% endfor %}
         </ul>
     {% endif %}
-    {% if region.peopleBorn | length > 0 %}
+    {% if region.people | length > 0 %}
         <h2>People Born</h2>
         <ul>
-            {% for person in region.peopleBorn %}
+            {% for person in region.people %}
                 <li>
-                    <a href="{{ path("peopleBorn_show", {"id":person.id}) }}">
-                        {{ person }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    {% if region.peopleDied | length > 0 %}
-        <h2>People Died</h2>
-        <ul>
-            {% for person in region.peopleDied %}
-                <li>
-                    <a href="{{ path("peopleDied_show", {"id":person.id}) }}">
+                    <a href="{{ path("person_show", {"id":person.id}) }}">
                         {{ person }}
                     </a>
                 </li>

@@ -70,18 +70,6 @@ class Person extends AbstractEntity
     private $deathDate;
 
     /**
-     * @var Region
-     * @ORM\ManyToOne(targetEntity="Region", inversedBy="peopleBorn")
-     */
-    private $birthRegion;
-
-    /**
-     * @var Region
-     * @ORM\ManyToOne(targetEntity="Region", inversedBy="peopleDied")
-     */
-    private $deathRegion;
-
-    /**
      * @var Collection|ContentContribution[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ContentContribution", mappedBy="person")
      */
@@ -93,8 +81,15 @@ class Person extends AbstractEntity
      */
     private $manuscriptContributions;
 
+    /**
+     * @var Collection|Region[]
+     * @ORM\ManyToMany(targetEntity="Region", inversedBy="people")
+     */
+    private $regions;
+
     public function __construct() {
         parent::__construct();
+        $this->regions = new ArrayCollection();
         $this->contentContributions = new ArrayCollection();
         $this->manuscriptContributions = new ArrayCollection();
     }
@@ -117,6 +112,7 @@ class Person extends AbstractEntity
      * @param \AppBundle\Entity\CircaDate|null $birthDate
      *
      * @return Person
+     * @throws \Exception
      */
     public function setBirthDate($birthDate = null)
     {
@@ -147,6 +143,7 @@ class Person extends AbstractEntity
      * @param \AppBundle\Entity\CircaDate|null $deathDate
      *
      * @return Person
+     * @throws \Exception
      */
     public function setDeathDate($deathDate = null)
     {
@@ -157,6 +154,8 @@ class Person extends AbstractEntity
         } else {
             $this->birthDate = $deathDate;
         }
+
+        return $this;
     }
 
     /**
@@ -167,54 +166,6 @@ class Person extends AbstractEntity
     public function getDeathDate()
     {
         return $this->deathDate;
-    }
-
-    /**
-     * Set birthRegion.
-     *
-     * @param \AppBundle\Entity\Region|null $birthRegion
-     *
-     * @return Person
-     */
-    public function setBirthRegion(\AppBundle\Entity\Region $birthRegion = null)
-    {
-        $this->birthRegion = $birthRegion;
-
-        return $this;
-    }
-
-    /**
-     * Get birthRegion.
-     *
-     * @return \AppBundle\Entity\Region|null
-     */
-    public function getBirthRegion()
-    {
-        return $this->birthRegion;
-    }
-
-    /**
-     * Set deathRegion.
-     *
-     * @param \AppBundle\Entity\Region|null $deathRegion
-     *
-     * @return Person
-     */
-    public function setDeathRegion(\AppBundle\Entity\Region $deathRegion = null)
-    {
-        $this->deathRegion = $deathRegion;
-
-        return $this;
-    }
-
-    /**
-     * Get deathRegion.
-     *
-     * @return \AppBundle\Entity\Region|null
-     */
-    public function getDeathRegion()
-    {
-        return $this->deathRegion;
     }
 
     /**
@@ -431,5 +382,41 @@ class Person extends AbstractEntity
     public function getGender()
     {
         return $this->gender;
+    }
+
+    /**
+     * Add region.
+     *
+     * @param \AppBundle\Entity\Region $region
+     *
+     * @return Person
+     */
+    public function addRegion(\AppBundle\Entity\Region $region)
+    {
+        $this->regions[] = $region;
+
+        return $this;
+    }
+
+    /**
+     * Remove region.
+     *
+     * @param \AppBundle\Entity\Region $region
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeRegion(\AppBundle\Entity\Region $region)
+    {
+        return $this->regions->removeElement($region);
+    }
+
+    /**
+     * Get regions.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRegions()
+    {
+        return $this->regions;
     }
 }

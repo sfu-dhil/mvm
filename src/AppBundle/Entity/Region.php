@@ -40,22 +40,15 @@ class Region extends AbstractEntity
 
     /**
      * @var Collection|People[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Person", mappedBy="birthRegion")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Person", mappedBy="regions")
      */
-    private $peopleBorn;
-
-    /**
-     * @var Collection|People[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Person", mappedBy="deathRegion")
-     */
-    private $peopleDied;
+    private $people;
 
     public function __construct() {
         parent::__construct();
         $this->manuscripts = new ArrayCollection();
         $this->printSources = new ArrayCollection();
-        $this->peopleDied = new ArrayCollection();
-        $this->peopleBorn = new ArrayCollection();
+        $this->people = new ArrayCollection();
     }
 
     /**
@@ -140,78 +133,6 @@ class Region extends AbstractEntity
     }
 
     /**
-     * Add peopleBorn.
-     *
-     * @param \AppBundle\Entity\Person $peopleBorn
-     *
-     * @return Region
-     */
-    public function addPeopleBorn(\AppBundle\Entity\Person $peopleBorn)
-    {
-        $this->peopleBorn[] = $peopleBorn;
-
-        return $this;
-    }
-
-    /**
-     * Remove peopleBorn.
-     *
-     * @param \AppBundle\Entity\Person $peopleBorn
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removePeopleBorn(\AppBundle\Entity\Person $peopleBorn)
-    {
-        return $this->peopleBorn->removeElement($peopleBorn);
-    }
-
-    /**
-     * Get peopleBorn.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPeopleBorn()
-    {
-        return $this->peopleBorn;
-    }
-
-    /**
-     * Add peopleDied.
-     *
-     * @param \AppBundle\Entity\Person $peopleDied
-     *
-     * @return Region
-     */
-    public function addPeopleDied(\AppBundle\Entity\Person $peopleDied)
-    {
-        $this->peopleDied[] = $peopleDied;
-
-        return $this;
-    }
-
-    /**
-     * Remove peopleDied.
-     *
-     * @param \AppBundle\Entity\Person $peopleDied
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removePeopleDied(\AppBundle\Entity\Person $peopleDied)
-    {
-        return $this->peopleDied->removeElement($peopleDied);
-    }
-
-    /**
-     * Get peopleDied.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPeopleDied()
-    {
-        return $this->peopleDied;
-    }
-
-    /**
      * Set name.
      *
      * @param string $name
@@ -235,27 +156,40 @@ class Region extends AbstractEntity
         return $this->name;
     }
 
+
     /**
-     * Set sortableName.
+     * Add person.
      *
-     * @param string $sortableName
+     * @param \AppBundle\Entity\Person $person
      *
      * @return Region
      */
-    public function setSortableName($sortableName)
+    public function addPerson(\AppBundle\Entity\Person $person)
     {
-        $this->sortableName = $sortableName;
+        $this->people[] = $person;
 
         return $this;
     }
 
     /**
-     * Get sortableName.
+     * Remove person.
      *
-     * @return string
+     * @param \AppBundle\Entity\Person $person
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function getSortableName()
+    public function removePerson(\AppBundle\Entity\Person $person)
     {
-        return $this->sortableName;
+        return $this->people->removeElement($person);
+    }
+
+    /**
+     * Get people.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPeople()
+    {
+        return $this->people;
     }
 }
