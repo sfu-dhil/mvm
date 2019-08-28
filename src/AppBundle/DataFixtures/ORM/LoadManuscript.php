@@ -48,8 +48,8 @@ class LoadManuscript extends Fixture implements DependentFixtureInterface
         $item1->setItemCount(25);
         $item1->setPoemCount(23);
         $item1->setAdditionalGenres(unserialize('a:0:{}'));
-        $item1->setRegion($this->getReference('_reference_Region1'));
-        $item1->setPeriod($this->getReference('_reference_Period1'));
+        $item1->addRegion($this->getReference('_reference_Region1'));
+        $item1->addPeriod($this->getReference('_reference_Period1'));
         $item1->setArchive($this->getReference('_reference_Archive1'));
         $item1->setCreated(new \DateTime("2019-07-29 22:35:10"));
         $item1->setUpdated(new \DateTime("2019-07-29 22:35:10"));

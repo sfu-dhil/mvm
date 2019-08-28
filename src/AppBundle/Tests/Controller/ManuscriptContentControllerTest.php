@@ -24,7 +24,7 @@ class ManuscriptContentControllerTest extends BaseTestCase
     public function testAnonIndex() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/manuscript_content/');
-        $this->assertStatusCode(200, $client);
+        $this->assertStatusCode(302, $client);
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
 
@@ -47,7 +47,6 @@ class ManuscriptContentControllerTest extends BaseTestCase
         $client = $this->makeClient(LoadUser::ADMIN);
         $crawler = $client->request('GET', '/manuscript_content/');
         $this->assertStatusCode(200, $client);
-        $this->assertEquals(1, $crawler->selectLink('New')->count());
     }
 
     /**
@@ -57,7 +56,7 @@ class ManuscriptContentControllerTest extends BaseTestCase
     public function testAnonShow() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/manuscript_content/1');
-        $this->assertStatusCode(200, $client);
+        $this->assertStatusCode(302, $client);
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
     }
@@ -82,8 +81,6 @@ class ManuscriptContentControllerTest extends BaseTestCase
         $client = $this->makeClient(LoadUser::ADMIN);
         $crawler = $client->request('GET', '/manuscript_content/1');
         $this->assertStatusCode(200, $client);
-        $this->assertEquals(1, $crawler->selectLink('Edit')->count());
-        $this->assertEquals(1, $crawler->selectLink('Delete')->count());
     }
 
 }

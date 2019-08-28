@@ -82,7 +82,7 @@ class ContentControllerTest extends BaseTestCase
         $client = $this->makeClient(LoadUser::ADMIN);
         $crawler = $client->request('GET', '/content/1');
         $this->assertStatusCode(200, $client);
-        $this->assertEquals(1, $crawler->selectLink('Edit')->count());
+        $this->assertEquals(2, $crawler->selectLink('Edit')->count());
         $this->assertEquals(1, $crawler->selectLink('Delete')->count());
     }
 

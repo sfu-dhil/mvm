@@ -25,7 +25,6 @@ class LoadContent extends Fixture implements DependentFixtureInterface
     {
         return array(
             LoadManuscript::class,
-            LoadPrintSource::class,
         );
     }
 
@@ -45,10 +44,7 @@ class LoadContent extends Fixture implements DependentFixtureInterface
 <p>STAY near me--do not take thy flight!<br />A little longer stay in sight!<br />Much converse do I find in thee,<br />Historian of my infancy!<br />Float near me; do not yet depart!<br />Dead times revive in thee:<br />Thou bring'st, gay creature as thou art!<br />A solemn image to my heart,<br />My father's family!</p>
 <p>Oh! pleasant, pleasant were the days,<br />The time, when, in our childish plays,<br />My sister Emmeline and I<br />Together chased the butterfly!<br />A very hunter did I rush<br />Upon the prey:--with leaps and springs<br />I followed on from brake to bush;<br />But she, God love her, feared to brush<br />The dust from off its wings.</p>
 <p>&nbsp;</p>");
-        $item1->setContext("<p>Found with a drawing of a butterfly and this note: \"I wish I was the butterfly.\"</p>");
         $item1->setDescription("<p>Marge's handwriting, with additional note.</p>");
-        $item1->setManuscript($this->getReference('_reference_Manuscript1'));
-        $item1->setPrintSource($this->getReference('_reference_PrintSource1'));
         $item1->setCreated(new \DateTime("2019-07-29 22:41:59"));
         $item1->setUpdated(new \DateTime("2019-07-29 22:41:59"));
         $this->addReference('_reference_Content1', $item1);
