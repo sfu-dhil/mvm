@@ -85,11 +85,11 @@
             <tr>
                 <th>Region</th>
                 <td>
-                    {% if manuscript.region %}
-                        <a href="{{ path('region_show', { 'id': manuscript.region.id}) }}">
-                            {{ manuscript.region }}
-                        </a>
-                    {% endif %}
+                    {% for region in manuscript.regions %}
+                        <a href="{{ path('region_show', { 'id': region.id}) }}">
+                            {{ region -}}
+                        </a>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
                 </td>
             </tr>
             <tr>

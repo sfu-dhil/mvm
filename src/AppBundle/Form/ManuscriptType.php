@@ -107,9 +107,9 @@ class ManuscriptType extends AbstractType {
             'required' => false,
             'attr'     => array('help_block' => '',),
         ));
-        $builder->add('region', Select2EntityType::class, array(
+        $builder->add('regions', Select2EntityType::class, array(
             'label'        => 'Region',
-            'multiple'     => false,
+            'multiple'     => true,
             'remote_route' => 'region_typeahead',
             'class'        => Region::class,
             'required'     => false,

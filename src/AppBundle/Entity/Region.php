@@ -34,7 +34,7 @@ class Region extends AbstractEntity
 
     /**
      * @var Collection|Manuscript[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Manuscript", mappedBy="region")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Manuscript", mappedBy="regions")
      */
     private $manuscripts;
 

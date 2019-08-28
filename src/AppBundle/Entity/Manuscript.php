@@ -104,13 +104,6 @@ class Manuscript extends AbstractEntity
     private $complete;
 
     /**
-     * @var Region
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Region", inversedBy="manuscripts")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $region;
-
-    /**
      * @var Collection|Period[]
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Period", inversedBy="manuscripts")
      */
@@ -137,6 +130,12 @@ class Manuscript extends AbstractEntity
     private $themes;
 
     /**
+     * @var Region
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Region", inversedBy="manuscripts")
+     */
+    private $regions;
+
+    /**
      * @var Collection|ManuscriptContribution[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptContribution", mappedBy="manuscript", cascade={"persist"})
      */
@@ -157,6 +156,7 @@ class Manuscript extends AbstractEntity
     public function __construct() {
         parent::__construct();
         $this->complete = false;
+        $this->regions = new ArrayCollection();
         $this->periods = new ArrayCollection();
         $this->manuscriptContents = new ArrayCollection();
         $this->manuscriptContributions = new ArrayCollection();
@@ -178,30 +178,6 @@ class Manuscript extends AbstractEntity
             $s = '[' . $this->title . ']';
         }
         return $s . ' ' . $this->callNumber;
-    }
-
-    /**
-     * Set region.
-     *
-     * @param \AppBundle\Entity\Region|null $region
-     *
-     * @return Manuscript
-     */
-    public function setRegion(\AppBundle\Entity\Region $region = null)
-    {
-        $this->region = $region;
-
-        return $this;
-    }
-
-    /**
-     * Get region.
-     *
-     * @return \AppBundle\Entity\Region|null
-     */
-    public function getRegion()
-    {
-        return $this->region;
     }
 
     /**
@@ -802,5 +778,41 @@ class Manuscript extends AbstractEntity
     public function getPeriods()
     {
         return $this->periods;
+    }
+
+    /**
+     * Add region.
+     *
+     * @param \AppBundle\Entity\Region $region
+     *
+     * @return Manuscript
+     */
+    public function addRegion(\AppBundle\Entity\Region $region)
+    {
+        $this->regions[] = $region;
+
+        return $this;
+    }
+
+    /**
+     * Remove region.
+     *
+     * @param \AppBundle\Entity\Region $region
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeRegion(\AppBundle\Entity\Region $region)
+    {
+        return $this->regions->removeElement($region);
+    }
+
+    /**
+     * Get regions.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRegions()
+    {
+        return $this->regions;
     }
 }
