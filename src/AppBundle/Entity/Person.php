@@ -150,9 +150,9 @@ class Person extends AbstractEntity
         if(is_string($deathDate) || is_numeric($deathDate)) {
             $dateYear = new CircaDate();
             $dateYear->setValue($deathDate);
-            $this->birthDate = $dateYear;
+            $this->deathDate = $dateYear;
         } else {
-            $this->birthDate = $deathDate;
+            $this->deathDate = $deathDate;
         }
 
         return $this;
