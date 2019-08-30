@@ -75,6 +75,23 @@
         <p>No contributions have been recorded for this content.</p>
     {% endif %}
 
+    <h2>Manuscripts</h2>
+    {% if content.manuscriptContents|length > 0 %}
+        <dl>
+            {% for manuscriptContent in content.manuscriptContents %}
+            <dt>
+                <a href="{{ path('manuscript_show', {'id': manuscriptContent.manuscript.id }) }}">
+                    {{ manuscriptContent.manuscript }}
+                </a>
+            </dt>
+            <dd>{{ manuscriptContent.context|raw }}</dd>
+            {% endfor %}
+        </dl>
+    {% else %}
+        <p>This content is not associated with any manuscripts.</p>
+    {% endif %}
+
+
     {% if content.images | length > 0 %}
         <h2>Images</h2>
         <ul>

@@ -22,7 +22,7 @@
             <tr>
                 <td>
                     <a href="{{ path('manuscript_content_show', { 'id': manuscriptContent.id }) }}">
-                        {{ manuscriptContent.context }}
+                        {{ manuscriptContent.context|raw }}
                     </a>
                 </td>
             </tr>

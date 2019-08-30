@@ -16,18 +16,6 @@
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody>
             <tr>
-                <th>Context</th>
-                <td>{{ manuscriptContent.context }}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{% if manuscriptContent.created %}{{ manuscriptContent.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if manuscriptContent.updated %}{{ manuscriptContent.updated|date }}{% endif %}</td>
-            </tr>
-            <tr>
                 <th>Content</th>
                 <td>
                     <a href="{{ path('content_show', { 'id': manuscriptContent.content.id}) }}">
@@ -44,12 +32,26 @@
                 </td>
             </tr>
             <tr>
+                <th>Context</th>
+                <td>{{ manuscriptContent.context|raw }}</td>
+            </tr>
+            <tr>
                 <th>Print Source</th>
                 <td>
-                    <a href="{{ path('print_source_show', { 'id': manuscriptContent.printSource.id}) }}">
-                        {{ manuscriptContent.printSource }}
-                    </a>
+                    {% if manuscriptContent.printSource %}
+                        <a href="{{ path('print_source_show', { 'id': manuscriptContent.printSource.id}) }}">
+                            {{ manuscriptContent.printSource }}
+                        </a>
+                    {% endif %}
                 </td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if manuscriptContent.created %}{{ manuscriptContent.created|date }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if manuscriptContent.updated %}{{ manuscriptContent.updated|date }}{% endif %}</td>
             </tr>
         </tbody>
     </table>

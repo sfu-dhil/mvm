@@ -136,6 +136,9 @@ class Builder implements ContainerAwareInterface
             $browse->addChild("Content Contributions", array(
                 'route' => 'content_contribution_index',
             ));
+            $browse->addChild("Manuscript Contents", array(
+                'route' => 'manuscript_content_index',
+            ));
             $browse->addChild("Manuscript Contributions", array(
                 'route' => 'manuscript_contribution_index',
             ));

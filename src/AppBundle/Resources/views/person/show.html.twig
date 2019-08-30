@@ -74,8 +74,8 @@
             </tr>
         </tbody>
     </table>
+    <h2>Content Contributions</h2>
     {% if person.contentContributions | length > 0 %}
-        <h2>Content Contributions</h2>
         <ul>
             {% for contentContribution in person.contentContributions %}
                 <li>
@@ -85,9 +85,12 @@
                 </li>
             {% endfor %}
         </ul>
+    {% else %}
+        <p>No content contributions recorded for this person.</p>
     {% endif %}
+
+    <h2>Manuscript Contribution</h2>
     {% if person.manuscriptContributions | length > 0 %}
-        <h2>Manuscript Contribution</h2>
         <ul>
             {% for manuscriptContribution in person.manuscriptContributions %}
                 <li>
@@ -97,5 +100,8 @@
                 </li>
             {% endfor %}
         </ul>
+        {% else %}
+        <p>No manuscript contributions recorded for this person.</p>
     {% endif %}
+
 {% endblock %}
