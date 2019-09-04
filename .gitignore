@@ -21,3 +21,4 @@
 /app/Resources/views/jquery.collection.html.twig
 .phpunit.result.cache
 app/config/deploy.yml
+data

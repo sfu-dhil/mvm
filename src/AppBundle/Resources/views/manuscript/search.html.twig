@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manuscript List{% endblock %}
+
+{% block pageheader %}
+    <h1>Manuscript Search</h1>
+    {% if q %}
+        <p class="count">
+            Displaying {{ manuscripts|length }} manuscripts of {{ manuscripts.getTotalItemCount }} total. </p>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    {% include 'AppBundle:partial:search-form.html.twig' with {'path': path('manuscript_search'), 'help': 'Search for manuscripts by manuscript title or call number.'} %}
+
+    {% if q %}
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Call number</th>
+                    <th>Periods</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for manuscript in manuscripts %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">
+                                {{ manuscript }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">
+                                {{ manuscript.callNumber }}
+                            </a>
+                        </td>
+                        <td>{{ manuscript.periods|join(", ") }}</td>
+                        <td>{{ manuscript.description|raw }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(manuscripts) }}
+        </div>
+    {% endif %}
+
+{% endblock %}

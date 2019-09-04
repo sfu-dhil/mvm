@@ -22,9 +22,10 @@ class ManuscriptRepository extends \Doctrine\ORM\EntityRepository
 
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
-        $qb->addSelect("MATCH (e.title, e.description) AGAINST(:q BOOLEAN) as HIDDEN score");
-        $qb->orderBy('score', 'DESC');
-        $qb->setParameter('q', $q);
+        $qb->where("e.callNumber LIKE :q");
+        $qb->orWhere("e.title LIKE :q");
+        $qb->orderBy('e.callNumber', 'ASC');
+        $qb->setParameter('q', "%$q%");
 
         return $qb->getQuery();
     }

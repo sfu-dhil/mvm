@@ -24,8 +24,8 @@ use AppBundle\Form\ManuscriptType;
  * @IsGranted("ROLE_USER")
  * @Route("/manuscript")
  */
-class ManuscriptController extends Controller implements PaginatorAwareInterface
-{
+class ManuscriptController extends Controller implements PaginatorAwareInterface {
+
     use PaginatorTrait;
 
     /**
@@ -38,11 +38,10 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * @Route("/", name="manuscript_index", methods={"GET"})
      * @Template()
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Manuscript::class, 'e')->orderBy('e.title', 'ASC')->addOrderBy('e.callNumber', 'ASC');
+        $qb->select('e')->from(Manuscript::class, 'e')->orderBy('e.callNumber', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $manuscripts = $paginator->paginate($query, $request->query->getint('page', 1), 25);
@@ -52,47 +51,34 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
         );
     }
 
-/**
+    /**
      * Typeahead API endpoint for Manuscript entities.
-     *
-     * To make this work, add something like this to ManuscriptRepository:
-        //    public function typeaheadQuery($q) {
-        //        $qb = $this->createQueryBuilder('e');
-        //        $qb->andWhere("e.name LIKE :q");
-        //        $qb->orderBy('e.name');
-        //        $qb->setParameter('q', "{$q}%");
-        //        return $qb->getQuery()->execute();
-        //    }
      *
      * @param Request $request
      *
      * @Route("/typeahead", name="manuscript_typeahead", methods={"GET"})
      * @return JsonResponse
      */
-    public function typeahead(Request $request)
-    {
+    public function typeahead(Request $request) {
         $q = $request->query->get('q');
-        if( ! $q) {
+        if ( ! $q) {
             return new JsonResponse([]);
         }
         $em = $this->getDoctrine()->getManager();
-	    $repo = $em->getRepository(Manuscript::class);
+        $repo = $em->getRepository(Manuscript::class);
         $data = [];
-        foreach($repo->typeaheadQuery($q) as $result) {
+        foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
-                'id' => $result->getId(),
-                'text' => (string)$result . ' ' . $result->getCallNumber(),
+                'id'   => $result->getId(),
+                'text' => (string) $result . ' ' . $result->getCallNumber(),
             ];
         }
+
         return new JsonResponse($data);
     }
+
     /**
      * Search for Manuscript entities.
-     *
-     * To make this work, add a method like this one to the
-     * AppBundle:Manuscript repository. Reregion the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
      *
      * <code><pre>
      *    public function searchQuery($q) {
@@ -108,24 +94,24 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      *
      * @Route("/search", name="manuscript_search", methods={"GET"})
      * @Template()
-    * @return array
-    */
-    public function searchAction(Request $request)
-    {
+     * @return array
+     */
+    public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-	$repo = $em->getRepository('AppBundle:Manuscript');
-	$q = $request->query->get('q');
-	if($q) {
-	    $query = $repo->searchQuery($q);
+        $repo = $em->getRepository('AppBundle:Manuscript');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->searchQuery($q);
             $paginator = $this->get('knp_paginator');
             $manuscripts = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-	} else {
+        }
+        else {
             $manuscripts = array();
-	}
+        }
 
         return array(
             'manuscripts' => $manuscripts,
-            'q' => $q,
+            'q'           => $q,
         );
     }
 
@@ -140,8 +126,7 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * @Route("/new", name="manuscript_new", methods={"GET","POST"})
      * @Template()
      */
-    public function newAction(Request $request)
-    {
+    public function newAction(Request $request) {
         $manuscript = new Manuscript();
         $form = $this->createForm(ManuscriptType::class, $manuscript);
         $form->handleRequest($request);
@@ -152,12 +137,13 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
             $em->flush();
 
             $this->addFlash('success', 'The new manuscript was created.');
+
             return $this->redirectToRoute('manuscript_show', array('id' => $manuscript->getId()));
         }
 
         return array(
             'manuscript' => $manuscript,
-            'form' => $form->createView(),
+            'form'       => $form->createView(),
         );
     }
 
@@ -172,8 +158,7 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * @Route("/new_popup", name="manuscript_new_popup", methods={"GET","POST"})
      * @Template()
      */
-    public function newPopupAction(Request $request)
-    {
+    public function newPopupAction(Request $request) {
         return $this->newAction($request);
     }
 
@@ -187,8 +172,7 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * @Route("/{id}", name="manuscript_show", methods={"GET"})
      * @Template()
      */
-    public function showAction(Manuscript $manuscript)
-    {
+    public function showAction(Manuscript $manuscript) {
 
         return array(
             'manuscript' => $manuscript,
@@ -208,25 +192,26 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * @Route("/{id}/edit", name="manuscript_edit", methods={"GET","POST"})
      * @Template()
      */
-    public function editAction(Request $request, Manuscript $manuscript)
-    {
+    public function editAction(Request $request, Manuscript $manuscript) {
         $editForm = $this->createForm(ManuscriptType::class, $manuscript);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            if($request->request->get('submit', '') === 'complete') {
+            if ($request->request->get('submit', '') === 'complete') {
                 $manuscript->setComplete(true);
-            } else {
+            }
+            else {
                 $manuscript->setComplete(false);
             }
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The manuscript has been updated.');
+
             return $this->redirectToRoute('manuscript_show', array('id' => $manuscript->getId()));
         }
 
         return array(
             'manuscript' => $manuscript,
-            'edit_form' => $editForm->createView(),
+            'edit_form'  => $editForm->createView(),
         );
     }
 
@@ -242,8 +227,7 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Route("/{id}/delete", name="manuscript_delete", methods={"GET"})
      */
-    public function deleteAction(Request $request, Manuscript $manuscript)
-    {
+    public function deleteAction(Request $request, Manuscript $manuscript) {
         $em = $this->getDoctrine()->getManager();
         $em->remove($manuscript);
         $em->flush();
@@ -268,17 +252,19 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
         $editForm = $this->createForm(ManuscriptContentsType::class, $manuscript);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            foreach($manuscript->getManuscriptContents() as $content) {
+            foreach ($manuscript->getManuscriptContents() as $content) {
                 $content->setManuscript($manuscript);
             }
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The manuscript has been updated.');
+
             return $this->redirectToRoute('manuscript_show', array('id' => $manuscript->getId()));
         }
+
         return array(
             'manuscript' => $manuscript,
-            'edit_form' => $editForm->createView(),
+            'edit_form'  => $editForm->createView(),
         );
     }
 
@@ -298,17 +284,19 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
         $editForm = $this->createForm(ManuscriptContributionsType::class, $manuscript);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            foreach($manuscript->getManuscriptContributions() as $contribution) {
+            foreach ($manuscript->getManuscriptContributions() as $contribution) {
                 $contribution->setManuscript($manuscript);
             }
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The manuscript has been updated.');
+
             return $this->redirectToRoute('manuscript_show', array('id' => $manuscript->getId()));
         }
+
         return array(
             'manuscript' => $manuscript,
-            'edit_form' => $editForm->createView(),
+            'edit_form'  => $editForm->createView(),
         );
     }
 
@@ -328,17 +316,19 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
         $editForm = $this->createForm(ManuscriptFeaturesType::class, $manuscript);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            foreach($manuscript->getManuscriptFeatures() as $feature) {
+            foreach ($manuscript->getManuscriptFeatures() as $feature) {
                 $feature->setManuscript($manuscript);
             }
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The manuscript has been updated.');
+
             return $this->redirectToRoute('manuscript_show', array('id' => $manuscript->getId()));
         }
+
         return array(
             'manuscript' => $manuscript,
-            'edit_form' => $editForm->createView(),
+            'edit_form'  => $editForm->createView(),
         );
     }
 
