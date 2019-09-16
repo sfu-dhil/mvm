@@ -50,15 +50,6 @@ class ContentController extends Controller implements PaginatorAwareInterface {
     /**
      * Typeahead API endpoint for Content entities.
      *
-     * To make this work, add something like this to ContentRepository:
-     * //    public function typeaheadQuery($q) {
-     * //        $qb = $this->createQueryBuilder('e');
-     * //        $qb->andWhere("e.name LIKE :q");
-     * //        $qb->orderBy('e.name');
-     * //        $qb->setParameter('q', "{$q}%");
-     * //        return $qb->getQuery()->execute();
-     * //    }
-     *
      * @param Request $request
      *
      * @Route("/typeahead", name="content_typeahead", methods={"GET"})
@@ -84,21 +75,6 @@ class ContentController extends Controller implements PaginatorAwareInterface {
 
     /**
      * Search for Content entities.
-     *
-     * To make this work, add a method like this one to the
-     * AppBundle:Content repository. Reregion the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     *
-     * <code><pre>
-     *    public function searchQuery($q) {
-     *       $qb = $this->createQueryBuilder('e');
-     *       $qb->addSelect("MATCH (e.title) AGAINST(:q BOOLEAN) as HIDDEN score");
-     *       $qb->orderBy('score', 'DESC');
-     *       $qb->setParameter('q', $q);
-     *       return $qb->getQuery();
-     *    }
-     * </pre></code>
      *
      * @param Request $request
      *

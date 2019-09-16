@@ -88,7 +88,7 @@ class Builder implements ContainerAwareInterface
         $browse->setLinkAttribute('data-toggle', 'dropdown');
         $browse->setChildrenAttribute('class', 'dropdown-menu');
 
-        $browse->addChild("Archive Sources", array(
+        $browse->addChild("Archives", array(
             'route' => 'archive_index',
         ));
         $browse->addChild("Contents", array(
@@ -115,11 +115,11 @@ class Builder implements ContainerAwareInterface
         $browse->addChild("People", array(
             'route' => 'person_index',
         ));
-        $browse->addChild("Regions", array(
-            'route' => 'region_index',
-        ));
         $browse->addChild("Print Sources", array(
             'route' => 'print_source_index',
+        ));
+        $browse->addChild("Regions", array(
+            'route' => 'region_index',
         ));
         $browse->addChild("Themes", array(
             'route' => 'theme_index',

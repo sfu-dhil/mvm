@@ -22,6 +22,10 @@
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody>
             <tr>
+                <th>Untitled</th>
+                <td>{% if manuscript.untitled %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
                 <th>Title</th>
                 <td>{{ manuscript }}</td>
             </tr>

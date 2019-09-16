@@ -19,8 +19,8 @@ use AppBundle\Form\PersonType;
  * @IsGranted("ROLE_USER")
  * @Route("/person")
  */
-class PersonController extends Controller implements PaginatorAwareInterface
-{
+class PersonController extends Controller implements PaginatorAwareInterface {
+
     use PaginatorTrait;
 
     /**
@@ -33,8 +33,7 @@ class PersonController extends Controller implements PaginatorAwareInterface
      * @Route("/", name="person_index", methods={"GET"})
      * @Template()
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(Person::class, 'e')->orderBy('e.sortableName', 'ASC');
@@ -47,80 +46,57 @@ class PersonController extends Controller implements PaginatorAwareInterface
         );
     }
 
-/**
+    /**
      * Typeahead API endpoint for Person entities.
-     *
-     * To make this work, add something like this to PersonRepository:
-        //    public function typeaheadQuery($q) {
-        //        $qb = $this->createQueryBuilder('e');
-        //        $qb->andWhere("e.name LIKE :q");
-        //        $qb->orderBy('e.name');
-        //        $qb->setParameter('q', "{$q}%");
-        //        return $qb->getQuery()->execute();
-        //    }
      *
      * @param Request $request
      *
      * @Route("/typeahead", name="person_typeahead", methods={"GET"})
      * @return JsonResponse
      */
-    public function typeahead(Request $request)
-    {
+    public function typeahead(Request $request) {
         $q = $request->query->get('q');
-        if( ! $q) {
+        if ( ! $q) {
             return new JsonResponse([]);
         }
         $em = $this->getDoctrine()->getManager();
-	    $repo = $em->getRepository(Person::class);
+        $repo = $em->getRepository(Person::class);
         $data = [];
-        foreach($repo->typeaheadQuery($q) as $result) {
+        foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
-                'id' => $result->getId(),
-                'text' => (string)$result,
+                'id'   => $result->getId(),
+                'text' => (string) $result,
             ];
         }
+
         return new JsonResponse($data);
     }
+
     /**
      * Search for Person entities.
-     *
-     * To make this work, add a method like this one to the
-     * AppBundle:Person repository. Reregion the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     *
-     * <code><pre>
-     *    public function searchQuery($q) {
-     *       $qb = $this->createQueryBuilder('e');
-     *       $qb->addSelect("MATCH (e.title) AGAINST(:q BOOLEAN) as HIDDEN score");
-     *       $qb->orderBy('score', 'DESC');
-     *       $qb->setParameter('q', $q);
-     *       return $qb->getQuery();
-     *    }
-     * </pre></code>
      *
      * @param Request $request
      *
      * @Route("/search", name="person_search", methods={"GET"})
      * @Template()
-    * @return array
-    */
-    public function searchAction(Request $request)
-    {
+     * @return array
+     */
+    public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-	$repo = $em->getRepository('AppBundle:Person');
-	$q = $request->query->get('q');
-	if($q) {
-	    $query = $repo->searchQuery($q);
+        $repo = $em->getRepository('AppBundle:Person');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->searchQuery($q);
             $paginator = $this->get('knp_paginator');
             $people = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-	} else {
+        }
+        else {
             $people = array();
-	}
+        }
 
         return array(
             'people' => $people,
-            'q' => $q,
+            'q'      => $q,
         );
     }
 
@@ -135,8 +111,7 @@ class PersonController extends Controller implements PaginatorAwareInterface
      * @Route("/new", name="person_new", methods={"GET","POST"})
      * @Template()
      */
-    public function newAction(Request $request)
-    {
+    public function newAction(Request $request) {
         $person = new Person();
         $form = $this->createForm(PersonType::class, $person);
         $form->handleRequest($request);
@@ -147,12 +122,13 @@ class PersonController extends Controller implements PaginatorAwareInterface
             $em->flush();
 
             $this->addFlash('success', 'The new person was created.');
+
             return $this->redirectToRoute('person_show', array('id' => $person->getId()));
         }
 
         return array(
             'person' => $person,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         );
     }
 
@@ -167,8 +143,7 @@ class PersonController extends Controller implements PaginatorAwareInterface
      * @Route("/new_popup", name="person_new_popup", methods={"GET","POST"})
      * @Template()
      */
-    public function newPopupAction(Request $request)
-    {
+    public function newPopupAction(Request $request) {
         return $this->newAction($request);
     }
 
@@ -182,8 +157,7 @@ class PersonController extends Controller implements PaginatorAwareInterface
      * @Route("/{id}", name="person_show", methods={"GET"})
      * @Template()
      */
-    public function showAction(Person $person)
-    {
+    public function showAction(Person $person) {
 
         return array(
             'person' => $person,
@@ -203,8 +177,7 @@ class PersonController extends Controller implements PaginatorAwareInterface
      * @Route("/{id}/edit", name="person_edit", methods={"GET","POST"})
      * @Template()
      */
-    public function editAction(Request $request, Person $person)
-    {
+    public function editAction(Request $request, Person $person) {
         $editForm = $this->createForm(PersonType::class, $person);
         $editForm->handleRequest($request);
 
@@ -212,11 +185,12 @@ class PersonController extends Controller implements PaginatorAwareInterface
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The person has been updated.');
+
             return $this->redirectToRoute('person_show', array('id' => $person->getId()));
         }
 
         return array(
-            'person' => $person,
+            'person'    => $person,
             'edit_form' => $editForm->createView(),
         );
     }
@@ -233,8 +207,7 @@ class PersonController extends Controller implements PaginatorAwareInterface
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Route("/{id}/delete", name="person_delete", methods={"GET"})
      */
-    public function deleteAction(Request $request, Person $person)
-    {
+    public function deleteAction(Request $request, Person $person) {
         $em = $this->getDoctrine()->getManager();
         $em->remove($person);
         $em->flush();

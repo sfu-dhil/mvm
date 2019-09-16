@@ -21,8 +21,7 @@ class RegionRepository extends \Doctrine\ORM\EntityRepository
 
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
-        $qb->addSelect("MATCH (e.name) AGAINST(:q BOOLEAN) as HIDDEN score");
-        $qb->orderBy('score', 'DESC');
+        $qb->where("MATCH (e.name) AGAINST(:q BOOLEAN) > 0");
         $qb->setParameter('q', $q);
 
         return $qb->getQuery();
