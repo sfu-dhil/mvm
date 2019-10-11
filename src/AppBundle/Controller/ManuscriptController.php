@@ -2,21 +2,19 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\ManuscriptContent;
+use AppBundle\Entity\Manuscript;
 use AppBundle\Form\ManuscriptContentsType;
-use AppBundle\Form\ManuscriptContentType;
 use AppBundle\Form\ManuscriptContributionsType;
 use AppBundle\Form\ManuscriptFeaturesType;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use AppBundle\Form\ManuscriptType;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Manuscript;
-use AppBundle\Form\ManuscriptType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Manuscript controller.
@@ -25,7 +23,6 @@ use AppBundle\Form\ManuscriptType;
  * @Route("/manuscript")
  */
 class ManuscriptController extends Controller implements PaginatorAwareInterface {
-
     use PaginatorTrait;
 
     /**
@@ -57,21 +54,22 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * @param Request $request
      *
      * @Route("/typeahead", name="manuscript_typeahead", methods={"GET"})
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
         $q = $request->query->get('q');
         if ( ! $q) {
-            return new JsonResponse([]);
+            return new JsonResponse(array());
         }
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(Manuscript::class);
-        $data = [];
+        $data = array();
         foreach ($repo->typeaheadQuery($q) as $result) {
-            $data[] = [
-                'id'   => $result->getId(),
+            $data[] = array(
+                'id' => $result->getId(),
                 'text' => (string) $result . ' ' . $result->getCallNumber(),
-            ];
+            );
         }
 
         return new JsonResponse($data);
@@ -94,6 +92,7 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      *
      * @Route("/search", name="manuscript_search", methods={"GET"})
      * @Template()
+     *
      * @return array
      */
     public function searchAction(Request $request) {
@@ -104,14 +103,13 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
             $query = $repo->searchQuery($q);
             $paginator = $this->get('knp_paginator');
             $manuscripts = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        }
-        else {
+        } else {
             $manuscripts = array();
         }
 
         return array(
             'manuscripts' => $manuscripts,
-            'q'           => $q,
+            'q' => $q,
         );
     }
 
@@ -143,7 +141,7 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
 
         return array(
             'manuscript' => $manuscript,
-            'form'       => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -173,7 +171,6 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * @Template()
      */
     public function showAction(Manuscript $manuscript) {
-
         return array(
             'manuscript' => $manuscript,
         );
@@ -181,7 +178,6 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
 
     /**
      * Displays a form to edit an existing Manuscript entity.
-     *
      *
      * @param Request $request
      * @param Manuscript $manuscript
@@ -196,10 +192,9 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
         $editForm = $this->createForm(ManuscriptType::class, $manuscript);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            if ($request->request->get('submit', '') === 'complete') {
+            if ('complete' === $request->request->get('submit', '')) {
                 $manuscript->setComplete(true);
-            }
-            else {
+            } else {
                 $manuscript->setComplete(false);
             }
             $em = $this->getDoctrine()->getManager();
@@ -211,13 +206,12 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
 
         return array(
             'manuscript' => $manuscript,
-            'edit_form'  => $editForm->createView(),
+            'edit_form' => $editForm->createView(),
         );
     }
 
     /**
      * Deletes a Manuscript entity.
-     *
      *
      * @param Request $request
      * @param Manuscript $manuscript
@@ -237,7 +231,7 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
     }
 
     /**
-     * Edits a Manuscript's content entities
+     * Edits a Manuscript's content entities.
      *
      * @param Request $request
      * @param Manuscript $manuscript
@@ -264,12 +258,12 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
 
         return array(
             'manuscript' => $manuscript,
-            'edit_form'  => $editForm->createView(),
+            'edit_form' => $editForm->createView(),
         );
     }
 
     /**
-     * Edits a Manuscript's contributions entities
+     * Edits a Manuscript's contributions entities.
      *
      * @param Request $request
      * @param Manuscript $manuscript
@@ -296,12 +290,12 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
 
         return array(
             'manuscript' => $manuscript,
-            'edit_form'  => $editForm->createView(),
+            'edit_form' => $editForm->createView(),
         );
     }
 
     /**
-     * Edits a Manuscript's feature entities
+     * Edits a Manuscript's feature entities.
      *
      * @param Request $request
      * @param Manuscript $manuscript
@@ -328,8 +322,7 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
 
         return array(
             'manuscript' => $manuscript,
-            'edit_form'  => $editForm->createView(),
+            'edit_form' => $editForm->createView(),
         );
     }
-
 }

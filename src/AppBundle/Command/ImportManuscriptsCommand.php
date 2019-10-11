@@ -14,8 +14,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * ImportManuscriptsCommand command.
  */
-class ImportManuscriptsCommand extends ContainerAwareCommand
-{
+class ImportManuscriptsCommand extends ContainerAwareCommand {
+    const SPACE = '/^\p{Z}+|\p{Z}+$/';
 
     /**
      * @var EntityManagerInterface
@@ -27,8 +27,6 @@ class ImportManuscriptsCommand extends ContainerAwareCommand
      */
     private $logger;
 
-    const SPACE = '/^\p{Z}+|\p{Z}+$/';
-
     public function __construct(EntityManagerInterface $em, LoggerInterface $logger, ?string $name = null) {
         parent::__construct($name);
         $this->em = $em;
@@ -38,8 +36,7 @@ class ImportManuscriptsCommand extends ContainerAwareCommand
     /**
      * Configure the command.
      */
-    protected function configure()
-    {
+    protected function configure() {
         $this
             ->setName('app:import:manuscripts')
             ->setDescription('Import title and call number from a CSV file.')
@@ -51,11 +48,11 @@ class ImportManuscriptsCommand extends ContainerAwareCommand
 
     protected function import($file, $skip, $commit) {
         $handle = fopen($file, 'r');
-        for($i = 1; $i <= $skip; $i++) {
+        for ($i = 1; $i <= $skip; $i++) {
             fgetcsv($handle);
         }
         $this->logger->warn("Starting import of {$file} with commit:{$commit}.");
-        while($row = fgetcsv($handle)) {
+        while ($row = fgetcsv($handle)) {
             $call = preg_replace(self::SPACE, '', $row[0]);
             $title = preg_replace(self::SPACE, '', $row[1]);
             $untitled = ($title ? false : true);
@@ -63,7 +60,7 @@ class ImportManuscriptsCommand extends ContainerAwareCommand
             $manuscript->setCallNumber($call);
             $manuscript->setTitle(($untitled ? 'Poetry miscellany' : $title));
             $manuscript->setUntitled($untitled);
-            if($commit) {
+            if ($commit) {
                 $this->em->persist($manuscript);
                 $this->em->flush();
             }
@@ -74,18 +71,16 @@ class ImportManuscriptsCommand extends ContainerAwareCommand
      * Execute the command.
      *
      * @param InputInterface $input
-     *   Command input, as defined in the configure() method.
+     *                              Command input, as defined in the configure() method.
      * @param OutputInterface $output
-     *   Output destination.
+     *                                Output destination.
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $files = $input->getArgument('files');
         $skip = $input->getOption('skip');
         $commit = $input->getOption('commit');
-        foreach($files as $file) {
+        foreach ($files as $file) {
             $this->import($file, $skip, $commit);
         }
     }
-
 }

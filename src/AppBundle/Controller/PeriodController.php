@@ -2,16 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Period;
 use AppBundle\Form\PeriodType;
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Period controller.
@@ -20,7 +20,6 @@ use AppBundle\Form\PeriodType;
  * @Route("/period")
  */
 class PeriodController extends Controller implements PaginatorAwareInterface {
-
     use PaginatorTrait;
 
     /**
@@ -52,21 +51,22 @@ class PeriodController extends Controller implements PaginatorAwareInterface {
      * @param Request $request
      *
      * @Route("/typeahead", name="period_typeahead", methods={"GET"})
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
         $q = $request->query->get('q');
         if ( ! $q) {
-            return new JsonResponse([]);
+            return new JsonResponse(array());
         }
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(Period::class);
-        $data = [];
+        $data = array();
         foreach ($repo->typeaheadQuery($q) as $result) {
-            $data[] = [
-                'id'   => $result->getId(),
+            $data[] = array(
+                'id' => $result->getId(),
                 'text' => (string) $result,
-            ];
+            );
         }
 
         return new JsonResponse($data);
@@ -100,7 +100,7 @@ class PeriodController extends Controller implements PaginatorAwareInterface {
 
         return array(
             'period' => $period,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -130,7 +130,6 @@ class PeriodController extends Controller implements PaginatorAwareInterface {
      * @Template()
      */
     public function showAction(Period $period) {
-
         return array(
             'period' => $period,
         );
@@ -138,7 +137,6 @@ class PeriodController extends Controller implements PaginatorAwareInterface {
 
     /**
      * Displays a form to edit an existing Period entity.
-     *
      *
      * @param Request $request
      * @param Period $period
@@ -162,14 +160,13 @@ class PeriodController extends Controller implements PaginatorAwareInterface {
         }
 
         return array(
-            'period'    => $period,
+            'period' => $period,
             'edit_form' => $editForm->createView(),
         );
     }
 
     /**
      * Deletes a Period entity.
-     *
      *
      * @param Request $request
      * @param Period $period

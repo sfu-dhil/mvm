@@ -2,21 +2,19 @@
 
 namespace AppBundle\Tests\Controller;
 
-use AppBundle\Entity\PrintSource;
 use AppBundle\DataFixtures\ORM\LoadPrintSource;
+use AppBundle\Entity\PrintSource;
 use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 use Nines\UtilBundle\Tests\Util\BaseTestCase;
 
-class PrintSourceControllerTest extends BaseTestCase
-{
-
+class PrintSourceControllerTest extends BaseTestCase {
     protected function getFixtures() {
-        return [
+        return array(
             LoadUser::class,
-            LoadPrintSource::class
-        ];
+            LoadPrintSource::class,
+        );
     }
-    
+
     /**
      * @group anon
      * @group index
@@ -97,7 +95,7 @@ class PrintSourceControllerTest extends BaseTestCase
         $this->assertStatusCode(302, $client);
 //        $this->assertEquals('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
         $json = json_decode($response->getContent());
         $this->assertEquals(4, count($json));
@@ -114,7 +112,7 @@ class PrintSourceControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
         $this->assertEquals('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
         $json = json_decode($response->getContent());
         $this->assertEquals(4, count($json));
@@ -131,11 +129,12 @@ class PrintSourceControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
         $this->assertEquals('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
         $json = json_decode($response->getContent());
         $this->assertEquals(4, count($json));
     }
+
     /**
      * @group anon
      * @group edit
@@ -167,12 +166,12 @@ class PrintSourceControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
 
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
-        $form = $formCrawler->selectButton('Update')->form([
+        $form = $formCrawler->selectButton('Update')->form(array(
             // DO STUFF HERE.
             // 'print_sources[FIELDNAME]' => 'FIELDVALUE',
-        ]);
+        ));
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/print_source/1'));
@@ -233,12 +232,12 @@ class PrintSourceControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
 
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
-        $form = $formCrawler->selectButton('Create')->form([
+        $form = $formCrawler->selectButton('Create')->form(array(
             // DO STUFF HERE.
             // 'print_sources[FIELDNAME]' => 'FIELDVALUE',
-        ]);
+        ));
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -257,12 +256,12 @@ class PrintSourceControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
 
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
-        $form = $formCrawler->selectButton('Create')->form([
+        $form = $formCrawler->selectButton('Create')->form(array(
             // DO STUFF HERE.
             // 'print_sources[FIELDNAME]' => 'FIELDVALUE',
-        ]);
+        ));
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -309,5 +308,4 @@ class PrintSourceControllerTest extends BaseTestCase
         $postCount = count($this->em->getRepository(PrintSource::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);
     }
-
 }

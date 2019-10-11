@@ -2,21 +2,19 @@
 
 namespace AppBundle\Tests\Controller;
 
-use AppBundle\Entity\ManuscriptRole;
 use AppBundle\DataFixtures\ORM\LoadManuscriptRole;
+use AppBundle\Entity\ManuscriptRole;
 use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 use Nines\UtilBundle\Tests\Util\BaseTestCase;
 
-class ManuscriptRoleControllerTest extends BaseTestCase
-{
-
+class ManuscriptRoleControllerTest extends BaseTestCase {
     protected function getFixtures() {
-        return [
+        return array(
             LoadUser::class,
-            LoadManuscriptRole::class
-        ];
+            LoadManuscriptRole::class,
+        );
     }
-    
+
     /**
      * @group anon
      * @group index
@@ -97,7 +95,7 @@ class ManuscriptRoleControllerTest extends BaseTestCase
         $this->assertStatusCode(302, $client);
 //        $this->assertEquals('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
         $json = json_decode($response->getContent());
         $this->assertEquals(4, count($json));
@@ -114,7 +112,7 @@ class ManuscriptRoleControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
         $this->assertEquals('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
         $json = json_decode($response->getContent());
         $this->assertEquals(4, count($json));
@@ -131,11 +129,12 @@ class ManuscriptRoleControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
         $this->assertEquals('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
         $json = json_decode($response->getContent());
         $this->assertEquals(4, count($json));
     }
+
     /**
      * @group anon
      * @group edit
@@ -167,12 +166,12 @@ class ManuscriptRoleControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
 
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
-        $form = $formCrawler->selectButton('Update')->form([
+        $form = $formCrawler->selectButton('Update')->form(array(
             // DO STUFF HERE.
             // 'manuscript_roles[FIELDNAME]' => 'FIELDVALUE',
-        ]);
+        ));
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/manuscript_role/1'));
@@ -233,12 +232,12 @@ class ManuscriptRoleControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
 
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
-        $form = $formCrawler->selectButton('Create')->form([
+        $form = $formCrawler->selectButton('Create')->form(array(
             // DO STUFF HERE.
             // 'manuscript_roles[FIELDNAME]' => 'FIELDVALUE',
-        ]);
+        ));
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -257,12 +256,12 @@ class ManuscriptRoleControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
 
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
-        $form = $formCrawler->selectButton('Create')->form([
+        $form = $formCrawler->selectButton('Create')->form(array(
             // DO STUFF HERE.
             // 'manuscript_roles[FIELDNAME]' => 'FIELDVALUE',
-        ]);
+        ));
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -309,5 +308,4 @@ class ManuscriptRoleControllerTest extends BaseTestCase
         $postCount = count($this->em->getRepository(ManuscriptRole::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);
     }
-
 }

@@ -6,14 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
- * ManuscriptContribution
+ * ManuscriptContribution.
  *
  * @ORM\Table(name="manuscript_contribution")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ManuscriptContributionRepository")
  */
-class ManuscriptContribution extends AbstractEntity
-{
-
+class ManuscriptContribution extends AbstractEntity {
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
@@ -51,7 +49,7 @@ class ManuscriptContribution extends AbstractEntity
      * @return string
      */
     public function __toString() {
-        return implode(", ", array($this->person, $this->role, $this->manuscript));
+        return implode(', ', array($this->person, $this->role, $this->manuscript));
     }
 
     /**
@@ -61,8 +59,7 @@ class ManuscriptContribution extends AbstractEntity
      *
      * @return ManuscriptContribution
      */
-    public function setPerson(\AppBundle\Entity\Person $person)
-    {
+    public function setPerson(Person $person) {
         $this->person = $person;
 
         return $this;
@@ -73,8 +70,7 @@ class ManuscriptContribution extends AbstractEntity
      *
      * @return \AppBundle\Entity\Person
      */
-    public function getPerson()
-    {
+    public function getPerson() {
         return $this->person;
     }
 
@@ -85,8 +81,7 @@ class ManuscriptContribution extends AbstractEntity
      *
      * @return ManuscriptContribution
      */
-    public function setRole(\AppBundle\Entity\ManuscriptRole $role)
-    {
+    public function setRole(ManuscriptRole $role) {
         $this->role = $role;
 
         return $this;
@@ -97,8 +92,7 @@ class ManuscriptContribution extends AbstractEntity
      *
      * @return \AppBundle\Entity\ManuscriptRole
      */
-    public function getRole()
-    {
+    public function getRole() {
         return $this->role;
     }
 
@@ -109,8 +103,7 @@ class ManuscriptContribution extends AbstractEntity
      *
      * @return ManuscriptContribution
      */
-    public function setManuscript(\AppBundle\Entity\Manuscript $manuscript)
-    {
+    public function setManuscript(Manuscript $manuscript) {
         $this->manuscript = $manuscript;
 
         return $this;
@@ -121,8 +114,7 @@ class ManuscriptContribution extends AbstractEntity
      *
      * @return \AppBundle\Entity\Manuscript
      */
-    public function getManuscript()
-    {
+    public function getManuscript() {
         return $this->manuscript;
     }
 
@@ -133,8 +125,7 @@ class ManuscriptContribution extends AbstractEntity
      *
      * @return ManuscriptContribution
      */
-    public function setNote($note)
-    {
+    public function setNote($note) {
         $this->note = $note;
 
         return $this;
@@ -145,8 +136,7 @@ class ManuscriptContribution extends AbstractEntity
      *
      * @return string
      */
-    public function getNote()
-    {
+    public function getNote() {
         return $this->note;
     }
 }

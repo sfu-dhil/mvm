@@ -2,16 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Feature;
 use AppBundle\Form\FeatureType;
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Feature controller.
@@ -20,7 +20,6 @@ use AppBundle\Form\FeatureType;
  * @Route("/feature")
  */
 class FeatureController extends Controller implements PaginatorAwareInterface {
-
     use PaginatorTrait;
 
     /**
@@ -52,21 +51,22 @@ class FeatureController extends Controller implements PaginatorAwareInterface {
      * @param Request $request
      *
      * @Route("/typeahead", name="feature_typeahead", methods={"GET"})
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
         $q = $request->query->get('q');
         if ( ! $q) {
-            return new JsonResponse([]);
+            return new JsonResponse(array());
         }
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(Feature::class);
-        $data = [];
+        $data = array();
         foreach ($repo->typeaheadQuery($q) as $result) {
-            $data[] = [
-                'id'   => $result->getId(),
+            $data[] = array(
+                'id' => $result->getId(),
                 'text' => (string) $result,
-            ];
+            );
         }
 
         return new JsonResponse($data);
@@ -94,6 +94,7 @@ class FeatureController extends Controller implements PaginatorAwareInterface {
      *
      * @Route("/search", name="feature_search", methods={"GET"})
      * @Template()
+     *
      * @return array
      */
     public function searchAction(Request $request) {
@@ -104,14 +105,13 @@ class FeatureController extends Controller implements PaginatorAwareInterface {
             $query = $repo->searchQuery($q);
             $paginator = $this->get('knp_paginator');
             $features = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        }
-        else {
+        } else {
             $features = array();
         }
 
         return array(
             'features' => $features,
-            'q'        => $q,
+            'q' => $q,
         );
     }
 
@@ -143,7 +143,7 @@ class FeatureController extends Controller implements PaginatorAwareInterface {
 
         return array(
             'feature' => $feature,
-            'form'    => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -173,7 +173,6 @@ class FeatureController extends Controller implements PaginatorAwareInterface {
      * @Template()
      */
     public function showAction(Feature $feature) {
-
         return array(
             'feature' => $feature,
         );
@@ -181,7 +180,6 @@ class FeatureController extends Controller implements PaginatorAwareInterface {
 
     /**
      * Displays a form to edit an existing Feature entity.
-     *
      *
      * @param Request $request
      * @param Feature $feature
@@ -205,14 +203,13 @@ class FeatureController extends Controller implements PaginatorAwareInterface {
         }
 
         return array(
-            'feature'   => $feature,
+            'feature' => $feature,
             'edit_form' => $editForm->createView(),
         );
     }
 
     /**
      * Deletes a Feature entity.
-     *
      *
      * @param Request $request
      * @param Feature $feature

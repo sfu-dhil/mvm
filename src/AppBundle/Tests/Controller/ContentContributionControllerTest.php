@@ -2,21 +2,18 @@
 
 namespace AppBundle\Tests\Controller;
 
-use AppBundle\Entity\ContentContribution;
 use AppBundle\DataFixtures\ORM\LoadContentContribution;
 use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 use Nines\UtilBundle\Tests\Util\BaseTestCase;
 
-class ContentContributionControllerTest extends BaseTestCase
-{
-
+class ContentContributionControllerTest extends BaseTestCase {
     protected function getFixtures() {
-        return [
+        return array(
             LoadUser::class,
-            LoadContentContribution::class
-        ];
+            LoadContentContribution::class,
+        );
     }
-    
+
     /**
      * @group anon
      * @group index
@@ -82,6 +79,4 @@ class ContentContributionControllerTest extends BaseTestCase
         $crawler = $client->request('GET', '/content_contribution/1');
         $this->assertStatusCode(200, $client);
     }
-
-
 }

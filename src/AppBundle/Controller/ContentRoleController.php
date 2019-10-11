@@ -2,16 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\ContentRole;
 use AppBundle\Form\ContentRoleType;
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * ContentRole controller.
@@ -20,7 +20,6 @@ use AppBundle\Form\ContentRoleType;
  * @Route("/content_role")
  */
 class ContentRoleController extends Controller implements PaginatorAwareInterface {
-
     use PaginatorTrait;
 
     /**
@@ -52,21 +51,22 @@ class ContentRoleController extends Controller implements PaginatorAwareInterfac
      * @param Request $request
      *
      * @Route("/typeahead", name="content_role_typeahead", methods={"GET"})
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
         $q = $request->query->get('q');
         if ( ! $q) {
-            return new JsonResponse([]);
+            return new JsonResponse(array());
         }
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(ContentRole::class);
-        $data = [];
+        $data = array();
         foreach ($repo->typeaheadQuery($q) as $result) {
-            $data[] = [
-                'id'   => $result->getId(),
+            $data[] = array(
+                'id' => $result->getId(),
                 'text' => (string) $result,
-            ];
+            );
         }
 
         return new JsonResponse($data);
@@ -100,7 +100,7 @@ class ContentRoleController extends Controller implements PaginatorAwareInterfac
 
         return array(
             'contentRole' => $contentRole,
-            'form'        => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -130,7 +130,6 @@ class ContentRoleController extends Controller implements PaginatorAwareInterfac
      * @Template()
      */
     public function showAction(ContentRole $contentRole) {
-
         return array(
             'contentRole' => $contentRole,
         );
@@ -138,7 +137,6 @@ class ContentRoleController extends Controller implements PaginatorAwareInterfac
 
     /**
      * Displays a form to edit an existing ContentRole entity.
-     *
      *
      * @param Request $request
      * @param ContentRole $contentRole
@@ -163,13 +161,12 @@ class ContentRoleController extends Controller implements PaginatorAwareInterfac
 
         return array(
             'contentRole' => $contentRole,
-            'edit_form'   => $editForm->createView(),
+            'edit_form' => $editForm->createView(),
         );
     }
 
     /**
      * Deletes a ContentRole entity.
-     *
      *
      * @param Request $request
      * @param ContentRole $contentRole

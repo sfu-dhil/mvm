@@ -2,16 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\ManuscriptRole;
 use AppBundle\Form\ManuscriptRoleType;
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * ManuscriptRole controller.
@@ -20,7 +20,6 @@ use AppBundle\Form\ManuscriptRoleType;
  * @Route("/manuscript_role")
  */
 class ManuscriptRoleController extends Controller implements PaginatorAwareInterface {
-
     use PaginatorTrait;
 
     /**
@@ -52,21 +51,22 @@ class ManuscriptRoleController extends Controller implements PaginatorAwareInter
      * @param Request $request
      *
      * @Route("/typeahead", name="manuscript_role_typeahead", methods={"GET"})
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
         $q = $request->query->get('q');
         if ( ! $q) {
-            return new JsonResponse([]);
+            return new JsonResponse(array());
         }
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(ManuscriptRole::class);
-        $data = [];
+        $data = array();
         foreach ($repo->typeaheadQuery($q) as $result) {
-            $data[] = [
-                'id'   => $result->getId(),
+            $data[] = array(
+                'id' => $result->getId(),
                 'text' => (string) $result,
-            ];
+            );
         }
 
         return new JsonResponse($data);
@@ -100,7 +100,7 @@ class ManuscriptRoleController extends Controller implements PaginatorAwareInter
 
         return array(
             'manuscriptRole' => $manuscriptRole,
-            'form'           => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -130,7 +130,6 @@ class ManuscriptRoleController extends Controller implements PaginatorAwareInter
      * @Template()
      */
     public function showAction(ManuscriptRole $manuscriptRole) {
-
         return array(
             'manuscriptRole' => $manuscriptRole,
         );
@@ -138,7 +137,6 @@ class ManuscriptRoleController extends Controller implements PaginatorAwareInter
 
     /**
      * Displays a form to edit an existing ManuscriptRole entity.
-     *
      *
      * @param Request $request
      * @param ManuscriptRole $manuscriptRole
@@ -163,13 +161,12 @@ class ManuscriptRoleController extends Controller implements PaginatorAwareInter
 
         return array(
             'manuscriptRole' => $manuscriptRole,
-            'edit_form'      => $editForm->createView(),
+            'edit_form' => $editForm->createView(),
         );
     }
 
     /**
      * Deletes a ManuscriptRole entity.
-     *
      *
      * @param Request $request
      * @param ManuscriptRole $manuscriptRole

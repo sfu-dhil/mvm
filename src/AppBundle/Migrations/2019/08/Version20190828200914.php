@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AppBundle\Migrations;
 
@@ -8,12 +10,10 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190828200914 extends AbstractMigration
-{
-    public function up(Schema $schema) : void
-    {
+final class Version20190828200914 extends AbstractMigration {
+    public function up(Schema $schema) : void {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE person_region (person_id INT NOT NULL, region_id INT NOT NULL, INDEX IDX_93C7C1C0217BBB47 (person_id), INDEX IDX_93C7C1C098260155 (region_id), PRIMARY KEY(person_id, region_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE manuscript_period (manuscript_id INT NOT NULL, period_id INT NOT NULL, INDEX IDX_540C89BFA05723D9 (manuscript_id), INDEX IDX_540C89BFEC8B7ADE (period_id), PRIMARY KEY(manuscript_id, period_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
@@ -45,8 +45,7 @@ final class Version20190828200914 extends AbstractMigration
         $this->addSql('ALTER TABLE manuscript DROP region_id, DROP period_id');
     }
 
-    public function down(Schema $schema) : void
-    {
+    public function down(Schema $schema) : void {
         $this->throwIrreversibleMigrationException();
     }
 }

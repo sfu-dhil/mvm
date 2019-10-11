@@ -8,14 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
 /**
- * ManuscriptRole
+ * ManuscriptRole.
  *
  * @ORM\Table(name="manuscript_role")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ManuscriptRoleRepository")
  */
-class ManuscriptRole extends AbstractTerm
-{
-
+class ManuscriptRole extends AbstractTerm {
     /**
      * @var Collection|ManuscriptContribution[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptContribution", mappedBy="role")
@@ -34,8 +32,7 @@ class ManuscriptRole extends AbstractTerm
      *
      * @return ManuscriptRole
      */
-    public function addContribution(\AppBundle\Entity\ManuscriptContribution $contribution)
-    {
+    public function addContribution(ManuscriptContribution $contribution) {
         $this->contributions[] = $contribution;
 
         return $this;
@@ -46,10 +43,9 @@ class ManuscriptRole extends AbstractTerm
      *
      * @param \AppBundle\Entity\ManuscriptContribution $contribution
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeContribution(\AppBundle\Entity\ManuscriptContribution $contribution)
-    {
+    public function removeContribution(ManuscriptContribution $contribution) {
         return $this->contributions->removeElement($contribution);
     }
 
@@ -58,8 +54,7 @@ class ManuscriptRole extends AbstractTerm
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getContributions()
-    {
+    public function getContributions() {
         return $this->contributions;
     }
 }

@@ -2,16 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Person;
 use AppBundle\Form\PersonType;
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Person controller.
@@ -20,7 +20,6 @@ use AppBundle\Form\PersonType;
  * @Route("/person")
  */
 class PersonController extends Controller implements PaginatorAwareInterface {
-
     use PaginatorTrait;
 
     /**
@@ -52,21 +51,22 @@ class PersonController extends Controller implements PaginatorAwareInterface {
      * @param Request $request
      *
      * @Route("/typeahead", name="person_typeahead", methods={"GET"})
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
         $q = $request->query->get('q');
         if ( ! $q) {
-            return new JsonResponse([]);
+            return new JsonResponse(array());
         }
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(Person::class);
-        $data = [];
+        $data = array();
         foreach ($repo->typeaheadQuery($q) as $result) {
-            $data[] = [
-                'id'   => $result->getId(),
+            $data[] = array(
+                'id' => $result->getId(),
                 'text' => (string) $result,
-            ];
+            );
         }
 
         return new JsonResponse($data);
@@ -79,6 +79,7 @@ class PersonController extends Controller implements PaginatorAwareInterface {
      *
      * @Route("/search", name="person_search", methods={"GET"})
      * @Template()
+     *
      * @return array
      */
     public function searchAction(Request $request) {
@@ -89,14 +90,13 @@ class PersonController extends Controller implements PaginatorAwareInterface {
             $query = $repo->searchQuery($q);
             $paginator = $this->get('knp_paginator');
             $people = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        }
-        else {
+        } else {
             $people = array();
         }
 
         return array(
             'people' => $people,
-            'q'      => $q,
+            'q' => $q,
         );
     }
 
@@ -128,7 +128,7 @@ class PersonController extends Controller implements PaginatorAwareInterface {
 
         return array(
             'person' => $person,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -158,7 +158,6 @@ class PersonController extends Controller implements PaginatorAwareInterface {
      * @Template()
      */
     public function showAction(Person $person) {
-
         return array(
             'person' => $person,
         );
@@ -166,7 +165,6 @@ class PersonController extends Controller implements PaginatorAwareInterface {
 
     /**
      * Displays a form to edit an existing Person entity.
-     *
      *
      * @param Request $request
      * @param Person $person
@@ -190,14 +188,13 @@ class PersonController extends Controller implements PaginatorAwareInterface {
         }
 
         return array(
-            'person'    => $person,
+            'person' => $person,
             'edit_form' => $editForm->createView(),
         );
     }
 
     /**
      * Deletes a Person entity.
-     *
      *
      * @param Request $request
      * @param Person $person

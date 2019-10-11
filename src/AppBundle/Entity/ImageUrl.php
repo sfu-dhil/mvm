@@ -5,14 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ImageUrl
+ * ImageUrl.
  *
  * @ORM\Table(name="image_url")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageUrlRepository")
  */
-class ImageUrl extends Image
-{
-
+class ImageUrl extends Image {
     public function __construct() {
         parent::__construct();
     }

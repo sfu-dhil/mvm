@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
- * Content
+ * Content.
  *
  * @ORM\Table(name="content", indexes={
  *   @ORM\Index(name="content_ft", columns={"title", "first_line", "transcription"}, flags={"fulltext"}),
@@ -16,9 +16,7 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentRepository")
  */
-class Content extends AbstractEntity
-{
-
+class Content extends AbstractEntity {
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
@@ -84,8 +82,7 @@ class Content extends AbstractEntity
      *
      * @return Content
      */
-    public function addContribution(\AppBundle\Entity\ContentContribution $contribution)
-    {
+    public function addContribution(ContentContribution $contribution) {
         $this->contributions[] = $contribution;
 
         return $this;
@@ -96,10 +93,9 @@ class Content extends AbstractEntity
      *
      * @param \AppBundle\Entity\ContentContribution $contribution
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeContribution(\AppBundle\Entity\ContentContribution $contribution)
-    {
+    public function removeContribution(ContentContribution $contribution) {
         return $this->contributions->removeElement($contribution);
     }
 
@@ -108,8 +104,7 @@ class Content extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getContributions()
-    {
+    public function getContributions() {
         return $this->contributions;
     }
 
@@ -120,8 +115,7 @@ class Content extends AbstractEntity
      *
      * @return Content
      */
-    public function addImage(\AppBundle\Entity\Image $image)
-    {
+    public function addImage(Image $image) {
         $this->images[] = $image;
 
         return $this;
@@ -132,10 +126,9 @@ class Content extends AbstractEntity
      *
      * @param \AppBundle\Entity\Image $image
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeImage(\AppBundle\Entity\Image $image)
-    {
+    public function removeImage(Image $image) {
         return $this->images->removeElement($image);
     }
 
@@ -144,8 +137,7 @@ class Content extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getImages()
-    {
+    public function getImages() {
         return $this->images;
     }
 
@@ -156,8 +148,7 @@ class Content extends AbstractEntity
      *
      * @return Content
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
 
         return $this;
@@ -168,20 +159,18 @@ class Content extends AbstractEntity
      *
      * @return string
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
     /**
      * Set transcription.
      *
-     * @param string|null $transcription
+     * @param null|string $transcription
      *
      * @return Content
      */
-    public function setTranscription($transcription = null)
-    {
+    public function setTranscription($transcription = null) {
         $this->transcription = $transcription;
 
         return $this;
@@ -190,22 +179,20 @@ class Content extends AbstractEntity
     /**
      * Get transcription.
      *
-     * @return string|null
+     * @return null|string
      */
-    public function getTranscription()
-    {
+    public function getTranscription() {
         return $this->transcription;
     }
 
     /**
      * Set description.
      *
-     * @param string|null $description
+     * @param null|string $description
      *
      * @return Content
      */
-    public function setDescription($description = null)
-    {
+    public function setDescription($description = null) {
         $this->description = $description;
 
         return $this;
@@ -214,10 +201,9 @@ class Content extends AbstractEntity
     /**
      * Get description.
      *
-     * @return string|null
+     * @return null|string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -228,8 +214,7 @@ class Content extends AbstractEntity
      *
      * @return Content
      */
-    public function setFirstLine($firstLine)
-    {
+    public function setFirstLine($firstLine) {
         $this->firstLine = $firstLine;
 
         return $this;
@@ -240,8 +225,7 @@ class Content extends AbstractEntity
      *
      * @return string
      */
-    public function getFirstLine()
-    {
+    public function getFirstLine() {
         return $this->firstLine;
     }
 
@@ -252,8 +236,7 @@ class Content extends AbstractEntity
      *
      * @return Content
      */
-    public function addManuscriptContent(\AppBundle\Entity\ManuscriptContent $manuscriptContent)
-    {
+    public function addManuscriptContent(ManuscriptContent $manuscriptContent) {
         $this->manuscriptContents[] = $manuscriptContent;
 
         return $this;
@@ -264,10 +247,9 @@ class Content extends AbstractEntity
      *
      * @param \AppBundle\Entity\ManuscriptContent $manuscriptContent
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeManuscriptContent(\AppBundle\Entity\ManuscriptContent $manuscriptContent)
-    {
+    public function removeManuscriptContent(ManuscriptContent $manuscriptContent) {
         return $this->manuscriptContents->removeElement($manuscriptContent);
     }
 
@@ -276,8 +258,7 @@ class Content extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getManuscriptContents()
-    {
+    public function getManuscriptContents() {
         return $this->manuscriptContents;
     }
 }

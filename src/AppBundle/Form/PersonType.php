@@ -6,9 +6,9 @@ use AppBundle\Entity\Person;
 use AppBundle\Entity\Region;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
@@ -16,7 +16,6 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
  * PersonType form.
  */
 class PersonType extends AbstractType {
-
     /**
      * Add form fields to $builder.
      *
@@ -25,40 +24,40 @@ class PersonType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('anonymous', CheckboxType::class, array(
-            'label'    => 'Anonymous',
+            'label' => 'Anonymous',
             'required' => false,
-            'attr'     => array(
+            'attr' => array(
                 'help_block' => 'Is the person anonymous?',
             ),
         ));
 
         $builder->add('fullName', null, array(
-            'label'    => 'Full Name',
+            'label' => 'Full Name',
             'required' => true,
-            'attr'     => array(
+            'attr' => array(
                 'help_block' => 'A canonical name for a person if known, or a descriptive identifier. Do not include square brackets.',
             ),
         ));
         $builder->add('variantNames', null, array(
             'label' => 'Variant Names',
-            'allow_add'     => true,
-            'allow_delete'  => true,
-            'prototype'     => true,
-            'entry_type'    => TextType::class,
+            'allow_add' => true,
+            'allow_delete' => true,
+            'prototype' => true,
+            'entry_type' => TextType::class,
             'entry_options' => array(
                 'label' => false,
             ),
-            'required'      => false,
-            'attr'          => array(
+            'required' => false,
+            'attr' => array(
                 'help_block' => '',
-                'class'      => 'collection collection-simple',
+                'class' => 'collection collection-simple',
             ),
         ));
 
         $builder->add('sortableName', null, array(
-            'label'    => 'Sortable Name',
+            'label' => 'Sortable Name',
             'required' => true,
-            'attr'     => array(
+            'attr' => array(
                 'help_block' => '',
             ),
         ));
@@ -72,41 +71,41 @@ class PersonType extends AbstractType {
                 'Male' => Person::MALE,
                 'Unknown' => '',
             ),
-            'preferred_choices' => [Person::FEMALE, Person::MALE]
+            'preferred_choices' => array(Person::FEMALE, Person::MALE),
         ));
 
         $builder->add('description', null, array(
-            'label'    => 'Description',
+            'label' => 'Description',
             'required' => false,
-            'attr'     => array(
+            'attr' => array(
                 'help_block' => '',
-                'class'      => 'tinymce',
+                'class' => 'tinymce',
             ),
         ));
 
         $builder->add('birthDate', TextType::class, array(
-            'label'    => 'Birth Date',
+            'label' => 'Birth Date',
             'required' => false,
-            'attr'     => array(
+            'attr' => array(
                 'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
             ),
         ));
         $builder->add('deathDate', TextType::class, array(
-            'label'    => 'Death Date',
+            'label' => 'Death Date',
             'required' => false,
-            'attr'     => array(
+            'attr' => array(
                 'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
             ),
         ));
         $builder->add('regions', Select2EntityType::class, array(
-            'label'        => 'Regions',
-            'multiple'     => true,
+            'label' => 'Regions',
+            'multiple' => true,
             'remote_route' => 'region_typeahead',
-            'class'        => Region::class,
-            'required'     => false,
-            'allow_clear'  => true,
-            'attr'         => array(
-                'add_path'  => 'region_new_popup',
+            'class' => Region::class,
+            'required' => false,
+            'allow_clear' => true,
+            'attr' => array(
+                'add_path' => 'region_new_popup',
                 'add_label' => 'Add Region',
             ),
         ));
@@ -125,5 +124,4 @@ class PersonType extends AbstractType {
             'data_class' => 'AppBundle\Entity\Person',
         ));
     }
-
 }

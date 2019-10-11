@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AppBundle\Migrations;
 
@@ -8,12 +10,10 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190826165917 extends AbstractMigration
-{
-    public function up(Schema $schema) : void
-    {
+final class Version20190826165917 extends AbstractMigration {
+    public function up(Schema $schema) : void {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE person ADD gender VARCHAR(1) DEFAULT NULL AFTER sortable_name');
         $this->addSql('DROP INDEX content_title_idx ON content');
@@ -23,10 +23,9 @@ final class Version20190826165917 extends AbstractMigration
         $this->addSql('CREATE FULLTEXT INDEX content_ft ON content (title, first_line, transcription)');
     }
 
-    public function down(Schema $schema) : void
-    {
+    public function down(Schema $schema) : void {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('DROP INDEX content_firstline_idx ON content');
         $this->addSql('DROP INDEX content_ft ON content');

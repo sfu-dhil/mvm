@@ -2,20 +2,14 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Manuscript;
-use AppBundle\Entity\PrintSource;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 /**
  * ContentType form.
  */
 class ContentType extends AbstractType {
-
     /**
      * Add form fields to $builder.
      *
@@ -24,33 +18,33 @@ class ContentType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('firstLine', null, array(
-            'label'    => 'First Line',
+            'label' => 'First Line',
             'required' => true,
-            'attr'     => array(
+            'attr' => array(
                 'help_block' => '',
             ),
         ));
         $builder->add('title', null, array(
-            'label'    => 'Title',
+            'label' => 'Title',
             'required' => false,
-            'attr'     => array(
+            'attr' => array(
                 'help_block' => '',
             ),
         ));
         $builder->add('transcription', null, array(
-            'label'    => 'Transcription',
+            'label' => 'Transcription',
             'required' => false,
-            'attr'     => array(
+            'attr' => array(
                 'help_block' => '',
-                'class'      => 'tinymce',
+                'class' => 'tinymce',
             ),
         ));
         $builder->add('description', null, array(
-            'label'    => 'Description',
+            'label' => 'Description',
             'required' => false,
-            'attr'     => array(
+            'attr' => array(
                 'help_block' => '',
-                'class'      => 'tinymce',
+                'class' => 'tinymce',
             ),
         ));
     }
@@ -68,5 +62,4 @@ class ContentType extends AbstractType {
             'data_class' => 'AppBundle\Entity\Content',
         ));
     }
-
 }

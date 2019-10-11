@@ -2,16 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use AppBundle\Entity\ManuscriptContent;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\ManuscriptContent;
-use AppBundle\Form\ManuscriptContentType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * ManuscriptContent controller.
@@ -19,8 +16,7 @@ use AppBundle\Form\ManuscriptContentType;
  * @IsGranted("ROLE_USER")
  * @Route("/manuscript_content")
  */
-class ManuscriptContentController extends Controller implements PaginatorAwareInterface
-{
+class ManuscriptContentController extends Controller implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**
@@ -56,12 +52,9 @@ class ManuscriptContentController extends Controller implements PaginatorAwareIn
      * @Route("/{id}", name="manuscript_content_show", methods={"GET"})
      * @Template()
      */
-    public function showAction(ManuscriptContent $manuscriptContent)
-    {
-
+    public function showAction(ManuscriptContent $manuscriptContent) {
         return array(
             'manuscriptContent' => $manuscriptContent,
         );
     }
-
 }

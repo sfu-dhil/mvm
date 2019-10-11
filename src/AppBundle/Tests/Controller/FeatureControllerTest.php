@@ -2,21 +2,19 @@
 
 namespace AppBundle\Tests\Controller;
 
-use AppBundle\Entity\Feature;
 use AppBundle\DataFixtures\ORM\LoadFeature;
+use AppBundle\Entity\Feature;
 use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 use Nines\UtilBundle\Tests\Util\BaseTestCase;
 
-class FeatureControllerTest extends BaseTestCase
-{
-
+class FeatureControllerTest extends BaseTestCase {
     protected function getFixtures() {
-        return [
+        return array(
             LoadUser::class,
-            LoadFeature::class
-        ];
+            LoadFeature::class,
+        );
     }
-    
+
     /**
      * @group anon
      * @group index
@@ -97,7 +95,7 @@ class FeatureControllerTest extends BaseTestCase
         $this->assertStatusCode(302, $client);
 //        $this->assertEquals('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
         $json = json_decode($response->getContent());
         $this->assertEquals(4, count($json));
@@ -114,7 +112,7 @@ class FeatureControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
         $this->assertEquals('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
         $json = json_decode($response->getContent());
         $this->assertEquals(4, count($json));
@@ -131,11 +129,12 @@ class FeatureControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
         $this->assertEquals('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
         $json = json_decode($response->getContent());
         $this->assertEquals(4, count($json));
     }
+
     /**
      * @group anon
      * @group edit
@@ -167,12 +166,12 @@ class FeatureControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
 
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
-        $form = $formCrawler->selectButton('Update')->form([
+        $form = $formCrawler->selectButton('Update')->form(array(
             // DO STUFF HERE.
             // 'features[FIELDNAME]' => 'FIELDVALUE',
-        ]);
+        ));
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/feature/1'));
@@ -233,12 +232,12 @@ class FeatureControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
 
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
-        $form = $formCrawler->selectButton('Create')->form([
+        $form = $formCrawler->selectButton('Create')->form(array(
             // DO STUFF HERE.
             // 'features[FIELDNAME]' => 'FIELDVALUE',
-        ]);
+        ));
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -257,12 +256,12 @@ class FeatureControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
 
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
-        $form = $formCrawler->selectButton('Create')->form([
+        $form = $formCrawler->selectButton('Create')->form(array(
             // DO STUFF HERE.
             // 'features[FIELDNAME]' => 'FIELDVALUE',
-        ]);
+        ));
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -309,5 +308,4 @@ class FeatureControllerTest extends BaseTestCase
         $postCount = count($this->em->getRepository(Feature::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);
     }
-
 }

@@ -8,14 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
 /**
- * PrintSource
+ * PrintSource.
  *
  * @ORM\Table(name="print_source")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PrintSourceRepository")
  */
-class PrintSource extends AbstractTerm
-{
-
+class PrintSource extends AbstractTerm {
     /**
      * @var Region
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Region", inversedBy="printSources")
@@ -43,12 +41,11 @@ class PrintSource extends AbstractTerm
     /**
      * Set region.
      *
-     * @param \AppBundle\Entity\Region|null $region
+     * @param null|\AppBundle\Entity\Region $region
      *
      * @return PrintSource
      */
-    public function setRegion(\AppBundle\Entity\Region $region = null)
-    {
+    public function setRegion(Region $region = null) {
         $this->region = $region;
 
         return $this;
@@ -57,10 +54,9 @@ class PrintSource extends AbstractTerm
     /**
      * Get region.
      *
-     * @return \AppBundle\Entity\Region|null
+     * @return null|\AppBundle\Entity\Region
      */
-    public function getRegion()
-    {
+    public function getRegion() {
         return $this->region;
     }
 
@@ -71,8 +67,7 @@ class PrintSource extends AbstractTerm
      *
      * @return PrintSource
      */
-    public function addManuscript(\AppBundle\Entity\Manuscript $manuscript)
-    {
+    public function addManuscript(Manuscript $manuscript) {
         $this->manuscripts[] = $manuscript;
 
         return $this;
@@ -83,10 +78,9 @@ class PrintSource extends AbstractTerm
      *
      * @param \AppBundle\Entity\Manuscript $manuscript
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeManuscript(\AppBundle\Entity\Manuscript $manuscript)
-    {
+    public function removeManuscript(Manuscript $manuscript) {
         return $this->manuscripts->removeElement($manuscript);
     }
 
@@ -95,11 +89,9 @@ class PrintSource extends AbstractTerm
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getManuscripts()
-    {
+    public function getManuscripts() {
         return $this->manuscripts;
     }
-    
 
     /**
      * Add manuscriptContent.
@@ -108,8 +100,7 @@ class PrintSource extends AbstractTerm
      *
      * @return PrintSource
      */
-    public function addManuscriptContent(\AppBundle\Entity\ManuscriptContent $manuscriptContent)
-    {
+    public function addManuscriptContent(ManuscriptContent $manuscriptContent) {
         $this->manuscriptContents[] = $manuscriptContent;
 
         return $this;
@@ -120,10 +111,9 @@ class PrintSource extends AbstractTerm
      *
      * @param \AppBundle\Entity\ManuscriptContent $manuscriptContent
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeManuscriptContent(\AppBundle\Entity\ManuscriptContent $manuscriptContent)
-    {
+    public function removeManuscriptContent(ManuscriptContent $manuscriptContent) {
         return $this->manuscriptContents->removeElement($manuscriptContent);
     }
 
@@ -132,8 +122,7 @@ class PrintSource extends AbstractTerm
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getManuscriptContents()
-    {
+    public function getManuscriptContents() {
         return $this->manuscriptContents;
     }
 }

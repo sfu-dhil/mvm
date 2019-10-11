@@ -2,16 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use AppBundle\Entity\ManuscriptContribution;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\ManuscriptContribution;
-use AppBundle\Form\ManuscriptContributionType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * ManuscriptContribution controller.
@@ -19,8 +16,7 @@ use AppBundle\Form\ManuscriptContributionType;
  * @IsGranted("ROLE_USER")
  * @Route("/manuscript_contribution")
  */
-class ManuscriptContributionController extends Controller implements PaginatorAwareInterface
-{
+class ManuscriptContributionController extends Controller implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**
@@ -33,8 +29,7 @@ class ManuscriptContributionController extends Controller implements PaginatorAw
      * @Route("/", name="manuscript_contribution_index", methods={"GET"})
      * @Template()
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(ManuscriptContribution::class, 'e')->orderBy('e.id', 'ASC');
@@ -57,9 +52,7 @@ class ManuscriptContributionController extends Controller implements PaginatorAw
      * @Route("/{id}", name="manuscript_contribution_show", methods={"GET"})
      * @Template()
      */
-    public function showAction(ManuscriptContribution $manuscriptContribution)
-    {
-
+    public function showAction(ManuscriptContribution $manuscriptContribution) {
         return array(
             'manuscriptContribution' => $manuscriptContribution,
         );

@@ -6,14 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
- * ContentContribution
+ * ContentContribution.
  *
  * @ORM\Table(name="content_contribution")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentContributionRepository")
  */
-class ContentContribution extends AbstractEntity
-{
-
+class ContentContribution extends AbstractEntity {
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
@@ -51,7 +49,7 @@ class ContentContribution extends AbstractEntity
      * @return string
      */
     public function __toString() {
-        return implode(", ", array($this->person, $this->role, $this->content));
+        return implode(', ', array($this->person, $this->role, $this->content));
     }
 
     /**
@@ -61,8 +59,7 @@ class ContentContribution extends AbstractEntity
      *
      * @return ContentContribution
      */
-    public function setRole(\AppBundle\Entity\ContentRole $role)
-    {
+    public function setRole(ContentRole $role) {
         $this->role = $role;
 
         return $this;
@@ -73,8 +70,7 @@ class ContentContribution extends AbstractEntity
      *
      * @return \AppBundle\Entity\ContentRole
      */
-    public function getRole()
-    {
+    public function getRole() {
         return $this->role;
     }
 
@@ -85,8 +81,7 @@ class ContentContribution extends AbstractEntity
      *
      * @return ContentContribution
      */
-    public function setPerson(\AppBundle\Entity\Person $person)
-    {
+    public function setPerson(Person $person) {
         $this->person = $person;
 
         return $this;
@@ -97,8 +92,7 @@ class ContentContribution extends AbstractEntity
      *
      * @return \AppBundle\Entity\Person
      */
-    public function getPerson()
-    {
+    public function getPerson() {
         return $this->person;
     }
 
@@ -109,8 +103,7 @@ class ContentContribution extends AbstractEntity
      *
      * @return ContentContribution
      */
-    public function setContent(\AppBundle\Entity\Content $content)
-    {
+    public function setContent(Content $content) {
         $this->content = $content;
 
         return $this;
@@ -121,8 +114,7 @@ class ContentContribution extends AbstractEntity
      *
      * @return \AppBundle\Entity\Content
      */
-    public function getContent()
-    {
+    public function getContent() {
         return $this->content;
     }
 
@@ -133,8 +125,7 @@ class ContentContribution extends AbstractEntity
      *
      * @return ContentContribution
      */
-    public function setNote($note)
-    {
+    public function setNote($note) {
         $this->note = $note;
 
         return $this;
@@ -145,8 +136,7 @@ class ContentContribution extends AbstractEntity
      *
      * @return string
      */
-    public function getNote()
-    {
+    public function getNote() {
         return $this->note;
     }
 }

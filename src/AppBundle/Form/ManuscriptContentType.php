@@ -6,8 +6,6 @@ use AppBundle\Entity\Content;
 use AppBundle\Entity\PrintSource;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
@@ -15,7 +13,6 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
  * ManuscriptContentType form.
  */
 class ManuscriptContentType extends AbstractType {
-
     /**
      * Add form fields to $builder.
      *
@@ -23,7 +20,6 @@ class ManuscriptContentType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-
         $builder->add('content', Select2EntityType::class, array(
             'label' => 'Content',
             'multiple' => false,
@@ -51,9 +47,9 @@ class ManuscriptContentType extends AbstractType {
         ));
 
         $builder->add('context', null, array(
-            'label'    => 'Context',
+            'label' => 'Context',
             'required' => false,
-            'attr'     => array(
+            'attr' => array(
                 'help_block' => '',
                 'class' => 'tinymce',
             ),
@@ -73,5 +69,4 @@ class ManuscriptContentType extends AbstractType {
             'data_class' => 'AppBundle\Entity\ManuscriptContent',
         ));
     }
-
 }

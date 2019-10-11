@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
- * Manuscript
+ * Manuscript.
  *
  * @ORM\Table(name="manuscript", indexes={
  *   @ORM\Index(name="manuscript_ft", columns={"title", "call_number", "description"}, flags={"fulltext"}),
@@ -17,11 +17,9 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ManuscriptRepository")
  */
-class Manuscript extends AbstractEntity
-{
-
+class Manuscript extends AbstractEntity {
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="boolean")
      */
     private $untitled;
@@ -45,25 +43,25 @@ class Manuscript extends AbstractEntity
     private $bibliography;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $firstLineIndex;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $digitized;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="string", nullable=true)
      */
     private $format;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="string", nullable=true)
      */
     private $size;
@@ -91,7 +89,7 @@ class Manuscript extends AbstractEntity
      * @ORM\Column(type="array")
      */
     private $additionalGenres;
-    
+
     /**
      * @var string
      * @ORM\Column(type="string")
@@ -99,7 +97,7 @@ class Manuscript extends AbstractEntity
     private $callNumber;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="boolean")
      */
     private $complete;
@@ -173,11 +171,12 @@ class Manuscript extends AbstractEntity
      */
     public function __toString() {
         $s = '';
-        if( ! $this->untitled) {
+        if ( ! $this->untitled) {
             $s = $this->title;
         } else {
             $s = '[' . $this->title . ']';
         }
+
         return $s . ' ' . $this->callNumber;
     }
 
@@ -188,8 +187,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function setArchive(\AppBundle\Entity\Archive $archive)
-    {
+    public function setArchive(Archive $archive) {
         $this->archive = $archive;
 
         return $this;
@@ -200,8 +198,7 @@ class Manuscript extends AbstractEntity
      *
      * @return \AppBundle\Entity\Archive
      */
-    public function getArchive()
-    {
+    public function getArchive() {
         return $this->archive;
     }
 
@@ -212,8 +209,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function addManuscriptContribution(\AppBundle\Entity\ManuscriptContribution $manuscriptContribution)
-    {
+    public function addManuscriptContribution(ManuscriptContribution $manuscriptContribution) {
         $this->manuscriptContributions[] = $manuscriptContribution;
 
         return $this;
@@ -224,10 +220,9 @@ class Manuscript extends AbstractEntity
      *
      * @param \AppBundle\Entity\ManuscriptContribution $manuscriptContribution
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeManuscriptContribution(\AppBundle\Entity\ManuscriptContribution $manuscriptContribution)
-    {
+    public function removeManuscriptContribution(ManuscriptContribution $manuscriptContribution) {
         return $this->manuscriptContributions->removeElement($manuscriptContribution);
     }
 
@@ -236,8 +231,7 @@ class Manuscript extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getManuscriptContributions()
-    {
+    public function getManuscriptContributions() {
         return $this->manuscriptContributions;
     }
 
@@ -248,8 +242,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function addManuscriptFeature(\AppBundle\Entity\ManuscriptFeature $manuscriptFeature)
-    {
+    public function addManuscriptFeature(ManuscriptFeature $manuscriptFeature) {
         $this->manuscriptFeatures[] = $manuscriptFeature;
 
         return $this;
@@ -260,10 +253,9 @@ class Manuscript extends AbstractEntity
      *
      * @param \AppBundle\Entity\ManuscriptFeature $manuscriptFeature
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeManuscriptFeature(\AppBundle\Entity\ManuscriptFeature $manuscriptFeature)
-    {
+    public function removeManuscriptFeature(ManuscriptFeature $manuscriptFeature) {
         return $this->manuscriptFeatures->removeElement($manuscriptFeature);
     }
 
@@ -272,8 +264,7 @@ class Manuscript extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getManuscriptFeatures()
-    {
+    public function getManuscriptFeatures() {
         return $this->manuscriptFeatures;
     }
 
@@ -284,8 +275,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function addPrintSource(\AppBundle\Entity\PrintSource $printSource)
-    {
+    public function addPrintSource(PrintSource $printSource) {
         $this->printSources[] = $printSource;
 
         return $this;
@@ -296,10 +286,9 @@ class Manuscript extends AbstractEntity
      *
      * @param \AppBundle\Entity\PrintSource $printSource
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removePrintSource(\AppBundle\Entity\PrintSource $printSource)
-    {
+    public function removePrintSource(PrintSource $printSource) {
         return $this->printSources->removeElement($printSource);
     }
 
@@ -308,8 +297,7 @@ class Manuscript extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPrintSources()
-    {
+    public function getPrintSources() {
         return $this->printSources;
     }
 
@@ -320,8 +308,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function addTheme(\AppBundle\Entity\Theme $theme)
-    {
+    public function addTheme(Theme $theme) {
         $this->themes[] = $theme;
 
         return $this;
@@ -332,10 +319,9 @@ class Manuscript extends AbstractEntity
      *
      * @param \AppBundle\Entity\Theme $theme
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeTheme(\AppBundle\Entity\Theme $theme)
-    {
+    public function removeTheme(Theme $theme) {
         return $this->themes->removeElement($theme);
     }
 
@@ -344,8 +330,7 @@ class Manuscript extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getThemes()
-    {
+    public function getThemes() {
         return $this->themes;
     }
 
@@ -356,8 +341,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
 
         return $this;
@@ -368,8 +352,7 @@ class Manuscript extends AbstractEntity
      *
      * @return string
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -380,8 +363,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -392,8 +374,7 @@ class Manuscript extends AbstractEntity
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -404,8 +385,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function setBlankPageCount($blankPageCount)
-    {
+    public function setBlankPageCount($blankPageCount) {
         $this->blankPageCount = $blankPageCount;
 
         return $this;
@@ -416,8 +396,7 @@ class Manuscript extends AbstractEntity
      *
      * @return int
      */
-    public function getBlankPageCount()
-    {
+    public function getBlankPageCount() {
         return $this->blankPageCount;
     }
 
@@ -428,8 +407,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function setFilledPageCount($filledPageCount)
-    {
+    public function setFilledPageCount($filledPageCount) {
         $this->filledPageCount = $filledPageCount;
 
         return $this;
@@ -440,8 +418,7 @@ class Manuscript extends AbstractEntity
      *
      * @return int
      */
-    public function getFilledPageCount()
-    {
+    public function getFilledPageCount() {
         return $this->filledPageCount;
     }
 
@@ -452,8 +429,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function setItemCount($itemCount)
-    {
+    public function setItemCount($itemCount) {
         $this->itemCount = $itemCount;
 
         return $this;
@@ -464,8 +440,7 @@ class Manuscript extends AbstractEntity
      *
      * @return int
      */
-    public function getItemCount()
-    {
+    public function getItemCount() {
         return $this->itemCount;
     }
 
@@ -476,8 +451,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function setPoemCount($poemCount)
-    {
+    public function setPoemCount($poemCount) {
         $this->poemCount = $poemCount;
 
         return $this;
@@ -488,8 +462,7 @@ class Manuscript extends AbstractEntity
      *
      * @return int
      */
-    public function getPoemCount()
-    {
+    public function getPoemCount() {
         return $this->poemCount;
     }
 
@@ -500,8 +473,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function setAdditionalGenres($additionalGenres)
-    {
+    public function setAdditionalGenres($additionalGenres) {
         $this->additionalGenres = $additionalGenres;
 
         return $this;
@@ -512,8 +484,7 @@ class Manuscript extends AbstractEntity
      *
      * @return array
      */
-    public function getAdditionalGenres()
-    {
+    public function getAdditionalGenres() {
         return $this->additionalGenres;
     }
 
@@ -524,8 +495,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function setCallNumber($callNumber)
-    {
+    public function setCallNumber($callNumber) {
         $this->callNumber = $callNumber;
 
         return $this;
@@ -536,8 +506,7 @@ class Manuscript extends AbstractEntity
      *
      * @return string
      */
-    public function getCallNumber()
-    {
+    public function getCallNumber() {
         return $this->callNumber;
     }
 
@@ -548,8 +517,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function setBibliography($bibliography)
-    {
+    public function setBibliography($bibliography) {
         $this->bibliography = $bibliography;
 
         return $this;
@@ -560,8 +528,7 @@ class Manuscript extends AbstractEntity
      *
      * @return string
      */
-    public function getBibliography()
-    {
+    public function getBibliography() {
         return $this->bibliography;
     }
 
@@ -572,8 +539,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function setUntitled($untitled)
-    {
+    public function setUntitled($untitled) {
         $this->untitled = $untitled;
 
         return $this;
@@ -584,20 +550,18 @@ class Manuscript extends AbstractEntity
      *
      * @return bool
      */
-    public function getUntitled()
-    {
+    public function getUntitled() {
         return $this->untitled;
     }
 
     /**
      * Set firstLineIndex.
      *
-     * @param bool|null $firstLineIndex
+     * @param null|bool $firstLineIndex
      *
      * @return Manuscript
      */
-    public function setFirstLineIndex($firstLineIndex = null)
-    {
+    public function setFirstLineIndex($firstLineIndex = null) {
         $this->firstLineIndex = $firstLineIndex;
 
         return $this;
@@ -606,22 +570,20 @@ class Manuscript extends AbstractEntity
     /**
      * Get firstLineIndex.
      *
-     * @return bool|null
+     * @return null|bool
      */
-    public function getFirstLineIndex()
-    {
+    public function getFirstLineIndex() {
         return $this->firstLineIndex;
     }
 
     /**
      * Set digitized.
      *
-     * @param bool|null $digitized
+     * @param null|bool $digitized
      *
      * @return Manuscript
      */
-    public function setDigitized($digitized = null)
-    {
+    public function setDigitized($digitized = null) {
         $this->digitized = $digitized;
 
         return $this;
@@ -630,22 +592,20 @@ class Manuscript extends AbstractEntity
     /**
      * Get digitized.
      *
-     * @return bool|null
+     * @return null|bool
      */
-    public function getDigitized()
-    {
+    public function getDigitized() {
         return $this->digitized;
     }
 
     /**
      * Set format.
      *
-     * @param string|null $format
+     * @param null|string $format
      *
      * @return Manuscript
      */
-    public function setFormat($format = null)
-    {
+    public function setFormat($format = null) {
         $this->format = $format;
 
         return $this;
@@ -654,22 +614,20 @@ class Manuscript extends AbstractEntity
     /**
      * Get format.
      *
-     * @return string|null
+     * @return null|string
      */
-    public function getFormat()
-    {
+    public function getFormat() {
         return $this->format;
     }
 
     /**
      * Set size.
      *
-     * @param string|null $size
+     * @param null|string $size
      *
      * @return Manuscript
      */
-    public function setSize($size = null)
-    {
+    public function setSize($size = null) {
         $this->size = $size;
 
         return $this;
@@ -678,10 +636,9 @@ class Manuscript extends AbstractEntity
     /**
      * Get size.
      *
-     * @return string|null
+     * @return null|string
      */
-    public function getSize()
-    {
+    public function getSize() {
         return $this->size;
     }
 
@@ -692,8 +649,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function setComplete($complete)
-    {
+    public function setComplete($complete) {
         $this->complete = $complete;
 
         return $this;
@@ -704,8 +660,7 @@ class Manuscript extends AbstractEntity
      *
      * @return bool
      */
-    public function getComplete()
-    {
+    public function getComplete() {
         return $this->complete;
     }
 
@@ -716,8 +671,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function addManuscriptContent(\AppBundle\Entity\ManuscriptContent $manuscriptContent)
-    {
+    public function addManuscriptContent(ManuscriptContent $manuscriptContent) {
         $this->manuscriptContents[] = $manuscriptContent;
 
         return $this;
@@ -728,10 +682,9 @@ class Manuscript extends AbstractEntity
      *
      * @param \AppBundle\Entity\ManuscriptContent $manuscriptContent
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeManuscriptContent(\AppBundle\Entity\ManuscriptContent $manuscriptContent)
-    {
+    public function removeManuscriptContent(ManuscriptContent $manuscriptContent) {
         return $this->manuscriptContents->removeElement($manuscriptContent);
     }
 
@@ -740,8 +693,7 @@ class Manuscript extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getManuscriptContents()
-    {
+    public function getManuscriptContents() {
         return $this->manuscriptContents;
     }
 
@@ -752,8 +704,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function addPeriod(\AppBundle\Entity\Period $period)
-    {
+    public function addPeriod(Period $period) {
         $this->periods[] = $period;
 
         return $this;
@@ -764,10 +715,9 @@ class Manuscript extends AbstractEntity
      *
      * @param \AppBundle\Entity\Period $period
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removePeriod(\AppBundle\Entity\Period $period)
-    {
+    public function removePeriod(Period $period) {
         return $this->periods->removeElement($period);
     }
 
@@ -776,8 +726,7 @@ class Manuscript extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPeriods()
-    {
+    public function getPeriods() {
         return $this->periods;
     }
 
@@ -788,8 +737,7 @@ class Manuscript extends AbstractEntity
      *
      * @return Manuscript
      */
-    public function addRegion(\AppBundle\Entity\Region $region)
-    {
+    public function addRegion(Region $region) {
         $this->regions[] = $region;
 
         return $this;
@@ -800,10 +748,9 @@ class Manuscript extends AbstractEntity
      *
      * @param \AppBundle\Entity\Region $region
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeRegion(\AppBundle\Entity\Region $region)
-    {
+    public function removeRegion(Region $region) {
         return $this->regions->removeElement($region);
     }
 
@@ -812,8 +759,7 @@ class Manuscript extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getRegions()
-    {
+    public function getRegions() {
         return $this->regions;
     }
 }

@@ -8,14 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
- * ManuscriptFeature
+ * ManuscriptFeature.
  *
  * @ORM\Table(name="manuscript_feature")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ManuscriptFeatureRepository")
  */
-class ManuscriptFeature extends AbstractEntity
-{
-
+class ManuscriptFeature extends AbstractEntity {
     /**
      * @var string
      * @ORM\Column(type="text", nullable=false)
@@ -53,7 +51,7 @@ class ManuscriptFeature extends AbstractEntity
      * @return string
      */
     public function __toString() {
-        return implode(", ", array($this->manuscript, $this->feature));
+        return implode(', ', array($this->manuscript, $this->feature));
     }
 
     /**
@@ -63,8 +61,7 @@ class ManuscriptFeature extends AbstractEntity
      *
      * @return ManuscriptFeature
      */
-    public function setFeature(\AppBundle\Entity\Feature $feature)
-    {
+    public function setFeature(Feature $feature) {
         $this->feature = $feature;
 
         return $this;
@@ -75,8 +72,7 @@ class ManuscriptFeature extends AbstractEntity
      *
      * @return \AppBundle\Entity\Feature
      */
-    public function getFeature()
-    {
+    public function getFeature() {
         return $this->feature;
     }
 
@@ -87,8 +83,7 @@ class ManuscriptFeature extends AbstractEntity
      *
      * @return ManuscriptFeature
      */
-    public function setManuscript(\AppBundle\Entity\Manuscript $manuscript)
-    {
+    public function setManuscript(Manuscript $manuscript) {
         $this->manuscript = $manuscript;
 
         return $this;
@@ -99,8 +94,7 @@ class ManuscriptFeature extends AbstractEntity
      *
      * @return \AppBundle\Entity\Manuscript
      */
-    public function getManuscript()
-    {
+    public function getManuscript() {
         return $this->manuscript;
     }
 
@@ -111,8 +105,7 @@ class ManuscriptFeature extends AbstractEntity
      *
      * @return ManuscriptFeature
      */
-    public function addImage(\AppBundle\Entity\Image $image)
-    {
+    public function addImage(Image $image) {
         $this->images[] = $image;
 
         return $this;
@@ -123,10 +116,9 @@ class ManuscriptFeature extends AbstractEntity
      *
      * @param \AppBundle\Entity\Image $image
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeImage(\AppBundle\Entity\Image $image)
-    {
+    public function removeImage(Image $image) {
         return $this->images->removeElement($image);
     }
 
@@ -135,8 +127,7 @@ class ManuscriptFeature extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getImages()
-    {
+    public function getImages() {
         return $this->images;
     }
 
@@ -147,8 +138,7 @@ class ManuscriptFeature extends AbstractEntity
      *
      * @return ManuscriptFeature
      */
-    public function setNote($note)
-    {
+    public function setNote($note) {
         $this->note = $note;
 
         return $this;
@@ -159,8 +149,7 @@ class ManuscriptFeature extends AbstractEntity
      *
      * @return string
      */
-    public function getNote()
-    {
+    public function getNote() {
         return $this->note;
     }
 }

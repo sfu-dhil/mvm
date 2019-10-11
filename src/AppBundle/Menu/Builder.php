@@ -2,11 +2,8 @@
 
 namespace AppBundle\Menu;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Nines\BlogBundle\Entity\Post;
-use Nines\BlogBundle\Entity\PostCategory;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -15,8 +12,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 /**
  * Menu builder for the navigation and search menus.
  */
-class Builder implements ContainerAwareInterface
-{
+class Builder implements ContainerAwareInterface {
     use ContainerAwareTrait;
 
     // U+25BE, black down-pointing small triangle.
@@ -44,8 +40,7 @@ class Builder implements ContainerAwareInterface
      * @param AuthorizationCheckerInterface $authChecker
      * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker, TokenStorageInterface $tokenStorage)
-    {
+    public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker, TokenStorageInterface $tokenStorage) {
         $this->factory = $factory;
         $this->authChecker = $authChecker;
         $this->tokenStorage = $tokenStorage;
@@ -58,11 +53,11 @@ class Builder implements ContainerAwareInterface
      *
      * @return bool
      */
-    private function hasRole($role)
-    {
-        if (!$this->tokenStorage->getToken()) {
+    private function hasRole($role) {
+        if ( ! $this->tokenStorage->getToken()) {
             return false;
         }
+
         return $this->authChecker->isGranted($role);
     }
 
@@ -70,10 +65,10 @@ class Builder implements ContainerAwareInterface
      * Build the navigation menu and return it.
      *
      * @param array $options
+     *
      * @return ItemInterface
      */
-    public function mainMenu(array $options)
-    {
+    public function mainMenu(array $options) {
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes(array(
             'class' => 'nav navbar-nav',
@@ -88,40 +83,40 @@ class Builder implements ContainerAwareInterface
         $browse->setLinkAttribute('data-toggle', 'dropdown');
         $browse->setChildrenAttribute('class', 'dropdown-menu');
 
-        $browse->addChild("Archives", array(
+        $browse->addChild('Archives', array(
             'route' => 'archive_index',
         ));
-        $browse->addChild("Contents", array(
+        $browse->addChild('Contents', array(
             'route' => 'content_index',
         ));
-        $browse->addChild("Content Roles", array(
+        $browse->addChild('Content Roles', array(
             'route' => 'content_role_index',
         ));
-        $browse->addChild("Features", array(
+        $browse->addChild('Features', array(
             'route' => 'feature_index',
         ));
-        $browse->addChild("Images", array(
+        $browse->addChild('Images', array(
             'uri' => '#',
         ));
-        $browse->addChild("Manuscripts", array(
+        $browse->addChild('Manuscripts', array(
             'route' => 'manuscript_index',
         ));
-        $browse->addChild("Manuscript Roles", array(
+        $browse->addChild('Manuscript Roles', array(
             'route' => 'manuscript_role_index',
         ));
-        $browse->addChild("Periods", array(
+        $browse->addChild('Periods', array(
             'route' => 'period_index',
         ));
-        $browse->addChild("People", array(
+        $browse->addChild('People', array(
             'route' => 'person_index',
         ));
-        $browse->addChild("Print Sources", array(
+        $browse->addChild('Print Sources', array(
             'route' => 'print_source_index',
         ));
-        $browse->addChild("Regions", array(
+        $browse->addChild('Regions', array(
             'route' => 'region_index',
         ));
-        $browse->addChild("Themes", array(
+        $browse->addChild('Themes', array(
             'route' => 'theme_index',
         ));
 
@@ -133,21 +128,20 @@ class Builder implements ContainerAwareInterface
                 'role' => 'separator',
                 'class' => 'divider',
             ));
-            $browse->addChild("Content Contributions", array(
+            $browse->addChild('Content Contributions', array(
                 'route' => 'content_contribution_index',
             ));
-            $browse->addChild("Manuscript Contents", array(
+            $browse->addChild('Manuscript Contents', array(
                 'route' => 'manuscript_content_index',
             ));
-            $browse->addChild("Manuscript Contributions", array(
+            $browse->addChild('Manuscript Contributions', array(
                 'route' => 'manuscript_contribution_index',
             ));
-            $browse->addChild("Manuscript Features", array(
+            $browse->addChild('Manuscript Features', array(
                 'route' => 'manuscript_feature_index',
             ));
         }
 
         return $menu;
     }
-
 }

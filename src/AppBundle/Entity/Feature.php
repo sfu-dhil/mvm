@@ -8,14 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
 /**
- * Feature
+ * Feature.
  *
  * @ORM\Table(name="feature")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FeatureRepository")
  */
-class Feature extends AbstractTerm
-{
-
+class Feature extends AbstractTerm {
     /**
      * @var Collection|Image[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="feature")
@@ -41,8 +39,7 @@ class Feature extends AbstractTerm
      *
      * @return Feature
      */
-    public function addImage(\AppBundle\Entity\Image $image)
-    {
+    public function addImage(Image $image) {
         $this->images[] = $image;
 
         return $this;
@@ -53,10 +50,9 @@ class Feature extends AbstractTerm
      *
      * @param \AppBundle\Entity\Image $image
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeImage(\AppBundle\Entity\Image $image)
-    {
+    public function removeImage(Image $image) {
         return $this->images->removeElement($image);
     }
 
@@ -65,8 +61,7 @@ class Feature extends AbstractTerm
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getImages()
-    {
+    public function getImages() {
         return $this->images;
     }
 
@@ -77,8 +72,7 @@ class Feature extends AbstractTerm
      *
      * @return Feature
      */
-    public function addManuscriptFeature(\AppBundle\Entity\ManuscriptFeature $manuscriptFeature)
-    {
+    public function addManuscriptFeature(ManuscriptFeature $manuscriptFeature) {
         $this->manuscriptFeatures[] = $manuscriptFeature;
 
         return $this;
@@ -89,10 +83,9 @@ class Feature extends AbstractTerm
      *
      * @param \AppBundle\Entity\ManuscriptFeature $manuscriptFeature
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeManuscriptFeature(\AppBundle\Entity\ManuscriptFeature $manuscriptFeature)
-    {
+    public function removeManuscriptFeature(ManuscriptFeature $manuscriptFeature) {
         return $this->manuscriptFeatures->removeElement($manuscriptFeature);
     }
 
@@ -101,8 +94,7 @@ class Feature extends AbstractTerm
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getManuscriptFeatures()
-    {
+    public function getManuscriptFeatures() {
         return $this->manuscriptFeatures;
     }
 }

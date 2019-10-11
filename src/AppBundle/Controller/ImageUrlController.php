@@ -2,16 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\ImageUrl;
 use AppBundle\Form\ImageUrlType;
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * ImageUrl controller.
@@ -19,8 +19,7 @@ use AppBundle\Form\ImageUrlType;
  * @IsGranted("ROLE_USER")
  * @Route("/image_url")
  */
-class ImageUrlController extends Controller implements PaginatorAwareInterface
-{
+class ImageUrlController extends Controller implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**
@@ -33,8 +32,7 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
      * @Route("/", name="image_url_index", methods={"GET"})
      * @Template()
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(ImageUrl::class, 'e')->orderBy('e.id', 'ASC');
@@ -47,40 +45,35 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
         );
     }
 
-/**
+    /**
      * Typeahead API endpoint for ImageUrl entities.
      *
      * To make this work, add something like this to ImageUrlRepository:
-        //    public function typeaheadQuery($q) {
-        //        $qb = $this->createQueryBuilder('e');
-        //        $qb->andWhere("e.name LIKE :q");
-        //        $qb->orderBy('e.name');
-        //        $qb->setParameter('q', "{$q}%");
-        //        return $qb->getQuery()->execute();
-        //    }
      *
      * @param Request $request
      *
      * @Route("/typeahead", name="image_url_typeahead", methods={"GET"})
+     *
      * @return JsonResponse
      */
-    public function typeahead(Request $request)
-    {
+    public function typeahead(Request $request) {
         $q = $request->query->get('q');
-        if( ! $q) {
-            return new JsonResponse([]);
+        if ( ! $q) {
+            return new JsonResponse(array());
         }
         $em = $this->getDoctrine()->getManager();
-	    $repo = $em->getRepository(ImageUrl::class);
-        $data = [];
-        foreach($repo->typeaheadQuery($q) as $result) {
-            $data[] = [
+        $repo = $em->getRepository(ImageUrl::class);
+        $data = array();
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = array(
                 'id' => $result->getId(),
-                'text' => (string)$result,
-            ];
+                'text' => (string) $result,
+            );
         }
+
         return new JsonResponse($data);
     }
+
     /**
      * Search for ImageUrl entities.
      *
@@ -103,20 +96,20 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
      *
      * @Route("/search", name="image_url_search", methods={"GET"})
      * @Template()
-    * @return array
-    */
-    public function searchAction(Request $request)
-    {
+     *
+     * @return array
+     */
+    public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-	$repo = $em->getRepository('AppBundle:ImageUrl');
-	$q = $request->query->get('q');
-	if($q) {
-	    $query = $repo->searchQuery($q);
+        $repo = $em->getRepository('AppBundle:ImageUrl');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->searchQuery($q);
             $paginator = $this->get('knp_paginator');
             $imageUrls = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-	} else {
+        } else {
             $imageUrls = array();
-	}
+        }
 
         return array(
             'imageUrls' => $imageUrls,
@@ -135,8 +128,7 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
      * @Route("/new", name="image_url_new", methods={"GET","POST"})
      * @Template()
      */
-    public function newAction(Request $request)
-    {
+    public function newAction(Request $request) {
         $imageUrl = new ImageUrl();
         $form = $this->createForm(ImageUrlType::class, $imageUrl);
         $form->handleRequest($request);
@@ -147,6 +139,7 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
             $em->flush();
 
             $this->addFlash('success', 'The new imageUrl was created.');
+
             return $this->redirectToRoute('image_url_show', array('id' => $imageUrl->getId()));
         }
 
@@ -167,8 +160,7 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
      * @Route("/new_popup", name="image_url_new_popup", methods={"GET","POST"})
      * @Template()
      */
-    public function newPopupAction(Request $request)
-    {
+    public function newPopupAction(Request $request) {
         return $this->newAction($request);
     }
 
@@ -182,9 +174,7 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
      * @Route("/{id}", name="image_url_show", methods={"GET"})
      * @Template()
      */
-    public function showAction(ImageUrl $imageUrl)
-    {
-
+    public function showAction(ImageUrl $imageUrl) {
         return array(
             'imageUrl' => $imageUrl,
         );
@@ -192,7 +182,6 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
 
     /**
      * Displays a form to edit an existing ImageUrl entity.
-     *
      *
      * @param Request $request
      * @param ImageUrl $imageUrl
@@ -203,8 +192,7 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
      * @Route("/{id}/edit", name="image_url_edit", methods={"GET","POST"})
      * @Template()
      */
-    public function editAction(Request $request, ImageUrl $imageUrl)
-    {
+    public function editAction(Request $request, ImageUrl $imageUrl) {
         $editForm = $this->createForm(ImageUrlType::class, $imageUrl);
         $editForm->handleRequest($request);
 
@@ -212,6 +200,7 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The imageUrl has been updated.');
+
             return $this->redirectToRoute('image_url_show', array('id' => $imageUrl->getId()));
         }
 
@@ -224,7 +213,6 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
     /**
      * Deletes a ImageUrl entity.
      *
-     *
      * @param Request $request
      * @param ImageUrl $imageUrl
      *
@@ -233,8 +221,7 @@ class ImageUrlController extends Controller implements PaginatorAwareInterface
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Route("/{id}/delete", name="image_url_delete", methods={"GET"})
      */
-    public function deleteAction(Request $request, ImageUrl $imageUrl)
-    {
+    public function deleteAction(Request $request, ImageUrl $imageUrl) {
         $em = $this->getDoctrine()->getManager();
         $em->remove($imageUrl);
         $em->flush();

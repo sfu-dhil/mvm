@@ -2,21 +2,18 @@
 
 namespace AppBundle\Tests\Controller;
 
-use AppBundle\Entity\ManuscriptContent;
 use AppBundle\DataFixtures\ORM\LoadManuscriptContent;
 use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 use Nines\UtilBundle\Tests\Util\BaseTestCase;
 
-class ManuscriptContentControllerTest extends BaseTestCase
-{
-
+class ManuscriptContentControllerTest extends BaseTestCase {
     protected function getFixtures() {
-        return [
+        return array(
             LoadUser::class,
-            LoadManuscriptContent::class
-        ];
+            LoadManuscriptContent::class,
+        );
     }
-    
+
     /**
      * @group anon
      * @group index
@@ -82,5 +79,4 @@ class ManuscriptContentControllerTest extends BaseTestCase
         $crawler = $client->request('GET', '/manuscript_content/1');
         $this->assertStatusCode(200, $client);
     }
-
 }

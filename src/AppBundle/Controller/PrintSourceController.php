@@ -2,16 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\PrintSource;
 use AppBundle\Form\PrintSourceType;
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * PrintSource controller.
@@ -19,8 +19,7 @@ use AppBundle\Form\PrintSourceType;
  * @IsGranted("ROLE_USER")
  * @Route("/print_source")
  */
-class PrintSourceController extends Controller implements PaginatorAwareInterface
-{
+class PrintSourceController extends Controller implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**
@@ -33,8 +32,7 @@ class PrintSourceController extends Controller implements PaginatorAwareInterfac
      * @Route("/", name="print_source_index", methods={"GET"})
      * @Template()
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(PrintSource::class, 'e')->orderBy('e.label', 'ASC');
@@ -47,40 +45,35 @@ class PrintSourceController extends Controller implements PaginatorAwareInterfac
         );
     }
 
-/**
+    /**
      * Typeahead API endpoint for PrintSource entities.
      *
      * To make this work, add something like this to PrintSourceRepository:
-        //    public function typeaheadQuery($q) {
-        //        $qb = $this->createQueryBuilder('e');
-        //        $qb->andWhere("e.name LIKE :q");
-        //        $qb->orderBy('e.name');
-        //        $qb->setParameter('q', "{$q}%");
-        //        return $qb->getQuery()->execute();
-        //    }
      *
      * @param Request $request
      *
      * @Route("/typeahead", name="print_source_typeahead", methods={"GET"})
+     *
      * @return JsonResponse
      */
-    public function typeahead(Request $request)
-    {
+    public function typeahead(Request $request) {
         $q = $request->query->get('q');
-        if( ! $q) {
-            return new JsonResponse([]);
+        if ( ! $q) {
+            return new JsonResponse(array());
         }
         $em = $this->getDoctrine()->getManager();
-	    $repo = $em->getRepository(PrintSource::class);
-        $data = [];
-        foreach($repo->typeaheadQuery($q) as $result) {
-            $data[] = [
+        $repo = $em->getRepository(PrintSource::class);
+        $data = array();
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = array(
                 'id' => $result->getId(),
-                'text' => (string)$result,
-            ];
+                'text' => (string) $result,
+            );
         }
+
         return new JsonResponse($data);
     }
+
     /**
      * Search for PrintSource entities.
      *
@@ -103,20 +96,20 @@ class PrintSourceController extends Controller implements PaginatorAwareInterfac
      *
      * @Route("/search", name="print_source_search", methods={"GET"})
      * @Template()
-    * @return array
-    */
-    public function searchAction(Request $request)
-    {
+     *
+     * @return array
+     */
+    public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-	$repo = $em->getRepository('AppBundle:PrintSource');
-	$q = $request->query->get('q');
-	if($q) {
-	    $query = $repo->searchQuery($q);
+        $repo = $em->getRepository('AppBundle:PrintSource');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->searchQuery($q);
             $paginator = $this->get('knp_paginator');
             $printSources = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-	} else {
+        } else {
             $printSources = array();
-	}
+        }
 
         return array(
             'printSources' => $printSources,
@@ -135,8 +128,7 @@ class PrintSourceController extends Controller implements PaginatorAwareInterfac
      * @Route("/new", name="print_source_new", methods={"GET","POST"})
      * @Template()
      */
-    public function newAction(Request $request)
-    {
+    public function newAction(Request $request) {
         $printSource = new PrintSource();
         $form = $this->createForm(PrintSourceType::class, $printSource);
         $form->handleRequest($request);
@@ -147,6 +139,7 @@ class PrintSourceController extends Controller implements PaginatorAwareInterfac
             $em->flush();
 
             $this->addFlash('success', 'The new printSource was created.');
+
             return $this->redirectToRoute('print_source_show', array('id' => $printSource->getId()));
         }
 
@@ -167,8 +160,7 @@ class PrintSourceController extends Controller implements PaginatorAwareInterfac
      * @Route("/new_popup", name="print_source_new_popup", methods={"GET","POST"})
      * @Template()
      */
-    public function newPopupAction(Request $request)
-    {
+    public function newPopupAction(Request $request) {
         return $this->newAction($request);
     }
 
@@ -182,9 +174,7 @@ class PrintSourceController extends Controller implements PaginatorAwareInterfac
      * @Route("/{id}", name="print_source_show", methods={"GET"})
      * @Template()
      */
-    public function showAction(PrintSource $printSource)
-    {
-
+    public function showAction(PrintSource $printSource) {
         return array(
             'printSource' => $printSource,
         );
@@ -192,7 +182,6 @@ class PrintSourceController extends Controller implements PaginatorAwareInterfac
 
     /**
      * Displays a form to edit an existing PrintSource entity.
-     *
      *
      * @param Request $request
      * @param PrintSource $printSource
@@ -203,8 +192,7 @@ class PrintSourceController extends Controller implements PaginatorAwareInterfac
      * @Route("/{id}/edit", name="print_source_edit", methods={"GET","POST"})
      * @Template()
      */
-    public function editAction(Request $request, PrintSource $printSource)
-    {
+    public function editAction(Request $request, PrintSource $printSource) {
         $editForm = $this->createForm(PrintSourceType::class, $printSource);
         $editForm->handleRequest($request);
 
@@ -212,6 +200,7 @@ class PrintSourceController extends Controller implements PaginatorAwareInterfac
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The printSource has been updated.');
+
             return $this->redirectToRoute('print_source_show', array('id' => $printSource->getId()));
         }
 
@@ -224,7 +213,6 @@ class PrintSourceController extends Controller implements PaginatorAwareInterfac
     /**
      * Deletes a PrintSource entity.
      *
-     *
      * @param Request $request
      * @param PrintSource $printSource
      *
@@ -233,8 +221,7 @@ class PrintSourceController extends Controller implements PaginatorAwareInterfac
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Route("/{id}/delete", name="print_source_delete", methods={"GET"})
      */
-    public function deleteAction(Request $request, PrintSource $printSource)
-    {
+    public function deleteAction(Request $request, PrintSource $printSource) {
         $em = $this->getDoctrine()->getManager();
         $em->remove($printSource);
         $em->flush();

@@ -2,16 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use AppBundle\Entity\ManuscriptFeature;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\ManuscriptFeature;
-use AppBundle\Form\ManuscriptFeatureType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * ManuscriptFeature controller.
@@ -19,8 +16,7 @@ use AppBundle\Form\ManuscriptFeatureType;
  * @IsGranted("ROLE_USER")
  * @Route("/manuscript_feature")
  */
-class ManuscriptFeatureController extends Controller implements PaginatorAwareInterface
-{
+class ManuscriptFeatureController extends Controller implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**
@@ -33,8 +29,7 @@ class ManuscriptFeatureController extends Controller implements PaginatorAwareIn
      * @Route("/", name="manuscript_feature_index", methods={"GET"})
      * @Template()
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(ManuscriptFeature::class, 'e')->orderBy('e.id', 'ASC');
@@ -57,12 +52,9 @@ class ManuscriptFeatureController extends Controller implements PaginatorAwareIn
      * @Route("/{id}", name="manuscript_feature_show", methods={"GET"})
      * @Template()
      */
-    public function showAction(ManuscriptFeature $manuscriptFeature)
-    {
-
+    public function showAction(ManuscriptFeature $manuscriptFeature) {
         return array(
             'manuscriptFeature' => $manuscriptFeature,
         );
     }
-
 }

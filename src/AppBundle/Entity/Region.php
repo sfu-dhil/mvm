@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
- * Region
+ * Region.
  *
  * @todo Make this GeoNames compatible.
  *
@@ -18,9 +18,7 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\RegionRepository")
  */
-class Region extends AbstractEntity
-{
-
+class Region extends AbstractEntity {
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
@@ -68,8 +66,7 @@ class Region extends AbstractEntity
      *
      * @return Region
      */
-    public function addPrintSource(\AppBundle\Entity\PrintSource $printSource)
-    {
+    public function addPrintSource(PrintSource $printSource) {
         $this->printSources[] = $printSource;
 
         return $this;
@@ -80,10 +77,9 @@ class Region extends AbstractEntity
      *
      * @param \AppBundle\Entity\PrintSource $printSource
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removePrintSource(\AppBundle\Entity\PrintSource $printSource)
-    {
+    public function removePrintSource(PrintSource $printSource) {
         return $this->printSources->removeElement($printSource);
     }
 
@@ -92,8 +88,7 @@ class Region extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPrintSources()
-    {
+    public function getPrintSources() {
         return $this->printSources;
     }
 
@@ -104,8 +99,7 @@ class Region extends AbstractEntity
      *
      * @return Region
      */
-    public function addManuscript(\AppBundle\Entity\Manuscript $manuscript)
-    {
+    public function addManuscript(Manuscript $manuscript) {
         $this->manuscripts[] = $manuscript;
 
         return $this;
@@ -116,10 +110,9 @@ class Region extends AbstractEntity
      *
      * @param \AppBundle\Entity\Manuscript $manuscript
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeManuscript(\AppBundle\Entity\Manuscript $manuscript)
-    {
+    public function removeManuscript(Manuscript $manuscript) {
         return $this->manuscripts->removeElement($manuscript);
     }
 
@@ -128,8 +121,7 @@ class Region extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getManuscripts()
-    {
+    public function getManuscripts() {
         return $this->manuscripts;
     }
 
@@ -140,8 +132,7 @@ class Region extends AbstractEntity
      *
      * @return Region
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -152,11 +143,9 @@ class Region extends AbstractEntity
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
-
 
     /**
      * Add person.
@@ -165,8 +154,7 @@ class Region extends AbstractEntity
      *
      * @return Region
      */
-    public function addPerson(\AppBundle\Entity\Person $person)
-    {
+    public function addPerson(Person $person) {
         $this->people[] = $person;
 
         return $this;
@@ -177,10 +165,9 @@ class Region extends AbstractEntity
      *
      * @param \AppBundle\Entity\Person $person
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removePerson(\AppBundle\Entity\Person $person)
-    {
+    public function removePerson(Person $person) {
         return $this->people->removeElement($person);
     }
 
@@ -189,8 +176,7 @@ class Region extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPeople()
-    {
+    public function getPeople() {
         return $this->people;
     }
 }

@@ -2,21 +2,18 @@
 
 namespace AppBundle\Tests\Controller;
 
-use AppBundle\Entity\ManuscriptFeature;
 use AppBundle\DataFixtures\ORM\LoadManuscriptFeature;
 use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 use Nines\UtilBundle\Tests\Util\BaseTestCase;
 
-class ManuscriptFeatureControllerTest extends BaseTestCase
-{
-
+class ManuscriptFeatureControllerTest extends BaseTestCase {
     protected function getFixtures() {
-        return [
+        return array(
             LoadUser::class,
-            LoadManuscriptFeature::class
-        ];
+            LoadManuscriptFeature::class,
+        );
     }
-    
+
     /**
      * @group anon
      * @group index
@@ -85,5 +82,4 @@ class ManuscriptFeatureControllerTest extends BaseTestCase
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
     }
-
 }

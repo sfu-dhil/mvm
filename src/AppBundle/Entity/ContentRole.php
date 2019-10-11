@@ -8,19 +8,22 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
 /**
- * ContentRole
+ * ContentRole.
  *
  * @ORM\Table(name="content_role")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentRoleRepository")
  */
-class ContentRole extends AbstractTerm
-{
-
+class ContentRole extends AbstractTerm {
     /**
      * @var Collection|ContentContribution[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ContentContribution", mappedBy="role")
      */
     private $contributions;
+
+    public function __construct() {
+        parent::__construct();
+        $this->contributions = new ArrayCollection();
+    }
 
     /**
      * Add contribution.
@@ -29,16 +32,10 @@ class ContentRole extends AbstractTerm
      *
      * @return ContentRole
      */
-    public function addContribution(\AppBundle\Entity\ContentContribution $contribution)
-    {
+    public function addContribution(ContentContribution $contribution) {
         $this->contributions[] = $contribution;
 
         return $this;
-    }
-
-    public function __construct() {
-        parent::__construct();
-        $this->contributions = new ArrayCollection();
     }
 
     /**
@@ -46,10 +43,9 @@ class ContentRole extends AbstractTerm
      *
      * @param \AppBundle\Entity\ContentContribution $contribution
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeContribution(\AppBundle\Entity\ContentContribution $contribution)
-    {
+    public function removeContribution(ContentContribution $contribution) {
         return $this->contributions->removeElement($contribution);
     }
 
@@ -58,8 +54,7 @@ class ContentRole extends AbstractTerm
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getContributions()
-    {
+    public function getContributions() {
         return $this->contributions;
     }
 }

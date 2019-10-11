@@ -8,21 +8,20 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
- * Person
+ * Person.
  *
  * @ORM\Table(name="person", indexes={
  *  @ORM\Index(name="person_ft", columns={"full_name"}, flags={"fulltext"})
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonRepository")
  */
-class Person extends AbstractEntity
-{
+class Person extends AbstractEntity {
     const MALE = 'M';
 
     const FEMALE = 'F';
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="boolean")
      */
     private $anonymous;
@@ -100,23 +99,24 @@ class Person extends AbstractEntity
      * @return string
      */
     public function __toString() {
-        if( ! $this->anonymous) {
+        if ( ! $this->anonymous) {
             return $this->fullName;
         }
+
         return '[' . $this->fullName . ']';
     }
 
     /**
      * Set birthDate.
      *
-     * @param \AppBundle\Entity\CircaDate|null $birthDate
+     * @param null|\AppBundle\Entity\CircaDate $birthDate
+     *
+     * @throws \Exception
      *
      * @return Person
-     * @throws \Exception
      */
-    public function setBirthDate($birthDate = null)
-    {
-        if(is_string($birthDate) || is_numeric($birthDate)) {
+    public function setBirthDate($birthDate = null) {
+        if (is_string($birthDate) || is_numeric($birthDate)) {
             $dateYear = new CircaDate();
             $dateYear->setValue($birthDate);
             $this->birthDate = $dateYear;
@@ -130,24 +130,23 @@ class Person extends AbstractEntity
     /**
      * Get birthDate.
      *
-     * @return \AppBundle\Entity\CircaDate|null
+     * @return null|\AppBundle\Entity\CircaDate
      */
-    public function getBirthDate()
-    {
+    public function getBirthDate() {
         return $this->birthDate;
     }
 
     /**
      * Set deathDate.
      *
-     * @param \AppBundle\Entity\CircaDate|null $deathDate
+     * @param null|\AppBundle\Entity\CircaDate $deathDate
+     *
+     * @throws \Exception
      *
      * @return Person
-     * @throws \Exception
      */
-    public function setDeathDate($deathDate = null)
-    {
-        if(is_string($deathDate) || is_numeric($deathDate)) {
+    public function setDeathDate($deathDate = null) {
+        if (is_string($deathDate) || is_numeric($deathDate)) {
             $dateYear = new CircaDate();
             $dateYear->setValue($deathDate);
             $this->deathDate = $dateYear;
@@ -161,10 +160,9 @@ class Person extends AbstractEntity
     /**
      * Get deathDate.
      *
-     * @return \AppBundle\Entity\CircaDate|null
+     * @return null|\AppBundle\Entity\CircaDate
      */
-    public function getDeathDate()
-    {
+    public function getDeathDate() {
         return $this->deathDate;
     }
 
@@ -175,8 +173,7 @@ class Person extends AbstractEntity
      *
      * @return Person
      */
-    public function addContentContribution(\AppBundle\Entity\ContentContribution $contentContribution)
-    {
+    public function addContentContribution(ContentContribution $contentContribution) {
         $this->contentContributions[] = $contentContribution;
 
         return $this;
@@ -187,10 +184,9 @@ class Person extends AbstractEntity
      *
      * @param \AppBundle\Entity\ContentContribution $contentContribution
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeContentContribution(\AppBundle\Entity\ContentContribution $contentContribution)
-    {
+    public function removeContentContribution(ContentContribution $contentContribution) {
         return $this->contentContributions->removeElement($contentContribution);
     }
 
@@ -199,8 +195,7 @@ class Person extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getContentContributions()
-    {
+    public function getContentContributions() {
         return $this->contentContributions;
     }
 
@@ -211,8 +206,7 @@ class Person extends AbstractEntity
      *
      * @return Person
      */
-    public function addManuscriptContribution(\AppBundle\Entity\ManuscriptContribution $manuscriptContribution)
-    {
+    public function addManuscriptContribution(ManuscriptContribution $manuscriptContribution) {
         $this->manuscriptContributions[] = $manuscriptContribution;
 
         return $this;
@@ -223,10 +217,9 @@ class Person extends AbstractEntity
      *
      * @param \AppBundle\Entity\ManuscriptContribution $manuscriptContribution
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeManuscriptContribution(\AppBundle\Entity\ManuscriptContribution $manuscriptContribution)
-    {
+    public function removeManuscriptContribution(ManuscriptContribution $manuscriptContribution) {
         return $this->manuscriptContributions->removeElement($manuscriptContribution);
     }
 
@@ -235,8 +228,7 @@ class Person extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getManuscriptContributions()
-    {
+    public function getManuscriptContributions() {
         return $this->manuscriptContributions;
     }
 
@@ -247,8 +239,7 @@ class Person extends AbstractEntity
      *
      * @return Person
      */
-    public function setFullName($fullName)
-    {
+    public function setFullName($fullName) {
         $this->fullName = $fullName;
 
         return $this;
@@ -259,8 +250,7 @@ class Person extends AbstractEntity
      *
      * @return string
      */
-    public function getFullName()
-    {
+    public function getFullName() {
         return $this->fullName;
     }
 
@@ -271,8 +261,7 @@ class Person extends AbstractEntity
      *
      * @return Person
      */
-    public function setSortableName($sortableName)
-    {
+    public function setSortableName($sortableName) {
         $this->sortableName = $sortableName;
 
         return $this;
@@ -283,20 +272,18 @@ class Person extends AbstractEntity
      *
      * @return string
      */
-    public function getSortableName()
-    {
+    public function getSortableName() {
         return $this->sortableName;
     }
 
     /**
      * Set variantNames.
      *
-     * @param array|null $variantNames
+     * @param null|array $variantNames
      *
      * @return Person
      */
-    public function setVariantNames($variantNames = null)
-    {
+    public function setVariantNames($variantNames = null) {
         $this->variantNames = $variantNames;
 
         return $this;
@@ -305,10 +292,9 @@ class Person extends AbstractEntity
     /**
      * Get variantNames.
      *
-     * @return array|null
+     * @return null|array
      */
-    public function getVariantNames()
-    {
+    public function getVariantNames() {
         return $this->variantNames;
     }
 
@@ -319,8 +305,7 @@ class Person extends AbstractEntity
      *
      * @return Person
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -331,8 +316,7 @@ class Person extends AbstractEntity
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -343,8 +327,7 @@ class Person extends AbstractEntity
      *
      * @return Person
      */
-    public function setAnonymous($anonymous)
-    {
+    public function setAnonymous($anonymous) {
         $this->anonymous = $anonymous;
 
         return $this;
@@ -355,20 +338,18 @@ class Person extends AbstractEntity
      *
      * @return bool
      */
-    public function getAnonymous()
-    {
+    public function getAnonymous() {
         return $this->anonymous;
     }
 
     /**
      * Set gender.
      *
-     * @param string|null $gender
+     * @param null|string $gender
      *
      * @return Person
      */
-    public function setGender($gender = null)
-    {
+    public function setGender($gender = null) {
         $this->gender = $gender;
 
         return $this;
@@ -377,10 +358,9 @@ class Person extends AbstractEntity
     /**
      * Get gender.
      *
-     * @return string|null
+     * @return null|string
      */
-    public function getGender()
-    {
+    public function getGender() {
         return $this->gender;
     }
 
@@ -391,8 +371,7 @@ class Person extends AbstractEntity
      *
      * @return Person
      */
-    public function addRegion(\AppBundle\Entity\Region $region)
-    {
+    public function addRegion(Region $region) {
         $this->regions[] = $region;
 
         return $this;
@@ -403,10 +382,9 @@ class Person extends AbstractEntity
      *
      * @param \AppBundle\Entity\Region $region
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeRegion(\AppBundle\Entity\Region $region)
-    {
+    public function removeRegion(Region $region) {
         return $this->regions->removeElement($region);
     }
 
@@ -415,8 +393,7 @@ class Person extends AbstractEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getRegions()
-    {
+    public function getRegions() {
         return $this->regions;
     }
 }

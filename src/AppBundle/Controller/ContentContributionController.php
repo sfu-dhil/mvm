@@ -2,16 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use AppBundle\Entity\ContentContribution;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\ContentContribution;
-use AppBundle\Form\ContentContributionType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * ContentContribution controller.
@@ -20,7 +17,6 @@ use AppBundle\Form\ContentContributionType;
  * @Route("/content_contribution")
  */
 class ContentContributionController extends Controller implements PaginatorAwareInterface {
-
     use PaginatorTrait;
 
     /**
@@ -57,10 +53,8 @@ class ContentContributionController extends Controller implements PaginatorAware
      * @Template()
      */
     public function showAction(ContentContribution $contentContribution) {
-
         return array(
             'contentContribution' => $contentContribution,
         );
     }
-
 }

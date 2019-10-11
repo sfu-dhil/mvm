@@ -19,20 +19,26 @@
             {% endif %}
         </div>
     </div>
-
     {% embed 'NinesUtilBundle:term/partial:show.html.twig' with {'term': manuscriptRole} %}
     {% endembed %}
 
     {% if manuscriptRole.contributions | length > 0 %}
-        <h2>Contributions</h2>
-        <ul>
+        <h2>Uses of <i>{{ manuscriptRole }}</i></h2>
+        <table class="table table-striped table-bordered table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th>Person</th>
+                    <th>Role</th>
+                    <th>Manuscript</th>
+                </tr>
+            </thead>
             {% for contribution in manuscriptRole.contributions %}
-                <li>
-                    <a href="{{ path("contribution_show", {"id":contribution.id}) }}">
-                        {{ contribution }}
-                    </a>
-                </li>
+                <tr>
+                    <td><a href="{{ path('person_show', {'id': contribution.person.id}) }}">{{ contribution.person }}</a></td>
+                    <td>{{ manuscriptRole }}</td>
+                    <td><a href="{{ path('manuscript_show', {'id': contribution.manuscript.id}) }}">{{ contribution.manuscript }}</a></td>
+                </tr>
             {% endfor %}
-        </ul>
+        </table>
     {% endif %}
 {% endblock %}

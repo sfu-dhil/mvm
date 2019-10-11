@@ -8,14 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
 /**
- * Theme
+ * Theme.
  *
  * @ORM\Table(name="theme")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ThemeRepository")
  */
-class Theme extends AbstractTerm
-{
-
+class Theme extends AbstractTerm {
     /**
      * @var Collection|Manuscript[]
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Manuscript", mappedBy="themes")
@@ -34,8 +32,7 @@ class Theme extends AbstractTerm
      *
      * @return Theme
      */
-    public function addManuscript(\AppBundle\Entity\Manuscript $manuscript)
-    {
+    public function addManuscript(Manuscript $manuscript) {
         $this->manuscripts[] = $manuscript;
 
         return $this;
@@ -46,10 +43,9 @@ class Theme extends AbstractTerm
      *
      * @param \AppBundle\Entity\Manuscript $manuscript
      *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeManuscript(\AppBundle\Entity\Manuscript $manuscript)
-    {
+    public function removeManuscript(Manuscript $manuscript) {
         return $this->manuscripts->removeElement($manuscript);
     }
 
@@ -58,8 +54,7 @@ class Theme extends AbstractTerm
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getManuscripts()
-    {
+    public function getManuscripts() {
         return $this->manuscripts;
     }
 }

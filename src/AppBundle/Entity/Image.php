@@ -6,16 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
- * Image
+ * Image.
  *
  * @ORM\Entity()
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"url" = "ImageUrl", "file" = "ImageFile"})
  */
-abstract class Image extends AbstractEntity
-{
-
+abstract class Image extends AbstractEntity {
     const URL = 'url';
 
     const FILE = 'file';
@@ -32,21 +30,20 @@ abstract class Image extends AbstractEntity
      */
     private $content;
 
-    abstract public function getType();
-
     public function __construct() {
         parent::__construct();
     }
 
+    abstract public function getType();
+
     /**
      * Set feature.
      *
-     * @param \AppBundle\Entity\Feature|null $feature
+     * @param null|\AppBundle\Entity\Feature $feature
      *
      * @return Image
      */
-    public function setFeature(\AppBundle\Entity\Feature $feature = null)
-    {
+    public function setFeature(Feature $feature = null) {
         $this->feature = $feature;
 
         return $this;
@@ -55,22 +52,20 @@ abstract class Image extends AbstractEntity
     /**
      * Get feature.
      *
-     * @return \AppBundle\Entity\Feature|null
+     * @return null|\AppBundle\Entity\Feature
      */
-    public function getFeature()
-    {
+    public function getFeature() {
         return $this->feature;
     }
 
     /**
      * Set content.
      *
-     * @param \AppBundle\Entity\Content|null $content
+     * @param null|\AppBundle\Entity\Content $content
      *
      * @return Image
      */
-    public function setContent(\AppBundle\Entity\Content $content = null)
-    {
+    public function setContent(Content $content = null) {
         $this->content = $content;
 
         return $this;
@@ -79,10 +74,9 @@ abstract class Image extends AbstractEntity
     /**
      * Get content.
      *
-     * @return \AppBundle\Entity\Content|null
+     * @return null|\AppBundle\Entity\Content
      */
-    public function getContent()
-    {
+    public function getContent() {
         return $this->content;
     }
 }

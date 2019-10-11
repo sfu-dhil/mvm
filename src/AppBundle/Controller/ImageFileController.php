@@ -2,16 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\ImageFile;
 use AppBundle\Form\ImageFileType;
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * ImageFile controller.
@@ -19,8 +19,7 @@ use AppBundle\Form\ImageFileType;
  * @IsGranted("ROLE_USER")
  * @Route("/image_file")
  */
-class ImageFileController extends Controller implements PaginatorAwareInterface
-{
+class ImageFileController extends Controller implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**
@@ -33,8 +32,7 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
      * @Route("/", name="image_file_index", methods={"GET"})
      * @Template()
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(ImageFile::class, 'e')->orderBy('e.id', 'ASC');
@@ -47,40 +45,35 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
         );
     }
 
-/**
+    /**
      * Typeahead API endpoint for ImageFile entities.
      *
      * To make this work, add something like this to ImageFileRepository:
-        //    public function typeaheadQuery($q) {
-        //        $qb = $this->createQueryBuilder('e');
-        //        $qb->andWhere("e.name LIKE :q");
-        //        $qb->orderBy('e.name');
-        //        $qb->setParameter('q', "{$q}%");
-        //        return $qb->getQuery()->execute();
-        //    }
      *
      * @param Request $request
      *
      * @Route("/typeahead", name="image_file_typeahead", methods={"GET"})
+     *
      * @return JsonResponse
      */
-    public function typeahead(Request $request)
-    {
+    public function typeahead(Request $request) {
         $q = $request->query->get('q');
-        if( ! $q) {
-            return new JsonResponse([]);
+        if ( ! $q) {
+            return new JsonResponse(array());
         }
         $em = $this->getDoctrine()->getManager();
-	    $repo = $em->getRepository(ImageFile::class);
-        $data = [];
-        foreach($repo->typeaheadQuery($q) as $result) {
-            $data[] = [
+        $repo = $em->getRepository(ImageFile::class);
+        $data = array();
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = array(
                 'id' => $result->getId(),
-                'text' => (string)$result,
-            ];
+                'text' => (string) $result,
+            );
         }
+
         return new JsonResponse($data);
     }
+
     /**
      * Search for ImageFile entities.
      *
@@ -103,20 +96,20 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
      *
      * @Route("/search", name="image_file_search", methods={"GET"})
      * @Template()
-    * @return array
-    */
-    public function searchAction(Request $request)
-    {
+     *
+     * @return array
+     */
+    public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-	$repo = $em->getRepository('AppBundle:ImageFile');
-	$q = $request->query->get('q');
-	if($q) {
-	    $query = $repo->searchQuery($q);
+        $repo = $em->getRepository('AppBundle:ImageFile');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->searchQuery($q);
             $paginator = $this->get('knp_paginator');
             $imageFiles = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-	} else {
+        } else {
             $imageFiles = array();
-	}
+        }
 
         return array(
             'imageFiles' => $imageFiles,
@@ -135,8 +128,7 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
      * @Route("/new", name="image_file_new", methods={"GET","POST"})
      * @Template()
      */
-    public function newAction(Request $request)
-    {
+    public function newAction(Request $request) {
         $imageFile = new ImageFile();
         $form = $this->createForm(ImageFileType::class, $imageFile);
         $form->handleRequest($request);
@@ -147,6 +139,7 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
             $em->flush();
 
             $this->addFlash('success', 'The new imageFile was created.');
+
             return $this->redirectToRoute('image_file_show', array('id' => $imageFile->getId()));
         }
 
@@ -167,8 +160,7 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
      * @Route("/new_popup", name="image_file_new_popup", methods={"GET","POST"})
      * @Template()
      */
-    public function newPopupAction(Request $request)
-    {
+    public function newPopupAction(Request $request) {
         return $this->newAction($request);
     }
 
@@ -182,9 +174,7 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
      * @Route("/{id}", name="image_file_show", methods={"GET"})
      * @Template()
      */
-    public function showAction(ImageFile $imageFile)
-    {
-
+    public function showAction(ImageFile $imageFile) {
         return array(
             'imageFile' => $imageFile,
         );
@@ -192,7 +182,6 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
 
     /**
      * Displays a form to edit an existing ImageFile entity.
-     *
      *
      * @param Request $request
      * @param ImageFile $imageFile
@@ -203,8 +192,7 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
      * @Route("/{id}/edit", name="image_file_edit", methods={"GET","POST"})
      * @Template()
      */
-    public function editAction(Request $request, ImageFile $imageFile)
-    {
+    public function editAction(Request $request, ImageFile $imageFile) {
         $editForm = $this->createForm(ImageFileType::class, $imageFile);
         $editForm->handleRequest($request);
 
@@ -212,6 +200,7 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The imageFile has been updated.');
+
             return $this->redirectToRoute('image_file_show', array('id' => $imageFile->getId()));
         }
 
@@ -224,7 +213,6 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
     /**
      * Deletes a ImageFile entity.
      *
-     *
      * @param Request $request
      * @param ImageFile $imageFile
      *
@@ -233,8 +221,7 @@ class ImageFileController extends Controller implements PaginatorAwareInterface
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Route("/{id}/delete", name="image_file_delete", methods={"GET"})
      */
-    public function deleteAction(Request $request, ImageFile $imageFile)
-    {
+    public function deleteAction(Request $request, ImageFile $imageFile) {
         $em = $this->getDoctrine()->getManager();
         $em->remove($imageFile);
         $em->flush();

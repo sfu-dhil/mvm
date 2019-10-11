@@ -2,21 +2,15 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\ManuscriptContent;
-use AppBundle\Entity\PrintSource;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 /**
  * ManuscriptContentType form.
  */
 class ManuscriptContentsType extends AbstractType {
-
     /**
      * Add form fields to $builder.
      *
@@ -24,7 +18,6 @@ class ManuscriptContentsType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-
         $builder->add('manuscript_contents', CollectionType::class, array(
             'label' => 'Contents',
             'allow_add' => true,
@@ -38,7 +31,7 @@ class ManuscriptContentsType extends AbstractType {
             'attr' => array(
                 'help_block' => '',
                 'class' => 'collection collection-complex',
-            )
+            ),
         ));
     }
 
@@ -55,5 +48,4 @@ class ManuscriptContentsType extends AbstractType {
             'data_class' => 'AppBundle\Entity\Manuscript',
         ));
     }
-
 }

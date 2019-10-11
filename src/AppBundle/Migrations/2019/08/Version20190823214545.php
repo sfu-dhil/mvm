@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace AppBundle\Migrations;
 
@@ -8,12 +10,10 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190823214545 extends AbstractMigration
-{
-    public function up(Schema $schema) : void
-    {
+final class Version20190823214545 extends AbstractMigration {
+    public function up(Schema $schema) : void {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE manuscript CHANGE filled_page_count filled_page_count VARCHAR(255) DEFAULT NULL');
         $this->addSql('CREATE INDEX region_name_idx ON region (name)');
@@ -21,10 +21,9 @@ final class Version20190823214545 extends AbstractMigration
         $this->addSql('CREATE INDEX manuscript_title_idx ON manuscript (title)');
     }
 
-    public function down(Schema $schema) : void
-    {
+    public function down(Schema $schema) : void {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE manuscript CHANGE filled_page_count filled_page_count INT DEFAULT NULL');
         $this->addSql('DROP INDEX content_title_idx ON content');

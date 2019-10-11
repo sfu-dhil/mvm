@@ -6,14 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
- * ManuscriptContent
+ * ManuscriptContent.
  *
  * @ORM\Table(name="manuscript_content")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ManuscriptContentRepository")
  */
-class ManuscriptContent extends AbstractEntity
-{
-
+class ManuscriptContent extends AbstractEntity {
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
@@ -57,12 +55,11 @@ class ManuscriptContent extends AbstractEntity
     /**
      * Set context.
      *
-     * @param string|null $context
+     * @param null|string $context
      *
      * @return ManuscriptContent
      */
-    public function setContext($context = null)
-    {
+    public function setContext($context = null) {
         $this->context = $context;
 
         return $this;
@@ -71,10 +68,9 @@ class ManuscriptContent extends AbstractEntity
     /**
      * Get context.
      *
-     * @return string|null
+     * @return null|string
      */
-    public function getContext()
-    {
+    public function getContext() {
         return $this->context;
     }
 
@@ -85,8 +81,7 @@ class ManuscriptContent extends AbstractEntity
      *
      * @return ManuscriptContent
      */
-    public function setContent(\AppBundle\Entity\Content $content)
-    {
+    public function setContent(Content $content) {
         $this->content = $content;
 
         return $this;
@@ -97,8 +92,7 @@ class ManuscriptContent extends AbstractEntity
      *
      * @return \AppBundle\Entity\Content
      */
-    public function getContent()
-    {
+    public function getContent() {
         return $this->content;
     }
 
@@ -109,8 +103,7 @@ class ManuscriptContent extends AbstractEntity
      *
      * @return ManuscriptContent
      */
-    public function setManuscript(\AppBundle\Entity\Manuscript $manuscript)
-    {
+    public function setManuscript(Manuscript $manuscript) {
         $this->manuscript = $manuscript;
 
         return $this;
@@ -121,8 +114,7 @@ class ManuscriptContent extends AbstractEntity
      *
      * @return \AppBundle\Entity\Manuscript
      */
-    public function getManuscript()
-    {
+    public function getManuscript() {
         return $this->manuscript;
     }
 
@@ -133,8 +125,7 @@ class ManuscriptContent extends AbstractEntity
      *
      * @return ManuscriptContent
      */
-    public function setPrintSource(\AppBundle\Entity\PrintSource $printSource)
-    {
+    public function setPrintSource(PrintSource $printSource) {
         $this->printSource = $printSource;
 
         return $this;
@@ -145,8 +136,7 @@ class ManuscriptContent extends AbstractEntity
      *
      * @return \AppBundle\Entity\PrintSource
      */
-    public function getPrintSource()
-    {
+    public function getPrintSource() {
         return $this->printSource;
     }
 }
