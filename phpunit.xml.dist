@@ -6,9 +6,11 @@
          backupGlobals="true"
          backupStaticAttributes="false"
          cacheTokens="false"
+         cacheResult="false"
          processIsolation="false"
          colors="false"
          defaultTestSuite="app"
+         cacheResultFile="var/cache/phpunit.cache"
          bootstrap="var/bootstrap.php.cache">
     <php>
         <ini name="error_reporting" value="-1" />
