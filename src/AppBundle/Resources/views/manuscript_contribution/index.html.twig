@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manuscript Contribution List{% endblock %}
+
+{% block pageheader %}
+    <h1> List</h1>
+    <p class="count">
+        Displaying {{ manuscriptContributions|length }} manuscript contributions
+        of {{ manuscriptContributions.getTotalItemCount }} total. </p>
+{% endblock %}
+
+{% block body %}
+
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Manuscript</th>
+                <th>Person</th>
+                <th>Role</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for manuscriptContribution in manuscriptContributions %}
+                <tr>
+                    <td>
+                        <a href="{{ path('manuscript_show', {'id': manuscriptContribution.manuscript.id}) }}">
+                            {{ manuscriptContribution.manuscript }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('person_show', {'id': manuscriptContribution.person.id }) }}">
+                            {{ manuscriptContribution.person }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('manuscript_role_show', {'id': manuscriptContribution.role.id }) }}">
+                            {{ manuscriptContribution.role }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('manuscript_contribution_show', { 'id': manuscriptContribution.id }) }}">
+                            {{ manuscriptContribution.note|raw }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(manuscriptContributions) }}
+    </div>
+
+{% endblock %}

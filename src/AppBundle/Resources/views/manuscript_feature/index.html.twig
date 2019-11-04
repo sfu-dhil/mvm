@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manuscript Feature List{% endblock %}
+
+{% block pageheader %}
+    <h1>Manuscript Feature List</h1>
+    <p class="count">
+        Displaying {{ manuscriptFeatures|length }} manuscriptFeatures of {{ manuscriptFeatures.getTotalItemCount }}
+        total. </p>
+{% endblock %}
+
+{% block body %}
+
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Manuscript</th>
+                <th>Feature</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for manuscriptFeature in manuscriptFeatures %}
+                <tr>
+                    <td>
+                        <a href="{{ path('manuscript_show', {'id': manuscriptFeature.manuscript.id}) }}">
+                            {{ manuscriptFeature.manuscript }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('feature_show', {'id': manuscriptFeature.feature.id}) }}">
+                            {{ manuscriptFeature.feature }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('manuscript_feature_show', { 'id': manuscriptFeature.id }) }}">
+                            {{ manuscriptFeature.note|raw }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(manuscriptFeatures) }}
+    </div>
+
+{% endblock %}

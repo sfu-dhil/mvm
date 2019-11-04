@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manuscript Feature{% endblock %}
+
+ {% block pageheader %}
+     <h1>Manuscript Feature Details</h1>
+ {% endblock %} 
+
+{% block body %}
+    <div class="btn-toolbar">
+        <div class="btn-group pull-right">
+            <a href="{{ path('manuscript_feature_index') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-arrow-left"></span> Back </a>
+        </div>
+    </div>
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <tbody>
+            <tr>
+                <th>Feature</th>
+                <td>
+                    <a href="{{ path('feature_show', { 'id': manuscriptFeature.feature.id}) }}">
+                        {{ manuscriptFeature.feature }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Manuscript</th>
+                <td>
+                    <a href="{{ path('manuscript_show', { 'id': manuscriptFeature.manuscript.id}) }}">
+                        {{ manuscriptFeature.manuscript }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ manuscriptFeature.note|raw }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if manuscriptFeature.created %}{{ manuscriptFeature.created|date }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if manuscriptFeature.updated %}{{ manuscriptFeature.updated|date }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if manuscriptFeature.images | length > 0 %}
+        <h2>Images</h2>
+        <ul>
+            {% for image in manuscriptFeature.images %}
+                <li>
+                    <a href="{{ path("image_show", {"id":image.id}) }}">
+                        {{ image }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

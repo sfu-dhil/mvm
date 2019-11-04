@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Content Contribution{% endblock %}
+
+ {% block pageheader %}
+     <h1>Content Contribution Details</h1>
+ {% endblock %} 
+
+{% block body %}
+    <div class="btn-toolbar">
+        <div class="btn-group pull-right">
+            <a href="{{ path('content_contribution_index') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-arrow-left"></span> Back </a>
+        </div>
+    </div>
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <tbody>
+            <tr>
+                <th>Content</th>
+                <td>
+                    <a href="{{ path('content_show', { 'id': contentContribution.content.id}) }}">
+                        {{ contentContribution.content }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>
+                    <a href="{{ path('content_role_show', { 'id': contentContribution.role.id}) }}">
+                        {{ contentContribution.role }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Person</th>
+                <td>
+                    <a href="{{ path('person_show', { 'id': contentContribution.person.id}) }}">
+                        {{ contentContribution.person }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ contentContribution.note|raw }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if contentContribution.created %}{{ contentContribution.created|date }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if contentContribution.updated %}{{ contentContribution.updated|date }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Content Contribution List{% endblock %}
+
+{% block pageheader %}
+    <h1>Content Contribution List</h1>
+    <p class="count">
+        Displaying {{ contentContributions|length }} content contributions
+        of {{ contentContributions.getTotalItemCount }} total. </p>
+{% endblock %}
+
+{% block body %}
+
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>Person</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contentContribution in contentContributions %}
+                <tr>
+                    <td>
+                        <a href="{{ path('content_show', { 'id': contentContribution.content.id }) }}">
+                            {{ contentContribution.content }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('person_show', {'id': contentContribution.person.id}) }}">
+                            {{ contentContribution.person }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ contentContribution.role }}
+                    </td>
+                </tr>
+                {% if contentContribution.note %}
+                    <tr>
+                        <td colspan="3">
+                            {{ contentContribution.note|raw }}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(contentContributions) }}
+    </div>
+
+{% endblock %}

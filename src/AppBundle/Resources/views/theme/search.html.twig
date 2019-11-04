@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Theme Search{% endblock %}
+
+{% block pageheader %}
+    <h1>Theme Search</h1>
+    {% if q %}
+        <p class="count">
+            Displaying {{ themes|length }} themes of {{ themes.getTotalItemCount }} total. </p>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    {% include 'AppBundle:partial:search-form.html.twig' with {'path': path('theme_search')} %}
+
+    {% include 'NinesUtilBundle:term/partial:index.html.twig' with {'terms': themes, 'path': 'theme_show'} %}
+
+    {% if q %}
+        <div class="navigation">
+            {{ knp_pagination_render(themes) }}
+        </div>
+    {% endif %}
+
+{% endblock %}
