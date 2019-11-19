@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use ArrayIterator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -262,9 +263,18 @@ class Manuscript extends AbstractEntity {
     /**
      * Get manuscriptFeatures.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param bool $sort
+     *
+     * @return Collection|ManuscriptFeature[]|ArrayIterator
      */
-    public function getManuscriptFeatures() {
+    public function getManuscriptFeatures($sort = false) {
+        if ($sort) {
+            $iterator = $this->manuscriptFeatures->getIterator();
+            $iterator->uasort(function (ManuscriptFeature $a, ManuscriptFeature $b) {
+                return strcasecmp($a->getFeature()->getLabel(), $b->getFeature()->getLabel());
+            });
+            return $iterator;
+        }
         return $this->manuscriptFeatures;
     }
 

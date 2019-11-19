@@ -16,13 +16,13 @@ use Nines\UtilBundle\Entity\AbstractTerm;
 class Feature extends AbstractTerm {
     /**
      * @var Collection|Image[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="feature")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="feature", cascade={"remove"})
      */
     private $images;
 
     /**
      * @var Collection|ManuscriptFeature[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptFeature", mappedBy="feature")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ManuscriptFeature", mappedBy="feature", cascade={"remove"})
      */
     private $manuscriptFeatures;
 

@@ -243,13 +243,22 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * @Template()
      */
     public function contentsAction(Request $request, Manuscript $manuscript) {
+        $oldContents = $manuscript->getManuscriptContents()->toArray();
+
         $editForm = $this->createForm(ManuscriptContentsType::class, $manuscript);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $msContents = $manuscript->getManuscriptContents();
+            foreach($oldContents as $content) {
+                if( ! $msContents->contains($content)) {
+                    $manuscript->removeManuscriptContent($content);
+                    $em->remove($content);
+                }
+            }
             foreach ($manuscript->getManuscriptContents() as $content) {
                 $content->setManuscript($manuscript);
             }
-            $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The manuscript has been updated.');
 
@@ -275,13 +284,22 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * @Template()
      */
     public function contributionsAction(Request $request, Manuscript $manuscript) {
+        $oldContributions = $manuscript->getManuscriptContributions()->toArray();
+
         $editForm = $this->createForm(ManuscriptContributionsType::class, $manuscript);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            foreach ($manuscript->getManuscriptContributions() as $contribution) {
+            $em = $this->getDoctrine()->getManager();
+            $msContributions = $manuscript->getManuscriptContributions();
+            foreach($oldContributions as $contribution) {
+                if( ! $msContributions->contains($contribution)) {
+                    $manuscript->removeManuscriptContribution($contribution);
+                    $em->remove($contribution);
+                }
+            }
+            foreach ($msContributions as $contribution) {
                 $contribution->setManuscript($manuscript);
             }
-            $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The manuscript has been updated.');
 
@@ -307,13 +325,22 @@ class ManuscriptController extends Controller implements PaginatorAwareInterface
      * @Template()
      */
     public function featuresAction(Request $request, Manuscript $manuscript) {
+        $oldFeatures = $manuscript->getManuscriptFeatures()->toArray();
+
         $editForm = $this->createForm(ManuscriptFeaturesType::class, $manuscript);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            foreach ($manuscript->getManuscriptFeatures() as $feature) {
+            $em = $this->getDoctrine()->getManager();
+            $msFeatures = $manuscript->getManuscriptFeatures();
+            foreach($oldFeatures as $feature) {
+                if( ! $msFeatures->contains($feature)) {
+                    $manuscript->removeManuscriptFeature($feature);
+                    $em->remove($feature);
+                }
+            }
+            foreach ($msFeatures as $feature) {
                 $feature->setManuscript($manuscript);
             }
-            $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The manuscript has been updated.');
 

@@ -165,10 +165,10 @@
                     <a href="{{ path('content_show', {'id': manuscriptContent.content.id}) }}">{{ manuscriptContent.content }}</a>
                 </dt>
                 {% if manuscriptContent.context %}
-                    <dd>{{ manuscriptContent.context|raw }}</dd>
+                    <dd><b>Context</b>:<br>{{ manuscriptContent.context|raw }}</dd>
                 {% endif %}
                 {% if manuscriptContent.printSource %}
-                    <dd>Print source: {{ manuscriptContent.printSource }}</dd>
+                    <dd><b>Print source</b>: {{ manuscriptContent.printSource }}</dd>
                 {% endif %}
             {% endfor %}
         </dl>
@@ -210,7 +210,7 @@
 
     {% if manuscript.manuscriptFeatures | length > 0 %}
         <dl>
-            {% for manuscriptFeature in manuscript.manuscriptFeatures %}
+            {% for manuscriptFeature in manuscript.getManuscriptFeatures(true) %}
                 <dt>
                     <a href="{{ path('feature_show', {'id': manuscriptFeature.feature.id}) }}">
                         {{ manuscriptFeature.feature.label }}
