@@ -210,7 +210,7 @@
 
     {% if manuscript.manuscriptFeatures | length > 0 %}
         <dl>
-            {% for manuscriptFeature in manuscript.manuscriptFeatures %}
+            {% for manuscriptFeature in manuscript.getManuscriptFeatures(true) %}
                 <dt>
                     <a href="{{ path('feature_show', {'id': manuscriptFeature.feature.id}) }}">
                         {{ manuscriptFeature.feature.label }}
