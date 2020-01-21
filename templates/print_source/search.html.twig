@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Print Source Search{% endblock %}
+
+{% block pageheader %}
+    <h1>Print Source Search</h1>
+    {% if q %}
+        <p class="count">
+            Displaying {{ printSources|length }} archives of {{ printSources.getTotalItemCount }} total. </p>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    {% include 'partial/search-form.html.twig' with {'path': path('print_source_search')} %}
+
+    {% include '@NinesUtil/term/partial/index.html.twig' with {'terms': printSources, 'path': 'print_source_show'} %}
+
+    {% if q %}
+        <div class="navigation">
+            {{ knp_pagination_render(printSources) }}
+        </div>
+    {% endif %}
+
+{% endblock %}

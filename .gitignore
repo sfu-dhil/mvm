@@ -23,3 +23,5 @@
 app/config/deploy.yml
 data
 web/docs
+*.sql
+bin/.phpunit

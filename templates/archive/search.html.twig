@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Archive Search{% endblock %}
+
+{% block pageheader %}
+    <h1>Archive Search</h1>
+    {% if q %}
+        <p class="count">
+            Displaying {{ archives|length }} archives of {{ archives.getTotalItemCount }} total. </p>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    {% include 'partial/search-form.html.twig' with {'path': path('archive_search')} %}
+
+    {% include '@NinesUtil/term/partial/index.html.twig' with {'terms': archives, 'path': 'archive_show'} %}
+
+    {% if q %}
+        <div class="navigation">
+            {{ knp_pagination_render(archives) }}
+        </div>
+    {% endif %}
+
+{% endblock %}
