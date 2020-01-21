@@ -22,14 +22,12 @@ use Doctrine\Persistence\ObjectManager;
 class ContentContributionFixtures extends Fixture implements DependentFixtureInterface {
     /**
      * Set loading order.
-     *
-     * @return int
      */
     public function getDependencies() {
         return [
-            LoadContentRole::class,
-            LoadPerson::class,
-            LoadContent::class,
+            ContentRoleFixtures::class,
+            PersonFixtures::class,
+            ContentFixtures::class,
         ];
     }
 
@@ -44,8 +42,6 @@ class ContentContributionFixtures extends Fixture implements DependentFixtureInt
         $item1->setRole($this->getReference('_reference_ContentRole1'));
         $item1->setPerson($this->getReference('_reference_Person2'));
         $item1->setContent($this->getReference('_reference_Content1'));
-        $item1->setCreated(new \DateTime('2019-07-29 22:47:23'));
-        $item1->setUpdated(new \DateTime('2019-07-29 22:47:23'));
         $this->addReference('_reference_ContentContribution1', $item1);
         $manager->persist($item1);
 

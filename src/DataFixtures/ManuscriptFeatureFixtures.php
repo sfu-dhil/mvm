@@ -27,8 +27,8 @@ class ManuscriptFeatureFixtures extends Fixture implements DependentFixtureInter
      */
     public function getDependencies() {
         return [
-            LoadManuscript::class,
-            LoadFeature::class,
+            ManuscriptFixtures::class,
+            FeatureFixtures::class,
         ];
     }
 

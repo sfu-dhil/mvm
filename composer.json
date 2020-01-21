@@ -5,6 +5,7 @@
         "php": "^7.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ninsuo/symfony-collection": "^2.1",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "4.4.*",
         "symfony/console": "4.4.*",
@@ -73,10 +74,12 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "Fuz\\Symfony\\Collection\\ScriptHandler::postInstall"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "Fuz\\Symfony\\Collection\\ScriptHandler::postUpdate"
         ]
     },
     "conflict": {

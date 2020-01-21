@@ -297,7 +297,7 @@ $this->login('user.user');
      * @group delete
      */
     public function testAdminDelete() : void {
-        $preCount = count($this->em->getRepository(ContentRole::class)->findAll());
+        $preCount = count($this->entityManager->getRepository(ContentRole::class)->findAll());
 $this->login('user.admin');
         $crawler = $this->client->request('GET', '/content_role/1/delete');
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
@@ -305,8 +305,8 @@ $this->login('user.admin');
         $responseCrawler = $this->client->followRedirect();
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $this->em->clear();
-        $postCount = count($this->em->getRepository(ContentRole::class)->findAll());
+        $this->entityManager->clear();
+        $postCount = count($this->entityManager->getRepository(ContentRole::class)->findAll());
         $this->assertSame($preCount - 1, $postCount);
     }
 }

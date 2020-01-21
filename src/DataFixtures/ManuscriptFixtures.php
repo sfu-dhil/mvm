@@ -27,9 +27,9 @@ class ManuscriptFixtures extends Fixture implements DependentFixtureInterface {
      */
     public function getDependencies() {
         return [
-            LoadRegion::class,
-            LoadPeriod::class,
-            LoadArchive::class,
+            RegionFixtures::class,
+            PeriodFixtures::class,
+            ArchiveFixtures::class,
         ];
     }
 

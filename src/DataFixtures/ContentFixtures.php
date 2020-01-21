@@ -27,7 +27,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface {
      */
     public function getDependencies() {
         return [
-            LoadManuscript::class,
+            ManuscriptFixtures::class,
         ];
     }
 

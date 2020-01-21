@@ -27,9 +27,9 @@ class ManuscriptContributionFixtures extends Fixture implements DependentFixture
      */
     public function getDependencies() {
         return [
-            LoadPerson::class,
-            LoadManuscript::class,
-            LoadManuscriptRole::class,
+            PersonFixtures::class,
+            ManuscriptFixtures::class,
+            ManuscriptRoleFixtures::class,
         ];
     }
 

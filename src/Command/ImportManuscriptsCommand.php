@@ -13,7 +13,7 @@ namespace App\Command;
 use App\Entity\Manuscript;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -22,7 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * ImportManuscriptsCommand command.
  */
-class ImportManuscriptsCommand extends ContainerAwareCommand {
+class ImportManuscriptsCommand extends Command {
     public const SPACE = '/^\p{Z}+|\p{Z}+$/';
 
     /**

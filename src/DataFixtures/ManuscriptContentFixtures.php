@@ -28,9 +28,9 @@ class ManuscriptContentFixtures extends Fixture implements DependentFixtureInter
      */
     public function getDependencies() {
         return [
-            LoadManuscript::class,
-            LoadContent::class,
-            LoadPrintSource::class,
+            ManuscriptFixtures::class,
+            ContentFixtures::class,
+            PrintSourceFixtures::class,
         ];
     }
 

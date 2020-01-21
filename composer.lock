@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "07a4ceb264aee828bfccfb9410bea8fe",
+    "content-hash": "f515d17903f1d74cf6a6d4d3ee254ba7",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1603,6 +1603,39 @@
                 "psr-3"
             ],
             "time": "2019-12-20T14:15:16+00:00"
+        },
+        {
+            "name": "ninsuo/symfony-collection",
+            "version": "2.1.33",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ninsuo/symfony-collection.git",
+                "reference": "231f790eee9ea2c3301ac45f5fe4fbb09ec4289c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ninsuo/symfony-collection/zipball/231f790eee9ea2c3301ac45f5fe4fbb09ec4289c",
+                "reference": "231f790eee9ea2c3301ac45f5fe4fbb09ec4289c",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "ScriptHandler.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alain Tiemblo",
+                    "email": "ninsuo@gmail.com"
+                }
+            ],
+            "description": "A jQuery plugin that manages adding, deleting and moving elements from a Symfony collection",
+            "time": "2020-01-13T12:54:48+00:00"
         },
         {
             "name": "ocramius/package-versions",
@@ -6338,12 +6371,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ubermichael/nines-bundles.git",
-                "reference": "a6600d298ae0312b92a653045d91bb01d8408f5b"
+                "reference": "7b2f5909f2aa57d032dadda0b0f89b17563bf800"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ubermichael/nines-bundles/zipball/a6600d298ae0312b92a653045d91bb01d8408f5b",
-                "reference": "a6600d298ae0312b92a653045d91bb01d8408f5b",
+                "url": "https://api.github.com/repos/ubermichael/nines-bundles/zipball/7b2f5909f2aa57d032dadda0b0f89b17563bf800",
+                "reference": "7b2f5909f2aa57d032dadda0b0f89b17563bf800",
                 "shasum": ""
             },
             "require": {
@@ -6386,7 +6419,7 @@
                 "source": "https://github.com/ubermichael/nines-bundles/tree/4.x",
                 "issues": "https://github.com/ubermichael/nines-bundles/issues"
             },
-            "time": "2020-01-16T21:42:21+00:00"
+            "time": "2020-01-21T17:52:50+00:00"
         },
         {
             "name": "webmozart/assert",
