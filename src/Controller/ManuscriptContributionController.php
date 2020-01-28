@@ -31,8 +31,6 @@ class ManuscriptContributionController extends AbstractController implements Pag
     /**
      * Lists all ManuscriptContribution entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="manuscript_contribution_index", methods={"GET"})
@@ -53,8 +51,6 @@ class ManuscriptContributionController extends AbstractController implements Pag
 
     /**
      * Finds and displays a ManuscriptContribution entity.
-     *
-     * @param ManuscriptContribution $manuscriptContribution
      *
      * @return array
      *

@@ -20,9 +20,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ImageFileType extends AbstractType {
     /**
      * Add form fields to $builder.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
     }
@@ -32,8 +29,6 @@ class ImageFileType extends AbstractType {
      *
      * Set default, optional, and required options passed to the
      * buildForm() method via the $options parameter.
-     *
-     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver) : void {
         $resolver->setDefaults([

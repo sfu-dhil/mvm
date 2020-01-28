@@ -35,8 +35,6 @@ class ImageFileController extends AbstractController implements PaginatorAwareIn
     /**
      * Lists all ImageFile entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="image_file_index", methods={"GET"})
@@ -59,9 +57,6 @@ class ImageFileController extends AbstractController implements PaginatorAwareIn
      * Typeahead API endpoint for ImageFile entities.
      *
      * To make this work, add something like this to ImageFileRepository:
-     *
-     * @param Request $request
-     * @param ImageFileRepository $repo
      *
      * @Route("/typeahead", name="image_file_typeahead", methods={"GET"})
      *
@@ -101,9 +96,6 @@ class ImageFileController extends AbstractController implements PaginatorAwareIn
      *    }
      * </pre></code>
      *
-     * @param Request $request
-     * @param ImageFileRepository $repo
-     *
      * @Route("/search", name="image_file_search", methods={"GET"})
      * @Template()
      *
@@ -127,8 +119,6 @@ class ImageFileController extends AbstractController implements PaginatorAwareIn
 
     /**
      * Creates a new ImageFile entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -160,8 +150,6 @@ class ImageFileController extends AbstractController implements PaginatorAwareIn
     /**
      * Creates a new ImageFile entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -174,8 +162,6 @@ class ImageFileController extends AbstractController implements PaginatorAwareIn
 
     /**
      * Finds and displays a ImageFile entity.
-     *
-     * @param ImageFile $imageFile
      *
      * @return array
      *
@@ -190,9 +176,6 @@ class ImageFileController extends AbstractController implements PaginatorAwareIn
 
     /**
      * Displays a form to edit an existing ImageFile entity.
-     *
-     * @param Request $request
-     * @param ImageFile $imageFile
      *
      * @return array|RedirectResponse
      *
@@ -220,9 +203,6 @@ class ImageFileController extends AbstractController implements PaginatorAwareIn
 
     /**
      * Deletes a ImageFile entity.
-     *
-     * @param Request $request
-     * @param ImageFile $imageFile
      *
      * @return array|RedirectResponse
      *

@@ -35,8 +35,6 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
     /**
      * Lists all ManuscriptRole entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="manuscript_role_index", methods={"GET"})
@@ -57,9 +55,6 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
 
     /**
      * Typeahead API endpoint for ManuscriptRole entities.
-     *
-     * @param Request $request
-     * @param ManuscriptRoleRepository $repo
      *
      * @Route("/typeahead", name="manuscript_role_typeahead", methods={"GET"})
      *
@@ -83,8 +78,6 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
 
     /**
      * Creates a new ManuscriptRole entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -116,8 +109,6 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
     /**
      * Creates a new ManuscriptRole entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -130,8 +121,6 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
 
     /**
      * Finds and displays a ManuscriptRole entity.
-     *
-     * @param ManuscriptRole $manuscriptRole
      *
      * @return array
      *
@@ -146,9 +135,6 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
 
     /**
      * Displays a form to edit an existing ManuscriptRole entity.
-     *
-     * @param Request $request
-     * @param ManuscriptRole $manuscriptRole
      *
      * @return array|RedirectResponse
      *
@@ -176,9 +162,6 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
 
     /**
      * Deletes a ManuscriptRole entity.
-     *
-     * @param Request $request
-     * @param ManuscriptRole $manuscriptRole
      *
      * @return array|RedirectResponse
      *

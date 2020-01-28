@@ -35,8 +35,6 @@ class RegionController extends AbstractController implements PaginatorAwareInter
     /**
      * Lists all Region entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="region_index", methods={"GET"})
@@ -57,9 +55,6 @@ class RegionController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Typeahead API endpoint for Region entities.
-     *
-     * @param Request $request
-     * @param RegionRepository $repo
      *
      * @Route("/typeahead", name="region_typeahead", methods={"GET"})
      *
@@ -84,9 +79,6 @@ class RegionController extends AbstractController implements PaginatorAwareInter
     /**
      * Search for Region entities.
      *
-     * @param Request $request
-     * @param RegionRepository $repo
-     *
      * @Route("/search", name="region_search", methods={"GET"})
      * @Template()
      *
@@ -110,8 +102,6 @@ class RegionController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Creates a new Region entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -143,8 +133,6 @@ class RegionController extends AbstractController implements PaginatorAwareInter
     /**
      * Creates a new Region entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -157,8 +145,6 @@ class RegionController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Finds and displays a Region entity.
-     *
-     * @param Region $region
      *
      * @return array
      *
@@ -173,9 +159,6 @@ class RegionController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Displays a form to edit an existing Region entity.
-     *
-     * @param Request $request
-     * @param Region $region
      *
      * @return array|RedirectResponse
      *
@@ -203,9 +186,6 @@ class RegionController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Deletes a Region entity.
-     *
-     * @param Request $request
-     * @param Region $region
      *
      * @return array|RedirectResponse
      *

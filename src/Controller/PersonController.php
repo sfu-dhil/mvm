@@ -35,8 +35,6 @@ class PersonController extends AbstractController implements PaginatorAwareInter
     /**
      * Lists all Person entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="person_index", methods={"GET"})
@@ -57,9 +55,6 @@ class PersonController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Typeahead API endpoint for Person entities.
-     *
-     * @param Request $request
-     * @param PersonRepository $repo
      *
      * @Route("/typeahead", name="person_typeahead", methods={"GET"})
      *
@@ -84,9 +79,6 @@ class PersonController extends AbstractController implements PaginatorAwareInter
     /**
      * Search for Person entities.
      *
-     * @param Request $request
-     * @param PersonRepository $repo
-     *
      * @Route("/search", name="person_search", methods={"GET"})
      * @Template()
      *
@@ -110,8 +102,6 @@ class PersonController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Creates a new Person entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -143,8 +133,6 @@ class PersonController extends AbstractController implements PaginatorAwareInter
     /**
      * Creates a new Person entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -157,8 +145,6 @@ class PersonController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Finds and displays a Person entity.
-     *
-     * @param Person $person
      *
      * @return array
      *
@@ -173,9 +159,6 @@ class PersonController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Displays a form to edit an existing Person entity.
-     *
-     * @param Request $request
-     * @param Person $person
      *
      * @return array|RedirectResponse
      *
@@ -203,9 +186,6 @@ class PersonController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Deletes a Person entity.
-     *
-     * @param Request $request
-     * @param Person $person
      *
      * @return array|RedirectResponse
      *

@@ -43,10 +43,6 @@ class Builder implements ContainerAwareInterface {
 
     /**
      * Build the menu builder.
-     *
-     * @param FactoryInterface $factory
-     * @param AuthorizationCheckerInterface $authChecker
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker, TokenStorageInterface $tokenStorage) {
         $this->factory = $factory;
@@ -71,8 +67,6 @@ class Builder implements ContainerAwareInterface {
 
     /**
      * Build the navigation menu and return it.
-     *
-     * @param array $options
      *
      * @return ItemInterface
      */

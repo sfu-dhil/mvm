@@ -35,8 +35,6 @@ class ContentRoleController extends AbstractController implements PaginatorAware
     /**
      * Lists all ContentRole entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="content_role_index", methods={"GET"})
@@ -57,9 +55,6 @@ class ContentRoleController extends AbstractController implements PaginatorAware
 
     /**
      * Typeahead API endpoint for ContentRole entities.
-     *
-     * @param Request $request
-     * @param ContentRoleRepository $repo
      *
      * @Route("/typeahead", name="content_role_typeahead", methods={"GET"})
      *
@@ -83,8 +78,6 @@ class ContentRoleController extends AbstractController implements PaginatorAware
 
     /**
      * Creates a new ContentRole entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -116,8 +109,6 @@ class ContentRoleController extends AbstractController implements PaginatorAware
     /**
      * Creates a new ContentRole entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -130,8 +121,6 @@ class ContentRoleController extends AbstractController implements PaginatorAware
 
     /**
      * Finds and displays a ContentRole entity.
-     *
-     * @param ContentRole $contentRole
      *
      * @return array
      *
@@ -146,9 +135,6 @@ class ContentRoleController extends AbstractController implements PaginatorAware
 
     /**
      * Displays a form to edit an existing ContentRole entity.
-     *
-     * @param Request $request
-     * @param ContentRole $contentRole
      *
      * @return array|RedirectResponse
      *
@@ -176,9 +162,6 @@ class ContentRoleController extends AbstractController implements PaginatorAware
 
     /**
      * Deletes a ContentRole entity.
-     *
-     * @param Request $request
-     * @param ContentRole $contentRole
      *
      * @return array|RedirectResponse
      *

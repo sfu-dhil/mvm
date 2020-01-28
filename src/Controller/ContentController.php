@@ -36,8 +36,6 @@ class ContentController extends AbstractController implements PaginatorAwareInte
     /**
      * Lists all Content entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="content_index", methods={"GET"})
@@ -58,9 +56,6 @@ class ContentController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Typeahead API endpoint for Content entities.
-     *
-     * @param Request $request
-     * @param ContentRepository $repo
      *
      * @Route("/typeahead", name="content_typeahead", methods={"GET"})
      *
@@ -85,9 +80,6 @@ class ContentController extends AbstractController implements PaginatorAwareInte
     /**
      * Search for Content entities.
      *
-     * @param Request $request
-     * @param ContentRepository $repo
-     *
      * @Route("/search", name="content_search", methods={"GET"})
      * @Template()
      *
@@ -111,8 +103,6 @@ class ContentController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Creates a new Content entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -144,8 +134,6 @@ class ContentController extends AbstractController implements PaginatorAwareInte
     /**
      * Creates a new Content entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -158,8 +146,6 @@ class ContentController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Finds and displays a Content entity.
-     *
-     * @param Content $content
      *
      * @return array
      *
@@ -174,9 +160,6 @@ class ContentController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Displays a form to edit an existing Content entity.
-     *
-     * @param Request $request
-     * @param Content $content
      *
      * @return array|RedirectResponse
      *
@@ -205,9 +188,6 @@ class ContentController extends AbstractController implements PaginatorAwareInte
     /**
      * Deletes a Content entity.
      *
-     * @param Request $request
-     * @param Content $content
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -224,9 +204,6 @@ class ContentController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Edit the contributions to a piece of content.
-     *
-     * @param Request $request
-     * @param Content $content
      *
      * @return array|RedirectResponse
      *

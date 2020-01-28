@@ -31,8 +31,6 @@ class ManuscriptFeatureController extends AbstractController implements Paginato
     /**
      * Lists all ManuscriptFeature entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="manuscript_feature_index", methods={"GET"})
@@ -53,8 +51,6 @@ class ManuscriptFeatureController extends AbstractController implements Paginato
 
     /**
      * Finds and displays a ManuscriptFeature entity.
-     *
-     * @param ManuscriptFeature $manuscriptFeature
      *
      * @return array
      *

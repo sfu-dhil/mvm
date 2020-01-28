@@ -38,8 +38,6 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
     /**
      * Lists all Manuscript entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="manuscript_index", methods={"GET"})
@@ -60,9 +58,6 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
 
     /**
      * Typeahead API endpoint for Manuscript entities.
-     *
-     * @param Request $request
-     * @param ManuscriptRepository $repo
      *
      * @Route("/typeahead", name="manuscript_typeahead", methods={"GET"})
      *
@@ -97,9 +92,6 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      *    }
      * </pre></code>
      *
-     * @param Request $request
-     * @param ManuscriptRepository $repo
-     *
      * @Route("/search", name="manuscript_search", methods={"GET"})
      * @Template()
      *
@@ -123,8 +115,6 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
 
     /**
      * Creates a new Manuscript entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -156,8 +146,6 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
     /**
      * Creates a new Manuscript entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -170,8 +158,6 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
 
     /**
      * Finds and displays a Manuscript entity.
-     *
-     * @param Manuscript $manuscript
      *
      * @return array
      *
@@ -186,9 +172,6 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
 
     /**
      * Displays a form to edit an existing Manuscript entity.
-     *
-     * @param Request $request
-     * @param Manuscript $manuscript
      *
      * @return array|RedirectResponse
      *
@@ -221,9 +204,6 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
     /**
      * Deletes a Manuscript entity.
      *
-     * @param Request $request
-     * @param Manuscript $manuscript
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -240,9 +220,6 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
 
     /**
      * Edits a Manuscript's content entities.
-     *
-     * @param Request $request
-     * @param Manuscript $manuscript
      *
      * @return array|RedirectResponse
      *
@@ -282,9 +259,6 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
     /**
      * Edits a Manuscript's contributions entities.
      *
-     * @param Request $request
-     * @param Manuscript $manuscript
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -322,9 +296,6 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
 
     /**
      * Edits a Manuscript's feature entities.
-     *
-     * @param Request $request
-     * @param Manuscript $manuscript
      *
      * @return array|RedirectResponse
      *

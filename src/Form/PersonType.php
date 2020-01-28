@@ -26,9 +26,6 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 class PersonType extends AbstractType {
     /**
      * Add form fields to $builder.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
         $builder->add('anonymous', CheckboxType::class, [
@@ -124,8 +121,6 @@ class PersonType extends AbstractType {
      *
      * Set default, optional, and required options passed to the
      * buildForm() method via the $options parameter.
-     *
-     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver) : void {
         $resolver->setDefaults([

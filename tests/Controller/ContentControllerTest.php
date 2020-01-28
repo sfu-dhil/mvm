@@ -28,8 +28,8 @@ class ContentControllerTest extends ControllerBaseCase {
      * @group index
      */
     public function testAnonIndex() : void {
-$crawler = $this->client->request('GET', '/content/');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/content/');
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
 
@@ -38,9 +38,9 @@ $crawler = $this->client->request('GET', '/content/');
      * @group index
      */
     public function testUserIndex() : void {
-$this->login('user.user');
+        $this->login('user.user');
         $crawler = $this->client->request('GET', '/content/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
 
@@ -49,9 +49,9 @@ $this->login('user.user');
      * @group index
      */
     public function testAdminIndex() : void {
-$this->login('user.admin');
+        $this->login('user.admin');
         $crawler = $this->client->request('GET', '/content/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $crawler->selectLink('New')->count());
     }
 
@@ -60,8 +60,8 @@ $this->login('user.admin');
      * @group show
      */
     public function testAnonShow() : void {
-$crawler = $this->client->request('GET', '/content/1');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/content/1');
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
         $this->assertSame(0, $crawler->selectLink('Delete')->count());
     }
@@ -71,9 +71,9 @@ $crawler = $this->client->request('GET', '/content/1');
      * @group show
      */
     public function testUserShow() : void {
-$this->login('user.user');
+        $this->login('user.user');
         $crawler = $this->client->request('GET', '/content/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
         $this->assertSame(0, $crawler->selectLink('Delete')->count());
     }
@@ -83,9 +83,9 @@ $this->login('user.user');
      * @group show
      */
     public function testAdminShow() : void {
-$this->login('user.admin');
+        $this->login('user.admin');
         $crawler = $this->client->request('GET', '/content/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame(2, $crawler->selectLink('Edit')->count());
         $this->assertSame(1, $crawler->selectLink('Delete')->count());
     }
@@ -95,9 +95,9 @@ $this->login('user.admin');
      * @group typeahead
      */
     public function testAnonTypeahead() : void {
-$this->client->request('GET', '/content/typeahead?q=STUFF');
+        $this->client->request('GET', '/content/typeahead?q=STUFF');
         $response = $this->client->getResponse();
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 //        $this->assertEquals('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
@@ -111,10 +111,10 @@ $this->client->request('GET', '/content/typeahead?q=STUFF');
      * @group typeahead
      */
     public function testUserTypeahead() : void {
-$this->login('user.user');
+        $this->login('user.user');
         $this->client->request('GET', '/content/typeahead?q=STUFF');
         $response = $this->client->getResponse();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
@@ -128,10 +128,10 @@ $this->login('user.user');
      * @group typeahead
      */
     public function testAdminTypeahead() : void {
-$this->login('user.admin');
+        $this->login('user.admin');
         $this->client->request('GET', '/content/typeahead?q=STUFF');
         $response = $this->client->getResponse();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
@@ -145,8 +145,8 @@ $this->login('user.admin');
      * @group edit
      */
     public function testAnonEdit() : void {
-$crawler = $this->client->request('GET', '/content/1/edit');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/content/1/edit');
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
 
@@ -155,9 +155,9 @@ $crawler = $this->client->request('GET', '/content/1/edit');
      * @group edit
      */
     public function testUserEdit() : void {
-$this->login('user.user');
+        $this->login('user.user');
         $crawler = $this->client->request('GET', '/content/1/edit');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -165,9 +165,9 @@ $this->login('user.user');
      * @group edit
      */
     public function testAdminEdit() : void {
-$this->login('user.admin');
+        $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/content/1/edit');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
@@ -189,8 +189,8 @@ $this->login('user.admin');
      * @group new
      */
     public function testAnonNew() : void {
-$crawler = $this->client->request('GET', '/content/new');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/content/new');
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
 
@@ -199,8 +199,8 @@ $crawler = $this->client->request('GET', '/content/new');
      * @group new
      */
     public function testAnonNewPopup() : void {
-$crawler = $this->client->request('GET', '/content/new_popup');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/content/new_popup');
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
 
@@ -209,9 +209,9 @@ $crawler = $this->client->request('GET', '/content/new_popup');
      * @group new
      */
     public function testUserNew() : void {
-$this->login('user.user');
+        $this->login('user.user');
         $crawler = $this->client->request('GET', '/content/new');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -219,9 +219,9 @@ $this->login('user.user');
      * @group new
      */
     public function testUserNewPopup() : void {
-$this->login('user.user');
+        $this->login('user.user');
         $crawler = $this->client->request('GET', '/content/new_popup');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -229,9 +229,9 @@ $this->login('user.user');
      * @group new
      */
     public function testAdminNew() : void {
-$this->login('user.admin');
+        $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/content/new');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
@@ -253,9 +253,9 @@ $this->login('user.admin');
      * @group new
      */
     public function testAdminNewPopup() : void {
-$this->login('user.admin');
+        $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/content/new_popup');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
@@ -277,8 +277,8 @@ $this->login('user.admin');
      * @group delete
      */
     public function testAnonDelete() : void {
-$crawler = $this->client->request('GET', '/content/1/delete');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/content/1/delete');
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
 
@@ -287,9 +287,9 @@ $crawler = $this->client->request('GET', '/content/1/delete');
      * @group delete
      */
     public function testUserDelete() : void {
-$this->login('user.user');
+        $this->login('user.user');
         $crawler = $this->client->request('GET', '/content/1/delete');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -298,12 +298,12 @@ $this->login('user.user');
      */
     public function testAdminDelete() : void {
         $preCount = count($this->entityManager->getRepository(Content::class)->findAll());
-$this->login('user.admin');
+        $this->login('user.admin');
         $crawler = $this->client->request('GET', '/content/1/delete');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->entityManager->clear();
         $postCount = count($this->entityManager->getRepository(Content::class)->findAll());

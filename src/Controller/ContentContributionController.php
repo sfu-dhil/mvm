@@ -31,8 +31,6 @@ class ContentContributionController extends AbstractController implements Pagina
     /**
      * Lists all ContentContribution entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="content_contribution_index", methods={"GET"})
@@ -53,8 +51,6 @@ class ContentContributionController extends AbstractController implements Pagina
 
     /**
      * Finds and displays a ContentContribution entity.
-     *
-     * @param ContentContribution $contentContribution
      *
      * @return array
      *

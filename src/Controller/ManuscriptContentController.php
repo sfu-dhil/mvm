@@ -31,8 +31,6 @@ class ManuscriptContentController extends AbstractController implements Paginato
     /**
      * Lists all ManuscriptContent entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="manuscript_content_index", methods={"GET"})
@@ -53,8 +51,6 @@ class ManuscriptContentController extends AbstractController implements Paginato
 
     /**
      * Finds and displays a ManuscriptContent entity.
-     *
-     * @param ManuscriptContent $manuscriptContent
      *
      * @return array
      *

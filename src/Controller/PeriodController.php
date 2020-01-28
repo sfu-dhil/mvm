@@ -35,8 +35,6 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
     /**
      * Lists all Period entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="period_index", methods={"GET"})
@@ -57,9 +55,6 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Typeahead API endpoint for Period entities.
-     *
-     * @param Request $request
-     * @param PeriodRepository $repo
      *
      * @Route("/typeahead", name="period_typeahead", methods={"GET"})
      *
@@ -83,8 +78,6 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Creates a new Period entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -116,8 +109,6 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
     /**
      * Creates a new Period entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -130,8 +121,6 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Finds and displays a Period entity.
-     *
-     * @param Period $period
      *
      * @return array
      *
@@ -146,9 +135,6 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Displays a form to edit an existing Period entity.
-     *
-     * @param Request $request
-     * @param Period $period
      *
      * @return array|RedirectResponse
      *
@@ -176,9 +162,6 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
 
     /**
      * Deletes a Period entity.
-     *
-     * @param Request $request
-     * @param Period $period
      *
      * @return array|RedirectResponse
      *

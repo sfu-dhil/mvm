@@ -35,8 +35,6 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
     /**
      * Lists all Theme entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="theme_index", methods={"GET"})
@@ -59,9 +57,6 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
      * Typeahead API endpoint for Theme entities.
      *
      * To make this work, add something like this to ThemeRepository:
-     *
-     * @param Request $request
-     * @param ThemeRepository $repo
      *
      * @Route("/typeahead", name="theme_typeahead", methods={"GET"})
      *
@@ -101,9 +96,6 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
      *    }
      * </pre></code>
      *
-     * @param Request $request
-     * @param ThemeRepository $repo
-     *
      * @Route("/search", name="theme_search", methods={"GET"})
      * @Template()
      *
@@ -127,8 +119,6 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
 
     /**
      * Creates a new Theme entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -160,8 +150,6 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
     /**
      * Creates a new Theme entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -174,8 +162,6 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
 
     /**
      * Finds and displays a Theme entity.
-     *
-     * @param Theme $theme
      *
      * @return array
      *
@@ -190,9 +176,6 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
 
     /**
      * Displays a form to edit an existing Theme entity.
-     *
-     * @param Request $request
-     * @param Theme $theme
      *
      * @return array|RedirectResponse
      *
@@ -220,9 +203,6 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
 
     /**
      * Deletes a Theme entity.
-     *
-     * @param Request $request
-     * @param Theme $theme
      *
      * @return array|RedirectResponse
      *

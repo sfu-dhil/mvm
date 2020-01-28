@@ -35,8 +35,6 @@ class PrintSourceController extends AbstractController implements PaginatorAware
     /**
      * Lists all PrintSource entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="print_source_index", methods={"GET"})
@@ -59,9 +57,6 @@ class PrintSourceController extends AbstractController implements PaginatorAware
      * Typeahead API endpoint for PrintSource entities.
      *
      * To make this work, add something like this to PrintSourceRepository:
-     *
-     * @param Request $request
-     * @param PrintSourceRepository $repo
      *
      * @Route("/typeahead", name="print_source_typeahead", methods={"GET"})
      *
@@ -101,9 +96,6 @@ class PrintSourceController extends AbstractController implements PaginatorAware
      *    }
      * </pre></code>
      *
-     * @param Request $request
-     * @param PrintSourceRepository $repo
-     *
      * @Route("/search", name="print_source_search", methods={"GET"})
      * @Template()
      *
@@ -127,8 +119,6 @@ class PrintSourceController extends AbstractController implements PaginatorAware
 
     /**
      * Creates a new PrintSource entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -160,8 +150,6 @@ class PrintSourceController extends AbstractController implements PaginatorAware
     /**
      * Creates a new PrintSource entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -174,8 +162,6 @@ class PrintSourceController extends AbstractController implements PaginatorAware
 
     /**
      * Finds and displays a PrintSource entity.
-     *
-     * @param PrintSource $printSource
      *
      * @return array
      *
@@ -190,9 +176,6 @@ class PrintSourceController extends AbstractController implements PaginatorAware
 
     /**
      * Displays a form to edit an existing PrintSource entity.
-     *
-     * @param Request $request
-     * @param PrintSource $printSource
      *
      * @return array|RedirectResponse
      *
@@ -220,9 +203,6 @@ class PrintSourceController extends AbstractController implements PaginatorAware
 
     /**
      * Deletes a PrintSource entity.
-     *
-     * @param Request $request
-     * @param PrintSource $printSource
      *
      * @return array|RedirectResponse
      *

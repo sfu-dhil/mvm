@@ -35,8 +35,6 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
     /**
      * Lists all Feature entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="feature_index", methods={"GET"})
@@ -57,9 +55,6 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Typeahead API endpoint for Feature entities.
-     *
-     * @param Request $request
-     * @param FeatureRepository $repo
      *
      * @Route("/typeahead", name="feature_typeahead", methods={"GET"})
      *
@@ -99,9 +94,6 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
      *    }
      * </pre></code>
      *
-     * @param Request $request
-     * @param FeatureRepository $repo
-     *
      * @Route("/search", name="feature_search", methods={"GET"})
      * @Template()
      *
@@ -125,8 +117,6 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Creates a new Feature entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -158,8 +148,6 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
     /**
      * Creates a new Feature entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -172,8 +160,6 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Finds and displays a Feature entity.
-     *
-     * @param Feature $feature
      *
      * @return array
      *
@@ -188,9 +174,6 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Displays a form to edit an existing Feature entity.
-     *
-     * @param Request $request
-     * @param Feature $feature
      *
      * @return array|RedirectResponse
      *
@@ -218,9 +201,6 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Deletes a Feature entity.
-     *
-     * @param Request $request
-     * @param Feature $feature
      *
      * @return array|RedirectResponse
      *

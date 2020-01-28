@@ -21,9 +21,6 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 class PrintSourceType extends ArchiveType {
     /**
      * Add form fields to $builder.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
         parent::buildForm($builder, $options);
@@ -46,8 +43,6 @@ class PrintSourceType extends ArchiveType {
      *
      * Set default, optional, and required options passed to the
      * buildForm() method via the $options parameter.
-     *
-     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver) : void {
         $resolver->setDefaults([

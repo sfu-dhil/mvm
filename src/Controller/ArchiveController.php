@@ -35,8 +35,6 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
     /**
      * Lists all Archive entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="archive_index", methods={"GET"})
@@ -57,9 +55,6 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Typeahead API endpoint for Archive entities.
-     *
-     * @param Request $request
-     * @param ArchiveRepository $repo
      *
      * @Route("/typeahead", name="archive_typeahead", methods={"GET"})
      *
@@ -84,9 +79,6 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
     /**
      * Search for Archive entities.
      *
-     * @param Request $request
-     * @param ArchiveRepository $repo
-     *
      * @Route("/search", name="archive_search", methods={"GET"})
      * @Template()
      *
@@ -110,8 +102,6 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Creates a new Archive entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -143,8 +133,6 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
     /**
      * Creates a new Archive entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -157,8 +145,6 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Finds and displays a Archive entity.
-     *
-     * @param Archive $archive
      *
      * @return array
      *
@@ -173,9 +159,6 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Displays a form to edit an existing Archive entity.
-     *
-     * @param Request $request
-     * @param Archive $archive
      *
      * @return array|RedirectResponse
      *
@@ -203,9 +186,6 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
 
     /**
      * Deletes a Archive entity.
-     *
-     * @param Request $request
-     * @param Archive $archive
      *
      * @return array|RedirectResponse
      *

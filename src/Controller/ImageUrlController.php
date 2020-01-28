@@ -35,8 +35,6 @@ class ImageUrlController extends AbstractController implements PaginatorAwareInt
     /**
      * Lists all ImageUrl entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="image_url_index", methods={"GET"})
@@ -59,9 +57,6 @@ class ImageUrlController extends AbstractController implements PaginatorAwareInt
      * Typeahead API endpoint for ImageUrl entities.
      *
      * To make this work, add something like this to ImageUrlRepository:
-     *
-     * @param Request $request
-     * @param ImageUrlRepository $repo
      *
      * @Route("/typeahead", name="image_url_typeahead", methods={"GET"})
      *
@@ -101,9 +96,6 @@ class ImageUrlController extends AbstractController implements PaginatorAwareInt
      *    }
      * </pre></code>
      *
-     * @param Request $request
-     * @param ImageUrlRepository $repo
-     *
      * @Route("/search", name="image_url_search", methods={"GET"})
      * @Template()
      *
@@ -127,8 +119,6 @@ class ImageUrlController extends AbstractController implements PaginatorAwareInt
 
     /**
      * Creates a new ImageUrl entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -160,8 +150,6 @@ class ImageUrlController extends AbstractController implements PaginatorAwareInt
     /**
      * Creates a new ImageUrl entity in a popup.
      *
-     * @param Request $request
-     *
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
@@ -174,8 +162,6 @@ class ImageUrlController extends AbstractController implements PaginatorAwareInt
 
     /**
      * Finds and displays a ImageUrl entity.
-     *
-     * @param ImageUrl $imageUrl
      *
      * @return array
      *
@@ -190,9 +176,6 @@ class ImageUrlController extends AbstractController implements PaginatorAwareInt
 
     /**
      * Displays a form to edit an existing ImageUrl entity.
-     *
-     * @param Request $request
-     * @param ImageUrl $imageUrl
      *
      * @return array|RedirectResponse
      *
@@ -220,9 +203,6 @@ class ImageUrlController extends AbstractController implements PaginatorAwareInt
 
     /**
      * Deletes a ImageUrl entity.
-     *
-     * @param Request $request
-     * @param ImageUrl $imageUrl
      *
      * @return array|RedirectResponse
      *
