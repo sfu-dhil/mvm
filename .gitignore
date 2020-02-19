@@ -26,3 +26,4 @@
 /public/js/jquery.collection.js
 /templates/jquery.collection.html.twig
 config/deploy.yaml
+.env.local
