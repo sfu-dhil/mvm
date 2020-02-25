@@ -28,7 +28,7 @@
         <ul>
             {% for manuscript in archive.manuscripts %}
                 <li>
-                    <a href="{{ path("manuscript_show", {"id":manuscripts.id}) }}">
+                    <a href="{{ path("manuscript_show", {"id":manuscript.id}) }}">
                         {{ manuscript }}
                     </a>
                 </li>
