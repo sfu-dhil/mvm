@@ -186,7 +186,7 @@ class Manuscript extends AbstractEntity {
             $s = '[' . $this->title . ']';
         }
 
-        return $s . ' ' . $this->callNumber;
+        return $s;
     }
 
     /**

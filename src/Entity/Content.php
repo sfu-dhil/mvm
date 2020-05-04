@@ -50,7 +50,13 @@ class Content extends AbstractEntity {
     private $description;
 
     /**
-     * @var Collection|ContentContribution
+     * @var CircaDate
+     * @ORM\OneToOne(targetEntity="App\Entity\CircaDate", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $date;
+
+    /**
+     * @var Collection|ContentContribution[]
      * @ORM\OneToMany(targetEntity="App\Entity\ContentContribution", mappedBy="content", cascade={"persist"})
      */
     private $contributions;
@@ -86,7 +92,7 @@ class Content extends AbstractEntity {
     /**
      * Add contribution.
      *
-     * @param \App\Entity\ContentContribution $contribution
+     * @param ContentContribution $contribution
      *
      * @return Content
      */
@@ -99,7 +105,7 @@ class Content extends AbstractEntity {
     /**
      * Remove contribution.
      *
-     * @param \App\Entity\ContentContribution $contribution
+     * @param ContentContribution $contribution
      *
      * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
@@ -110,10 +116,22 @@ class Content extends AbstractEntity {
     /**
      * Get contributions.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ContentContribution[]|Collection
      */
     public function getContributions() {
         return $this->contributions;
+    }
+
+    /**
+     * @return Person|null
+     */
+    public function getAuthor() {
+        foreach ($this->contributions as $contribution) {
+            if ($contribution->getRole()->getName() === 'author') {
+                return $contribution->getPerson();
+            }
+        }
+        return null;
     }
 
     /**
@@ -143,7 +161,7 @@ class Content extends AbstractEntity {
     /**
      * Get images.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getImages() {
         return $this->images;
@@ -264,9 +282,36 @@ class Content extends AbstractEntity {
     /**
      * Get manuscriptContents.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getManuscriptContents() {
         return $this->manuscriptContents;
+    }
+
+    /**
+     * @return CircaDate|null
+     */
+    public function getDate() : ?CircaDate {
+        return $this->date;
+    }
+
+    /**
+     * Set deathDate.
+     *
+     * @param null|CircaDate $date
+     *
+     * @return Content
+     * @throws \Exception
+     */
+    public function setDate($date = null) {
+        if (is_string($date) || is_numeric($date)) {
+            $dateYear = new CircaDate();
+            $dateYear->setValue($date);
+            $this->date = $dateYear;
+        } else {
+            $this->date = $date;
+        }
+
+        return $this;
     }
 }
