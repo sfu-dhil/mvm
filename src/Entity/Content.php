@@ -50,6 +50,12 @@ class Content extends AbstractEntity {
     private $description;
 
     /**
+     * @var CircaDate
+     * @ORM\OneToOne(targetEntity="App\Entity\CircaDate", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $date;
+
+    /**
      * @var Collection|ContentContribution[]
      * @ORM\OneToMany(targetEntity="App\Entity\ContentContribution", mappedBy="content", cascade={"persist"})
      */
@@ -120,8 +126,8 @@ class Content extends AbstractEntity {
      * @return Person|null
      */
     public function getAuthor() {
-        foreach($this->contributions as $contribution) {
-            if($contribution->getRole()->getName() === 'author') {
+        foreach ($this->contributions as $contribution) {
+            if ($contribution->getRole()->getName() === 'author') {
                 return $contribution->getPerson();
             }
         }
@@ -280,5 +286,32 @@ class Content extends AbstractEntity {
      */
     public function getManuscriptContents() {
         return $this->manuscriptContents;
+    }
+
+    /**
+     * @return CircaDate|null
+     */
+    public function getDate() : ?CircaDate {
+        return $this->date;
+    }
+
+    /**
+     * Set deathDate.
+     *
+     * @param null|CircaDate $date
+     *
+     * @return Content
+     * @throws \Exception
+     */
+    public function setDate($date = null) {
+        if (is_string($date) || is_numeric($date)) {
+            $dateYear = new CircaDate();
+            $dateYear->setValue($date);
+            $this->date = $dateYear;
+        } else {
+            $this->date = $date;
+        }
+
+        return $this;
     }
 }

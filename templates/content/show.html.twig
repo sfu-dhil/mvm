@@ -4,7 +4,7 @@
 
  {% block pageheader %}
      <h1>Content Details</h1>
- {% endblock %} 
+ {% endblock %}
 
 {% block body %}
     <div class="btn-toolbar">
@@ -28,6 +28,10 @@
             <tr>
                 <th>Title</th>
                 <td>{{ content.title }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ content.date }}</td>
             </tr>
             <tr>
                 <th>Transcription</th>
