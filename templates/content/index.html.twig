@@ -25,6 +25,7 @@
         <thead>
             <tr>
                 <th>First Line</th>
+                <th>Author</th>
                 <th>Description</th>
             </tr>
         </thead>
@@ -35,6 +36,12 @@
                         <a href="{{ path('content_show', { 'id': content.id }) }}">
                             {{ content.firstLine }}
                         </a>
+                    </td>
+                    <td>
+                        {% set author = content.author %}
+                        {% if author is not null %}
+                            <a href='{{ path('person_show', {'id': author.id}) }}'>{{ author }}</a>
+                        {% endif %}
                     </td>
                     <td>{{ content.description|raw }}</td>
                 </tr>
