@@ -57,13 +57,13 @@ class Content extends AbstractEntity {
 
     /**
      * @var Collection|ContentContribution[]
-     * @ORM\OneToMany(targetEntity="App\Entity\ContentContribution", mappedBy="content", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\ContentContribution", mappedBy="content", cascade={"persist","remove"})
      */
     private $contributions;
 
     /**
      * @var Collection|ManuscriptContent
-     * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptContent", mappedBy="content")
+     * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptContent", mappedBy="content", cascade={"persist","remove"})
      */
     private $manuscriptContents;
 
