@@ -106,7 +106,7 @@ class Person extends AbstractEntity {
      *
      * @return string
      */
-    public function __toString : string {
+    public function __toString() : string {
         if ( ! $this->anonymous) {
             return $this->fullName;
         }

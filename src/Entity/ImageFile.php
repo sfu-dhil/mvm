@@ -28,7 +28,7 @@ class ImageFile extends Image {
      *
      * @return string
      */
-    public function __toString : string {
+    public function __toString() : string {
         return get_class() . ' #' . $this->id;
     }
 

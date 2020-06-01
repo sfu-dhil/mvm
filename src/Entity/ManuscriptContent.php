@@ -56,7 +56,7 @@ class ManuscriptContent extends AbstractEntity {
      *
      * @return string
      */
-    public function __toString : string {
+    public function __toString() : string {
         return implode(', ', [$this->content, $this->manuscript]);
     }
 
