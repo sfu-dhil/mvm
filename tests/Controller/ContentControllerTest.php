@@ -14,6 +14,7 @@ use App\DataFixtures\ContentFixtures;
 use App\Entity\Content;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class ContentControllerTest extends ControllerBaseCase {
     protected function fixtures() : array {
@@ -29,7 +30,7 @@ class ContentControllerTest extends ControllerBaseCase {
      */
     public function testAnonIndex() : void {
         $crawler = $this->client->request('GET', '/content/');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::REDIRECT, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
 

@@ -28,7 +28,7 @@ class ImageUrl extends Image {
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString : string {
         return get_class() . ' #' . $this->id;
     }
 
