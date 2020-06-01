@@ -56,7 +56,7 @@ class ContentContribution extends AbstractEntity {
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString() : string {
         return implode(', ', [$this->person, $this->role, $this->content]);
     }
 
