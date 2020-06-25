@@ -231,7 +231,7 @@ class Manuscript extends AbstractEntity {
     /**
      * Get manuscriptContributions.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getManuscriptContributions() {
         return $this->manuscriptContributions;
@@ -308,7 +308,7 @@ class Manuscript extends AbstractEntity {
     /**
      * Get printSources.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getPrintSources() {
         return $this->printSources;
@@ -341,7 +341,7 @@ class Manuscript extends AbstractEntity {
     /**
      * Get themes.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getThemes() {
         return $this->themes;
@@ -704,10 +704,14 @@ class Manuscript extends AbstractEntity {
     /**
      * Get manuscriptContents.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getManuscriptContents() {
-        return $this->manuscriptContents;
+        $iterator = $this->manuscriptContents->getIterator();
+        $iterator->uasort(function(ManuscriptContent $a, ManuscriptContent $b){
+            return strcmp($a->getContent()->getFirstLine(), $b->getContent()->getFirstLine());
+        });
+        return new ArrayCollection($iterator->getArrayCopy());
     }
 
     /**
@@ -737,7 +741,7 @@ class Manuscript extends AbstractEntity {
     /**
      * Get periods.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getPeriods() {
         return $this->periods;
@@ -770,7 +774,7 @@ class Manuscript extends AbstractEntity {
     /**
      * Get regions.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getRegions() {
         return $this->regions;
