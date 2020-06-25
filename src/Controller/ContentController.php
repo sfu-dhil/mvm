@@ -44,7 +44,7 @@ class ContentController extends AbstractController implements PaginatorAwareInte
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Content::class, 'e')->orderBy('e.title', 'ASC');
+        $qb->select('e')->from(Content::class, 'e')->orderBy('e.firstLine', 'ASC')->addOrderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
         $contents = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);

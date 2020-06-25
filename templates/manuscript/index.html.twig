@@ -24,8 +24,8 @@
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
             <tr>
-                <th>Title</th>
                 <th>Call number</th>
+                <th>Title</th>
                 <th>Periods</th>
                 <th>Description</th>
             </tr>
@@ -35,12 +35,12 @@
                 <tr>
                     <td>
                         <a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">
-                            {{ manuscript }}
+                            {{ manuscript.callNumber }}
                         </a>
                     </td>
                     <td>
                         <a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">
-                            {{ manuscript.callNumber }}
+                            {{ manuscript.title }}
                         </a>
                     </td>
                     <td>{{ manuscript.periods|join(", ") }}</td>
