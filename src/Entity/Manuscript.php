@@ -179,14 +179,7 @@ class Manuscript extends AbstractEntity {
      * @return string
      */
     public function __toString() : string {
-        $s = '';
-        if ( ! $this->untitled) {
-            $s = $this->title;
-        } else {
-            $s = '[' . $this->title . ']';
-        }
-
-        return $s;
+        return $this->callNumber;
     }
 
     /**
