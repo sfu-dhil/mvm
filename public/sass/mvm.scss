@@ -1,0 +1,218 @@
+/* 
+ * Base SCSS stylesheet for the Manuscript Verse Miscellanies
+ * Database.
+ * 
+ * @author: Joey Takeda
+ * @date: 2020
+ */
+ 
+ /**
+ * Namespaces 
+ * 
+ **/
+
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:color';
+@use 'sass:list';
+/* 
+ * Imports 
+ */
+ 
+ @import "_variables.scss";
+ @import "_fonts.scss";
+ @import "_functions.scss";
+
+/* 
+ * Root
+ */
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html{
+    font-size:1rem;
+}
+
+ body{
+     background-color: $mvm-tan;
+     font-size:1rem;
+     font-family: "Nunito Sans";
+ }
+
+ nav.navbar{
+     background: $mvm-dark-purple;
+     color: $mvm-white;
+     height:20vh;
+     z-index:1;
+     position:static;
+     border-radius:0;
+     box-shadow:unset;
+     border:none;
+     .navbar-nav{
+        & > li{
+           & > a{
+               color:$mvm-white;
+           }
+       }
+   }
+ }
+ 
+ .btn-toolbar{
+     margin-top:map.get($typescale, 8);
+     margin-bottom:map.get($typescale, 6);
+ }
+ 
+ 
+article.container{
+     margin-top:-15vh;
+     background-color:$mvm-white;
+     z-index:9000;
+     margin-left:auto;
+     margin-right:auto;
+     padding: 1rem 5rem;
+     min-height:90vh;
+     
+     /* Now the gallery */
+     
+     .gallery{
+         display:flex;
+         flex-wrap:wrap;
+         
+         .item {
+            &.empty{
+                border:none;
+                margin:none;
+                padding:none;
+                box-shadow:none;
+                min-width:0;
+            }
+            flex:1 0 21%;
+            margin:2rem;
+            padding: map.get($typescale, 5);
+            margin-left:0;
+            min-width:15rem;
+            border: 2px solid $mvm-dark-purple;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);  
+            h1{
+                font-size: map.get($typescale, 4);
+                text-align:center;
+                margin-bottom:map.get($typescale, 5);
+            }
+            table {
+                font-size: average(map.get($typescale,6), map.get($typescale, 7));
+                tbody{
+                    tr{
+                        th{
+                            padding-right:map.get($typescale, 6);
+                        }
+                        th,td{
+                            padding-top:map.get($typescale, 9);
+                            padding-bottom:map.get($typescale, 9);
+                            vertical-align:top;
+                        }
+                        
+                    }
+                }
+            }
+            .description{
+                border-top: 1px solid rgba($mvm-grey, 0.8);
+                margin-top:map.get($typescale, 8);
+                padding: map.get($typescale, 6) 0;
+                font-size: average(map.get($typescale,6), map.get($typescale, 7));
+                & > p::before{
+                    content: "❧";
+                    display:inline;
+                    margin-right:1rem;
+                }
+            }
+         }
+     }
+     
+     header{
+         text-align:center;
+         h1{
+             margin-bottom:map.get($typescale, 5);
+         }
+           &:after{
+             display:block;
+             content:"❧";
+             margin-bottom: map.get($typescale, 3);
+             text-align:center;
+             font-size:2.5rem;
+         }
+    }
+     main{
+         ul.nav-pills{
+             display:flex;
+             & > li.nav-item{
+                 flex: 1;
+                 text-align:center;
+                 font-size:map.get($typescale, 6);
+                 background: $mvm-grey;
+                 &.active{
+                     & > a {
+                         background: $mvm-dark-purple;
+                         color:$mvm-white;
+                       
+                         &:hover{
+                             color:$mvm-white;
+                         }
+                     }
+                 }
+                 a{
+                   color:$mvm-black;
+                    &:hover, &:visited{
+                        border-bottom:none;
+                    }
+ 
+                 }
+             }
+         }
+         div.tab-content{
+             width: 85%;
+             margin:map.get($typescale, 3) auto;
+         }
+    
+     }
+     table {
+         tbody{
+            tr{
+
+                th,td{
+                  padding: map.get($typescale, 8) 0;
+                }
+                &:first-child{
+                  th, td{
+                     border-top:none;
+                  }
+                }
+            }
+         }
+     }
+ }
+ 
+ /* 
+  * Headings
+  * */
+ 
+ /*
+ * Headings
+ * 
+ * This little formula iterates through all of the heading levels
+ * and associates it with the typography scale
+ */ 
+ @for $i from 1 to 6 {
+  h#{$i} {
+    font-size: map.get($typescale, $i);
+    font-family: "EB Garamond";
+    margin-bottom:map.get($typescale, $i);
+  }
+}
+ 
+ 
+ /* Alwys import media last */
+  @import "_media.scss";

@@ -10,8 +10,9 @@
 
         <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap-theme.min.css') }}">
-
-        <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/fonts.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/mvm.css') }}">
+            
 
         <script src="{{ asset('yarn/jquery/dist/jquery.min.js') }}"></script>
 
@@ -28,7 +29,7 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-default navbar-fixed-top">
+        <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -51,12 +52,16 @@
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
-        <div class="container">
-
+        <article class="container">
+            {% if is_granted('ROLE_CONTENT_ADMIN') %}
+                {% block admin %}
+                {% endblock %}
+            {% endif %}
+            
             {% if block('pageheader') is defined %}
-                <div class="page-header">
-                    {{ block('pageheader') }}
-                </div>
+                    <header>
+                        {{ block('pageheader') }}
+                    </header>
             {% endif %}
 
             {% for type, messages in app.session.flashbag.all() %}
@@ -68,9 +73,15 @@
                 {% endfor %}
             {% endfor %}
 
-            {% block body %}
-            {% endblock %}
-        </div>
+          
+            <main>
+    
+                
+                {% block body %}
+                {% endblock %}
+            </main>
+     
+        </article>
 
         <footer class="footer">
             <div class="container">

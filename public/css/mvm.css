@@ -1,0 +1,347 @@
+@charset "UTF-8";
+/* 
+ * Base SCSS stylesheet for the Manuscript Verse Miscellanies
+ * Database.
+ * 
+ * @author: Joey Takeda
+ * @date: 2020
+ */
+/**
+* Namespaces 
+* 
+**/
+/* 
+ * Imports 
+ */
+/* Here is where we stash all of the variables */
+/* 'Nunito Sans' normal 200*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 200;
+  src: local("Nunito Sans ExtraLight"), local("NunitoSans-ExtraLight"), url("../fonts/NunitoSans-ExtraLight-200.woff2") format("woff2"), url("../fonts/NunitoSans-ExtraLight-200.woff") format("woff");
+}
+/* 'Nunito Sans' italic 200*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 200;
+  src: local("Nunito Sans ExtraLight Italic"), local("NunitoSans-ExtraLightItalic"), url("../fonts/NunitoSans-ExtraLightItalic-200.woff2") format("woff2"), url("../fonts/NunitoSans-ExtraLightItalic-200.woff") format("woff");
+}
+/* 'Nunito Sans' normal 300*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Nunito Sans Light"), local("NunitoSans-Light"), url("../fonts/NunitoSans-Light-300.woff2") format("woff2"), url("../fonts/NunitoSans-Light-300.woff") format("woff");
+}
+/* 'Nunito Sans' italic 300*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 300;
+  src: local("Nunito Sans Light Italic"), local("NunitoSans-LightItalic"), url("../fonts/NunitoSans-LightItalic-300.woff2") format("woff2"), url("../fonts/NunitoSans-LightItalic-300.woff") format("woff");
+}
+/* 'Nunito Sans' normal 400*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Nunito Sans Regular"), local("NunitoSans-Regular"), url("../fonts/NunitoSans-Regular-400.woff2") format("woff2"), url("../fonts/NunitoSans-Regular-400.woff") format("woff");
+}
+/* 'Nunito Sans' italic 400*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Nunito Sans Italic"), local("NunitoSans-Italic"), url("../fonts/NunitoSans-Italic-400.woff2") format("woff2"), url("../fonts/NunitoSans-Italic-400.woff") format("woff");
+}
+/* 'Nunito Sans' normal 700*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Nunito Sans Bold"), local("NunitoSans-Bold"), url("../fonts/NunitoSans-Bold-700.woff2") format("woff2"), url("../fonts/NunitoSans-Bold-700.woff") format("woff");
+}
+/* 'Nunito Sans' italic 700*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 700;
+  src: local("Nunito Sans Bold Italic"), local("NunitoSans-BoldItalic"), url("../fonts/NunitoSans-BoldItalic-700.woff2") format("woff2"), url("../fonts/NunitoSans-BoldItalic-700.woff") format("woff");
+}
+/* 'Nunito Sans' normal 800*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 800;
+  src: local("Nunito Sans ExtraBold"), local("NunitoSans-ExtraBold"), url("../fonts/NunitoSans-ExtraBold-800.woff2") format("woff2"), url("../fonts/NunitoSans-ExtraBold-800.woff") format("woff");
+}
+/* 'Nunito Sans' italic 800*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 800;
+  src: local("Nunito Sans ExtraBold Italic"), local("NunitoSans-ExtraBoldItalic"), url("../fonts/NunitoSans-ExtraBoldItalic-800.woff2") format("woff2"), url("../fonts/NunitoSans-ExtraBoldItalic-800.woff") format("woff");
+}
+/* 'Nunito Sans' italic 900*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 900;
+  src: local("Nunito Sans Black Italic"), local("NunitoSans-BlackItalic"), url("../fonts/NunitoSans-BlackItalic-900.woff2") format("woff2"), url("../fonts/NunitoSans-BlackItalic-900.woff") format("woff");
+}
+/* 'Nunito Sans' normal 900*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 900;
+  src: local("Nunito Sans Black"), local("NunitoSans-Black"), url("../fonts/NunitoSans-Black-900.woff2") format("woff2"), url("../fonts/NunitoSans-Black-900.woff") format("woff");
+}
+/* 'EB Garamond' normal 500*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/-500.woff2") format("woff2"), url("../fonts/-500.woff") format("woff");
+}
+/* 'EB Garamond' normal 600*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/-600.woff2") format("woff2"), url("../fonts/-600.woff") format("woff");
+}
+/* 'EB Garamond' normal 700*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/-700.woff2") format("woff2"), url("../fonts/-700.woff") format("woff");
+}
+/* 'EB Garamond' normal 800*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 800;
+  src: url("../fonts/-800.woff2") format("woff2"), url("../fonts/-800.woff") format("woff");
+}
+/* 'EB Garamond' italic 500*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 500;
+  src: url("../fonts/-500.woff2") format("woff2"), url("../fonts/-500.woff") format("woff");
+}
+/* 'EB Garamond' italic 600*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 600;
+  src: url("../fonts/-600.woff2") format("woff2"), url("../fonts/-600.woff") format("woff");
+}
+/* 'EB Garamond' italic 700*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 700;
+  src: url("../fonts/-700.woff2") format("woff2"), url("../fonts/-700.woff") format("woff");
+}
+/* 'EB Garamond' italic 800*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 800;
+  src: url("../fonts/-800.woff2") format("woff2"), url("../fonts/-800.woff") format("woff");
+}
+/* 
+ * Root
+ */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  font-size: 1rem;
+}
+
+body {
+  background-color: #FAF6F5;
+  font-size: 1rem;
+  font-family: "Nunito Sans";
+}
+
+nav.navbar {
+  background: #39253B;
+  color: #FFFFFF;
+  height: 20vh;
+  z-index: 1;
+  position: static;
+  border-radius: 0;
+  box-shadow: unset;
+  border: none;
+}
+nav.navbar .navbar-nav > li > a {
+  color: #FFFFFF;
+}
+
+.btn-toolbar {
+  margin-top: 0.64rem;
+  margin-bottom: 1rem;
+}
+
+article.container {
+  margin-top: -15vh;
+  background-color: #FFFFFF;
+  z-index: 9000;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem 5rem;
+  min-height: 90vh;
+  /* Now the gallery */
+}
+article.container .gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+article.container .gallery .item {
+  flex: 1 0 21%;
+  margin: 2rem;
+  padding: 1.25rem;
+  margin-left: 0;
+  min-width: 15rem;
+  border: 2px solid #39253B;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+article.container .gallery .item.empty {
+  border: none;
+  margin: none;
+  padding: none;
+  box-shadow: none;
+  min-width: 0;
+}
+article.container .gallery .item h1 {
+  font-size: 1.563rem;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+article.container .gallery .item table {
+  font-size: 0.9rem;
+}
+article.container .gallery .item table tbody tr th {
+  padding-right: 1rem;
+}
+article.container .gallery .item table tbody tr th, article.container .gallery .item table tbody tr td {
+  padding-top: 0.512rem;
+  padding-bottom: 0.512rem;
+  vertical-align: top;
+}
+article.container .gallery .item .description {
+  border-top: 1px solid rgba(231, 231, 231, 0.8);
+  margin-top: 0.64rem;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+}
+article.container .gallery .item .description > p::before {
+  content: "❧";
+  display: inline;
+  margin-right: 1rem;
+}
+article.container header {
+  text-align: center;
+}
+article.container header h1 {
+  margin-bottom: 1.25rem;
+}
+article.container header:after {
+  display: block;
+  content: "❧";
+  margin-bottom: 1.953rem;
+  text-align: center;
+  font-size: 2.5rem;
+}
+article.container main ul.nav-pills {
+  display: flex;
+}
+article.container main ul.nav-pills > li.nav-item {
+  flex: 1;
+  text-align: center;
+  font-size: 1rem;
+  background: #E7E7E7;
+}
+article.container main ul.nav-pills > li.nav-item.active > a {
+  background: #39253B;
+  color: #FFFFFF;
+}
+article.container main ul.nav-pills > li.nav-item.active > a:hover {
+  color: #FFFFFF;
+}
+article.container main ul.nav-pills > li.nav-item a {
+  color: #010101;
+}
+article.container main ul.nav-pills > li.nav-item a:hover, article.container main ul.nav-pills > li.nav-item a:visited {
+  border-bottom: none;
+}
+article.container main div.tab-content {
+  width: 85%;
+  margin: 1.953rem auto;
+}
+article.container table tbody tr th, article.container table tbody tr td {
+  padding: 0.64rem 0;
+}
+article.container table tbody tr:first-child th, article.container table tbody tr:first-child td {
+  border-top: none;
+}
+
+/* 
+ * Headings
+ * */
+/*
+* Headings
+* 
+* This little formula iterates through all of the heading levels
+* and associates it with the typography scale
+*/
+h1 {
+  font-size: 3.052rem;
+  font-family: "EB Garamond";
+  margin-bottom: 3.052rem;
+}
+
+h2 {
+  font-size: 2.441rem;
+  font-family: "EB Garamond";
+  margin-bottom: 2.441rem;
+}
+
+h3 {
+  font-size: 1.953rem;
+  font-family: "EB Garamond";
+  margin-bottom: 1.953rem;
+}
+
+h4 {
+  font-size: 1.563rem;
+  font-family: "EB Garamond";
+  margin-bottom: 1.563rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-family: "EB Garamond";
+  margin-bottom: 1.25rem;
+}
+
+/* Alwys import media last */
+@media (max-width: 768px) {
+  article.container {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+/*# sourceMappingURL=mvm.css.map */

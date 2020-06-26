@@ -23,16 +23,5 @@
     {% embed '@NinesUtil/term/partial/show.html.twig' with {'term': period} %}
     {% endembed %}
 
-    {% if period.manuscripts | length > 0 %}
-        <h2>Manuscripts</h2>
-        <ul>
-            {% for manuscript in period.manuscripts %}
-                <li>
-                    <a href="{{ path("manuscript_show", {"id":manuscript.id}) }}">
-                        {{ manuscript }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+{% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': period.manuscripts} %}
 {% endblock %}

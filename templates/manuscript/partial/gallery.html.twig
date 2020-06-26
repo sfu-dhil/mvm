@@ -1,0 +1,67 @@
+
+
+<div class="gallery">
+    {% for manuscript in manuscripts %}
+    {% set compilers = [] %}
+    <div class="item">
+        <h1><a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">{{ manuscript.callNumber }}</a></h1>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ manuscript.title|u.truncate(50,'[...]') }}</td>
+                </tr>
+                <tr>
+                    <th>Period</th>
+                    <td>{% for period in manuscript.periods %}
+                        <a href="{{ path('period_show', { 'id': period.id}) }}">
+                            {{ period }}
+                        </a>
+                        {%- if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% for contribution in manuscript.manuscriptContributions %}
+
+                    {% if contribution.role.id == 1 %}
+                        {% set compilers = compilers|merge([contribution]) %}
+                    {% endif %}
+                {% endfor %}
+    
+               {% set compilerCount = compilers|length %}
+               {% if compilerCount > 0 %}
+                <tr>
+                    <th>Compiler{% if compilerCount > 1 %}s{% endif %}</th>
+                    <td>
+                        {% for compiler in compilers %}
+                        <a href="{{ path('person_show', { 'id' : compiler.person.id}) }}">{{ compiler.person.fullName}}</a>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endif %}
+                
+                {% if manuscript.archive is not null %}
+                <tr>
+                    <th>Archive</th>
+                    <td><a href="{{ path('archive_show', {'id' : manuscript.archive.id}) }}">{{ manuscript.archive }}</a></td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        {% if manuscript.description is not null %} 
+        <div class="description">
+            {{ manuscript.description | raw }}
+        </div>
+        {% endif %}
+        
+    </div>
+    
+    {% endfor %}
+    {# Now the stupid empty item hack
+       so that listings that aren't multiples of 3
+       don't stretch #}
+    <div class="item empty"></div>
+    <div class="item empty"> </div>
+        
+    
+</div>

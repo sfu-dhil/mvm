@@ -22,16 +22,5 @@
     {% embed '@NinesUtil/term/partial/show.html.twig' with {'term': theme} %}
     {% endembed %}
 
-    {% if theme.manuscripts | length > 0 %}
-        <h2>Manuscripts</h2>
-        <ul>
-            {% for manuscript in theme.manuscripts %}
-                <li>
-                    <a href="{{ path("manuscript_show", {"id":manuscript.id}) }}">
-                        {{ manuscript }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+{% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': theme.manuscripts} %}
 {% endblock %}

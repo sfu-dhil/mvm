@@ -22,17 +22,7 @@
 
     {% embed '@NinesUtil/term/partial/show.html.twig' with {'term': archive} %}
     {% endembed %}
+    
+    {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': archive.manuscripts} %}
 
-    {% if archive.manuscripts | length > 0 %}
-        <h2>Manuscripts</h2>
-        <ul>
-            {% for manuscript in archive.manuscripts %}
-                <li>
-                    <a href="{{ path("manuscript_show", {"id":manuscript.id}) }}">
-                        {{ manuscript }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
 {% endblock %}

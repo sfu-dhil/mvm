@@ -1,0 +1,8 @@
+@function average($values...){
+     $length: list.length($values);
+     $sum: 0;
+     @each $value in $values{
+         $sum: $sum + $value;
+     }
+     @return $sum / $length;
+}
