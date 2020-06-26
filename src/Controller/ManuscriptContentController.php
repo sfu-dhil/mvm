@@ -39,7 +39,12 @@ class ManuscriptContentController extends AbstractController implements Paginato
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(ManuscriptContent::class, 'e')->orderBy('e.id', 'ASC');
+        $qb->select('e')
+            ->from(ManuscriptContent::class, 'e')
+            ->leftJoin('e.content', 'c')
+            ->leftJoin('e.manuscript', 'm')
+            ->orderBy('c.firstLine', 'ASC')
+            ->addOrderBy('m.callNumber');
         $query = $qb->getQuery();
 
         $manuscriptContents = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
