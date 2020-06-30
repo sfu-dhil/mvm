@@ -49,7 +49,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
         $qb->select('e')->from(Manuscript::class, 'e')->orderBy('e.callNumber', 'ASC');
         $query = $qb->getQuery();
 
-        $manuscripts = $this->paginator->paginate($query, $request->query->getint('page', 1), 27);
+        $manuscripts = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
         return [
             'manuscripts' => $manuscripts,
@@ -102,7 +102,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
         if ($q) {
             $query = $repo->searchQuery($q);
 
-            $manuscripts = $this->paginator->paginate($query, $request->query->getInt('page', 1), 27);
+            $manuscripts = $this->paginator->paginate($query, $request->query->getInt('page', 1), 24);
         } else {
             $manuscripts = [];
         }

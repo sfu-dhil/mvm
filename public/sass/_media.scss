@@ -1,3 +1,17 @@
+@media (max-width: 1200px){
+    article.container {
+        .gallery{
+            .item{
+                flex-basis:45%;
+            }
+        }
+ 
+    }
+    
+    
+}
+
+
 
 @media (max-width: 768px){
     article.container {
@@ -5,6 +19,18 @@
         margin-right: .5rem;
         padding-left: .75rem;
         padding-right: .75rem;
+        .gallery{
+            .item{
+                flex-basis:100%;
+                margin-left:0;
+                margin-right:0;
+                &.empty{
+                    display:none;
+                }
+            }
+        }
+ 
     }
+    
     
 }

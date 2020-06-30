@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Archive List{% endblock %}
-
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' %}
+{% endblock %}
 {% block pageheader %}
     <h1>Archive List</h1>
     <p class="count">

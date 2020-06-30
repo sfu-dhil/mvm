@@ -53,10 +53,17 @@
             </div>
         </nav>
         <article class="container">
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
+            <nav class="body-nav">
+                
+                {% block breadcrumb %}
+                {% endblock %}
+                {% if is_granted('ROLE_CONTENT_ADMIN') %}
                 {% block admin %}
                 {% endblock %}
-            {% endif %}
+                {% endif %}
+       
+            </nav>
+     
             
             {% if block('pageheader') is defined %}
                     <header>
