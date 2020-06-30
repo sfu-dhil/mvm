@@ -14,7 +14,7 @@
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
             <tr>
-                <th>Content</th>
+                <th>First line</th>
                 <th>Person</th>
                 <th>Role</th>
             </tr>
@@ -36,13 +36,6 @@
                         {{ contentContribution.role }}
                     </td>
                 </tr>
-                {% if contentContribution.note %}
-                    <tr>
-                        <td colspan="3">
-                            {{ contentContribution.note|raw }}
-                        </td>
-                    </tr>
-                {% endif %}
             {% endfor %}
         </tbody>
     </table>
