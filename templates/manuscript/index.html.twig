@@ -2,6 +2,10 @@
 
 {% block title %}Manuscript List{% endblock %}
 
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript'} %}
+{% endblock %}
+
 {% block pageheader %}
     <h1>Manuscript List</h1>
     <p class="count">
@@ -20,7 +24,6 @@
             <span class="glyphicon glyphicon-search"></span> Search </a>
     </div>
 </div>
-<div class="clearfix"></div>
 {% endblock %}
 
 

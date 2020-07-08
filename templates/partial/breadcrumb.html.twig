@@ -1,6 +1,10 @@
 
 <ul class="breadcrumbs">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="something.html">PATH 1</a></li>
-    <li><span class="current">CURRENT</span></li>
+    <li><a href="{{ path('homepage') }}">Home</a></li>
+    {% if show is defined %}
+        <li><a href="{{ path(index ~ '_index') }}">{{ index|capitalize ~ 's' }}</a></li>
+    <li><span class="current">{{ show }}</span></li>
+    {% else %}
+    <li><span class="current">{{ index|capitalize ~ 's' }}</span></li>
+    {% endif %}
 </ul>

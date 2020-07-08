@@ -3,6 +3,10 @@
 {% block title %}New Archive{% endblock %}
 
 
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'archive'} %}
+{% endblock %}
+
 {% block body %}
     <h1>New Archive</h1>
 

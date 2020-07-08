@@ -2,6 +2,10 @@
 
 {% block title %}Archive Search{% endblock %}
 
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'archive','show':'Search'} %}
+{% endblock %}
+
 {% block pageheader %}
     <h1>Archive Search</h1>
     {% if q %}

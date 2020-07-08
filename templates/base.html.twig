@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% set isAdmin =  is_granted('ROLE_CONTENT_ADMIN') %}
+{% set route = app.request.attributes.get('_route') %}
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -29,6 +31,7 @@
         {% endblock %}
     </head>
     <body>
+        
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
@@ -54,14 +57,14 @@
         </nav>
         <article class="container">
             <nav class="body-nav">
-                
                 {% block breadcrumb %}
                 {% endblock %}
                 {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                {% block admin %}
-                {% endblock %}
+                    {% block admin %}
+                    {% endblock %}
                 {% endif %}
-       
+               
+                
             </nav>
      
             

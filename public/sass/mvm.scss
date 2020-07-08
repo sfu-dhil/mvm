@@ -71,7 +71,8 @@ html{
     list-style-type:none;
     display:flex;
     justify-content:center;
-    margin-bottom:map.get($typescale, 5);
+    margin:map.get($typescale, 5) auto;
+    font-size: map.get($typescale, 7);
     li{
         padding: 0 map.get($typescale, 9);
         &:not(:first-child){
@@ -88,7 +89,6 @@ article.container{
      margin-right:auto;
      padding: 1rem 5rem;
      min-height:90vh;
-     
      /* Now the nav stuff at the top */
      
      /* Note that breadcrumbs are handled in their own module */
@@ -159,6 +159,7 @@ article.container{
             .description{
                 border-top: 1px solid rgba($mvm-grey, 0.8);
                 margin-top:map.get($typescale, 8);
+                
                 padding: map.get($typescale, 6) 0;
                 font-size: average(map.get($typescale,6), map.get($typescale, 7));
                 & > p::before{
@@ -174,11 +175,14 @@ article.container{
          text-align:center;
          h1{
              margin-bottom:map.get($typescale, 5);
+             .firstLine{
+                 font-style:italic;
+             }
          }
            &:after{
              display:block;
              content:"❧";
-      
+             margin-bottom:map.get($typescale, 5);
              text-align:center;
              font-size:2.5rem;
          }
@@ -195,7 +199,7 @@ article.container{
                      & > a {
                          background: $mvm-dark-purple;
                          color:$mvm-white;
-                       
+                         border-radius:0;
                          &:hover{
                              color:$mvm-white;
                          }
@@ -213,15 +217,46 @@ article.container{
          div.tab-content{
              width: 85%;
              margin:map.get($typescale, 3) auto;
+             .tab-pane.active.transcription-tab{
+                 display:flex;
+                 width:100%;
+                 justify-content:space-between;
+                 table{
+                     max-width:40%;
+                 }
+             }
+             .item{
+                 flex-basis:40%;
+             }
+         
          }
     
      }
      table {
          tbody{
+            
+            .tag-list{
+                list-style-type:none;
+                display:flex;
+                flex-wrap:wrap;
+                margin-left:0;
+                padding-left:0;
+                li{
+                    margin-top:map.get($typescale, 7);
+                    margin-bottom:map.get($typescale, 5);
+                    margin-right: map.get($typescale, 7);
+                }
+                a{
+                     padding:map.get($typescale, 9) map.get($typescale, 7);
+                     border:1px solid #efefef;
+                  
+                 
+                }
+            }
             tr{
 
                 th,td{
-                  padding: map.get($typescale, 8) 0;
+                  padding: map.get($typescale, 8);
                 }
                 &:first-child{
                   th, td{

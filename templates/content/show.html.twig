@@ -1,107 +1,110 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Content{% endblock %}
+{% block title %}{{ content.firstLine }}{% endblock %}
+
+{% set hasDescription = content.transcription is not null %}
+{% set hasContributions = content.contributions|length > 0 %}
+{% set hasManuscripts =  content.manuscriptContents|length > 0 %}
+
+{% block admin %}
+<div class="btn-toolbar">
+    <div class="btn-group pull-right">
+        <a href="{{ path('content_edit', { 'id': content.id }) }}" class="btn btn-default">
+            <span class='glyphicon glyphicon-edit'></span> Edit </a>
+        <a href="{{ path('content_delete', { 'id': content.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this Content?">
+            <span class='glyphicon glyphicon-remove'></span> Delete </a>
+    </div>
+</div>
+{% endblock %}
 
  {% block pageheader %}
-     <h1>Content Details</h1>
+<h1>Content: <br/> <span class="firstLine">{{ content.firstLine }}</span></h1>
  {% endblock %}
 
 {% block body %}
-    <div class="btn-toolbar">
-        <div class="btn-group pull-right">
-            <a href="{{ path('content_index') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-arrow-left"></span> Back </a>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('content_edit', { 'id': content.id }) }}" class="btn btn-default">
-                    <span class='glyphicon glyphicon-edit'></span> Edit </a>
-                <a href="{{ path('content_delete', { 'id': content.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this Content?">
-                    <span class='glyphicon glyphicon-remove'></span> Delete </a>
-            {% endif %}
+<ul class="nav nav-pills" id="tabs" role="tablist">
+    <li class="nav-item active">
+        <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Details</a>
+    </li>
+    
+    {% if hasContributions %}
+    <li class="nav-item">
+        <a class="nav-link" id="contributions-tab" data-toggle="tab" href="#contributions" role="tab" aria-controls="contributions" aria-selected="false">Contributions</a>
+    </li>
+    {% endif %}
+    
+    {% if hasManuscripts %}
+    <li class="nav-item">
+        <a class="nav-link" id="manuscripts-tab" data-toggle="tab" href="#manuscripts" role="tab" aria-controls="manuscripts" aria-selected="false">Manuscripts</a>
+    </li>
+    {% endif %}
+</ul>
+<div class="tab-content" id="tabContent">
+    <div class="tab-pane active transcription-tab" id="details" role="tabpanel" aria-labelledby="details-tab">
+        <div class="transcription">
+            {{ content.transcription | raw }}
         </div>
+        <table class="table table-condensed table-bordered">
+            <tbody>
+                <tr>
+                    <th>First Line</th>
+                    <td>{{ content.firstLine }}</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>{{ content.date }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ content.description|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Created</th>
+                    <td>{% if content.created %}{{ content.created|date }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Updated</th>
+                    <td>{% if content.updated %}{{ content.updated|date }}{% endif %}</td>
+                </tr>
+            </tbody>
+        </table>
+      
     </div>
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>First Line</th>
-                <td>{{ content.firstLine }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ content.date }}</td>
-            </tr>
-            <tr>
-                <th>Transcription</th>
-                <td>{{ content.transcription|raw }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ content.description|raw }}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{% if content.created %}{{ content.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if content.updated %}{{ content.updated|date }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <h2>Contributions</h2>
-    {% if is_granted('ROLE_CONTENT_ADMIN') %}
+    {% if hasContributions or isAdmin %}
+    <div class="tab-pane" id="contributions" role="tabpanel" aria-labelledby="contributions-tab">
+        {% if isAdmin %}
         <div class="pull-right">
             <a href="{{ path('content_contributions', {'id': content.id}) }}" class="btn btn-default">
                 <span class='glyphicon glyphicon-edit'></span> Edit Contributions</a>
         </div>
-    {% endif %}
-
-    {% if content.contributions | length > 0 %}
+        {% endif %}
         <dl>
             {% for contribution in content.contributions %}
-                <dt>{{ contribution.role }}:
-                    <a href="{{ path('person_show', {'id': contribution.person.id}) }}">
-                        {{ contribution.person }}
-                    </a>
-                </dt>
-                {% if contribution.note %}
-                    <dd>
-                        {{ contribution.note|raw }}
-                    </dd>
-                {% endif %}
-            {% endfor %}
-        </dl>
-    {% else %}
-        <p>No contributions have been recorded for this content.</p>
-    {% endif %}
-
-    <h2>Manuscripts</h2>
-    {% if content.manuscriptContents|length > 0 %}
-        <dl>
-            {% for manuscriptContent in content.manuscriptContents %}
-            <dt>
-                <a href="{{ path('manuscript_show', {'id': manuscriptContent.manuscript.id }) }}">
-                    {{ manuscriptContent.manuscript }}
+            <dt>{{ contribution.role }}:
+                <a href="{{ path('person_show', {'id': contribution.person.id}) }}">
+                    {{ contribution.person }}
                 </a>
             </dt>
-            <dd>{{ manuscriptContent.context|raw }}</dd>
+            {% if contribution.note %}
+            <dd>
+                {{ contribution.note|raw }}
+            </dd>
+            {% endif %}
             {% endfor %}
         </dl>
-    {% else %}
-        <p>This content is not associated with any manuscripts.</p>
+    </div>
     {% endif %}
-
-
-    {% if content.images | length > 0 %}
-        <h2>Images</h2>
-        <ul>
-            {% for image in content.images %}
-                <li>
-                    <a href="{{ path("image_show", {"id":image.id}) }}">
-                        {{ image }}
-                    </a>
-                </li>
+   
+    {% if hasManuscripts %}
+    <div class="tab-pane" id="manuscripts" role="tabpanel" aria-labelledby="manuscripts-tab">
+        <div class="gallery">
+            {% for manuscriptContent in content.manuscriptContents %}
+            {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscriptContent.manuscript, 'callbackDescription': manuscriptContent.context} %}
             {% endfor %}
-        </ul>
+        </div>
+        
+    </div>
     {% endif %}
+</div>
 {% endblock %}

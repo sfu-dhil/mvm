@@ -2,30 +2,35 @@
 
 {% block title %}Person List{% endblock %}
 
+{% block breadcrumb %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'person'} %}
+{% endblock %}
+
 {% block pageheader %}
     <h1>Person List</h1>
     <p class="count">
         Displaying {{ people|length }} people of {{ people.getTotalItemCount }} total. </p>
 {% endblock %}
 
-{% block body %}
+{% block admin %}
 
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('person_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-            <a href="{{ path('person_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search </a>
-        </div>
+<div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+        <a href="{{ path('person_new') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus"></span> New </a>
+        <a href="{{ path('person_search') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span> Search </a>
     </div>
+</div>
 
+{% endblock %}
+
+{% block body %}
     <table class="table">
         <thead>
             <tr>
                 <th>Full Name</th>
-                {% if is_granted('ROLE_CONTENT_ADMIN') %}
+                {% if isAdmin %}
                 <th>Sortable Name</th>
                 {% endif %}
                 <th>Gender</th>

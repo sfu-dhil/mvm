@@ -1,6 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Person{% endblock %}
+{% set hasContentContributions = person.contentContributions | length > 0 %}
+{% set hasManuscriptContributions = person.manuscriptContributions | length > 0 %}
+
+{% block title %}{{ person.fullName }}{% endblock %}
+
+{% block breadcrumb %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'person', 'show': person.fullName} %}
+{% endblock %}
 
 {% block pageheader %}
    <h1>{{ person.fullName }}</h1>
@@ -24,20 +31,34 @@
 
 {% block body %}
 
-
-{% set blocks = [] %}
-
-
-
-
-
+<ul class="nav nav-pills" id="tabs" role="tablist">
+    <li class="nav-item active">
+        <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Details</a>
+    </li>
+    {% if hasContentContributions %}
+    <li class="nav-item">
+        <a class="nav-link" id="content-contributions-tab" data-toggle="tab" href="#content-contributions" role="tab" aria-controls="content-contributions" aria-selected="false">Content Contributions</a>
+    </li>
+    {% endif %}
+    
+    {% if hasManuscriptContributions %}
+    <li class="nav-item">
+        <a class="nav-link" id="manuscript-contributions-tab" data-toggle="tab" href="#manuscript-contributions" role="tab" aria-controls="manuscript-contributions" aria-selected="false">Manuscript Contributions</a>
+    </li>
+    {% endif %}
+    
+ 
+    
+</ul>
+<div class="tab-content" id="tabContent">
+    <div class="tab-pane active" id="details" role="tabpanel" aria-labelledby="details-tab">
     <table class="table">
         <tbody>
             <tr>
                 <th>Full Name</th>
                 <td>{{ person }}</td>
             </tr>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
+            {% if isAdmin %}
                 <tr>
                     <th>Sortable Name</th>
                     <td>{{ person.sortableName }}</td>
@@ -76,6 +97,7 @@
                     {% endfor %}
                 </td>
             </tr>
+            {% if isAdmin %}
             <tr>
                 <th>Created</th>
                 <td>{% if person.created %}{{ person.created|date }}{% endif %}</td>
@@ -84,10 +106,13 @@
                 <th>Updated</th>
                 <td>{% if person.updated %}{{ person.updated|date }}{% endif %}</td>
             </tr>
+            {% endif %}
         </tbody>
     </table>
-    <h2>Content Contributions</h2>
-    {% if person.contentContributions | length > 0 %}
+    </div>
+    {% if hasContentContributions %}
+    <div class="tab-pane fade" id="content-contributions" role="tabpanel" aria-labelledby="content-contributions-tab">
+
         <ul>
             {% for contentContribution in person.contentContributions %}
                 <li>
@@ -97,23 +122,24 @@
                 </li>
             {% endfor %}
         </ul>
-    {% else %}
-        <p>No content contributions recorded for this person.</p>
-    {% endif %}
 
-    <h2>Manuscript Contribution</h2>
+    </div>
+    {% endif %}
+    
     {% if person.manuscriptContributions | length > 0 %}
-        <ul>
+    <div class="tab-pane fade" id="manuscript-contributions" role="tabpanel" aria-labelledby="manuscript-contributions-tab">
+        <div class="gallery">
             {% for manuscriptContribution in person.manuscriptContributions %}
-                <li>
-                    <a href="{{ path("manuscript_contribution_show", {"id":manuscriptContribution.id}) }}">
-                        {{ manuscriptContribution }}
-                    </a>
-                </li>
+            {% set callbackDescription %}
+                <p>Role: {{manuscriptContribution.role }}</p>
+                {{ manuscriptContribution.note | raw }}
+            {% endset %}
+            {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscriptContribution.manuscript, 'callbackDescription': callbackDescription} %}
             {% endfor %}
-        </ul>
-        {% else %}
-        <p>No manuscript contributions recorded for this person.</p>
+            <div class="item empty"></div>
+            <div class="item empty"></div>
+        </div>
+    </div>
     {% endif %}
-
+    
 {% endblock %}

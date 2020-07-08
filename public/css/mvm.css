@@ -303,7 +303,8 @@ nav.navbar .navbar-nav > li > a {
   list-style-type: none;
   display: flex;
   justify-content: center;
-  margin-bottom: 1.25rem;
+  margin: 1.25rem auto;
+  font-size: 0.8rem;
 }
 .list-group-horizontal li {
   padding: 0 0.512rem;
@@ -393,9 +394,13 @@ article.container header {
 article.container header h1 {
   margin-bottom: 1.25rem;
 }
+article.container header h1 .firstLine {
+  font-style: italic;
+}
 article.container header:after {
   display: block;
   content: "❧";
+  margin-bottom: 1.25rem;
   text-align: center;
   font-size: 2.5rem;
 }
@@ -411,6 +416,7 @@ article.container main ul.nav-pills > li.nav-item {
 article.container main ul.nav-pills > li.nav-item.active > a {
   background: #39253B;
   color: #FFFFFF;
+  border-radius: 0;
 }
 article.container main ul.nav-pills > li.nav-item.active > a:hover {
   color: #FFFFFF;
@@ -425,8 +431,35 @@ article.container main div.tab-content {
   width: 85%;
   margin: 1.953rem auto;
 }
+article.container main div.tab-content .tab-pane.active.transcription-tab {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+article.container main div.tab-content .tab-pane.active.transcription-tab table {
+  max-width: 40%;
+}
+article.container main div.tab-content .item {
+  flex-basis: 40%;
+}
+article.container table tbody .tag-list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 0;
+  padding-left: 0;
+}
+article.container table tbody .tag-list li {
+  margin-top: 0.8rem;
+  margin-bottom: 1.25rem;
+  margin-right: 0.8rem;
+}
+article.container table tbody .tag-list a {
+  padding: 0.512rem 0.8rem;
+  border: 1px solid #efefef;
+}
 article.container table tbody tr th, article.container table tbody tr td {
-  padding: 0.64rem 0;
+  padding: 0.64rem;
 }
 article.container table tbody tr:first-child th, article.container table tbody tr:first-child td {
   border-top: none;

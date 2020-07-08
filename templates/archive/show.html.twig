@@ -3,7 +3,7 @@
 {% block title %}Archive{% endblock %}
 
 {% block breadcrumb %}
-    {% include 'partial/breadcrumb.html.twig' with {'term': archive} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'archive', 'show': archive.label} %}
 {% endblock %}
 
  {% block pageheader %}
