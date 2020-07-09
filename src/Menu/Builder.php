@@ -146,4 +146,52 @@ class Builder implements ContainerAwareInterface {
 
         return $menu;
     }
+    
+    /**
+     * Build a menu the footer.
+     *
+     * @return ItemInterface
+     */
+    public function footerMenu(array $options) {
+        $menu = $this->factory->createItem('root');
+
+        $menu->addChild('Archives', [
+            'route' => 'archive_index',
+        ]);
+        $menu->addChild('Contents', [
+            'route' => 'content_index',
+        ]);
+        $menu->addChild('Content Roles', [
+            'route' => 'content_role_index',
+        ]);
+        $menu->addChild('Features', [
+            'route' => 'feature_index',
+        ]);
+        $menu->addChild('Images', [
+            'uri' => '#',
+        ]);
+        $menu->addChild('Manuscripts', [
+            'route' => 'manuscript_index',
+        ]);
+        $menu->addChild('Manuscript Roles', [
+            'route' => 'manuscript_role_index',
+        ]);
+        $menu->addChild('Periods', [
+            'route' => 'period_index',
+        ]);
+        $menu->addChild('People', [
+            'route' => 'person_index',
+        ]);
+        $menu->addChild('Print Sources', [
+            'route' => 'print_source_index',
+        ]);
+        $menu->addChild('Regions', [
+            'route' => 'region_index',
+        ]);
+        $menu->addChild('Themes', [
+            'route' => 'theme_index',
+        ]);
+
+        return $menu;
+    }
 }
