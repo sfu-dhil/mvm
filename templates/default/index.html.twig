@@ -1,5 +1,28 @@
 {% extends 'base.html.twig' %}
 
+{% block id %}index{% endblock %}
+{% block hero %}
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="sr-only">Manuscript Verse Miscellanies</h1>
+        <img src="{{ asset('images/title.svg') }}" alt="Manuscript Verse Miscellanies"/>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer faucibus nisl sit amet augue elementum rutrum. Ut sagittis eros nibh, non sagittis justo viverra mattis. Aenean vel eros lacus. Phasellus ut turpis in odio molestie faucibus at at ex. Proin finibus magna orci, vitae placerat diam dignissim eu. Donec leo tellus, porta ut fermentum posuere, commodo et leo. Sed elementum nec nulla et ultrices. Morbi magna ex, maximus id fringilla sed, placerat ac libero.  </p>
+    </div>
+    
+</div>
+{% endblock %}
+
 {% block body %}
-    <h1>Manuscript Verse Miscellanies</h1>
+    <section>
+        <h2>Browse by Archive</h2>
+        <p>STUFF</p>
+    </section>
+    <section>
+        <h2>Browse by Contributor</h2>
+        <input type="text"></input>
+    </section>
+<section>
+    <h2>Browse by Period</h2>
+    <p>Period list thing</p>
+</section>
 {% endblock %}

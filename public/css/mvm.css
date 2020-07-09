@@ -283,12 +283,23 @@ body {
 nav.navbar {
   background: #39253B;
   color: #FFFFFF;
-  height: 33vh;
   z-index: 1;
   position: static;
   border-radius: 0;
   box-shadow: unset;
   border: none;
+}
+nav.navbar:after {
+  content: "";
+  display: block;
+  height: 28vh;
+}
+nav.navbar .navbar-nav .brand {
+  margin-right: 1rem;
+}
+nav.navbar .navbar-nav > li {
+  margin-top: 0.4rem;
+  margin-bottom: -0.2rem;
 }
 nav.navbar .navbar-nav > li.open > a, nav.navbar .navbar-nav > li.open > a:hover, nav.navbar .navbar-nav > li.open > a:focus {
   background: #fff;
@@ -547,6 +558,71 @@ h5 {
   font-size: 1.25rem;
   font-family: "EB Garamond";
   margin-bottom: 1.25rem;
+}
+
+/* 
+ * Footer
+ * */
+footer.footer {
+  margin-top: 3.052rem;
+  padding-top: 3.052rem;
+}
+footer.footer > .container:before {
+  content: "";
+  background: url("../images/fleur.svg");
+  height: 2rem;
+  background-size: contain;
+  display: block;
+  width: calc(100% + 6rem);
+  margin-bottom: 2rem;
+  margin-left: -3rem;
+  margin-right: -3rem;
+}
+
+/* Special styling rules for the index page only */
+#index .navbar {
+  margin-bottom: 0;
+}
+#index .navbar > .container {
+  background: #39253B;
+}
+#index .navbar:after {
+  content: unset;
+}
+#index .jumbotron {
+  height: 70vh;
+  background-image: url("../images/hero.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+#index .jumbotron > .container {
+  color: #FFFFFF;
+  text-align: center;
+  padding: 2rem;
+  background: rgba(18, 2, 26, 0.8);
+}
+#index .jumbotron > .container > p {
+  font-family: "EB Garamond";
+  font-weight: 400;
+  text-align: left;
+  line-height: 140%;
+  font-size: 1.125rem;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  max-width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4.578rem;
+}
+#index section + section {
+  border-top: 3px solid rgba(41, 7, 65, 0.66);
+  width: 100%;
+  padding: 3.052rem 0;
+}
+#index section > h2:before {
+  content: "❧";
+  display: inline;
+  margin-right: 1rem;
 }
 
 /* Alwys import media last */

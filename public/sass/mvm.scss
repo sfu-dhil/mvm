@@ -47,14 +47,24 @@ html{
  nav.navbar{
      background: $mvm-dark-purple;
      color: $mvm-white;
-     height:33vh;
      z-index:1;
      position:static;
      border-radius:0;
      box-shadow:unset;
      border:none;
+     &:after{
+         content:"";
+         display:block;
+         height: 28vh;
+
+     }
      .navbar-nav{
+     .brand{
+         margin-right:1rem;
+     }
         & > li{
+        margin-top: .4rem;
+        margin-bottom: -.2rem;
             &.open > a,
             &.open > a:hover,
             &.open > a:focus{
@@ -334,8 +344,30 @@ article.container{
     margin-bottom:map.get($typescale, $i);
   }
 }
+
+ /* 
+  * Footer
+  * */
+  
+  footer.footer{
+      margin-top: map.get($typescale, 1);
+      padding-top:map.get($typescale, 1);
+      & > .container {
+        &:before{
+          content: "";
+          background: url('../images/fleur.svg');
+          height: 2rem;
+          background-size: contain;
+          display:block;
+          width: calc(100% + 6rem);
+          margin-bottom:2rem;
+          margin-left:-3rem;
+          margin-right:-3rem;
+      }
+    }
+ }
  
- 
+ @import "_index.scss";
 
  /* Alwys import media last */
   @import "_media.scss";

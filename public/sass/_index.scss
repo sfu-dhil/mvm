@@ -1,0 +1,59 @@
+/* Special styling rules for the index page only */
+
+#index{
+ .navbar {
+    margin-bottom:0;
+    & > .container{
+        background: $mvm-dark-purple;
+    }
+    &:after{
+        content:unset;
+    }
+}
+
+
+.jumbotron{
+    height:70vh;
+    background-image: url('../images/hero.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    & > .container {
+        color: $mvm-white;
+        text-align:center;
+        padding:2rem;
+        background: rgba(#12021A,0.8);
+        & > p{
+            font-family: "EB Garamond";
+            font-weight:400;
+            text-align:left;
+            line-height: 140%;
+            font-size: average(map.get($typescale, 6), map.get($typescale, 5));
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            max-width:60rem;
+            margin-left: auto;
+            margin-right:auto;
+            margin-top:map.get($typescale, 1) * 1.5;
+        }
+    }
+    
+}
+
+section{
+    & + section{
+        border-top: 3px solid rgba(#290741, 0.66);
+        width:100%;
+        padding:map.get($typescale, 1) 0;
+    }
+    & > h2{
+        &:before{
+            content: "❧";
+            display:inline;
+            margin-right:1rem;
+        }
+    }
+    
+}
+
+}
+
