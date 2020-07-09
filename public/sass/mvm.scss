@@ -55,9 +55,38 @@ html{
      border:none;
      .navbar-nav{
         & > li{
-           & > a{
-               color:$mvm-white;
+            &.open > a,
+            &.open > a:hover,
+            &.open > a:focus{
+                background:#fff;
+                color:black;
+            }
+            & > a{
+                color:$mvm-white;
+                &:after{
+                       content: "";
+                       opacity:0;
+                       display:block;
+                       width:1%;
+                       margin-top:.5rem;
+                       margin-left:auto;
+                       margin-right:auto;
+                       height:2px;
+                       background-color:$mvm-white;
+                       transition:opacity 0.3s ease-in-out, width 0.3s ease-in-out;
+                }
+               &:hover, &:focus{
+                   color:$mvm-white;
+                   &:after{
+                       opacity:1;
+                       width:100%;
+                   }
+                   
+               }
            }
+      & .current > a{
+          font-weight:bold;
+      }     
        }
    }
  }
@@ -176,7 +205,14 @@ article.container{
          h1{
              margin-bottom:map.get($typescale, 5);
              .firstLine{
+                 font-size:0.95em;
                  font-style:italic;
+                 &:before{
+                     content: "“";
+                 }
+                 &:after{
+                     content:"”";
+                 }
              }
          }
            &:after{
@@ -221,8 +257,12 @@ article.container{
                  display:flex;
                  width:100%;
                  justify-content:space-between;
+                 .transcription{
+                     flex: 1 1 60%;
+                     min-width: 50%;
+                 }
                  table{
-                     max-width:40%;
+                     font-size:average(map.get($typescale,6), map.get($typescale, 7));
                  }
              }
              .item{
@@ -258,6 +298,12 @@ article.container{
                 th,td{
                   padding: map.get($typescale, 8);
                 }
+                & > td.number{
+                    text-align:right;
+                    padding-right:1rem;
+                    width: 3rem;
+                    
+                }
                 &:first-child{
                   th, td{
                      border-top:none;
@@ -265,6 +311,9 @@ article.container{
                 }
             }
          }
+     }
+     .navigation{
+         text-align:right;
      }
  }
  

@@ -238,7 +238,7 @@ paddings etc*/
   border-left-color: #efefef;
 }
 
-.current {
+.breadcrumbs .current {
   margin-right: 1rem;
   text-overflow: ellipsis;
   max-width: 25ch;
@@ -246,7 +246,7 @@ paddings etc*/
   overflow-x: hidden;
   font-style: italic;
 }
-li > .current {
+li > .breadcrumbs .current {
   color: rgba(1, 1, 1, 0.8);
 }
 
@@ -290,8 +290,34 @@ nav.navbar {
   box-shadow: unset;
   border: none;
 }
+nav.navbar .navbar-nav > li.open > a, nav.navbar .navbar-nav > li.open > a:hover, nav.navbar .navbar-nav > li.open > a:focus {
+  background: #fff;
+  color: black;
+}
 nav.navbar .navbar-nav > li > a {
   color: #FFFFFF;
+}
+nav.navbar .navbar-nav > li > a:after {
+  content: "";
+  opacity: 0;
+  display: block;
+  width: 1%;
+  margin-top: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  height: 2px;
+  background-color: #FFFFFF;
+  transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+nav.navbar .navbar-nav > li > a:hover, nav.navbar .navbar-nav > li > a:focus {
+  color: #FFFFFF;
+}
+nav.navbar .navbar-nav > li > a:hover:after, nav.navbar .navbar-nav > li > a:focus:after {
+  opacity: 1;
+  width: 100%;
+}
+nav.navbar .navbar-nav > li .current > a {
+  font-weight: bold;
 }
 
 .btn-toolbar {
@@ -395,7 +421,14 @@ article.container header h1 {
   margin-bottom: 1.25rem;
 }
 article.container header h1 .firstLine {
+  font-size: 0.95em;
   font-style: italic;
+}
+article.container header h1 .firstLine:before {
+  content: "“";
+}
+article.container header h1 .firstLine:after {
+  content: "”";
 }
 article.container header:after {
   display: block;
@@ -436,8 +469,12 @@ article.container main div.tab-content .tab-pane.active.transcription-tab {
   width: 100%;
   justify-content: space-between;
 }
+article.container main div.tab-content .tab-pane.active.transcription-tab .transcription {
+  flex: 1 1 60%;
+  min-width: 50%;
+}
 article.container main div.tab-content .tab-pane.active.transcription-tab table {
-  max-width: 40%;
+  font-size: 0.9rem;
 }
 article.container main div.tab-content .item {
   flex-basis: 40%;
@@ -461,8 +498,16 @@ article.container table tbody .tag-list a {
 article.container table tbody tr th, article.container table tbody tr td {
   padding: 0.64rem;
 }
+article.container table tbody tr > td.number {
+  text-align: right;
+  padding-right: 1rem;
+  width: 3rem;
+}
 article.container table tbody tr:first-child th, article.container table tbody tr:first-child td {
   border-top: none;
+}
+article.container .navigation {
+  text-align: right;
 }
 
 /* 
@@ -508,6 +553,15 @@ h5 {
 @media (max-width: 1200px) {
   article.container .gallery .item {
     flex-basis: 45%;
+  }
+}
+@media (max-width: 992px) {
+  .tab-pane.active.transcription-tab {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  .tab-pane.active.transcription-tab > div {
+    flex: 1 1 100%;
   }
 }
 @media (max-width: 768px) {

@@ -1,0 +1,36 @@
+<table class="table">
+    <thead>
+        <tr>
+            <td>Call Number</td>
+            <td>Title</td>
+            <td>Archive</td>
+            {% if callback is defined %}
+                <td>
+                    {% if callbackHeading is defined %}
+                     {{ callbackHeading }}
+                    {% else %}
+                     Note
+                    {% endif %}
+                </td>
+            {% endif %}
+        </tr>
+        <tbody>
+            {% for manuscript in manuscripts %}
+               <tr>
+                   <td><a href="{{ path('manuscript_show', {'id': manuscript.id}) }}">{ manuscript.callNumber }}</a></td>
+                   <td>
+                       <td>{{ manuscript.title|u.truncate(50,'[...]') }}</td>
+                   </td>
+                   <td>
+                       {% if manuscript.archive is not null %}
+                       <a href="{{ path('archive_show', {'id' : manuscript.archive.id}) }}">{{ manuscript.archive }}</a>
+                       {% endif %}
+                   </td>
+                   {% if callback is defined %}
+                        {{ callback|raw }}
+                   {% endif %}
+               </tr>
+            {% endfor %}
+        </tbody>
+    </thead>
+</table>

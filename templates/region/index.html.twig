@@ -2,38 +2,57 @@
 
 {% block title %}Region List{% endblock %}
 
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'region'} %}
+{% endblock %}
+
 {% block pageheader %}
     <h1>Region List</h1>
     <p class="count">
         Displaying {{ regions|length }} regions of {{ regions.getTotalItemCount }} total. </p>
 {% endblock %}
 
+{% block admin %}
+<div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+        <a href="{{ path('region_new') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus"></span> New </a>
+        <a href="{{ path('region_search') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span> Search </a>
+    </div>
+</div>
+
+{% endblock %}
+
 {% block body %}
 
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('region_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-            <a href="{{ path('region_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search </a>
-        </div>
-    </div>
-
+    
     <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Print Sources</th>
+                <th>Manuscripts</th>
+                <th>People</th>
             </tr>
         </thead>
         <tbody>
             {% for region in regions %}
+            
                 <tr>
                     <td>
                         <a href="{{ path('region_show', { 'id': region.id }) }}">
                             {{ region.name }}
                         </a>
+                    </td>
+                    <td class="number">
+                        {{ region.printSources|length }}
+                    </td>
+                    <td class="number">
+                        {{ region.manuscripts|length }}
+                    </td>
+                    <td class="number">
+                        {{region.people|length }}
                     </td>
                 </tr>
             {% endfor %}

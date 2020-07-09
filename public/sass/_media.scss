@@ -11,7 +11,15 @@
     
 }
 
-
+@media (max-width: 992px) {
+    .tab-pane.active.transcription-tab{
+        flex-wrap:wrap;
+        flex-direction: column-reverse;
+        & > div {
+            flex: 1 1 100%;
+        }
+    }
+}
 
 @media (max-width: 768px){
     article.container {

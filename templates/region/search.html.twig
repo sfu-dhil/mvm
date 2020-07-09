@@ -2,6 +2,10 @@
 
 {% block title %}Region Search{% endblock %}
 
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'region', 'show': 'Search'} %}
+{% endblock %}
+
 {% block pageheader %}
     <h1>Region Search</h1>
     {% if q %}

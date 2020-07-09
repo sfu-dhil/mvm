@@ -2,6 +2,9 @@
 
 {% block title %}Period Edit{% endblock %}
 
+{% block breadcrumb %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'period', 'show': period.label} %}
+{% endblock %}
 {% block body %}
     <h1>Period Edit</h1>
 

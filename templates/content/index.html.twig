@@ -1,25 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Content List{% endblock %}
+{% block title %}Contents{% endblock %}
 
 {% block pageheader %}
-    <h1>Content List</h1>
+    <h1>Contents</h1>
     <p class="count">
         Displaying {{ contents|length }} contents of {{ contents.getTotalItemCount }} total. </p>
 {% endblock %}
 
+
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'content'} %}
+{% endblock %}
+
+{% block admin %}
+<div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+        <a href="{{ path('content_new') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus"></span> New </a>
+        <a href="{{ path('content_search') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span> Search </a>
+    </div>
+</div>
+{% endblock %}
+
 {% block body %}
 
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('content_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-            <a href="{{ path('content_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search </a>
-        </div>
-    </div>
+
 
     <table class="table">
         <thead>

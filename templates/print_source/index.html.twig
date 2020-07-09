@@ -1,27 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Print Source List{% endblock %}
+{% block title %}Print Sources{% endblock %}
+
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'print_source', 'index_label': 'Print Sources'} %}
+{% endblock %}
 
 {% block pageheader %}
-    <h1>Print Source List</h1>
+    <h1>Print Sources</h1>
     <p class="count">
         Displaying {{ printSources|length }} print sources of {{ printSources.getTotalItemCount }} total. </p>
 {% endblock %}
 
+{% block admin %}
+<div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+        <a href="{{ path('print_source_new') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus"></span> New </a>
+        <a href="{{ path('print_source_search') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span> Search </a>
+    </div>
+</div>
+{% endblock %}
+
 {% block body %}
 
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('print_source_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-            <a href="{{ path('print_source_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search </a>
-        </div>
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Region</th>
+                <th>Description</th>
+              
+                <th>Manuscripts</th>
+        
+ 
+             
+            </tr>
+        </thead>
+        <tbody>
+            {% for source in printSources %}
+                <tr>
+                    <td><a href="{{ path('print_source_show',{'id': source.id}) }}">{{ source.label }}</a></td>
+      
+                    <td>
+                        {% if source.region is not null %}
+                            <a href="{{ path('region_show', {'id': source.region.id}) }}">{{ source.region }}</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ source.description|raw }}
+                    </td>
+                    <td class="number">
+                        {{ source.manuscripts|length }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-    {% include '@NinesUtil/term/partial/index.html.twig' with {'terms': printSources, 'path': 'print_source_show'} %}
 
     <div class="navigation">
         {{ knp_pagination_render(printSources) }}

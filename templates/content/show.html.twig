@@ -17,8 +17,12 @@
 </div>
 {% endblock %}
 
+{% block breadcrumb %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'content', 'show': content.firstLine} %}
+{% endblock %}
+
  {% block pageheader %}
-<h1>Content: <br/> <span class="firstLine">{{ content.firstLine }}</span></h1>
+<h1><span class="firstLine">{{ content.firstLine }}</span></h1>
  {% endblock %}
 
 {% block body %}
@@ -42,33 +46,37 @@
 <div class="tab-content" id="tabContent">
     <div class="tab-pane active transcription-tab" id="details" role="tabpanel" aria-labelledby="details-tab">
         <div class="transcription">
+            <h4>Transcription</h4>
             {{ content.transcription | raw }}
         </div>
-        <table class="table table-condensed table-bordered">
-            <tbody>
-                <tr>
-                    <th>First Line</th>
-                    <td>{{ content.firstLine }}</td>
-                </tr>
-                <tr>
-                    <th>Date</th>
-                    <td>{{ content.date }}</td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td>{{ content.description|raw }}</td>
-                </tr>
-                <tr>
-                    <th>Created</th>
-                    <td>{% if content.created %}{{ content.created|date }}{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Updated</th>
-                    <td>{% if content.updated %}{{ content.updated|date }}{% endif %}</td>
-                </tr>
-            </tbody>
-        </table>
-      
+        <div>
+            <table class="table table-condensed table-bordered">
+                <tbody>
+                    <tr>
+                        <th>First Line</th>
+                        <td>{{ content.firstLine }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>{{ content.date }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ content.description|raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Created</th>
+                        <td>{% if content.created %}{{ content.created|date }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Updated</th>
+                        <td>{% if content.updated %}{{ content.updated|date }}{% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+
     </div>
 
     {% if hasContributions or isAdmin %}
@@ -79,20 +87,25 @@
                 <span class='glyphicon glyphicon-edit'></span> Edit Contributions</a>
         </div>
         {% endif %}
-        <dl>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
             {% for contribution in content.contributions %}
-            <dt>{{ contribution.role }}:
-                <a href="{{ path('person_show', {'id': contribution.person.id}) }}">
-                    {{ contribution.person }}
-                </a>
-            </dt>
-            {% if contribution.note %}
-            <dd>
-                {{ contribution.note|raw }}
-            </dd>
-            {% endif %}
+            <tr>
+                <td><a href="{{ path('person_show', {'id': contribution.person.id}) }}">{{ contribution.person }}</a></td>
+                <td>{{ contribution.role }}</td>
+                <td>
+                    {{ contribution.note|raw }}
+                </td>
+                
+            </tr>
             {% endfor %}
-        </dl>
+        </table>
     </div>
     {% endif %}
    
