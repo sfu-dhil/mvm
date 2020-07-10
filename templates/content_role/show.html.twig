@@ -3,8 +3,14 @@
 {% block title %}Content Role{% endblock %}
 
  {% block pageheader %}
-     <h1>Content Role Details</h1>
+    {% embed 'partial/category-index.html.twig' with {'term': contentRole} %}
+ {% endembed %}
  {% endblock %} 
+ 
+ 
+ {% block breadcrumb %}
+ {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Content Roles', 'show': contentRole} %}
+ {% endblock %}
  
  {% block admin %}
     <div class="btn-toolbar">
@@ -22,12 +28,10 @@
 {% block body %}
   
 
-    {% embed '@NinesUtil/term/partial/show.html.twig' with {'term': contentRole} %}
-    {% endembed %}
+  
 
     {% if contentRole.contributions | length > 0 %}
-        <h2>Uses of <i>{{ contentRole }}</i></h2>
-        <table class="table table-hover table-condensed table-striped table-bordered">
+        <table class="table">
             <thead>
                 <tr>
                     <th>Person</th>

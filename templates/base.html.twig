@@ -96,8 +96,24 @@
 
         <footer class="footer">
             <div class="container">
-                {{ knp_menu_render('footer') }}
-            </div>
+                    <div class="footer-menu">
+                        {{ knp_menu_render('footer') }}
+                    </div>
+                    <div class="footer-imgs">
+                        <ul>
+                            <li>
+                                <a href="https://www.lib.sfu.ca/help/publish/dh/dhil" target="_blank">
+                                    <img src="{{ asset('images/dhil-home-page-logo.jpg') }}" />
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://www.sfu.ca/" target="_blank">
+                                    <img src="{{ asset('images/SFU_block_colour_rgb.png') }}" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
         </footer>
 
         <script src="{{ asset('yarn/bootstrap3/dist/js/bootstrap.min.js') }}"></script>

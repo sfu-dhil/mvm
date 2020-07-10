@@ -1,0 +1,7 @@
+{% set i =  (index.getCurrentPageNumber - 1) * index.getItemNumberPerPage %}
+
+{% if index.getTotalItemCount > index.getItemNumberPerPage %}
+
+<p class="count">Displaying {{ i + 1}}–{{ min(index.getCurrentPageNumber * index.getItemNumberPerPage, index.getTotalItemCount) }} {{ label }} out of {{ index.getTotalItemCount }} total</p>
+
+{% endif %}

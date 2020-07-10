@@ -8,8 +8,8 @@
 
 {% block pageheader %}
     <h1>Manuscript List</h1>
-    <p class="count">
-        Displaying {{ manuscripts|length }} manuscripts of {{ manuscripts.getTotalItemCount }} total. </p>
+    {% include 'partial/count.html.twig' with {'index': manuscripts, 'label': 'manuscripts'} %}
+
 {% endblock %}
 
 

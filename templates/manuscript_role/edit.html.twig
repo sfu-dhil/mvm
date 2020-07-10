@@ -2,6 +2,10 @@
 
 {% block title %}Manuscript Role Edit{% endblock %}
 
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_role', 'index_label': 'Manuscript Roles', 'show': 'Edit'} %}
+{% endblock %}
+
 {% block body %}
     <h1>Manuscript Role Edit</h1>
 

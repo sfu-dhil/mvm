@@ -4,22 +4,45 @@
 
 {% block pageheader %}
     <h1>Content Role List</h1>
-    <p class="count">
-        Displaying {{ contentRoles|length }} content roles of {{ contentRoles.getTotalItemCount }} total. </p>
+{% include 'partial/count.html.twig' with {'index': contentRoles, 'label': 'content roles'} %}
+{% endblock %}
+
+
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Content Roles'} %}
+{% endblock %}
+
+{% block admin %}
+<div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+        <a href="{{ path('content_role_new') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus"></span> New </a>
+    </div>
+</div>
 {% endblock %}
 
 {% block body %}
 
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('content_role_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-        </div>
-    </div>
+  <table class="table">
+      <thead>
+          <tr>
+              <th>Role</th>
+              <th>Uses</th>
+              <th>Description</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for role in contentRoles %}
+            <tr>
+                <td><a href="{{ path('content_role_show', {'id': role.id}) }}">{{ role }}</a></td>
+                <td class="number"> {{ role.contributions|length }}</td>
+                <td>{{ role.description|raw }}</td>
+            </tr>
+          {% endfor %}
+      </tbody>
+  </table>
 
-    {% include '@NinesUtil/term/partial/index.html.twig' with {'terms': contentRoles, 'path': 'content_role_show'} %}
+
 
     <div class="navigation">
         {{ knp_pagination_render(contentRoles) }}

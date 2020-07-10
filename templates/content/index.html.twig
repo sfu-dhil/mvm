@@ -4,8 +4,7 @@
 
 {% block pageheader %}
     <h1>Contents</h1>
-    <p class="count">
-        Displaying {{ contents|length }} contents of {{ contents.getTotalItemCount }} total. </p>
+{% include 'partial/count.html.twig' with {'index': contents, 'label': 'contents'} %}
 {% endblock %}
 
 

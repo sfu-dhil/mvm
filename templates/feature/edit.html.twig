@@ -2,6 +2,10 @@
 
 {% block title %}Feature Edit{% endblock %}
 
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'feature', 'show': 'Edit'} %}
+{% endblock %}
+
 {% block body %}
     <h1>Feature Edit</h1>
 

@@ -15,7 +15,13 @@
 {% block body %}
     <section>
         <h2>Browse by Archive</h2>
-        <p>STUFF</p>
+        <ul class="archive-gallery">
+            {% for archive in archives %}
+            <li>
+                <a href="{{ path('archive_show', {'id':archive.id}) }}"><span class="name">{{ archive }}</span></a>
+            </li>   
+            {% endfor %}
+        </ul>
     </section>
     <section>
         <h2>Browse by Contributor</h2>

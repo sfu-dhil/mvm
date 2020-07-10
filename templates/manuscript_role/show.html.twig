@@ -3,8 +3,13 @@
 {% block title %}Manuscript Role{% endblock %}
 
  {% block pageheader %}
-     <h1>Manuscript Role Details</h1>
+ {% embed 'partial/category-index.html.twig' with {'term': manuscriptRole} %}
+ {% endembed %}
  {% endblock %} 
+
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_role', 'index_label': 'Manuscript Roles', 'show': manuscriptRole} %}
+{% endblock %}
 
 
 {% block admin %}
@@ -20,23 +25,20 @@
 
 {% block body %}
 
-    {% embed '@NinesUtil/term/partial/show.html.twig' with {'term': manuscriptRole} %}
-    {% endembed %}
+  
 
     {% if manuscriptRole.contributions | length > 0 %}
-        <h2>Uses of <i>{{ manuscriptRole }}</i></h2>
-        <table class="table table-striped table-bordered table-condensed table-hover">
+       
+        <table class="table">
             <thead>
                 <tr>
                     <th>Person</th>
-                    <th>Role</th>
                     <th>Manuscript</th>
                 </tr>
             </thead>
             {% for contribution in manuscriptRole.contributions %}
                 <tr>
                     <td><a href="{{ path('person_show', {'id': contribution.person.id}) }}">{{ contribution.person }}</a></td>
-                    <td>{{ manuscriptRole }}</td>
                     <td><a href="{{ path('manuscript_show', {'id': contribution.manuscript.id}) }}">{{ contribution.manuscript }}</a></td>
                 </tr>
             {% endfor %}

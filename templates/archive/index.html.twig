@@ -9,24 +9,41 @@
 
 {% block pageheader %}
     <h1>Archive List</h1>
-    <p class="count">
-        Displaying {{ archives|length }} archives of {{ archives.getTotalItemCount }} total. </p>
+{% include 'partial/count.html.twig' with {'index': archives, 'label': 'archives'} %}
+{% endblock %}
+
+{% block admin %}
+
+<div class='btn-toolbar pull-right'>
+    <div class='btn-group'>
+        <a href="{{ path('archive_new') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus"></span> New </a>
+        <a href="{{ path('archive_search') }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span> Search </a>
+    </div>
+</div>
 {% endblock %}
 
 {% block body %}
-
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('archive_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-            <a href="{{ path('archive_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search </a>
-        </div>
-    </div>
-
-    {% include '@NinesUtil/term/partial/index.html.twig' with {'terms': archives, 'path': 'archive_show'} %}
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Archive</th>
+                <th>Description</th>
+                <th>Manuscripts</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for archive in archives %}
+                <tr>
+                    <td><a href="{{ path('archive_show', {'id': archive.id}) }}">{{ archive }}</a></td>
+                    <td>{{ archive.description|raw }}</td>
+                    <td class="number">{{ archive.manuscripts|length }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     <div class="navigation">
         {{ knp_pagination_render(archives) }}

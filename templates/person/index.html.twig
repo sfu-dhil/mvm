@@ -8,8 +8,7 @@
 
 {% block pageheader %}
     <h1>Person List</h1>
-    <p class="count">
-        Displaying {{ people|length }} people of {{ people.getTotalItemCount }} total. </p>
+{% include 'partial/count.html.twig' with {'index': people, 'label': 'people'} %}
 {% endblock %}
 
 {% block admin %}

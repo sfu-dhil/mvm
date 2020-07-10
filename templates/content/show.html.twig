@@ -33,13 +33,13 @@
     
     {% if hasContributions %}
     <li class="nav-item">
-        <a class="nav-link" id="contributions-tab" data-toggle="tab" href="#contributions" role="tab" aria-controls="contributions" aria-selected="false">Contributions</a>
+        <a class="nav-link" id="contributions-tab" data-toggle="tab" href="#contributions" role="tab" aria-controls="contributions" aria-selected="false">Contributors ({{content.contributions|length}})</a>
     </li>
     {% endif %}
     
     {% if hasManuscripts %}
     <li class="nav-item">
-        <a class="nav-link" id="manuscripts-tab" data-toggle="tab" href="#manuscripts" role="tab" aria-controls="manuscripts" aria-selected="false">Manuscripts</a>
+        <a class="nav-link" id="manuscripts-tab" data-toggle="tab" href="#manuscripts" role="tab" aria-controls="manuscripts" aria-selected="false">Manuscripts ({{content.manuscriptContents|length}})</a>
     </li>
     {% endif %}
 </ul>
@@ -50,20 +50,23 @@
             {{ content.transcription | raw }}
         </div>
         <div>
-            <table class="table table-condensed table-bordered">
+            <table class="table table-condensed">
                 <tbody>
                     <tr>
                         <th>First Line</th>
                         <td>{{ content.firstLine }}</td>
                     </tr>
+                    {% if content.date is not null %}
                     <tr>
                         <th>Date</th>
                         <td>{{ content.date }}</td>
                     </tr>
+                    {% endif %}
                     <tr>
                         <th>Description</th>
                         <td>{{ content.description|raw }}</td>
                     </tr>
+                    {% if isAdmin %}
                     <tr>
                         <th>Created</th>
                         <td>{% if content.created %}{{ content.created|date }}{% endif %}</td>
@@ -72,6 +75,7 @@
                         <th>Updated</th>
                         <td>{% if content.updated %}{{ content.updated|date }}{% endif %}</td>
                     </tr>
+                    {% endif %}
                 </tbody>
             </table>
         </div>

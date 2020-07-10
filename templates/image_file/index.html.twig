@@ -3,9 +3,8 @@
 {% block title %}ImageFile List{% endblock %}
 
 {% block pageheader %}
-    <h1>ImageFile List</h1>
-    <p class="count">
-        Displaying {{ imageFiles|length }} imageFiles of {{ imageFiles.getTotalItemCount }} total. </p>
+    <h1>Image File List</h1>
+{% include 'partial/count.html.twig' with {'index': imageFiles, 'label': 'image files'} %}
 {% endblock %}
 
 {% block body %}

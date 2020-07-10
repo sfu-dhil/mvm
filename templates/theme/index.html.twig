@@ -4,8 +4,11 @@
 
 {% block pageheader %}
     <h1>Themes</h1>
-    <p class="count">
-        Displaying {{ themes|length }} themes of {{ themes.getTotalItemCount }} total. </p>
+{% include 'partial/count.html.twig' with {'index': themes, 'label': 'themes'} %}
+{% endblock %}
+
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'theme'} %}
 {% endblock %}
 
 {% block admin %}

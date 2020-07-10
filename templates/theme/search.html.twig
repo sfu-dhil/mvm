@@ -2,6 +2,10 @@
 
 {% block title %}Theme Search{% endblock %}
 
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'theme', 'show': 'Search'} %}
+{% endblock %}
+
 {% block pageheader %}
     <h1>Theme Search</h1>
     {% if q %}
