@@ -42,6 +42,11 @@ html{
      background-color: $mvm-tan;
      font-size:1rem;
      font-family: "Nunito Sans";
+     line-height: 1.6;
+     overflow-x:hidden;
+     img{
+         max-width:100%;
+     }
  }
 
  nav.navbar{
@@ -115,7 +120,7 @@ html{
     li{
         padding: 0 map.get($typescale, 9);
         &:not(:first-child){
-            border-left: 1px solid $mvm-grey;
+            border-left: 1px solid rgba($mvm-brown, .5);
         }
     }
 }
@@ -129,14 +134,13 @@ article.container{
      padding: 1rem 5rem;
      min-height:90vh;
      /* Now the nav stuff at the top */
-     
-     /* Note that breadcrumbs are handled in their own module */
-    
+
+   
     .body-nav{
         display:flex;
+        flex-wrap: wrap;
         justify-content:space-between;
         margin-top:map.get($typescale, 6);
-        margin-bottom:map.get($typescale, 1);
         align-items:end;
         .btn-toolbar{
             margin-top:-4px;
@@ -164,7 +168,7 @@ article.container{
             padding: map.get($typescale, 5);
             margin-left:0;
             min-width:15rem;
-            border: 2px solid $mvm-dark-purple;
+            border: 2px solid rgba($mvm-brown, 0.8);
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);  
             h1{
                 font-size: map.get($typescale, 4);
@@ -196,16 +200,16 @@ article.container{
                
             }
             .description{
-                border-top: 1px solid rgba($mvm-grey, 0.8);
+                border-top: 1px solid rgba($mvm-brown, 0.5);
                 margin-top:map.get($typescale, 8);
                 
                 padding: map.get($typescale, 6) 0;
                 font-size: average(map.get($typescale,6), map.get($typescale, 7));
-                & > p::before{
+               /* & > p::before{
                     content: "❧";
                     display:inline;
                     margin-right:1rem;
-                }
+                }*/
             }
          }
      }
@@ -234,6 +238,23 @@ article.container{
          }
     }
      main{
+          a:not(.btn):not(.page-link){
+        text-decoration:none;
+        color: $mvm-black;
+        border-bottom: 0.1rem solid $mvm-underline;
+        padding-bottom: 2px;
+        transition: border-bottom-color 0.2s ease-in-out;
+         &:hover,
+         &:focus{
+             text-decoration:none;
+             border-bottom-color: rgba($mvm-dark-purple, 0.8);
+         }
+     }
+     /* Note that breadcrumbs are handled in their own module */
+    a:hover, a:focus{
+        text-decoration:none;
+    }
+     
          ul.nav-pills{
              display:flex;
              & > li.nav-item{
@@ -253,6 +274,8 @@ article.container{
                  }
                  a{
                    color:$mvm-black;
+                   padding-bottom:.5rem;
+                   border-bottom:none;
                     &:hover, &:visited{
                         border-bottom:none;
                     }
@@ -261,8 +284,11 @@ article.container{
              }
          }
          div.tab-content{
-             width: 85%;
+             width: 95%;
              margin:map.get($typescale, 3) auto;
+             .text-right{
+                 margin:2rem 0;
+             }
              .tab-pane.active.transcription-tab{
                  display:flex;
                  width:100%;
@@ -283,6 +309,15 @@ article.container{
     
      }
      table {
+        th, td{
+            border-color: rgba($mvm-brown, 0.3);
+            & > p{
+                 overflow-wrap: break-word;
+                 word-wrap: break-word;
+                 word-break: break-word;
+                     max-width: 25rem;
+            }
+        }
          tbody{
             
             .tag-list{
@@ -298,21 +333,27 @@ article.container{
                 }
                 a{
                      padding:map.get($typescale, 9) map.get($typescale, 7);
-                     border:1px solid #efefef;
-                  
+                     border:1px solid rgba($mvm-dark-purple, 0.2);
+ 
+                     
+                     background-color: $mvm-white;
+                    transition: border-color 0.2s ease-in-out, 
+                    background 0.2s ease-in-out,
+                    color 0.2s ease-in-out;
+                     &:hover{
+                         border-color: rgba($mvm-dark-purple, 0.5);
+                         background-color: $mvm-dark-purple;
+                         color: $mvm-white;
+                         text-decoration:none;
+                     }
                  
                 }
             }
             tr{
 
                 th,td{
-                  padding: map.get($typescale, 8);
-                }
-                & > td.number{
-                    text-align:right;
-                    padding-right:1rem;
-                    width: 3rem;
-                    
+                  padding: map.get($typescale, 7);
+                  border-top-color: rgba($mvm-brown, 0.3);
                 }
                 &:first-child{
                   th, td{
@@ -342,17 +383,30 @@ article.container{
     font-size: map.get($typescale, $i);
     font-family: "EB Garamond";
     margin-bottom:map.get($typescale, $i);
+    & > a{
+        line-height: 1.4;
+    }
   }
 }
 
  /* 
   * Footer
   * */
-  
-  footer.footer{
-      margin-top: map.get($typescale, 1);
-      padding-top:map.get($typescale, 1);
-      & > .container {
+ 
+/*
+ *  Footer
+ *  */
+
+footer{
+    & > .container{
+        display:flex;
+        flex-wrap:wrap;
+        margin: 4rem auto;
+        justify-content:space-between;
+        align-content:center;
+        &:after{
+            content:unset;
+         }
         &:before{
           content: "";
           background: url('../images/fleur.svg');
@@ -360,12 +414,80 @@ article.container{
           background-size: contain;
           display:block;
           width: calc(100% + 6rem);
-          margin-bottom:2rem;
+          margin-bottom:3rem;
           margin-left:-3rem;
           margin-right:-3rem;
-      }
+        }
+     }
+    
+    ul, li{
+        list-style-type:none;
+        padding:0;
+        margin:0;
     }
- }
+
+    .footer-menu{
+        display:flex;
+        flex:0.25 1 30%;
+        flex-wrap:wrap;
+        ul{
+            columns: 3;
+            li{
+                margin: 1rem;
+                &:first-child{
+                    margin-top: 0;
+                }
+            }
+            a{
+               color:$mvm-dark-purple;
+             }
+            }
+    }
+
+    .footer-imgs{
+        align-self:flex-start;
+        ul{
+             display:flex;
+             flex-direction:row;
+             text-align:right;
+             flex-wrap:wrap;
+             li{
+                 margin-right: 1rem;
+                 margin-top: 1rem;
+             }
+        }
+        img{
+            max-height:8rem;
+            filter:grayscale(0%);
+            transition: filter 0.2s ease-in-out;
+            &:hover{
+                filter:grayscale(100%);
+            }
+        }
+
+    }
+}
+
+.pagination{
+    & > li{
+        &.active{
+            & > a{
+                background-color:$mvm-dark-purple;
+                border-color: $mvm-dark-purple;
+                color:$mvm-white;
+            }
+        }
+        & > a{
+            color:$mvm-dark-purple;
+            &:hover{
+                background-color:$mvm-dark-purple;
+                border-color: $mvm-dark-purple;
+                color:white;
+            }
+        }
+    }
+}
+
  
  @import "_index.scss";
 

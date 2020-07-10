@@ -9,6 +9,8 @@
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+
+  margin-bottom: map.get($typescale, 3);
 }
 
 
@@ -102,7 +104,6 @@ paddings etc*/
       color:rgba($mvm-black, 0.8);
   }
 }
-
 
 
 

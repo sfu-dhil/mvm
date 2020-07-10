@@ -165,6 +165,7 @@
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+  margin-bottom: 1.953rem;
 }
 
 .breadcrumbs li > * {
@@ -278,6 +279,11 @@ body {
   background-color: #FAF6F5;
   font-size: 1rem;
   font-family: "Nunito Sans";
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+body img {
+  max-width: 100%;
 }
 
 nav.navbar {
@@ -347,7 +353,7 @@ nav.navbar .navbar-nav > li .current > a {
   padding: 0 0.512rem;
 }
 .list-group-horizontal li:not(:first-child) {
-  border-left: 1px solid #E7E7E7;
+  border-left: 1px solid rgba(132, 108, 91, 0.5);
 }
 
 article.container {
@@ -359,14 +365,13 @@ article.container {
   padding: 1rem 5rem;
   min-height: 90vh;
   /* Now the nav stuff at the top */
-  /* Note that breadcrumbs are handled in their own module */
   /* Now the gallery */
 }
 article.container .body-nav {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 1rem;
-  margin-bottom: 3.052rem;
   align-items: end;
 }
 article.container .body-nav .btn-toolbar {
@@ -383,7 +388,7 @@ article.container .gallery .item {
   padding: 1.25rem;
   margin-left: 0;
   min-width: 15rem;
-  border: 2px solid #39253B;
+  border: 2px solid rgba(132, 108, 91, 0.8);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
 article.container .gallery .item.empty {
@@ -415,15 +420,15 @@ article.container .gallery .item table tbody tr th, article.container .gallery .
   vertical-align: top;
 }
 article.container .gallery .item .description {
-  border-top: 1px solid rgba(231, 231, 231, 0.8);
+  border-top: 1px solid rgba(132, 108, 91, 0.5);
   margin-top: 0.64rem;
   padding: 1rem 0;
   font-size: 0.9rem;
-}
-article.container .gallery .item .description > p::before {
-  content: "❧";
-  display: inline;
-  margin-right: 1rem;
+  /* & > p::before{
+       content: "❧";
+       display:inline;
+       margin-right:1rem;
+   }*/
 }
 article.container header {
   text-align: center;
@@ -448,6 +453,23 @@ article.container header:after {
   text-align: center;
   font-size: 2.5rem;
 }
+article.container main {
+  /* Note that breadcrumbs are handled in their own module */
+}
+article.container main a:not(.btn):not(.page-link) {
+  text-decoration: none;
+  color: #010101;
+  border-bottom: 0.1rem solid rgba(21, 48, 145, 0.5);
+  padding-bottom: 2px;
+  transition: border-bottom-color 0.2s ease-in-out;
+}
+article.container main a:not(.btn):not(.page-link):hover, article.container main a:not(.btn):not(.page-link):focus {
+  text-decoration: none;
+  border-bottom-color: rgba(57, 37, 59, 0.8);
+}
+article.container main a:hover, article.container main a:focus {
+  text-decoration: none;
+}
 article.container main ul.nav-pills {
   display: flex;
 }
@@ -467,13 +489,18 @@ article.container main ul.nav-pills > li.nav-item.active > a:hover {
 }
 article.container main ul.nav-pills > li.nav-item a {
   color: #010101;
+  padding-bottom: 0.5rem;
+  border-bottom: none;
 }
 article.container main ul.nav-pills > li.nav-item a:hover, article.container main ul.nav-pills > li.nav-item a:visited {
   border-bottom: none;
 }
 article.container main div.tab-content {
-  width: 85%;
+  width: 95%;
   margin: 1.953rem auto;
+}
+article.container main div.tab-content .text-right {
+  margin: 2rem 0;
 }
 article.container main div.tab-content .tab-pane.active.transcription-tab {
   display: flex;
@@ -490,6 +517,15 @@ article.container main div.tab-content .tab-pane.active.transcription-tab table 
 article.container main div.tab-content .item {
   flex-basis: 40%;
 }
+article.container table th, article.container table td {
+  border-color: rgba(132, 108, 91, 0.3);
+}
+article.container table th > p, article.container table td > p {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  max-width: 25rem;
+}
 article.container table tbody .tag-list {
   list-style-type: none;
   display: flex;
@@ -504,15 +540,19 @@ article.container table tbody .tag-list li {
 }
 article.container table tbody .tag-list a {
   padding: 0.512rem 0.8rem;
-  border: 1px solid #efefef;
+  border: 1px solid rgba(57, 37, 59, 0.2);
+  background-color: #FFFFFF;
+  transition: border-color 0.2s ease-in-out, background 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+article.container table tbody .tag-list a:hover {
+  border-color: rgba(57, 37, 59, 0.5);
+  background-color: #39253B;
+  color: #FFFFFF;
+  text-decoration: none;
 }
 article.container table tbody tr th, article.container table tbody tr td {
-  padding: 0.64rem;
-}
-article.container table tbody tr > td.number {
-  text-align: right;
-  padding-right: 1rem;
-  width: 3rem;
+  padding: 0.8rem;
+  border-top-color: rgba(132, 108, 91, 0.3);
 }
 article.container table tbody tr:first-child th, article.container table tbody tr:first-child td {
   border-top: none;
@@ -535,11 +575,17 @@ h1 {
   font-family: "EB Garamond";
   margin-bottom: 3.052rem;
 }
+h1 > a {
+  line-height: 1.4;
+}
 
 h2 {
   font-size: 2.441rem;
   font-family: "EB Garamond";
   margin-bottom: 2.441rem;
+}
+h2 > a {
+  line-height: 1.4;
 }
 
 h3 {
@@ -547,11 +593,17 @@ h3 {
   font-family: "EB Garamond";
   margin-bottom: 1.953rem;
 }
+h3 > a {
+  line-height: 1.4;
+}
 
 h4 {
   font-size: 1.563rem;
   font-family: "EB Garamond";
   margin-bottom: 1.563rem;
+}
+h4 > a {
+  line-height: 1.4;
 }
 
 h5 {
@@ -559,24 +611,93 @@ h5 {
   font-family: "EB Garamond";
   margin-bottom: 1.25rem;
 }
+h5 > a {
+  line-height: 1.4;
+}
 
 /* 
  * Footer
  * */
-footer.footer {
-  margin-top: 3.052rem;
-  padding-top: 3.052rem;
+/*
+ *  Footer
+ *  */
+footer > .container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 4rem auto;
+  justify-content: space-between;
+  align-content: center;
 }
-footer.footer > .container:before {
+footer > .container:after {
+  content: unset;
+}
+footer > .container:before {
   content: "";
   background: url("../images/fleur.svg");
   height: 2rem;
   background-size: contain;
   display: block;
   width: calc(100% + 6rem);
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   margin-left: -3rem;
   margin-right: -3rem;
+}
+footer ul, footer li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+footer .footer-menu {
+  display: flex;
+  flex: 0.25 1 30%;
+  flex-wrap: wrap;
+}
+footer .footer-menu ul {
+  columns: 3;
+}
+footer .footer-menu ul li {
+  margin: 1rem;
+}
+footer .footer-menu ul li:first-child {
+  margin-top: 0;
+}
+footer .footer-menu ul a {
+  color: #39253B;
+}
+footer .footer-imgs {
+  align-self: flex-start;
+}
+footer .footer-imgs ul {
+  display: flex;
+  flex-direction: row;
+  text-align: right;
+  flex-wrap: wrap;
+}
+footer .footer-imgs ul li {
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+footer .footer-imgs img {
+  max-height: 8rem;
+  filter: grayscale(0%);
+  transition: filter 0.2s ease-in-out;
+}
+footer .footer-imgs img:hover {
+  filter: grayscale(100%);
+}
+
+.pagination > li.active > a {
+  background-color: #39253B;
+  border-color: #39253B;
+  color: #FFFFFF;
+}
+.pagination > li > a {
+  color: #39253B;
+}
+.pagination > li > a:hover {
+  background-color: #39253B;
+  border-color: #39253B;
+  color: white;
 }
 
 /* Special styling rules for the index page only */
@@ -588,6 +709,9 @@ footer.footer > .container:before {
 }
 #index .navbar:after {
   content: unset;
+}
+#index article.container {
+  margin-top: -10rem;
 }
 #index .jumbotron {
   height: 70vh;
@@ -614,6 +738,63 @@ footer.footer > .container:before {
   margin-right: auto;
   margin-top: 4.578rem;
 }
+#index ul.archive-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  list-style-type: none;
+}
+#index ul.archive-gallery > li {
+  display: block;
+  margin: 1rem;
+  flex: 1 1 25%;
+  height: 13rem;
+  position: relative;
+  overflow: hidden;
+}
+#index ul.archive-gallery > li:before {
+  content: "";
+  background-image: url("../images/marble.jpeg");
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: grayscale(40%);
+  transform: scale(1);
+  transition: filter 0.2s ease-in-out;
+}
+#index ul.archive-gallery > li:hover:before {
+  filter: grayscale(0%);
+}
+#index ul.archive-gallery > li > a {
+  border-bottom: none !important;
+  font-size: 1.563rem;
+  font-family: "EB Garamond";
+  display: block;
+  height: 100%;
+  width: 100%;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+#index ul.archive-gallery > li > a > span {
+  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 90%;
+  width: 90%;
+  padding: 1rem;
+  backdrop-filter: blur(1px);
+  background: rgba(1, 1, 1, 0.65);
+}
+#index section:first-child {
+  padding-top: 0rem;
+}
 #index section + section {
   border-top: 3px solid rgba(41, 7, 65, 0.66);
   width: 100%;
@@ -625,6 +806,22 @@ footer.footer > .container:before {
   margin-right: 1rem;
 }
 
+@media (max-width: 993px) {
+  #index ul.archive-gallery > li {
+    flex-basis: 100%;
+    min-height: 6rem;
+  }
+}
+@media (max-width: 768px) {
+  #index article.container {
+    margin-top: -2rem;
+  }
+  #index section,
+#index section + section {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
 /* Alwys import media last */
 @media (max-width: 1200px) {
   article.container .gallery .item {
@@ -642,8 +839,8 @@ footer.footer > .container:before {
 }
 @media (max-width: 768px) {
   article.container {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    margin-left: 0rem;
+    margin-right: 0rem;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
@@ -654,6 +851,10 @@ footer.footer > .container:before {
   }
   article.container .gallery .item.empty {
     display: none;
+  }
+
+  .body-nav .btn-toolbar {
+    margin-left: auto;
   }
 }
 

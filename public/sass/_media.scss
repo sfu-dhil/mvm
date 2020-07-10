@@ -23,8 +23,8 @@
 
 @media (max-width: 768px){
     article.container {
-        margin-left: .5rem;
-        margin-right: .5rem;
+        margin-left: 0rem;
+        margin-right: 0rem;
         padding-left: .75rem;
         padding-right: .75rem;
         .gallery{
@@ -40,5 +40,12 @@
  
     }
     
+    .body-nav{
+        .btn-toolbar{
+            margin-left:auto;
+        }
+    }
+    
     
 }
+
