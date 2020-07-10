@@ -25,10 +25,16 @@
     </section>
     <section>
         <h2>Browse by Contributor</h2>
-        <input type="text"></input>
+        <input type="text" class="contributor" placeholder="Eleanor Peart"></input>
     </section>
 <section>
     <h2>Browse by Period</h2>
-    <p>Period list thing</p>
+    <ul class="period-list">
+        {% for period in periods %}
+            <li>
+                <a href="{{ path('period_show', {'id':period.id})}}">{{ period }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 </section>
 {% endblock %}

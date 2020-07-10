@@ -738,6 +738,41 @@ footer .footer-imgs img:hover {
   margin-right: auto;
   margin-top: 4.578rem;
 }
+#index ul.period-list {
+  display: flex;
+  list-style-type: none;
+  padding-left: 0;
+}
+#index ul.period-list > li {
+  flex: auto;
+  font-size: 1.563rem;
+  font-family: "EB Garamond";
+  text-align: center;
+}
+#index ul.period-list > li > a {
+  border-bottom: none;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 0;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+#index ul.period-list > li > a:hover {
+  background-color: #39253B;
+  color: #FFFFFF;
+}
+#index input.contributor {
+  width: 90%;
+  transform: translateX(-50%);
+  left: 50%;
+  border: none;
+  position: relative;
+  border-bottom: 2px solid #846C5B;
+  font-size: 1.953rem;
+  font-family: "EB Garamond";
+}
 #index ul.archive-gallery {
   display: flex;
   flex-wrap: wrap;
@@ -761,11 +796,12 @@ footer .footer-imgs img:hover {
   width: 100%;
   height: 100%;
   filter: grayscale(40%);
-  transform: scale(1);
-  transition: filter 0.2s ease-in-out;
+  transform: scale(1.01);
+  transition: filter 0.2s ease-in-out, transform 0.25s ease-in-out;
 }
 #index ul.archive-gallery > li:hover:before {
   filter: grayscale(0%);
+  transform: scale(1.02);
 }
 #index ul.archive-gallery > li > a {
   border-bottom: none !important;
