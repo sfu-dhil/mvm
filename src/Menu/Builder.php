@@ -154,7 +154,9 @@ class Builder implements ContainerAwareInterface {
      */
     public function footerMenu(array $options) {
         $menu = $this->factory->createItem('root');
-
+         $menu->setChildrenAttributes([
+            'class' => 'footer-links',
+        ]);
         $menu->addChild('Archives', [
             'route' => 'archive_index',
         ]);
