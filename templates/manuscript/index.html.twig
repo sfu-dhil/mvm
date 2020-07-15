@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Manuscript List{% endblock %}
+{% block title %}Manuscripts{% endblock %}
 
 {% block breadcrumb %}
 {% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript'} %}
 {% endblock %}
 
 {% block pageheader %}
-    <h1>Manuscript List</h1>
+    <h1>Manuscripts</h1>
     {% include 'partial/count.html.twig' with {'index': manuscripts, 'label': 'manuscripts'} %}
 
 {% endblock %}
@@ -28,6 +28,8 @@
 
 
 {% block body %}
+{% include 'partial/search-form.html.twig' with {'path': path('manuscript_search'), 'help': 'Search for manuscripts by manuscript title or call number.', 'q': ''} %}
+
 
     {% include 'manuscript/partial/gallery.html.twig' %}
 

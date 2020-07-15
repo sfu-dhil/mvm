@@ -76,6 +76,7 @@
            {% for manuscript in region.manuscripts %}
                 {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscript} %}
            {% endfor %}
+            <div class="item empty"><!--Keep open--></div>
         </div>
         {% else %}
         <p>No manuscripts available.</p>

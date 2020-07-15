@@ -1,0 +1,41 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            {% if isAdmin %}
+            <th>Sortable Name</th>
+            {% endif %}
+            <th>Gender</th>
+            <th>Content Contributions</th>
+            <th>Manuscript Contributions</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for person in people %}
+        <tr>
+            <td>
+                <a href="{{ path('person_show', { 'id': person.id }) }}">
+                    {{ person }}
+                </a>
+            </td>
+            {% if is_granted('ROLE_CONTENT_ADMIN') %}
+            <td>
+                {{ person.sortableName }}
+            </td>
+            {% endif %}
+            <td>
+                {% include 'person/partial/gender.html.twig' %}
+            </td>
+            <td class="number">
+                {{ person.contentContributions|length }}
+            </td>
+            <td clas="number">
+                {{ person.manuscriptContributions|length }}
+            </td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

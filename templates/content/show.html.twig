@@ -28,18 +28,18 @@
 {% block body %}
 <ul class="nav nav-pills" id="tabs" role="tablist">
     <li class="nav-item active">
-        <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Details</a>
+        <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Transcription &amp; Details</a>
     </li>
     
     {% if hasContributions %}
     <li class="nav-item">
-        <a class="nav-link" id="contributions-tab" data-toggle="tab" href="#contributions" role="tab" aria-controls="contributions" aria-selected="false">Contributors ({{content.contributions|length}})</a>
+        <a class="nav-link" id="contributions-tab" data-toggle="tab" href="#contributions" role="tab" aria-controls="contributions" aria-selected="false">Contributors</a>
     </li>
     {% endif %}
     
     {% if hasManuscripts %}
     <li class="nav-item">
-        <a class="nav-link" id="manuscripts-tab" data-toggle="tab" href="#manuscripts" role="tab" aria-controls="manuscripts" aria-selected="false">Manuscripts ({{content.manuscriptContents|length}})</a>
+        <a class="nav-link" id="manuscripts-tab" data-toggle="tab" href="#manuscripts" role="tab" aria-controls="manuscripts" aria-selected="false">Manuscripts</a>
     </li>
     {% endif %}
 </ul>
@@ -84,7 +84,7 @@
     </div>
 
     {% if hasContributions or isAdmin %}
-    <div class="tab-pane" id="contributions" role="tabpanel" aria-labelledby="contributions-tab">
+    <div class="tab-pane fade" id="contributions" role="tabpanel" aria-labelledby="contributions-tab">
         {% if isAdmin %}
         <div class="pull-right">
             <a href="{{ path('content_contributions', {'id': content.id}) }}" class="btn btn-default">
@@ -114,11 +114,12 @@
     {% endif %}
    
     {% if hasManuscripts %}
-    <div class="tab-pane" id="manuscripts" role="tabpanel" aria-labelledby="manuscripts-tab">
+    <div class="tab-pane fade" id="manuscripts" role="tabpanel" aria-labelledby="manuscripts-tab">
         <div class="gallery">
             {% for manuscriptContent in content.manuscriptContents %}
             {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscriptContent.manuscript, 'callbackDescription': manuscriptContent.context} %}
             {% endfor %}
+            <div class="item empty"><!--Keep open--></div>
         </div>
         
     </div>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Manuscript List{% endblock %}
+{% block title %}Search Manuscripts{% endblock %}
 
 {% block breadcrumb %}
 {% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript', 'show': 'Search'} %}
@@ -8,21 +8,22 @@
 
 {% block pageheader %}
     <h1>Manuscript Search</h1>
-    {% if q %}
-        <p class="count">
-            Displaying {{ manuscripts|length }} manuscripts of {{ manuscripts.getTotalItemCount }} total. </p>
-    {% endif %}
+{% include 'partial/count.html.twig' with {'index': manuscripts, 'label': 'manuscripts'} %}
+
 {% endblock %}
 
 {% block body %}
 
     {% include 'partial/search-form.html.twig' with {'path': path('manuscript_search'), 'help': 'Search for manuscripts by manuscript title or call number.'} %}
 
-    {% if q %}
-        {% include 'manuscript/partial/gallery.html.twig' %}
-        <div class="navigation">
-            {{ knp_pagination_render(manuscripts) }}
-        </div>
-    {% endif %}
 
+{% if manuscripts|length > 0 %}
+    {% include 'manuscript/partial/gallery.html.twig' %}
+{% else %}
+    {% include 'partial/search-no-results.html.twig' %}
+{% endif %}
+
+<div class="navigation">
+    {{ knp_pagination_render(manuscripts) }}
+</div>
 {% endblock %}

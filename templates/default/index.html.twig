@@ -32,7 +32,7 @@
     <ul class="period-list">
         {% for period in periods %}
             <li>
-                <a href="{{ path('period_show', {'id':period.id})}}">{{ period }}</a>
+                <a href="{{ path('period_show', {'id':period.id})}}">{{ period|replace({'-':'​-​'}) }}</a>
             </li>
         {% endfor %}
     </ul>

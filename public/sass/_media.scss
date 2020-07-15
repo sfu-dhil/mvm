@@ -29,9 +29,10 @@
         padding-right: .75rem;
         .gallery{
             .item{
-                flex-basis:100%;
-                margin-left:0;
-                margin-right:0;
+                margin-left:2rem;
+                margin-right:2rem;
+                margin-top:1rem;
+                margin-bottom:1rem;
                 &.empty{
                     display:none;
                 }
@@ -39,6 +40,15 @@
         }
  
     }
+    
+    header{
+        .list-group-horizontal{
+            flex-direction:column;
+            li{
+                border-left:none!important;
+            }
+        }
+    } 
     
     .body-nav{
         .btn-toolbar{

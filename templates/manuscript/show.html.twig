@@ -155,7 +155,7 @@
                             <ul class="tag-list">
                                 {% for printSource in manuscript.printSources %}
                                 <li class="printSource">
-                                    <a href="{{ path("print_source_show", {"id":printSource.id}) }}">
+                                    <a class="tag" href="{{ path("print_source_show", {"id":printSource.id}) }}">
                                         {{ printSource }}
                                     </a>
                                 </li>
@@ -171,7 +171,7 @@
                             <ul class="tag-list">
                                 {% for theme in manuscript.themes %}
                                 <li class="theme">
-                                    <a href="{{ path("theme_show", {"id":theme.id}) }}">
+                                    <a class="tag" href="{{ path("theme_show", {"id":theme.id}) }}">
                                         {{ theme }}
                                     </a>
                                 </li>

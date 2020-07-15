@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block pageheader %}
-    <h1>Person List</h1>
+    <h1>People</h1>
 {% include 'partial/count.html.twig' with {'index': people, 'label': 'people'} %}
 {% endblock %}
 
@@ -25,37 +25,9 @@
 {% endblock %}
 
 {% block body %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Full Name</th>
-                {% if isAdmin %}
-                <th>Sortable Name</th>
-                {% endif %}
-                <th>Gender</th>
-            </tr>
-        </thead>
-        <tbody>
 
-            {% for person in people %}
-                <tr>
-                    <td>
-                        <a href="{{ path('person_show', { 'id': person.id }) }}">
-                            {{ person }}
-                        </a>
-                    </td>
-                    {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                        <td>
-                            {{ person.sortableName }}
-                        </td>
-                    {% endif %}
-                    <td>
-                        {% include 'person/partial/gender.html.twig' %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+{% include 'partial/search-form.html.twig' with {'path': path('person_search'), 'q': ''} %}
+{% include 'person/partial/index.html.twig' %}    
 
     <div class="navigation">
         {{ knp_pagination_render(people) }}

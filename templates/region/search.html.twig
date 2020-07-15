@@ -9,34 +9,19 @@
 {% block pageheader %}
     <h1>Region Search</h1>
     {% if q %}
-        <p class="count">
-            Displaying {{ regions|length }} regions of {{ regions.getTotalItemCount }} total. </p>
+    {% include 'partial/count.html.twig' with {'index': regions, 'label': 'regions'} %}
     {% endif %}
 {% endblock %}
 
 {% block body %}
 
     {% include 'partial/search-form.html.twig' with {'path': path('region_search')} %}
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for region in regions %}
-                <tr>
-                    <td>
-                        <a href="{{ path('region_show', { 'id': region.id }) }}">
-                            {{ region.name }}
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+    {% if regions|length > 0 %}
+        {% include 'region/partial/index.html.twig' %}
+    {% else %}
+        {% include 'partial/search-no-results.html.twig' %}
+    {% endif %}
+    
     {% if q %}
         <div class="navigation">
             {{ knp_pagination_render(regions) }}

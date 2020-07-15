@@ -5,6 +5,7 @@
 {% block pageheader %}
     <h1>Contents</h1>
 {% include 'partial/count.html.twig' with {'index': contents, 'label': 'contents'} %}
+
 {% endblock %}
 
 
@@ -26,36 +27,10 @@
 {% block body %}
 
 
+{% include 'partial/search-form.html.twig' with {'path': path('content_search'), 'q': ''} %}
+{% include 'content/partial/index.html.twig' %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>First Line</th>
-                <th>Author</th>
-                <th>Date</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for content in contents %}
-                <tr>
-                    <td>
-                        <a href="{{ path('content_show', { 'id': content.id }) }}">
-                            {{ content.firstLine }}
-                        </a>
-                    </td>
-                    <td>
-                        {% set author = content.author %}
-                        {% if author is not null %}
-                            <a href='{{ path('person_show', {'id': author.id}) }}'>{{ author }}</a>
-                        {% endif %}
-                    </td>
-                    <td>{{ content.date }}</td>
-                    <td>{{ content.description|raw }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
 
     <div class="navigation">
         {{ knp_pagination_render(contents) }}

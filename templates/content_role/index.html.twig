@@ -3,7 +3,7 @@
 {% block title %}Content Role List{% endblock %}
 
 {% block pageheader %}
-    <h1>Content Role List</h1>
+    <h1>Content Roles</h1>
 {% include 'partial/count.html.twig' with {'index': contentRoles, 'label': 'content roles'} %}
 {% endblock %}
 
@@ -27,16 +27,17 @@
       <thead>
           <tr>
               <th>Role</th>
-              <th>Uses</th>
+        
               <th>Description</th>
+              <th>Contributions</th>
           </tr>
       </thead>
       <tbody>
           {% for role in contentRoles %}
             <tr>
-                <td><a href="{{ path('content_role_show', {'id': role.id}) }}">{{ role }}</a></td>
-                <td class="number"> {{ role.contributions|length }}</td>
+                <td><a href="{{ path('content_role_show', {'id': role.id}) }}">{{ role }}</a></td>         
                 <td>{{ role.description|raw }}</td>
+                <td class="number">{{ role.contributions|length }}</td>
             </tr>
           {% endfor %}
       </tbody>

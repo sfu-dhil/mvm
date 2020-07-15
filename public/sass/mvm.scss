@@ -117,6 +117,7 @@ html{
     justify-content:center;
     margin:map.get($typescale, 5) auto;
     font-size: map.get($typescale, 7);
+    padding:0;
     li{
         padding: 0 map.get($typescale, 9);
         &:not(:first-child){
@@ -131,7 +132,7 @@ article.container{
      z-index:9000;
      margin-left:auto;
      margin-right:auto;
-     padding: 1rem 5rem;
+     padding: 2rem 5rem 5rem 5rem;
      min-height:90vh;
      /* Now the nav stuff at the top */
 
@@ -237,12 +238,13 @@ article.container{
              font-size:2.5rem;
          }
     }
+    
      main{
           a:not(.btn):not(.page-link){
         text-decoration:none;
         color: $mvm-black;
         border-bottom: 0.1rem solid $mvm-underline;
-        padding-bottom: 2px;
+        line-height: 1.6;
         transition: border-bottom-color 0.2s ease-in-out;
          &:hover,
          &:focus{
@@ -262,6 +264,7 @@ article.container{
                  text-align:center;
                  font-size:map.get($typescale, 6);
                  background: $mvm-grey;
+                 
                  &.active{
                      & > a {
                          background: $mvm-dark-purple;
@@ -276,6 +279,10 @@ article.container{
                    color:$mvm-black;
                    padding-bottom:.5rem;
                    border-bottom:none;
+                   height: 100%;
+                   display: flex;
+                   justify-content: center;
+                   align-items: center;
                     &:hover, &:visited{
                         border-bottom:none;
                     }
@@ -308,15 +315,24 @@ article.container{
          }
     
      }
+     form{
+         margin-bottom:map.get($typescale, 4);
+     }
      table {
         th, td{
             border-color: rgba($mvm-brown, 0.3);
+            
             & > p{
                  overflow-wrap: break-word;
                  word-wrap: break-word;
                  word-break: break-word;
-                     max-width: 25rem;
             }
+            /* Constraint paragraph width IFF the cell count
+             * is greater than 3  */
+            &:nth-child(n+3) > p{
+               max-width: 25rem;
+            }
+            
         }
          tbody{
             
@@ -326,16 +342,13 @@ article.container{
                 flex-wrap:wrap;
                 margin-left:0;
                 padding-left:0;
-                li{
-                    margin-top:map.get($typescale, 7);
+                & > li{
+                   margin-top:map.get($typescale, 7);
                     margin-bottom:map.get($typescale, 5);
                     margin-right: map.get($typescale, 7);
-                }
-                a{
-                     padding:map.get($typescale, 9) map.get($typescale, 7);
+                    & > a.tag{
+                    padding:map.get($typescale, 9) map.get($typescale, 7);
                      border:1px solid rgba($mvm-dark-purple, 0.2);
- 
-                     
                      background-color: $mvm-white;
                     transition: border-color 0.2s ease-in-out, 
                     background 0.2s ease-in-out,
@@ -346,7 +359,7 @@ article.container{
                          color: $mvm-white;
                          text-decoration:none;
                      }
-                 
+                    }
                 }
             }
             tr{
@@ -488,6 +501,10 @@ footer{
     }
 }
 
+.cat-description p{
+    max-width: 60rem;
+    margin: 0 auto;
+}
  
  @import "_index.scss";
 

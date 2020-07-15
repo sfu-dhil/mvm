@@ -117,7 +117,7 @@
                 </thead>
             {% for contentContribution in person.contentContributions %}
                 <tr>
-                    <td>{{ contentContribution.role }}</td>
+                    <td><a href="{{path('content_role_show', {'id': contentContribution.role.id})}}">{{ contentContribution.role }}</a></td>
                     <td><a href="{{ path('content_show', {'id': contentContribution.content.id}) }}">{{ contentContribution.content.firstLine }}</a></td>
                     <td>{{ contentContribution.note|raw }}</td>
 
@@ -139,7 +139,6 @@
             {% endset %}
             {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscriptContribution.manuscript, 'callbackDescription': callbackDescription} %}
             {% endfor %}
-            <div class="item empty"></div>
             <div class="item empty"></div>
         </div>
     </div>
