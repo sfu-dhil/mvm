@@ -11,13 +11,7 @@
 {% endblock %}
 
 {% block admin %}
-
-<div class='btn-toolbar pull-right'>
-    <div class='btn-group'>
-        <a href="{{ path('period_new') }}" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span> New </a>
-    </div>
-</div>
+{% include 'partial/toolbar.html.twig' with {'new': 'period_new' } %}
 {% endblock %}
 
 {% block body %}
@@ -26,7 +20,7 @@
             <tr>
                 <th>Period</th>
                 <th>Description</th>
-                <th>Manuscripts</th>
+                <th class="number">Manuscripts</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +30,7 @@
                         <a href="{{ path('period_show', {'id': period.id}) }}">{{ period }}</a>
                     </td>
                     <td>{{ period.description|raw }}</td>
-                    <td>{{ period.manuscripts|length }}</td>
+                    <td class="number">{{ period.manuscripts|length }}</td>
                 </tr>
             {% endfor %}
         </tbody>

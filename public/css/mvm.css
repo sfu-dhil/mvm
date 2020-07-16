@@ -165,7 +165,7 @@
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  margin-bottom: 1.953rem;
+  margin-bottom: 0;
 }
 
 .breadcrumbs li > * {
@@ -337,11 +337,6 @@ nav.navbar .navbar-nav > li .current > a {
   font-weight: bold;
 }
 
-.btn-toolbar {
-  margin-top: 0.64rem;
-  margin-bottom: 1rem;
-}
-
 .list-group-horizontal {
   list-style-type: none;
   display: flex;
@@ -367,17 +362,22 @@ article.container {
   min-height: 90vh;
   /* Now the nav stuff at the top */
   /* Now the gallery */
+  /* Gallery items have margins that push the galleries too far down
+   * after the search form. */
 }
 article.container .body-nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 1rem;
+  margin-top: 0;
+  margin-bottom: 1.953rem;
   align-items: end;
 }
+article.container .body-nav > * {
+  margin-bottom: 1.25rem;
+}
 article.container .body-nav .btn-toolbar {
-  margin-top: -4px;
-  margin-bottom: 0;
+  margin-top: -1px;
 }
 article.container .gallery {
   display: flex;
@@ -385,12 +385,12 @@ article.container .gallery {
 }
 article.container .gallery .item {
   flex: 1 0 21%;
-  margin: 2rem;
+  margin: 1.953rem 1rem;
   padding: 1.25rem;
-  margin-left: 0;
   min-width: 15rem;
-  border: 2px solid rgba(132, 108, 91, 0.8);
+  border: 2px solid rgba(132, 108, 91, 0.3);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.2s ease-in-out;
 }
 article.container .gallery .item.empty {
   border: none;
@@ -398,6 +398,9 @@ article.container .gallery .item.empty {
   padding: none;
   box-shadow: none;
   min-width: 0;
+}
+article.container .gallery .item:hover {
+  border-color: rgba(132, 108, 91, 0.8);
 }
 article.container .gallery .item h1 {
   font-size: 1.563rem;
@@ -460,8 +463,8 @@ article.container main {
 article.container main a:not(.btn):not(.page-link) {
   text-decoration: none;
   color: #010101;
-  border-bottom: 0.1rem solid rgba(21, 48, 145, 0.5);
-  line-height: 1.6;
+  border-bottom: 0.15rem solid rgba(21, 48, 145, 0.5);
+  line-height: 1.65;
   transition: border-bottom-color 0.2s ease-in-out;
 }
 article.container main a:not(.btn):not(.page-link):hover, article.container main a:not(.btn):not(.page-link):focus {
@@ -507,17 +510,23 @@ article.container main div.tab-content {
 article.container main div.tab-content .text-right {
   margin: 2rem 0;
 }
-article.container main div.tab-content .tab-pane.active.transcription-tab {
+article.container main div.tab-content .btn-toolbar {
+  margin-top: 0.64rem;
+  margin-bottom: 1rem;
+}
+article.container main div.tab-content .tab-pane.active[id*=transcription] {
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
-article.container main div.tab-content .tab-pane.active.transcription-tab .transcription {
-  flex: 1 1 60%;
-  min-width: 50%;
+article.container main div.tab-content .tab-pane.active[id*=transcription] > .transcription {
+  margin: auto;
 }
-article.container main div.tab-content .tab-pane.active.transcription-tab table {
+article.container main div.tab-content .tab-pane.active[id*=transcription] table {
   font-size: 0.9rem;
+}
+article.container main div.tab-content .tab-pane.active[id*=transcription] table th {
+  vertical-align: top;
 }
 article.container main div.tab-content .item {
   flex-basis: 40%;
@@ -525,48 +534,66 @@ article.container main div.tab-content .item {
 article.container form {
   margin-bottom: 1.563rem;
 }
-article.container table th, article.container table td {
-  border-color: rgba(132, 108, 91, 0.3);
+article.container form + .gallery {
+  margin-top: -2rem;
+}
+article.container table.table {
+  border-collapse: separate;
+  border-color: rgba(132, 108, 91, 0.15);
+}
+article.container table.table th, article.container table.table td {
+  padding: 0.8rem 1.25rem;
   /* Constraint paragraph width IFF the cell count
    * is greater than 3  */
 }
-article.container table th > p, article.container table td > p {
+article.container table.table th > p, article.container table.table td > p {
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
 }
-article.container table th:nth-child(n+3) > p, article.container table td:nth-child(n+3) > p {
+article.container table.table th:nth-child(n+3) > p, article.container table.table td:nth-child(n+3) > p {
   max-width: 25rem;
 }
-article.container table tbody .tag-list {
+article.container table.table th.number, article.container table.table td.number {
+  text-align: right;
+}
+article.container table.table thead > tr > th:not(:last-child),
+article.container table.table tbody > tr > td:not(:last-child) {
+  border-right-style: solid;
+  border-right-color: rgba(132, 108, 91, 0.15);
+  border-right-width: 2px;
+}
+article.container table.table tbody .tag-list {
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
-  margin-left: 0;
-  padding-left: 0;
+  margin: 0;
+  padding: 0;
+  align-items: center;
 }
-article.container table tbody .tag-list > li {
+article.container table.table tbody .tag-list > li {
   margin-top: 0.8rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.8rem;
   margin-right: 0.8rem;
 }
-article.container table tbody .tag-list > li > a.tag {
+article.container table.table tbody .tag-list > li > a.tag {
   padding: 0.512rem 0.8rem;
-  border: 1px solid rgba(57, 37, 59, 0.2);
+  border: 2px solid rgba(57, 37, 59, 0.2);
   background-color: #FFFFFF;
   transition: border-color 0.2s ease-in-out, background 0.2s ease-in-out, color 0.2s ease-in-out;
 }
-article.container table tbody .tag-list > li > a.tag:hover {
+article.container table.table tbody .tag-list > li > a.tag:hover {
   border-color: rgba(57, 37, 59, 0.5);
   background-color: #39253B;
   color: #FFFFFF;
   text-decoration: none;
 }
-article.container table tbody tr th, article.container table tbody tr td {
-  padding: 0.8rem;
-  border-top-color: rgba(132, 108, 91, 0.3);
+article.container table.table tbody tr th, article.container table.table tbody tr td {
+  border-top-color: rgba(132, 108, 91, 0.15);
+  border-top-width: 2px;
+  vertical-align: middle;
 }
-article.container table tbody tr:first-child th, article.container table tbody tr:first-child td {
+article.container table.table tbody tr:first-child th, article.container table.table tbody tr:first-child td {
   border-top: none;
 }
 article.container .navigation {
@@ -885,11 +912,10 @@ footer .footer-imgs img:hover {
   }
 }
 @media (max-width: 992px) {
-  .tab-pane.active.transcription-tab {
+  .tab-pane.active[id*=transcription] {
     flex-wrap: wrap;
-    flex-direction: column-reverse;
   }
-  .tab-pane.active.transcription-tab > div {
+  .tab-pane.active[id*=transcription] > div {
     flex: 1 1 100%;
   }
 }

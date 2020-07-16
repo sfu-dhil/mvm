@@ -6,8 +6,8 @@
             <th>Sortable Name</th>
             {% endif %}
             <th>Gender</th>
-            <th>Content Contributions</th>
-            <th>Manuscript Contributions</th>
+            <th class="number">Content Contributions</th>
+            <th class="number">Manuscript Contributions</th>
             
         </tr>
     </thead>
@@ -31,7 +31,7 @@
             <td class="number">
                 {{ person.contentContributions|length }}
             </td>
-            <td clas="number">
+            <td class="number">
                 {{ person.manuscriptContributions|length }}
             </td>
             

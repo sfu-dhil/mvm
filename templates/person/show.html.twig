@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% set hasContentContributions = person.contentContributions | length > 0 %}
-{% set hasManuscriptContributions = person.manuscriptContributions | length > 0 %}
+
 
 {% block title %}{{ person.fullName }}{% endblock %}
 
@@ -14,134 +13,126 @@
 {% endblock %} 
 
 {% block admin %}
-<div class="btn-toolbar">
-    <div class="btn-group pull-right">
-        <a href="{{ path('person_edit', { 'id': person.id }) }}" class="btn btn-default">
-            <span class='glyphicon glyphicon-edit'></span> Edit </a>
-        <a href="{{ path('person_delete', { 'id': person.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this Person?">
-            <span class='glyphicon glyphicon-remove'></span> Delete </a>
-    </div>
-</div>
+{% include 'partial/toolbar.html.twig' with {'edit':'person_edit', 'delete': 'person_delete', 'id': person.id } %}
 {% endblock %}
 
 
 {% block body %}
 
-<ul class="nav nav-pills" id="tabs" role="tablist">
-    <li class="nav-item active">
-        <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Details</a>
-    </li>
-    {% if hasContentContributions %}
-    <li class="nav-item">
-        <a class="nav-link" id="content-contributions-tab" data-toggle="tab" href="#content-contributions" role="tab" aria-controls="content-contributions" aria-selected="false">Content Contributions</a>
-    </li>
-    {% endif %}
-    
-    {% if hasManuscriptContributions %}
-    <li class="nav-item">
-        <a class="nav-link" id="manuscript-contributions-tab" data-toggle="tab" href="#manuscript-contributions" role="tab" aria-controls="manuscript-contributions" aria-selected="false">Manuscript Contributions</a>
-    </li>
-    {% endif %}
-</ul>
-<div class="tab-content" id="tabContent">
-    <div class="tab-pane active" id="details" role="tabpanel" aria-labelledby="details-tab">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Full Name</th>
-                <td>{{ person }}</td>
-            </tr>
-            {% if isAdmin %}
-                <tr>
-                    <th>Sortable Name</th>
-                    <td>{{ person.sortableName }}</td>
-                </tr>
+{% set detailsContent %}
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Full Name</th>
+            <td>{{ person }}</td>
+        </tr>
+        {% if isAdmin %}
+        <tr>
+            <th>Sortable Name</th>
+            <td>{{ person.sortableName }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>Variant Names</th>
+            <td>{% if person.variantNames|length > 0 %}{{ person.variantNames|join(', ') }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Gender</th>
+            <td>
+                {% include 'person/partial/gender.html.twig' %}
+            </td>
+        </tr>
+        <tr>
+            <th>Birth Date</th>
+            <td>{{ person.birthDate }}</td>
+        </tr>
+        <tr>
+            <th>Death Date</th>
+            <td>{{ person.deathDate }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ person.description|raw }}</td>
+        </tr>
+        <tr>
+            <th>Regions</th>
+            <td>
+                {% for region in person.regions %}
+                <a href="{{ path('region_show', { 'id': region.id}) }}">
+                    {{ region -}}
+                </a>
+                {%- if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        {% if isAdmin %}
+        <tr>
+            <th>Created</th>
+            <td>{% if person.created %}{{ person.created|date }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Updated</th>
+            <td>{% if person.updated %}{{ person.updated|date }}{% endif %}</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endset %}
+
+{% set contentContent %}
+{% if person.contentContributions | length > 0 %}
+{% set showNote = person.contentContributions|filter(c => c.note is not empty)|length > 0 %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Role</th>
+            <th>First Line</th>
+            {% if showNote %}
+            <th>Note</th>
             {% endif %}
-            <tr>
-                <th>Variant Names</th>
-                <td>{% if person.variantNames|length > 0 %}{{ person.variantNames|join(', ') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Gender</th>
-                <td>
-                    {% include 'person/partial/gender.html.twig' %}
-                </td>
-            </tr>
-            <tr>
-                <th>Birth Date</th>
-                <td>{{ person.birthDate }}</td>
-            </tr>
-            <tr>
-                <th>Death Date</th>
-                <td>{{ person.deathDate }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ person.description|raw }}</td>
-            </tr>
-            <tr>
-                <th>Regions</th>
-                <td>
-                    {% for region in person.regions %}
-                        <a href="{{ path('region_show', { 'id': region.id}) }}">
-                            {{ region -}}
-                        </a>
-                        {%- if not loop.last %}, {% endif %}
-                    {% endfor %}
-                </td>
-            </tr>
-            {% if isAdmin %}
-            <tr>
-                <th>Created</th>
-                <td>{% if person.created %}{{ person.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if person.updated %}{{ person.updated|date }}{% endif %}</td>
-            </tr>
-            {% endif %}
-        </tbody>
-    </table>
-    </div>
-    {% if hasContentContributions %}
-    <div class="tab-pane fade" id="content-contributions" role="tabpanel" aria-labelledby="content-contributions-tab">
+            
+        </tr>
+    </thead>
+    {% for contentContribution in person.contentContributions %}
+    <tr>
+        <td><a href="{{path('content_role_show', {'id': contentContribution.role.id})}}">{{ contentContribution.role }}</a></td>
+        <td><a href="{{ path('content_show', {'id': contentContribution.content.id}) }}">{{ contentContribution.content.firstLine }}</a></td>
+        {% if showNote %}
+            <td>{{ contentContribution.note|raw }}</td>
+        {% endif %}
+        </li>
+     {% endfor %}
+</table>
+{% endif %}
+{% endset %}
 
-        <table class="table">
-           
-                <thead>
-                    <tr>
-                        <th>Role</th>
-                        <th>First Line</th>
-                        <th>Note</th>
-                    </tr>
-                </thead>
-            {% for contentContribution in person.contentContributions %}
-                <tr>
-                    <td><a href="{{path('content_role_show', {'id': contentContribution.role.id})}}">{{ contentContribution.role }}</a></td>
-                    <td><a href="{{ path('content_show', {'id': contentContribution.content.id}) }}">{{ contentContribution.content.firstLine }}</a></td>
-                    <td>{{ contentContribution.note|raw }}</td>
+{% set manuscriptContent %}
+{% if person.manuscriptContributions|length > 0 %}
+<div class="gallery">
+    {% for manuscriptContribution in person.manuscriptContributions %}
+        {% set callbackDescription %}
+            <p>Role: {{manuscriptContribution.role }}</p>
+            {{ manuscriptContribution.note | raw }}
+        {% endset %}
+        {% include 'manuscript/partial/gallery-item.html.twig' with 
+        {'manuscript': manuscriptContribution.manuscript, 
+        'callbackDescription': callbackDescription} %}
+    {% endfor %}
+    <div class="item empty"></div>
+</div>
+{% endif %}
+{% endset %}
 
-                    
-                </li>
-            {% endfor %}
-        </table>
+{% set tabs = {
+'Details': detailsContent,
+'Manuscript Contributions': manuscriptContent,
+'Content Contributions': contentContent
+} %} 
 
-    </div>
-    {% endif %}
-    
-    {% if person.manuscriptContributions | length > 0 %}
-    <div class="tab-pane fade" id="manuscript-contributions" role="tabpanel" aria-labelledby="manuscript-contributions-tab">
-        <div class="gallery">
-            {% for manuscriptContribution in person.manuscriptContributions %}
-            {% set callbackDescription %}
-                <p>Role: {{manuscriptContribution.role }}</p>
-                {{ manuscriptContribution.note | raw }}
-            {% endset %}
-            {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscriptContribution.manuscript, 'callbackDescription': callbackDescription} %}
-            {% endfor %}
-            <div class="item empty"></div>
-        </div>
-    </div>
-    {% endif %}
+
+
+{% include 'partial/tabs.html.twig' with {'tabs': tabs, 'force': false} %}
+
+
     
 {% endblock %}

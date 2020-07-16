@@ -3,40 +3,27 @@
 {% block title %}Content Role{% endblock %}
 
  {% block pageheader %}
-    {% embed 'partial/category-index.html.twig' with {'term': contentRole} %}
- {% endembed %}
+    {% include 'partial/category-index.html.twig' with {'term': contentRole} %}
  {% endblock %} 
  
- 
+
  {% block breadcrumb %}
  {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Content Roles', 'show': contentRole} %}
  {% endblock %}
  
  {% block admin %}
-    <div class="btn-toolbar">
-        <div class="btn-group pull-right">
-        {% if is_granted('ROLE_CONTENT_ADMIN') %}
-        <a href="{{ path('content_role_edit', { 'id': contentRole.id }) }}" class="btn btn-default">
-            <span class='glyphicon glyphicon-edit'></span> Edit </a>
-        <a href="{{ path('content_role_delete', { 'id': contentRole.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this ContentRole?">
-            <span class='glyphicon glyphicon-remove'></span> Delete </a>
-        {% endif %}
-    </div>
-</div>
+ {% include 'partial/toolbar.html.twig' with {'edit': 'content_role_edit', 'delete': 'content_role_delete', 'id': contentRole.id } %}
  {% endblock %}
-
+ 
 {% block body %}
-  
-
-  
 
     {% if contentRole.contributions | length > 0 %}
         <table class="table">
             <thead>
                 <tr>
-                    <th>Person</th>
-                    <th>Role</th>
+                    <th>Contributor</th>
                     <th>Content</th>
+                    <th>Note</th>
                 </tr>
             </thead>
             {% for contribution in contentRole.contributions %}
@@ -44,10 +31,12 @@
                     <td><a href="{{ path('person_show', {'id': contribution.person.id}) }}">
                             {{ contribution.person }}</a>
                     </td>
-                    <td>{{ contentRole }}</td>
                     <td><a href="{{ path('content_show', {'id': contribution.content.id}) }}">
                         {{ contribution.content }}
                         </a>
+                    </td>
+                    <td>
+                        {{ contribution.note|raw }}
                     </td>
                 </tr>
             {% endfor %}

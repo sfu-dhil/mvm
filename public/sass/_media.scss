@@ -12,9 +12,8 @@
 }
 
 @media (max-width: 992px) {
-    .tab-pane.active.transcription-tab{
+    .tab-pane.active[id*=transcription]{
         flex-wrap:wrap;
-        flex-direction: column-reverse;
         & > div {
             flex: 1 1 100%;
         }

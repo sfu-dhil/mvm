@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Archive List{% endblock %}
-
+{% block title %}Archives{% endblock %}
 
 {% block breadcrumb %}
     {% include 'partial/breadcrumb.html.twig' with {'index': 'archive'} %}
@@ -9,19 +8,12 @@
 
 {% block pageheader %}
     <h1>Archives</h1>
-{% include 'partial/count.html.twig' with {'index': archives, 'label': 'archives'} %}
+    {% include 'partial/count.html.twig' 
+    with {'index': archives, 'label': 'archives'} %}
 {% endblock %}
 
 {% block admin %}
-
-<div class='btn-toolbar pull-right'>
-    <div class='btn-group'>
-        <a href="{{ path('archive_new') }}" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span> New </a>
-        <a href="{{ path('archive_search') }}" class="btn btn-default">
-            <span class="glyphicon glyphicon-search"></span> Search </a>
-    </div>
-</div>
+{% include 'partial/toolbar.html.twig' with {'new': 'archive_new' } %}
 {% endblock %}
 
 {% block body %}

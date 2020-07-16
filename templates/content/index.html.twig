@@ -14,14 +14,7 @@
 {% endblock %}
 
 {% block admin %}
-<div class='btn-toolbar pull-right'>
-    <div class='btn-group'>
-        <a href="{{ path('content_new') }}" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span> New </a>
-        <a href="{{ path('content_search') }}" class="btn btn-default">
-            <span class="glyphicon glyphicon-search"></span> Search </a>
-    </div>
-</div>
+{% include 'partial/toolbar.html.twig' with {'new': 'content_new'} %}
 {% endblock %}
 
 {% block body %}
@@ -29,8 +22,6 @@
 
 {% include 'partial/search-form.html.twig' with {'path': path('content_search'), 'q': ''} %}
 {% include 'content/partial/index.html.twig' %}
-
-
 
     <div class="navigation">
         {{ knp_pagination_render(contents) }}

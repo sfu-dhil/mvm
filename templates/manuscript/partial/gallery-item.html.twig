@@ -1,4 +1,5 @@
 {% set compilers = [] %}
+
 <div class="item">
     <h1><a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">{{ manuscript.callNumber }}</a></h1>
     <table>
@@ -19,14 +20,16 @@
                 </td>
             </tr>
             {% endif %}
+            
             {% for contribution in manuscript.manuscriptContributions %}
             
-            {% if contribution.role.id == 1 %}
-            {% set compilers = compilers|merge([contribution]) %}
-            {% endif %}
+                {% if contribution.role.id == 1 %}
+                    {% set compilers = compilers|merge([contribution]) %}
+                {% endif %}
             {% endfor %}
             
             {% set compilerCount = compilers|length %}
+            
             {% if compilerCount > 0 %}
             <tr>
                 <th>Compiler{% if compilerCount > 1 %}s{% endif %}</th>

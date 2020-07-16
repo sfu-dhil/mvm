@@ -13,13 +13,7 @@
 
 
 {% block admin %}
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-                <a href="{{ path('feature_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New 
-                </a>
-        </div>
-    </div>
+{% include 'partial/toolbar.html.twig' with {'new': 'feature_new' } %}
 {% endblock %}
 
 {% block body %}    

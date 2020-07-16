@@ -8,26 +8,18 @@
 
 {% block pageheader %}
     <h1>People</h1>
-{% include 'partial/count.html.twig' with {'index': people, 'label': 'people'} %}
+    {% include 'partial/count.html.twig' with {'index': people, 'label': 'people'} %}
 {% endblock %}
 
 {% block admin %}
-
-<div class='btn-toolbar pull-right'>
-    <div class='btn-group'>
-        <a href="{{ path('person_new') }}" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span> New </a>
-        <a href="{{ path('person_search') }}" class="btn btn-default">
-            <span class="glyphicon glyphicon-search"></span> Search </a>
-    </div>
-</div>
-
+{% include 'partial/toolbar.html.twig' with {'new': 'person_new'} %}
 {% endblock %}
 
 {% block body %}
 
 {% include 'partial/search-form.html.twig' with {'path': path('person_search'), 'q': ''} %}
-{% include 'person/partial/index.html.twig' %}    
+
+{% include 'person/partial/index.html.twig' %}
 
     <div class="navigation">
         {{ knp_pagination_render(people) }}
