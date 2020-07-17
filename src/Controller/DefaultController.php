@@ -34,16 +34,13 @@ class DefaultController extends AbstractController implements PaginatorAwareInte
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Archive::class, 'e')->orderBy('e.label', 'ASC');
-        $query = $qb->getQuery();
-        $archives = $query->execute();
         
-        $pem = $this ->getDoctrine()->getManager();
-        $pqb = $em -> createQueryBuilder();
-        $pqb-> select('e')->from(Period::class, 'e')->orderBy('e.label','ASC');
-        $pquery = $pqb -> getQuery();
-        $periods = $pquery->execute();
+        $archiveQuery = $em->createQueryBuilder()->select('e')->from(Archive::class,'e')->orderBy('e.label','ASC');
+        $periodQuery =  $em->createQueryBuilder()->select('e')->from(Period::class,'e')->orderBy('e.label','ASC');
+        
+        $archives = $archiveQuery->getQuery()->execute();
+        $periods = $periodQuery->getQuery()->execute();
+        
         return [
             'archives' => $archives,
             'periods' => $periods

@@ -310,15 +310,19 @@ article.container{
                  display:flex;
                  width:100%;
                  justify-content:space-between;
-                 & > .transcription{
-                     margin: auto;
+                 > div{
+                     flex: 0 1 45%;
+                     table{
+                        font-size:average(map.get($typescale,6), map.get($typescale, 7));
+                        /* If we want a sticky table */
+                       /*   top:map.get($typescale, 8);
+                        position:sticky; */
+                        th {
+                            vertical-align:top;
+                        }
+                    }
                  }
-                 table{
-                     font-size:average(map.get($typescale,6), map.get($typescale, 7));
-                     th {
-                         vertical-align:top;
-                     }
-                 }
+       
              }
              .item{
                  flex-basis:40%;

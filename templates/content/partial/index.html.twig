@@ -20,7 +20,7 @@
             <td>
                 {% set author = content.author %}
                 {% if author is not null %}
-                <a href='{{ path('person_show', {'id': author.id}) }}'>{{ author }}</a>
+                    <a href='{{ path('person_show', {'id': author.id}) }}'>{{ author }}</a>
                 {% endif %}
             </td>
             <td>{{ content.description|raw }}</td>

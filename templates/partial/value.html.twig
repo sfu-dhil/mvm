@@ -1,0 +1,8 @@
+{% macro show(value) %}
+
+{% if value is null or value is empty %}
+<span class="no-value">–––</span>
+{% else %}
+{{ value }}
+{% endif %}
+{% endmacro %}

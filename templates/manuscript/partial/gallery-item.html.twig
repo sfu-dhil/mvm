@@ -1,4 +1,9 @@
-{% set compilers = [] %}
+{# manuscript/partial/gallery-item.html.twig #}
+
+{# Creates an manuscript item for use within a gallery context,
+either in the body of a page or within the contents of a tab #}
+
+{# Requires: manuscripts #}
 
 <div class="item">
     <h1><a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">{{ manuscript.callNumber }}</a></h1>
@@ -21,26 +26,6 @@
             </tr>
             {% endif %}
             
-            {% for contribution in manuscript.manuscriptContributions %}
-            
-                {% if contribution.role.id == 1 %}
-                    {% set compilers = compilers|merge([contribution]) %}
-                {% endif %}
-            {% endfor %}
-            
-            {% set compilerCount = compilers|length %}
-            
-            {% if compilerCount > 0 %}
-            <tr>
-                <th>Compiler{% if compilerCount > 1 %}s{% endif %}</th>
-                <td>
-                    {% for compiler in compilers %}
-                    <a href="{{ path('person_show', { 'id' : compiler.person.id}) }}">{{ compiler.person.fullName}}</a>{% if not loop.last %}, {% endif %}
-                    {% endfor %}
-                </td>
-            </tr>
-            {% endif %}
-            
             {% if manuscript.archive is not null %}
             <tr>
                 <th>Archive</th>
@@ -51,7 +36,7 @@
     </table>
     
     
-    {% if manuscript.description is not null or (callbackDescription is defined and callbackDescription is not null)%}
+    {% if manuscript.description is not null or (callbackDescription is defined and callbackDescription is not null) %}
   
         {% if callbackDescription is defined %}
             {% if callbackDescription is not null %}

@@ -16,14 +16,17 @@
  {% endblock %}
  
 {% block body %}
-
+    
     {% if contentRole.contributions | length > 0 %}
+    {% set processNote = contentRole.contributions|filter(c => c.note is not empty)|length > 0 %}
         <table class="table">
             <thead>
                 <tr>
                     <th>Contributor</th>
                     <th>Content</th>
+                    {% if processNote %}
                     <th>Note</th>
+                    {% endif %}
                 </tr>
             </thead>
             {% for contribution in contentRole.contributions %}
@@ -35,9 +38,11 @@
                         {{ contribution.content }}
                         </a>
                     </td>
+                    {% if processNote %}
                     <td>
                         {{ contribution.note|raw }}
                     </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>

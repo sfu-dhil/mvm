@@ -18,7 +18,7 @@
 
 {% set details %}
 
-<div>
+<div class="content-details">
     <table class="table table-condensed">
         <tbody>
             <tr>
@@ -50,11 +50,14 @@
 </div>
 <div class="transcription">
     <h4>Transcription</h4>
-    {% if content.transcription is not empty %}
-    {{ content.transcription | raw }}
-    {% else %}
-    <p>No transcription available.</p>
-    {% endif %}
+    <div class="transcription-body">
+        {% if content.transcription is not empty %}
+        {{ content.transcription | raw }}
+        {% else %}
+        <p>No transcription available.</p>
+        {% endif %}
+    </div>
+
 </div>
 {% endset %}
 

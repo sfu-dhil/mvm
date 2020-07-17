@@ -15,7 +15,10 @@
     .tab-pane.active[id*=transcription]{
         flex-wrap:wrap;
         & > div {
-            flex: 1 1 100%;
+            flex: 1 1 100%!important;
+            &.transcription{
+                margin-left: map.get($typescale, 6);
+            }
         }
     }
 }

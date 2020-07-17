@@ -519,13 +519,16 @@ article.container main div.tab-content .tab-pane.active[id*=transcription] {
   width: 100%;
   justify-content: space-between;
 }
-article.container main div.tab-content .tab-pane.active[id*=transcription] > .transcription {
-  margin: auto;
+article.container main div.tab-content .tab-pane.active[id*=transcription] > div {
+  flex: 0 1 45%;
 }
-article.container main div.tab-content .tab-pane.active[id*=transcription] table {
+article.container main div.tab-content .tab-pane.active[id*=transcription] > div table {
   font-size: 0.9rem;
+  /* If we want a sticky table */
+  /*   top:map.get($typescale, 8);
+   position:sticky; */
 }
-article.container main div.tab-content .tab-pane.active[id*=transcription] table th {
+article.container main div.tab-content .tab-pane.active[id*=transcription] > div table th {
   vertical-align: top;
 }
 article.container main div.tab-content .item {
@@ -916,7 +919,10 @@ footer .footer-imgs img:hover {
     flex-wrap: wrap;
   }
   .tab-pane.active[id*=transcription] > div {
-    flex: 1 1 100%;
+    flex: 1 1 100% !important;
+  }
+  .tab-pane.active[id*=transcription] > div.transcription {
+    margin-left: 1rem;
   }
 }
 @media (max-width: 768px) {
