@@ -784,10 +784,13 @@ footer .footer-imgs img:hover {
   margin-left: auto;
   margin-right: auto;
   margin-top: 3.052rem;
-  /* Set the max-height in case -webkit-box isn't available */
-  max-height: 14.5em;
+  /* Hide the overflow */
   overflow: hidden;
-  /* But if -webkit-box is available, then we can use the much nicer -webkit-line-clamp */
+  /* Set the max-height in case -webkit-box isn't available */
+  /* Note that this is in ems rather than rems */
+  max-height: 14.5em;
+  /* But if -webkit-box is available, then we can use the much nicer -webkit-line-clamp,
+   * which provdes ellipses when truncated */
 }
 @supports (display: -webkit-box) {
   #index .jumbotron > .container > p {
@@ -809,6 +812,12 @@ footer .footer-imgs img:hover {
   float: right;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
   text-decoration: none;
+  /* Max this flush right with the paragraph */
+}
+@supports (margin-right: max(0px)) {
+  #index .jumbotron > .container a.readMore {
+    margin-right: max(calc((100% - 60rem)/2), 0px);
+  }
 }
 #index .jumbotron > .container a.readMore:hover {
   background-color: #FFFFFF;
@@ -927,8 +936,6 @@ footer .footer-imgs img:hover {
     flex-basis: 100%;
     min-height: 6rem;
   }
-}
-@media (max-width: 993px) {
   #index article.container {
     margin-top: -2rem;
   }

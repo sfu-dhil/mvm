@@ -28,22 +28,26 @@ article.container{
         padding:2rem;
         background: rgba(#12021A,0.8);
         & > p{
-
             font-family: "EB Garamond";
             font-weight:400;
             text-align:left;
             line-height: $hero-line-height;
-            font-size: map.get($typescale, 5);
+            font-size: $hero-font-size;
             text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-            max-width:60rem;
+            max-width:$hero-para-width;
             margin-left: auto;
             margin-right:auto;
             margin-top:map.get($typescale, 1);
             
+            /* Hide the overflow */
+            overflow: hidden; 
+            
             /* Set the max-height in case -webkit-box isn't available */
+            /* Note that this is in ems rather than rems */
             max-height: #{$hero-max-lines * $hero-line-height}em;
-            overflow: hidden;
-            /* But if -webkit-box is available, then we can use the much nicer -webkit-line-clamp */
+
+            /* But if -webkit-box is available, then we can use the much nicer -webkit-line-clamp,
+             * which provdes ellipses when truncated */
             @supports (display: -webkit-box){
                 max-height:unset;
                 text-overflow: ellipsis;
@@ -63,6 +67,10 @@ article.container{
          float: right;
          transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
          text-decoration:none;
+         /* Max this flush right with the paragraph */
+         @supports (margin-right: max(0px)){
+             margin-right: max(calc((100% - #{$hero-para-width})/2), 0px);
+         }
          &:hover{
              background-color: $mvm-white;
              color: $mvm-dark-purple;
@@ -206,14 +214,7 @@ section{
                 min-height:6rem;
             }
         }
-    }
-    
-}
-
-@media (max-width: 993px) {
-    #index{
-    
-        article.container{
+      article.container{
             margin-top:-2rem;
         }
         
@@ -222,12 +223,10 @@ section{
             width:90%;
             margin: 0 auto;
         }
-    
     }
     
-    
-    
 }
+
 
 
 
