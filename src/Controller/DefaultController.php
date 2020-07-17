@@ -16,6 +16,9 @@ use App\Repository\ArchiveRepository;
 use App\Entity\Period;
 use App\Form\PeriodType;
 use App\Repository\PeriodRepository;
+use Nines\BlogBundle\Entity\Page;
+use Nines\BlogBundle\Entity\Post;
+use Proxies\__CG__\Nines\BlogBundle\Entity\PostCategory;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -35,15 +38,15 @@ class DefaultController extends AbstractController implements PaginatorAwareInte
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         
-        $archiveQuery = $em->createQueryBuilder()->select('e')->from(Archive::class,'e')->orderBy('e.label','ASC');
-        $periodQuery =  $em->createQueryBuilder()->select('e')->from(Period::class,'e')->orderBy('e.label','ASC');
+        $archives = $em->getRepository(Archive::class)->findBy([], ['label' => 'ASC']);
+        $periods = $em->getRepository(Period::class)->findBy([], ['label' => 'ASC']);
         
-        $archives = $archiveQuery->getQuery()->execute();
-        $periods = $periodQuery->getQuery()->execute();
+        $pageRepo = $em->getRepository(Page::class);
         
         return [
             'archives' => $archives,
-            'periods' => $periods
+            'periods' => $periods,
+            'homepage' => $pageRepo->findHomepage()
         ];
     }
 
