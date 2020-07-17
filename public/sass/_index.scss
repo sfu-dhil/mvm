@@ -12,7 +12,7 @@
 }
 
 article.container{
-    margin-top: -10rem;
+    margin-top: -7.5rem;
 }
 
 
@@ -28,17 +28,48 @@ article.container{
         padding:2rem;
         background: rgba(#12021A,0.8);
         & > p{
+
             font-family: "EB Garamond";
             font-weight:400;
             text-align:left;
-            line-height: 140%;
-            font-size: average(map.get($typescale, 6), map.get($typescale, 5));
+            line-height: $hero-line-height;
+            font-size: map.get($typescale, 5);
             text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             max-width:60rem;
             margin-left: auto;
             margin-right:auto;
-            margin-top:map.get($typescale, 1) * 1.5;
+            margin-top:map.get($typescale, 1);
+            
+            /* Set the max-height in case -webkit-box isn't available */
+            max-height: #{$hero-max-lines * $hero-line-height}em;
+            overflow: hidden;
+            /* But if -webkit-box is available, then we can use the much nicer -webkit-line-clamp */
+            @supports (display: -webkit-box){
+                max-height:unset;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: $hero-max-lines; 
+                -webkit-box-orient: vertical;
+            }
         }
+      a.readMore{
+         color: white;
+         font-weight: bold;
+         margin-left: 1rem;
+         padding: 0.25rem;
+         border: 1px solid $mvm-white;
+         background-color:transparent;
+         display:block;
+         float: right;
+         transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+         text-decoration:none;
+         &:hover{
+             background-color: $mvm-white;
+             color: $mvm-dark-purple;
+             text-decoration:none;
+             
+         }
+      }
     }
     
 }
@@ -179,7 +210,7 @@ section{
     
 }
 
-@media (max-width: 768px) {
+@media (max-width: 993px) {
     #index{
     
         article.container{
