@@ -2,6 +2,9 @@
 
 {% block title %}New Print Source{% endblock %}
 
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'print_source', 'index_label': 'Print Sources', 'show': 'New'} %}
+{% endblock %}
 
 {% block body %}
     <h1>New Print Source</h1>

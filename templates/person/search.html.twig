@@ -2,49 +2,27 @@
 
 {% block title %}Person Search{% endblock %}
 
+
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'person', 'index_label': 'People', 'show': 'Search'} %}
+{% endblock %}
+
 {% block pageheader %}
     <h1>Person Search</h1>
     {% if q %}
-        <p class="count">
-            Displaying {{ people|length }} persons of {{ people.getTotalItemCount }} total. </p>
+        {% include 'partial/count.html.twig' with {'index': people, 'label': 'people'} %}
     {% endif %}
 {% endblock %}
 
 {% block body %}
 
     {% include 'partial/search-form.html.twig' with {'path': path('person_search')} %}
-
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                <th>Full Name</th>
-                {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                    <th>Sortable Name</th>
-                {% endif %}
-                <th>Gender</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for person in people %}
-                <tr>
-                    <td>
-                        <a href="{{ path('person_show', { 'id': person.id }) }}">
-                            {{ person }}
-                        </a>
-                    </td>
-                    {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                        <td>
-                            {{ person.sortableName }}
-                        </td>
-                    {% endif %}
-                    <td>
-                        {% include 'person/partial/gender.html.twig' %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+    {% if people|length > 0 %}
+        {% include 'person/partial/index.html.twig' %}
+    {% else %}
+        {% include 'partial/search-no-results.html.twig' %}
+    {% endif %}
+    
     {% if q %}
         <div class="navigation">
             {{ knp_pagination_render(people) }}

@@ -2,20 +2,25 @@
 
 {% block title %}Theme Search{% endblock %}
 
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'theme', 'show': 'Search'} %}
+{% endblock %}
+
 {% block pageheader %}
     <h1>Theme Search</h1>
     {% if q %}
-        <p class="count">
-            Displaying {{ themes|length }} themes of {{ themes.getTotalItemCount }} total. </p>
+    {% include 'partial/count.html.twig' with {'index': themes, 'label': 'themes'} %}
     {% endif %}
 {% endblock %}
 
 {% block body %}
 
     {% include 'partial/search-form.html.twig' with {'path': path('theme_search')} %}
-
-    {% include '@NinesUtil/term/partial/index.html.twig' with {'terms': themes, 'path': 'theme_show'} %}
-
+    {% if themes|length > 0 %}
+    {% include 'theme/partial/index.html.twig' %}
+    {% else %}
+    {% include 'partial/search-no-results.html.twig' %}
+    {% endif %}
     {% if q %}
         <div class="navigation">
             {{ knp_pagination_render(themes) }}

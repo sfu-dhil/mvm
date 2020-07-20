@@ -3,15 +3,13 @@
 {% block title %}Manuscript Feature List{% endblock %}
 
 {% block pageheader %}
-    <h1>Manuscript Feature List</h1>
-    <p class="count">
-        Displaying {{ manuscriptFeatures|length }} manuscriptFeatures of {{ manuscriptFeatures.getTotalItemCount }}
-        total. </p>
+    <h1>Manuscript Features</h1>
+{% include 'partial/count.html.twig' with {'index': manuscriptFeatures, 'label': 'features'} %}
 {% endblock %}
 
 {% block body %}
 
-    <table class="table table-bordered table-condensed table-hover table-striped">
+    <table class="table">
         <thead>
             <tr>
                 <th>Manuscript</th>

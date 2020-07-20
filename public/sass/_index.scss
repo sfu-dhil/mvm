@@ -1,0 +1,232 @@
+/* Special styling rules for the index page only */
+
+#index{
+ .navbar {
+    margin-bottom:0;
+    & > .container{
+        background: $mvm-dark-purple;
+    }
+    &:after{
+        content:unset;
+    }
+}
+
+article.container{
+    margin-top: -7.5rem;
+}
+
+
+.jumbotron{
+    height: 42rem;
+    background-image: url('../images/hero.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    & > .container {
+        color: $mvm-white;
+        text-align:center;
+        padding:2rem;
+        background: rgba(#12021A,0.8);
+        & > p{
+            font-family: "EB Garamond";
+            font-weight:400;
+            text-align:left;
+            line-height: $hero-line-height;
+            font-size: $hero-font-size;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            max-width:$hero-para-width;
+            margin-left: auto;
+            margin-right:auto;
+            margin-top:map.get($typescale, 1);
+            
+            /* Hide the overflow */
+            overflow: hidden; 
+            
+            /* Set the max-height in case -webkit-box isn't available */
+            /* Note that this is in ems rather than rems */
+            max-height: #{$hero-max-lines * $hero-line-height}em;
+
+            /* But if -webkit-box is available, then we can use the much nicer -webkit-line-clamp,
+             * which provdes ellipses when truncated */
+            @supports (display: -webkit-box){
+                max-height:unset;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: $hero-max-lines; 
+                -webkit-box-orient: vertical;
+            }
+        }
+      a.readMore{
+         color: white;
+         font-weight: bold;
+         margin-left: 1rem;
+         padding: 0.25rem;
+         border: 1px solid $mvm-white;
+         background-color:transparent;
+         display:block;
+         float: right;
+         transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+         text-decoration:none;
+         /* Max this flush right with the paragraph */
+         @supports (margin-right: max(0px)){
+             margin-right: max(calc((100% - #{$hero-para-width})/2), 0px);
+         }
+         &:hover{
+             background-color: $mvm-white;
+             color: $mvm-dark-purple;
+             text-decoration:none;
+             
+         }
+      }
+    }
+    
+}
+
+
+ul.period-list{
+    display:flex;
+    list-style-type:none;
+    padding-left:0;
+    & > li{
+        flex: auto;
+
+        font-size:map.get($typescale, 4);
+        font-family: "EB Garamond";
+        text-align:center;
+        & > a {
+            border-bottom:none;
+             border-top:1px solid black;
+        border-bottom:1px solid black;
+        display:block;
+        width:100%;
+        height:100%;
+        padding: 0.5rem 0;
+        transition:background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        
+        &:hover{
+            background-color: $mvm-dark-purple;
+            color:$mvm-white;
+        }
+        }
+    }
+    
+}
+
+input.contributor{
+    width:90%;
+    transform: translateX(-50%);
+    left: 50%;
+    border:none;
+    position:relative;
+    border-bottom: 2px solid $mvm-brown;
+    font-size: map.get($typescale, 3);
+    font-family: "EB Garamond";
+}
+
+ul.archive-gallery{
+    display:flex;
+    flex-wrap:wrap;
+    padding-left: 0;
+    list-style-type:none;
+    margin-bottom:map.get($typescale, 2);
+    & > li{
+        display:block;
+        margin:1rem;
+        flex: 1 1 25%;
+        height:13rem;
+        position:relative;
+        overflow:hidden;
+        &:before{
+            content: "";
+            background-image: url('../images/marble.jpeg');
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            filter: grayscale(40%);
+            transform: scale(1.01);
+            transition: filter 0.2s ease-in-out, transform 0.25s ease-in-out;
+        }
+        &:hover:before{
+            filter: grayscale(0%);
+            transform: scale(1.02);
+        }
+        & > a{
+            border-bottom:none!important;
+            font-size:map.get($typescale, 4);
+            font-family: "EB Garamond";
+            display:block;
+            height:100%;
+            width:100%;
+            font-style:italic;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color: $mvm-white;
+            z-index:9000;
+            & > span {
+                display:block;
+                display:flex;
+                z-index:9000;
+                align-items:center;
+                justify-content:center;
+                text-align:center;
+                height:90%;
+                width:90%;
+                padding:1rem;
+                backdrop-filter: blur(1px);
+                background:rgba($mvm-black, 0.65);
+                
+            }
+        }
+        
+    }
+}
+
+section{
+    &:first-child{
+        padding-top:0rem;
+        
+    }
+    & + section{
+        border-top: 3px solid rgba(#290741, 0.66);
+        width:100%;
+        padding:map.get($typescale, 1) 0;
+    }
+    & > h2{
+        &:before{
+            content: "❧";
+            display:inline;
+            margin-right:1rem;
+        }
+    }
+    
+}
+
+}
+
+@media (max-width: 993px){
+    #index {
+        ul.archive-gallery{
+            & > li{
+                flex-basis:100%;
+                min-height:6rem;
+            }
+        }
+      article.container{
+            margin-top:-2rem;
+        }
+        
+        section,
+        section + section{
+            width:90%;
+            margin: 0 auto;
+        }
+    }
+    
+}
+
+
+
+

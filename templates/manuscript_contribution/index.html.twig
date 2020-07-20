@@ -3,15 +3,13 @@
 {% block title %}Manuscript Contribution List{% endblock %}
 
 {% block pageheader %}
-    <h1> List</h1>
-    <p class="count">
-        Displaying {{ manuscriptContributions|length }} manuscript contributions
-        of {{ manuscriptContributions.getTotalItemCount }} total. </p>
+    <h1>Manuscript Contributions</h1>
+{% include 'partial/count.html.twig' with {'index': manuscriptContributions, 'label': 'manuscript contributions'} %}
 {% endblock %}
 
 {% block body %}
 
-    <table class="table table-bordered table-condensed table-hover table-striped">
+    <table class="table">
         <thead>
             <tr>
                 <th>Manuscript</th>

@@ -1,0 +1,556 @@
+/* 
+ * Base SCSS stylesheet for the Manuscript Verse Miscellanies
+ * Database.
+ * 
+ * @author: Joey Takeda
+ * @date: 2020
+ */
+ 
+ /**
+ * Namespaces 
+ * 
+ **/
+
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:color';
+@use 'sass:list';
+/* 
+ * Imports 
+ */
+ 
+ @import "_variables.scss";
+ @import "_fonts.scss";
+ @import "_functions.scss";
+ @import "_breadcrumb.scss";
+
+/* 
+ * Root
+ */
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html{
+    font-size:1rem;
+}
+
+ body{
+     background-color: $mvm-tan;
+     font-size:1rem;
+     font-family: "Nunito Sans";
+     line-height: 1.6;
+     overflow-x:hidden;
+     img{
+         max-width:100%;
+     }
+ }
+
+ nav.navbar{
+     background: $mvm-dark-purple;
+     color: $mvm-white;
+     z-index:1;
+     position:static;
+     border-radius:0;
+     box-shadow:unset;
+     border:none;
+     &:after{
+         content:"";
+         display:block;
+         height: 28vh;
+
+     }
+     .navbar-nav{
+     .brand{
+         margin-right:1rem;
+     }
+        & > li{
+        margin-top: .4rem;
+        margin-bottom: -.2rem;
+            &.open > a,
+            &.open > a:hover,
+            &.open > a:focus{
+                background:#fff;
+                color:black;
+            }
+            & > a{
+                color:$mvm-white;
+                &:after{
+                       content: "";
+                       opacity:0;
+                       display:block;
+                       width:1%;
+                       margin-top:.5rem;
+                       margin-left:auto;
+                       margin-right:auto;
+                       height:2px;
+                       background-color:$mvm-white;
+                       transition:opacity 0.3s ease-in-out, width 0.3s ease-in-out;
+                }
+               &:hover, &:focus{
+                   color:$mvm-white;
+                   &:after{
+                       opacity:1;
+                       width:100%;
+                   }
+                   
+               }
+           }
+      & .current > a{
+          font-weight:bold;
+      }     
+       }
+   }
+ }
+ 
+
+ 
+.list-group-horizontal{
+    list-style-type:none;
+    display:flex;
+    justify-content:center;
+    margin:map.get($typescale, 5) auto;
+    font-size: map.get($typescale, 7);
+    padding:0;
+    li{
+        padding: 0 map.get($typescale, 9);
+        &:not(:first-child){
+            border-left: 1px solid rgba($mvm-brown, .5);
+        }
+    }
+}
+ 
+article.container{
+     margin-top:-28.5vh;
+     background-color:$mvm-white;
+     z-index:9000;
+     margin-left:auto;
+     margin-right:auto;
+     padding: 2rem 5rem 5rem 5rem;
+     min-height:90vh;
+     /* Now the nav stuff at the top */
+
+   
+    .body-nav{
+        display:flex;
+        flex-wrap: wrap;
+        justify-content:space-between;
+        margin-top:0;
+        margin-bottom:map.get($typescale, 3);
+        align-items:end;
+        > *{
+            margin-bottom:map.get($typescale, 5);
+        }
+        .btn-toolbar{
+            margin-top: -1px;
+        }
+    }
+
+
+     /* Now the gallery */
+     
+     .gallery{
+         display:flex;
+         flex-wrap:wrap;
+         
+         .item {
+            &.empty{
+                border:none;
+                margin:none;
+                padding:none;
+                box-shadow:none;
+                min-width:0;
+            }
+            flex:1 0 21%;
+            margin:map.get($typescale, 3) map.get($typescale, 6);
+            padding: map.get($typescale, 5);
+            min-width:15rem;
+            border: 2px solid rgba($mvm-brown, 0.3);
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.2s ease-in-out;
+            &:hover{
+                border-color: rgba($mvm-brown, 0.8);
+                
+            }
+            h1{
+                font-size: map.get($typescale, 4);
+                text-align:center;
+                margin-bottom:map.get($typescale, 5);
+            }
+            table {
+                font-size: average(map.get($typescale,6), map.get($typescale, 7));
+                tbody{
+                    tr{
+                        th{
+                            padding-right:map.get($typescale, 6);
+                            font-weight:500;
+                            font-style:italic;
+
+                            &:after{
+                                content:":";
+                            }
+                        }
+                        th,td{
+                            padding-top:map.get($typescale, 9);
+                            padding-bottom:map.get($typescale, 9);
+                            vertical-align:top;
+                        }
+                        
+                    }
+                }
+               
+                
+               
+            }
+            .description{
+                border-top: 1px solid rgba($mvm-brown, 0.5);
+                margin-top:map.get($typescale, 8);
+                
+                padding: map.get($typescale, 6) 0;
+                font-size: average(map.get($typescale,6), map.get($typescale, 7));
+               /* & > p::before{
+                    content: "❧";
+                    display:inline;
+                    margin-right:1rem;
+                }*/
+            }
+         }
+     }
+     
+     header{
+         text-align:center;
+         h1{
+             margin-bottom:map.get($typescale, 5);
+             .firstLine{
+                 font-size:0.95em;
+                 font-style:italic;
+                 &:before{
+                     content: "“";
+                 }
+                 &:after{
+                     content:"”";
+                 }
+             }
+         }
+           &:after{
+             display:block;
+             content:"❧";
+             margin-bottom:map.get($typescale, 5);
+             text-align:center;
+             font-size:2.5rem;
+         }
+    }
+    
+     main{
+        a:not(.btn):not(.page-link){
+            @include link;
+      }
+      /* Note that breadcrumbs are handled in their own module */
+        a:hover, a:focus{
+         text-decoration:none;
+        }
+     
+         ul.nav-pills{
+             display:flex;
+             & > li.nav-item{
+                 flex: 1;
+                 text-align:center;
+                 font-size:map.get($typescale, 6);
+                 background: $mvm-grey;
+                 
+                 &.active{
+                     & > a {
+                         background: $mvm-dark-purple;
+                         color:$mvm-white;
+                         border-radius:0;
+                         &:hover{
+                             color:$mvm-white;
+                         }
+                     }
+                 }
+                 a{
+                   color:$mvm-black;
+                   padding-bottom:.5rem;
+                   border-bottom:none;
+                   height: 100%;
+                   display: flex;
+                   justify-content: center;
+                   align-items: center;
+                    &:hover, &:visited{
+                        border-bottom:none;
+                    }
+ 
+                 }
+             }
+         }
+         div.tab-content{
+             width: 95%;
+             margin:map.get($typescale, 3) auto;
+             .text-right{
+                 margin:2rem 0;
+             }
+            .btn-toolbar{
+                margin-top:map.get($typescale, 8);
+                margin-bottom:map.get($typescale, 6);
+             }      
+             
+             .tab-pane.active[id*='transcription']{
+                 display:flex;
+                 width:100%;
+                 justify-content:space-between;
+                 > div{
+                     flex: 0 1 45%;
+                     table{
+                        font-size:average(map.get($typescale,6), map.get($typescale, 7));
+                        /* If we want a sticky table */
+                       /*   top:map.get($typescale, 8);
+                        position:sticky; */
+                        th {
+                            vertical-align:top;
+                        }
+                    }
+                 }
+       
+             }
+             .item{
+                 flex-basis:40%;
+             }
+         
+         }
+    
+     }
+     form{
+         margin-bottom:map.get($typescale, 4);
+     }
+     
+     /* Gallery items have margins that push the galleries too far down
+      * after the search form. */
+     form + .gallery{
+         margin-top: -2rem;
+     }
+     table.table {
+        border-collapse:separate;
+
+        border-color: rgba($mvm-brown, 0.15);
+        th, td{
+            padding: map.get($typescale, 7) map.get($typescale, 5);
+            & > p{
+                 overflow-wrap: break-word;
+                 word-wrap: break-word;
+                 word-break: break-word;
+            }
+            /* Constraint paragraph width IFF the cell count
+             * is greater than 3  */
+            &:nth-child(n+3) > p{
+               max-width: 25rem;
+            }
+            &.number{
+                text-align:right;
+            }
+        }
+        thead > tr > th:not(:last-child),
+        tbody > tr > td:not(:last-child){
+            border-right-style: solid;
+            border-right-color: rgba($mvm-brown, 0.15);
+            border-right-width: 2px;
+        }
+        
+        thead {
+   
+        }
+        
+         tbody{
+            
+            .tag-list{
+                list-style-type:none;
+                display:flex;
+                flex-wrap:wrap;
+                margin: 0;
+                padding: 0;
+                align-items:center;
+                & > li{
+                   margin-top:map.get($typescale, 7);
+                   margin-bottom:map.get($typescale, 7);
+                    margin-right: map.get($typescale, 7);
+                    & > a.tag{
+                    padding:map.get($typescale, 9) map.get($typescale, 7);
+                     border:2px solid rgba($mvm-dark-purple, 0.2);
+                     background-color: $mvm-white;
+                    transition: border-color 0.2s ease-in-out, 
+                    background 0.2s ease-in-out,
+                    color 0.2s ease-in-out;
+                     &:hover{
+                         border-color: rgba($mvm-dark-purple, 0.5);
+                         background-color: $mvm-dark-purple;
+                         color: $mvm-white;
+                         text-decoration:none;
+                     }
+                    }
+                }
+            }
+            tr{
+
+                th,td{
+                  border-top-color: rgba($mvm-brown, 0.15);
+                  border-top-width: 2px;
+                  vertical-align:middle;
+                }
+                &:first-child{
+                  th, td{
+                     border-top:none;
+                  }
+                }
+            }
+         }
+     }
+     .navigation{
+         text-align:right;
+     }
+ }
+ 
+ /* 
+  * Headings
+  * */
+ 
+ /*
+ * Headings
+ * 
+ * This little formula iterates through all of the heading levels
+ * and associates it with the typography scale
+ */ 
+ @for $i from 1 to 6 {
+  h#{$i} {
+    font-size: map.get($typescale, $i);
+    font-family: "EB Garamond";
+    margin-bottom:map.get($typescale, $i);
+    & > a{
+        line-height: 1.4;
+    }
+  }
+  article.born-digital h#{$i}{
+      @if ($i > 1 ){
+        margin-top: map.get($typescale, $i);    
+      }
+      margin-bottom: map.get($typescale, 6);
+  }
+  
+}
+
+
+ /* 
+  * Footer
+  * */
+ 
+/*
+ *  Footer
+ *  */
+
+footer{
+    & > .container{
+        display:flex;
+        flex-wrap:wrap;
+        margin: 4rem auto;
+        justify-content:space-between;
+        align-content:center;
+        &:after{
+            content:unset;
+         }
+        &:before{
+          content: "";
+          background: url('../images/fleur.svg');
+          height: 2rem;
+          background-size: contain;
+          display:block;
+          width: calc(100% + 6rem);
+          margin-bottom:3rem;
+          margin-left:-3rem;
+          margin-right:-3rem;
+        }
+     }
+    
+    ul, li{
+        list-style-type:none;
+        padding:0;
+        margin:0;
+    }
+
+    .footer-menu{
+        display:flex;
+        flex:0.25 1 30%;
+        flex-wrap:wrap;
+        ul{
+            columns: 3;
+            li{
+                margin: 1rem;
+                &:first-child{
+                    margin-top: 0;
+                }
+            }
+            a{
+               color:$mvm-dark-purple;
+             }
+            }
+    }
+
+    .footer-imgs{
+        align-self:flex-start;
+        ul{
+             display:flex;
+             flex-direction:row;
+             text-align:right;
+             flex-wrap:wrap;
+             li{
+                 margin-right: 1rem;
+                 margin-top: 1rem;
+             }
+        }
+        img{
+            max-height:8rem;
+            filter:grayscale(0%);
+            transition: filter 0.2s ease-in-out;
+            &:hover{
+                filter:grayscale(100%);
+            }
+        }
+
+    }
+}
+
+.pagination{
+    & > li{
+        &.active{
+            & > a{
+                background-color:$mvm-dark-purple;
+                border-color: $mvm-dark-purple;
+                color:$mvm-white;
+            }
+        }
+        & > a{
+            color:$mvm-dark-purple;
+            &:hover{
+                background-color:$mvm-dark-purple;
+                border-color: $mvm-dark-purple;
+                color:white;
+            }
+        }
+    }
+}
+
+.cat-description{
+    & > p {
+      max-width: 60rem;
+      margin: 0 auto;
+    }
+    & + p > a{
+      @include link;  
+    }
+    
+}
+ 
+ @import "_index.scss";
+
+ /* Alwys import media last */
+  @import "_media.scss";

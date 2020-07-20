@@ -3,23 +3,40 @@
 {% block title %}Manuscript Role List{% endblock %}
 
 {% block pageheader %}
-    <h1>Manuscript Role List</h1>
-    <p class="count">
-        Displaying {{ manuscriptRoles|length }} manuscript roles of {{ manuscriptRoles.getTotalItemCount }} total. </p>
+    <h1>Manuscript Roles</h1>
+{% include 'partial/count.html.twig' with {'index': manuscriptRoles, 'label': 'manuscript roles'} %}
+{% endblock %}
+
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_role', 'index_label': 'Manuscript Roles'} %}
+{% endblock %}
+
+{% block admin %}
+{% include 'partial/toolbar.html.twig' with {'new': 'manuscript_role_new' } %}
 {% endblock %}
 
 {% block body %}
 
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('manuscript_role_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-        </div>
-    </div>
-
-    {% include '@NinesUtil/term/partial/index.html.twig' with {'terms': manuscriptRoles, 'path': 'manuscript_role_show'} %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Role</th>
+                <th>Description</th>
+                <th>Contributions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for role in manuscriptRoles %}
+                <tr>
+                    <td><a href="{{ path('manuscript_role_show', {'id': role.id}) }}">{{ role.label }}</a></td>
+            
+                    <td>{{ role.description|raw }}</td>
+                    <td class="number">{{ role.contributions|length }}</td>
+                </tr>
+           
+            {% endfor %}
+        </tbody>
+    </table>
 
     <div class="navigation">
         {{ knp_pagination_render(manuscriptRoles) }}

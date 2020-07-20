@@ -1,54 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Manuscript List{% endblock %}
+{% block title %}Manuscripts{% endblock %}
 
-{% block pageheader %}
-    <h1>Manuscript List</h1>
-    <p class="count">
-        Displaying {{ manuscripts|length }} manuscripts of {{ manuscripts.getTotalItemCount }} total. </p>
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript'} %}
 {% endblock %}
 
+{% block pageheader %}
+    <h1>Manuscripts</h1>
+    {% include 'partial/count.html.twig' with {'index': manuscripts, 'label': 'manuscripts'} %}
+
+{% endblock %}
+
+
+{% block admin %}
+{% include 'partial/toolbar.html.twig' with {'new': 'manuscript_new'} %}
+{% endblock %}
+
+
 {% block body %}
+{% include 'partial/search-form.html.twig' with {'path': path('manuscript_search'), 'help': 'Search for manuscripts by manuscript title or call number.', 'q': ''} %}
 
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('manuscript_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-            <a href="{{ path('manuscript_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search </a>
-        </div>
-    </div>
 
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                <th>Call number</th>
-                <th>Title</th>
-                <th>Periods</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for manuscript in manuscripts %}
-                <tr>
-                    <td>
-                        <a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">
-                            {{ manuscript.callNumber }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">
-                            {{ manuscript.title }}
-                        </a>
-                    </td>
-                    <td>{{ manuscript.periods|join(", ") }}</td>
-                    <td>{{ manuscript.description|raw }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {% include 'manuscript/partial/gallery.html.twig' %}
+
 
     <div class="navigation">
         {{ knp_pagination_render(manuscripts) }}

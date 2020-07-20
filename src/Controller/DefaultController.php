@@ -10,6 +10,15 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Archive;
+use App\Form\ArchiveType;
+use App\Repository\ArchiveRepository;
+use App\Entity\Period;
+use App\Form\PeriodType;
+use App\Repository\PeriodRepository;
+use Nines\BlogBundle\Entity;
+use Nines\BlogBundle\Entity\Page;
+use Nines\BlogBundle\Entity\Post;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -27,7 +36,18 @@ class DefaultController extends AbstractController implements PaginatorAwareInte
      * @return array
      */
     public function indexAction(Request $request) {
-        return [];
+        $em = $this->getDoctrine()->getManager();
+        
+        $archives = $em->getRepository(Archive::class)->findBy([], ['label' => 'ASC']);
+        $periods = $em->getRepository(Period::class)->findBy([], ['label' => 'ASC']);
+        
+        $pageRepo = $em->getRepository(Page::class);
+        
+        return [
+            'archives' => $archives,
+            'periods' => $periods,
+            'homepage' => $pageRepo->findHomepage()
+        ];
     }
 
     /**

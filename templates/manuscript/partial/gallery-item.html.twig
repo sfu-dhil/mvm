@@ -1,0 +1,51 @@
+{# manuscript/partial/gallery-item.html.twig #}
+
+{# Creates an manuscript item for use within a gallery context,
+either in the body of a page or within the contents of a tab #}
+
+{# Requires: manuscripts #}
+
+<div class="item">
+    <h1><a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">{{ manuscript.callNumber }}</a></h1>
+    <table>
+        <tbody>
+            <tr>
+                <th>Title</th>
+                <td>{{ manuscript.title|u.truncate(50,'[...]') }}</td>
+            </tr>
+            {% if manuscript.periods|length > 0 %}
+            <tr>
+                <th>Period</th>
+                <td>{% for period in manuscript.periods %}
+                    <a href="{{ path('period_show', { 'id': period.id}) }}">
+                        {{ period }}
+                    </a>
+                    {%- if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endif %}
+            
+            {% if manuscript.archive is not null %}
+            <tr>
+                <th>Archive</th>
+                <td><a href="{{ path('archive_show', {'id' : manuscript.archive.id}) }}">{{ manuscript.archive }}</a></td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    
+    
+    {% if manuscript.description is not null or (callbackDescription is defined and callbackDescription is not null) %}
+  
+        {% if callbackDescription is defined %}
+            {% if callbackDescription is not null %}
+                <div class="description">{{ callbackDescription|raw }}</div>
+            {% endif %}
+        {% else %}
+            <div class="description">{{ manuscript.description | raw }}</div>
+        {% endif %}
+    
+    {% endif %}
+    
+</div>

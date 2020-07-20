@@ -1,21 +1,29 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% block title %}Archive Search{% endblock %}
+
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'archive','show':'Search'} %}
+{% endblock %}
 
 {% block pageheader %}
     <h1>Archive Search</h1>
     {% if q %}
-        <p class="count">
-            Displaying {{ archives|length }} archives of {{ archives.getTotalItemCount }} total. </p>
+        {% include 'partial/count.html.twig' with {'index': archives, 'label': 'archives'} %}
     {% endif %}
 {% endblock %}
 
 {% block body %}
 
     {% include 'partial/search-form.html.twig' with {'path': path('archive_search')} %}
-
-    {% include '@NinesUtil/term/partial/index.html.twig' with {'terms': archives, 'path': 'archive_show'} %}
-
+    
+    {% if archives|length > 0 %}
+        {% include 'archive/partial/index.html.twig' %}
+    {% else %}
+        {% include 'partial/search-no-results.html.twig' %}
+    {% endif %}
     {% if q %}
         <div class="navigation">
             {{ knp_pagination_render(archives) }}

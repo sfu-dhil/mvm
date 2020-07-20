@@ -2,6 +2,11 @@
 
 {% block title %}Content Edit{% endblock %}
 
+
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'content', 'show': content.firstLine} %}
+{% endblock %}
+
 {% block body %}
     <h1>Content Edit</h1>
 

@@ -2,6 +2,9 @@
 
 {% block title %}New Content{% endblock %}
 
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'content', 'show': 'New'} %}
+{% endblock %}
 
 {% block body %}
     <h1>New Content</h1>

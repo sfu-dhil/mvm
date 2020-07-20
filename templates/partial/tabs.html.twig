@@ -1,0 +1,40 @@
+
+{% set tabs = tabs|filter(v => v is not empty) %}
+
+<ul class="nav nav-pills" id="tabs" role="tablist">
+    {% for key,val in tabs %} 
+    {% set id = key|replace({'&amp;': ''})|u.camel %}
+    <li class="nav-item{% if loop.first %} active{% endif %}">
+        <a class="nav-link{% if loop.first %} active{% endif %}" id="{{ id }}-tab" data-toggle="tab" href="#{{ id }}" role="tab" aria-controls="{{ id }}" aria-selected="{{ loop.first }}">{{ key|raw }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<div class="tab-content" id="tabContent">
+    {% for key,val in tabs %}
+    {% set id = key|replace({'&amp;': ''})|u.camel %}
+    <div class="tab-pane {% if loop.first %}active{% else %}fade{% endif %}" id="{{ id }}" role="tabpanel" aria-labelledby="{{ id }}-tab">
+        {{ val }}
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+  
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+

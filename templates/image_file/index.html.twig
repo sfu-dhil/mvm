@@ -3,25 +3,16 @@
 {% block title %}ImageFile List{% endblock %}
 
 {% block pageheader %}
-    <h1>ImageFile List</h1>
-    <p class="count">
-        Displaying {{ imageFiles|length }} imageFiles of {{ imageFiles.getTotalItemCount }} total. </p>
+    <h1>Image Files</h1>
+{% include 'partial/count.html.twig' with {'index': imageFiles, 'label': 'image files'} %}
 {% endblock %}
 
 {% block body %}
 
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('image_file_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-            <a href="{{ path('image_file_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search </a>
-        </div>
-    </div>
 
-    <table class="table table-bordered table-condensed table-hover table-striped">
+{% include 'partial/toolbar.html.twig' with {'new': 'image_file_new'} %}
+
+    <table class="table">
         <thead>
             <tr></tr>
         </thead>

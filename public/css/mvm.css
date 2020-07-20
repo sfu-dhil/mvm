@@ -1,0 +1,1029 @@
+@charset "UTF-8";
+/* 
+ * Base SCSS stylesheet for the Manuscript Verse Miscellanies
+ * Database.
+ * 
+ * @author: Joey Takeda
+ * @date: 2020
+ */
+/**
+* Namespaces 
+* 
+**/
+/* 
+ * Imports 
+ */
+/* Here is where we stash all of the variables */
+/* 'Nunito Sans' normal 200*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 200;
+  src: local("Nunito Sans ExtraLight"), local("NunitoSans-ExtraLight"), url("../fonts/NunitoSans-ExtraLight-200.woff2") format("woff2"), url("../fonts/NunitoSans-ExtraLight-200.woff") format("woff");
+}
+/* 'Nunito Sans' italic 200*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 200;
+  src: local("Nunito Sans ExtraLight Italic"), local("NunitoSans-ExtraLightItalic"), url("../fonts/NunitoSans-ExtraLightItalic-200.woff2") format("woff2"), url("../fonts/NunitoSans-ExtraLightItalic-200.woff") format("woff");
+}
+/* 'Nunito Sans' normal 300*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Nunito Sans Light"), local("NunitoSans-Light"), url("../fonts/NunitoSans-Light-300.woff2") format("woff2"), url("../fonts/NunitoSans-Light-300.woff") format("woff");
+}
+/* 'Nunito Sans' italic 300*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 300;
+  src: local("Nunito Sans Light Italic"), local("NunitoSans-LightItalic"), url("../fonts/NunitoSans-LightItalic-300.woff2") format("woff2"), url("../fonts/NunitoSans-LightItalic-300.woff") format("woff");
+}
+/* 'Nunito Sans' normal 400*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Nunito Sans Regular"), local("NunitoSans-Regular"), url("../fonts/NunitoSans-Regular-400.woff2") format("woff2"), url("../fonts/NunitoSans-Regular-400.woff") format("woff");
+}
+/* 'Nunito Sans' italic 400*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Nunito Sans Italic"), local("NunitoSans-Italic"), url("../fonts/NunitoSans-Italic-400.woff2") format("woff2"), url("../fonts/NunitoSans-Italic-400.woff") format("woff");
+}
+/* 'Nunito Sans' normal 700*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Nunito Sans Bold"), local("NunitoSans-Bold"), url("../fonts/NunitoSans-Bold-700.woff2") format("woff2"), url("../fonts/NunitoSans-Bold-700.woff") format("woff");
+}
+/* 'Nunito Sans' italic 700*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 700;
+  src: local("Nunito Sans Bold Italic"), local("NunitoSans-BoldItalic"), url("../fonts/NunitoSans-BoldItalic-700.woff2") format("woff2"), url("../fonts/NunitoSans-BoldItalic-700.woff") format("woff");
+}
+/* 'Nunito Sans' normal 800*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 800;
+  src: local("Nunito Sans ExtraBold"), local("NunitoSans-ExtraBold"), url("../fonts/NunitoSans-ExtraBold-800.woff2") format("woff2"), url("../fonts/NunitoSans-ExtraBold-800.woff") format("woff");
+}
+/* 'Nunito Sans' italic 800*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 800;
+  src: local("Nunito Sans ExtraBold Italic"), local("NunitoSans-ExtraBoldItalic"), url("../fonts/NunitoSans-ExtraBoldItalic-800.woff2") format("woff2"), url("../fonts/NunitoSans-ExtraBoldItalic-800.woff") format("woff");
+}
+/* 'Nunito Sans' italic 900*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 900;
+  src: local("Nunito Sans Black Italic"), local("NunitoSans-BlackItalic"), url("../fonts/NunitoSans-BlackItalic-900.woff2") format("woff2"), url("../fonts/NunitoSans-BlackItalic-900.woff") format("woff");
+}
+/* 'Nunito Sans' normal 900*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 900;
+  src: local("Nunito Sans Black"), local("NunitoSans-Black"), url("../fonts/NunitoSans-Black-900.woff2") format("woff2"), url("../fonts/NunitoSans-Black-900.woff") format("woff");
+}
+/* 'EB Garamond' normal 500*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/-500.woff2") format("woff2"), url("../fonts/-500.woff") format("woff");
+}
+/* 'EB Garamond' normal 600*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/-600.woff2") format("woff2"), url("../fonts/-600.woff") format("woff");
+}
+/* 'EB Garamond' normal 700*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/-700.woff2") format("woff2"), url("../fonts/-700.woff") format("woff");
+}
+/* 'EB Garamond' normal 800*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 800;
+  src: url("../fonts/-800.woff2") format("woff2"), url("../fonts/-800.woff") format("woff");
+}
+/* 'EB Garamond' italic 500*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 500;
+  src: url("../fonts/-500.woff2") format("woff2"), url("../fonts/-500.woff") format("woff");
+}
+/* 'EB Garamond' italic 600*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 600;
+  src: url("../fonts/-600.woff2") format("woff2"), url("../fonts/-600.woff") format("woff");
+}
+/* 'EB Garamond' italic 700*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 700;
+  src: url("../fonts/-700.woff2") format("woff2"), url("../fonts/-700.woff") format("woff");
+}
+/* 'EB Garamond' italic 800*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 800;
+  src: url("../fonts/-800.woff2") format("woff2"), url("../fonts/-800.woff") format("woff");
+}
+.breadcrumbs, .breadcrumbs2 {
+  list-style: none;
+  overflow: hidden;
+  font-weight: 300;
+  padding: 0;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  font-size: 0.8rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin-bottom: 0;
+}
+
+.breadcrumbs li > * {
+  color: black;
+  text-decoration: none;
+  position: relative;
+  display: block;
+  padding: 0.5em 0 0.5em 4em;
+}
+
+/*
+* Now create the various triangles
+* that will overlap; this is the
+* common stuff between the two
+* triangles
+*/
+.breadcrumbs li > *:before,
+.breadcrumbs li > *:after {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  position: absolute;
+  top: 50%;
+  margin-top: -50px;
+  left: 100%;
+  border-left-width: 30px;
+  border-left-style: solid;
+}
+
+.breadcrumbs li:not(:last-child) > *:before {
+  /*This should be the colour
+  you want the arrow*/
+  border-left-color: #E7E7E7;
+  /*The margin left here dictates the width of the arrow*/
+  margin-left: 3px;
+  /*And make sure the zindex is 1*/
+  z-index: 1;
+}
+
+.breadcrumbs li > *:after {
+  /*BORDER LEFT should be the
+  same as the background colour*/
+  border-left-color: white;
+  /*Z index should be 2 to overlap*/
+  z-index: 2;
+}
+
+/*Now small, project specific 
+paddings etc*/
+.breadcrumbs li:first-child > * {
+  padding-left: 1rem;
+}
+
+.breadcrumbs li > *,
+.breadcrumbs li > *:after,
+.breadcrumbs li > *:before {
+  transition: all 0.2s ease-in-out;
+}
+
+.breadcrumbs li:last-child {
+  background: #E7E7E7;
+}
+
+.breadcrumbs li:not(:last-child) > *:hover {
+  background: #efefef;
+}
+.breadcrumbs li:not(:last-child) > *:hover:after, .breadcrumbs li:not(:last-child) > *:hover:before {
+  border-left-color: #efefef;
+}
+
+.breadcrumbs .current {
+  margin-right: 1rem;
+  text-overflow: ellipsis;
+  max-width: 25ch;
+  white-space: nowrap;
+  overflow-x: hidden;
+  font-style: italic;
+}
+li > .breadcrumbs .current {
+  color: rgba(1, 1, 1, 0.8);
+}
+
+.breadcrumbs li:last-child > *:after,
+.breadcrumbs li:last-child > *:before {
+  content: unset;
+}
+
+/* Media query to reset the size of things */
+@media (max-width: 780px) {
+  .current {
+    max-width: 15ch;
+  }
+}
+/* 
+ * Root
+ */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  font-size: 1rem;
+}
+
+body {
+  background-color: #FAF6F5;
+  font-size: 1rem;
+  font-family: "Nunito Sans";
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+body img {
+  max-width: 100%;
+}
+
+nav.navbar {
+  background: #39253B;
+  color: #FFFFFF;
+  z-index: 1;
+  position: static;
+  border-radius: 0;
+  box-shadow: unset;
+  border: none;
+}
+nav.navbar:after {
+  content: "";
+  display: block;
+  height: 28vh;
+}
+nav.navbar .navbar-nav .brand {
+  margin-right: 1rem;
+}
+nav.navbar .navbar-nav > li {
+  margin-top: 0.4rem;
+  margin-bottom: -0.2rem;
+}
+nav.navbar .navbar-nav > li.open > a, nav.navbar .navbar-nav > li.open > a:hover, nav.navbar .navbar-nav > li.open > a:focus {
+  background: #fff;
+  color: black;
+}
+nav.navbar .navbar-nav > li > a {
+  color: #FFFFFF;
+}
+nav.navbar .navbar-nav > li > a:after {
+  content: "";
+  opacity: 0;
+  display: block;
+  width: 1%;
+  margin-top: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  height: 2px;
+  background-color: #FFFFFF;
+  transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+nav.navbar .navbar-nav > li > a:hover, nav.navbar .navbar-nav > li > a:focus {
+  color: #FFFFFF;
+}
+nav.navbar .navbar-nav > li > a:hover:after, nav.navbar .navbar-nav > li > a:focus:after {
+  opacity: 1;
+  width: 100%;
+}
+nav.navbar .navbar-nav > li .current > a {
+  font-weight: bold;
+}
+
+.list-group-horizontal {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  margin: 1.25rem auto;
+  font-size: 0.8rem;
+  padding: 0;
+}
+.list-group-horizontal li {
+  padding: 0 0.512rem;
+}
+.list-group-horizontal li:not(:first-child) {
+  border-left: 1px solid rgba(132, 108, 91, 0.5);
+}
+
+article.container {
+  margin-top: -28.5vh;
+  background-color: #FFFFFF;
+  z-index: 9000;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem 5rem 5rem 5rem;
+  min-height: 90vh;
+  /* Now the nav stuff at the top */
+  /* Now the gallery */
+  /* Gallery items have margins that push the galleries too far down
+   * after the search form. */
+}
+article.container .body-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 0;
+  margin-bottom: 1.953rem;
+  align-items: end;
+}
+article.container .body-nav > * {
+  margin-bottom: 1.25rem;
+}
+article.container .body-nav .btn-toolbar {
+  margin-top: -1px;
+}
+article.container .gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+article.container .gallery .item {
+  flex: 1 0 21%;
+  margin: 1.953rem 1rem;
+  padding: 1.25rem;
+  min-width: 15rem;
+  border: 2px solid rgba(132, 108, 91, 0.3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.2s ease-in-out;
+}
+article.container .gallery .item.empty {
+  border: none;
+  margin: none;
+  padding: none;
+  box-shadow: none;
+  min-width: 0;
+}
+article.container .gallery .item:hover {
+  border-color: rgba(132, 108, 91, 0.8);
+}
+article.container .gallery .item h1 {
+  font-size: 1.563rem;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+article.container .gallery .item table {
+  font-size: 0.9rem;
+}
+article.container .gallery .item table tbody tr th {
+  padding-right: 1rem;
+  font-weight: 500;
+  font-style: italic;
+}
+article.container .gallery .item table tbody tr th:after {
+  content: ":";
+}
+article.container .gallery .item table tbody tr th, article.container .gallery .item table tbody tr td {
+  padding-top: 0.512rem;
+  padding-bottom: 0.512rem;
+  vertical-align: top;
+}
+article.container .gallery .item .description {
+  border-top: 1px solid rgba(132, 108, 91, 0.5);
+  margin-top: 0.64rem;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  /* & > p::before{
+       content: "❧";
+       display:inline;
+       margin-right:1rem;
+   }*/
+}
+article.container header {
+  text-align: center;
+}
+article.container header h1 {
+  margin-bottom: 1.25rem;
+}
+article.container header h1 .firstLine {
+  font-size: 0.95em;
+  font-style: italic;
+}
+article.container header h1 .firstLine:before {
+  content: "“";
+}
+article.container header h1 .firstLine:after {
+  content: "”";
+}
+article.container header:after {
+  display: block;
+  content: "❧";
+  margin-bottom: 1.25rem;
+  text-align: center;
+  font-size: 2.5rem;
+}
+article.container main {
+  /* Note that breadcrumbs are handled in their own module */
+}
+article.container main a:not(.btn):not(.page-link) {
+  text-decoration: none;
+  color: #010101;
+  border-bottom: 0.15rem solid rgba(21, 48, 145, 0.5);
+  line-height: 1.65;
+  transition: border-bottom-color 0.2s ease-in-out;
+}
+article.container main a:not(.btn):not(.page-link):hover, article.container main a:not(.btn):not(.page-link):focus {
+  text-decoration: none;
+  border-bottom-color: rgba(57, 37, 59, 0.8);
+}
+article.container main a:hover, article.container main a:focus {
+  text-decoration: none;
+}
+article.container main ul.nav-pills {
+  display: flex;
+}
+article.container main ul.nav-pills > li.nav-item {
+  flex: 1;
+  text-align: center;
+  font-size: 1rem;
+  background: #E7E7E7;
+}
+article.container main ul.nav-pills > li.nav-item.active > a {
+  background: #39253B;
+  color: #FFFFFF;
+  border-radius: 0;
+}
+article.container main ul.nav-pills > li.nav-item.active > a:hover {
+  color: #FFFFFF;
+}
+article.container main ul.nav-pills > li.nav-item a {
+  color: #010101;
+  padding-bottom: 0.5rem;
+  border-bottom: none;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+article.container main ul.nav-pills > li.nav-item a:hover, article.container main ul.nav-pills > li.nav-item a:visited {
+  border-bottom: none;
+}
+article.container main div.tab-content {
+  width: 95%;
+  margin: 1.953rem auto;
+}
+article.container main div.tab-content .text-right {
+  margin: 2rem 0;
+}
+article.container main div.tab-content .btn-toolbar {
+  margin-top: 0.64rem;
+  margin-bottom: 1rem;
+}
+article.container main div.tab-content .tab-pane.active[id*=transcription] {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+article.container main div.tab-content .tab-pane.active[id*=transcription] > div {
+  flex: 0 1 45%;
+}
+article.container main div.tab-content .tab-pane.active[id*=transcription] > div table {
+  font-size: 0.9rem;
+  /* If we want a sticky table */
+  /*   top:map.get($typescale, 8);
+   position:sticky; */
+}
+article.container main div.tab-content .tab-pane.active[id*=transcription] > div table th {
+  vertical-align: top;
+}
+article.container main div.tab-content .item {
+  flex-basis: 40%;
+}
+article.container form {
+  margin-bottom: 1.563rem;
+}
+article.container form + .gallery {
+  margin-top: -2rem;
+}
+article.container table.table {
+  border-collapse: separate;
+  border-color: rgba(132, 108, 91, 0.15);
+}
+article.container table.table th, article.container table.table td {
+  padding: 0.8rem 1.25rem;
+  /* Constraint paragraph width IFF the cell count
+   * is greater than 3  */
+}
+article.container table.table th > p, article.container table.table td > p {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+article.container table.table th:nth-child(n+3) > p, article.container table.table td:nth-child(n+3) > p {
+  max-width: 25rem;
+}
+article.container table.table th.number, article.container table.table td.number {
+  text-align: right;
+}
+article.container table.table thead > tr > th:not(:last-child),
+article.container table.table tbody > tr > td:not(:last-child) {
+  border-right-style: solid;
+  border-right-color: rgba(132, 108, 91, 0.15);
+  border-right-width: 2px;
+}
+article.container table.table tbody .tag-list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+article.container table.table tbody .tag-list > li {
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  margin-right: 0.8rem;
+}
+article.container table.table tbody .tag-list > li > a.tag {
+  padding: 0.512rem 0.8rem;
+  border: 2px solid rgba(57, 37, 59, 0.2);
+  background-color: #FFFFFF;
+  transition: border-color 0.2s ease-in-out, background 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+article.container table.table tbody .tag-list > li > a.tag:hover {
+  border-color: rgba(57, 37, 59, 0.5);
+  background-color: #39253B;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+article.container table.table tbody tr th, article.container table.table tbody tr td {
+  border-top-color: rgba(132, 108, 91, 0.15);
+  border-top-width: 2px;
+  vertical-align: middle;
+}
+article.container table.table tbody tr:first-child th, article.container table.table tbody tr:first-child td {
+  border-top: none;
+}
+article.container .navigation {
+  text-align: right;
+}
+
+/* 
+ * Headings
+ * */
+/*
+* Headings
+* 
+* This little formula iterates through all of the heading levels
+* and associates it with the typography scale
+*/
+h1 {
+  font-size: 3.052rem;
+  font-family: "EB Garamond";
+  margin-bottom: 3.052rem;
+}
+h1 > a {
+  line-height: 1.4;
+}
+
+article.born-digital h1 {
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2.441rem;
+  font-family: "EB Garamond";
+  margin-bottom: 2.441rem;
+}
+h2 > a {
+  line-height: 1.4;
+}
+
+article.born-digital h2 {
+  margin-top: 2.441rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.953rem;
+  font-family: "EB Garamond";
+  margin-bottom: 1.953rem;
+}
+h3 > a {
+  line-height: 1.4;
+}
+
+article.born-digital h3 {
+  margin-top: 1.953rem;
+  margin-bottom: 1rem;
+}
+
+h4 {
+  font-size: 1.563rem;
+  font-family: "EB Garamond";
+  margin-bottom: 1.563rem;
+}
+h4 > a {
+  line-height: 1.4;
+}
+
+article.born-digital h4 {
+  margin-top: 1.563rem;
+  margin-bottom: 1rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-family: "EB Garamond";
+  margin-bottom: 1.25rem;
+}
+h5 > a {
+  line-height: 1.4;
+}
+
+article.born-digital h5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* 
+ * Footer
+ * */
+/*
+ *  Footer
+ *  */
+footer > .container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 4rem auto;
+  justify-content: space-between;
+  align-content: center;
+}
+footer > .container:after {
+  content: unset;
+}
+footer > .container:before {
+  content: "";
+  background: url("../images/fleur.svg");
+  height: 2rem;
+  background-size: contain;
+  display: block;
+  width: calc(100% + 6rem);
+  margin-bottom: 3rem;
+  margin-left: -3rem;
+  margin-right: -3rem;
+}
+footer ul, footer li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+footer .footer-menu {
+  display: flex;
+  flex: 0.25 1 30%;
+  flex-wrap: wrap;
+}
+footer .footer-menu ul {
+  columns: 3;
+}
+footer .footer-menu ul li {
+  margin: 1rem;
+}
+footer .footer-menu ul li:first-child {
+  margin-top: 0;
+}
+footer .footer-menu ul a {
+  color: #39253B;
+}
+footer .footer-imgs {
+  align-self: flex-start;
+}
+footer .footer-imgs ul {
+  display: flex;
+  flex-direction: row;
+  text-align: right;
+  flex-wrap: wrap;
+}
+footer .footer-imgs ul li {
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+footer .footer-imgs img {
+  max-height: 8rem;
+  filter: grayscale(0%);
+  transition: filter 0.2s ease-in-out;
+}
+footer .footer-imgs img:hover {
+  filter: grayscale(100%);
+}
+
+.pagination > li.active > a {
+  background-color: #39253B;
+  border-color: #39253B;
+  color: #FFFFFF;
+}
+.pagination > li > a {
+  color: #39253B;
+}
+.pagination > li > a:hover {
+  background-color: #39253B;
+  border-color: #39253B;
+  color: white;
+}
+
+.cat-description > p {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+.cat-description + p > a {
+  text-decoration: none;
+  color: #010101;
+  border-bottom: 0.15rem solid rgba(21, 48, 145, 0.5);
+  line-height: 1.65;
+  transition: border-bottom-color 0.2s ease-in-out;
+}
+.cat-description + p > a:hover, .cat-description + p > a:focus {
+  text-decoration: none;
+  border-bottom-color: rgba(57, 37, 59, 0.8);
+}
+
+/* Special styling rules for the index page only */
+#index .navbar {
+  margin-bottom: 0;
+}
+#index .navbar > .container {
+  background: #39253B;
+}
+#index .navbar:after {
+  content: unset;
+}
+#index article.container {
+  margin-top: -7.5rem;
+}
+#index .jumbotron {
+  height: 42rem;
+  background-image: url("../images/hero.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+#index .jumbotron > .container {
+  color: #FFFFFF;
+  text-align: center;
+  padding: 2rem;
+  background: rgba(18, 2, 26, 0.8);
+}
+#index .jumbotron > .container > p {
+  font-family: "EB Garamond";
+  font-weight: 400;
+  text-align: left;
+  line-height: 1.45;
+  font-size: 1.25rem;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  max-width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3.052rem;
+  /* Hide the overflow */
+  overflow: hidden;
+  /* Set the max-height in case -webkit-box isn't available */
+  /* Note that this is in ems rather than rems */
+  max-height: 14.5em;
+  /* But if -webkit-box is available, then we can use the much nicer -webkit-line-clamp,
+   * which provdes ellipses when truncated */
+}
+@supports (display: -webkit-box) {
+  #index .jumbotron > .container > p {
+    max-height: unset;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+  }
+}
+#index .jumbotron > .container a.readMore {
+  color: white;
+  font-weight: bold;
+  margin-left: 1rem;
+  padding: 0.25rem;
+  border: 1px solid #FFFFFF;
+  background-color: transparent;
+  display: block;
+  float: right;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  text-decoration: none;
+  /* Max this flush right with the paragraph */
+}
+@supports (margin-right: max(0px)) {
+  #index .jumbotron > .container a.readMore {
+    margin-right: max(calc((100% - 60rem)/2), 0px);
+  }
+}
+#index .jumbotron > .container a.readMore:hover {
+  background-color: #FFFFFF;
+  color: #39253B;
+  text-decoration: none;
+}
+#index ul.period-list {
+  display: flex;
+  list-style-type: none;
+  padding-left: 0;
+}
+#index ul.period-list > li {
+  flex: auto;
+  font-size: 1.563rem;
+  font-family: "EB Garamond";
+  text-align: center;
+}
+#index ul.period-list > li > a {
+  border-bottom: none;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 0;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+#index ul.period-list > li > a:hover {
+  background-color: #39253B;
+  color: #FFFFFF;
+}
+#index input.contributor {
+  width: 90%;
+  transform: translateX(-50%);
+  left: 50%;
+  border: none;
+  position: relative;
+  border-bottom: 2px solid #846C5B;
+  font-size: 1.953rem;
+  font-family: "EB Garamond";
+}
+#index ul.archive-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  list-style-type: none;
+  margin-bottom: 2.441rem;
+}
+#index ul.archive-gallery > li {
+  display: block;
+  margin: 1rem;
+  flex: 1 1 25%;
+  height: 13rem;
+  position: relative;
+  overflow: hidden;
+}
+#index ul.archive-gallery > li:before {
+  content: "";
+  background-image: url("../images/marble.jpeg");
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: grayscale(40%);
+  transform: scale(1.01);
+  transition: filter 0.2s ease-in-out, transform 0.25s ease-in-out;
+}
+#index ul.archive-gallery > li:hover:before {
+  filter: grayscale(0%);
+  transform: scale(1.02);
+}
+#index ul.archive-gallery > li > a {
+  border-bottom: none !important;
+  font-size: 1.563rem;
+  font-family: "EB Garamond";
+  display: block;
+  height: 100%;
+  width: 100%;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  z-index: 9000;
+}
+#index ul.archive-gallery > li > a > span {
+  display: block;
+  display: flex;
+  z-index: 9000;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 90%;
+  width: 90%;
+  padding: 1rem;
+  backdrop-filter: blur(1px);
+  background: rgba(1, 1, 1, 0.65);
+}
+#index section:first-child {
+  padding-top: 0rem;
+}
+#index section + section {
+  border-top: 3px solid rgba(41, 7, 65, 0.66);
+  width: 100%;
+  padding: 3.052rem 0;
+}
+#index section > h2:before {
+  content: "❧";
+  display: inline;
+  margin-right: 1rem;
+}
+
+@media (max-width: 993px) {
+  #index ul.archive-gallery > li {
+    flex-basis: 100%;
+    min-height: 6rem;
+  }
+  #index article.container {
+    margin-top: -2rem;
+  }
+  #index section,
+#index section + section {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+/* Alwys import media last */
+@media (max-width: 1200px) {
+  article.container .gallery .item {
+    flex-basis: 45%;
+  }
+}
+@media (max-width: 992px) {
+  .tab-pane.active[id*=transcription] {
+    flex-wrap: wrap;
+  }
+  .tab-pane.active[id*=transcription] > div {
+    flex: 1 1 100% !important;
+  }
+  .tab-pane.active[id*=transcription] > div.transcription {
+    margin-left: 1rem;
+  }
+}
+@media (max-width: 768px) {
+  article.container {
+    margin-left: 0rem;
+    margin-right: 0rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  article.container .gallery .item {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  article.container .gallery .item.empty {
+    display: none;
+  }
+
+  header .list-group-horizontal {
+    flex-direction: column;
+  }
+  header .list-group-horizontal li {
+    border-left: none !important;
+  }
+
+  .body-nav .btn-toolbar {
+    margin-left: auto;
+  }
+}
+
+/*# sourceMappingURL=mvm.css.map */

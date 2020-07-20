@@ -3,34 +3,30 @@
 {% block title %}Content Role{% endblock %}
 
  {% block pageheader %}
-     <h1>Content Role Details</h1>
+    {% include 'partial/term-index.html.twig' with {'term': contentRole} %}
  {% endblock %} 
+ 
 
+ {% block breadcrumb %}
+ {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Content Roles', 'show': contentRole} %}
+ {% endblock %}
+ 
+ {% block admin %}
+ {% include 'partial/toolbar.html.twig' with {'edit': 'content_role_edit', 'delete': 'content_role_delete', 'id': contentRole.id } %}
+ {% endblock %}
+ 
 {% block body %}
-    <div class="btn-toolbar">
-        <div class="btn-group pull-right">
-            <a href="{{ path('content_role_index') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-arrow-left"></span> Back </a>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('content_role_edit', { 'id': contentRole.id }) }}" class="btn btn-default">
-                    <span class='glyphicon glyphicon-edit'></span> Edit </a>
-                <a href="{{ path('content_role_delete', { 'id': contentRole.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this ContentRole?">
-                    <span class='glyphicon glyphicon-remove'></span> Delete </a>
-            {% endif %}
-        </div>
-    </div>
-
-    {% embed '@NinesUtil/term/partial/show.html.twig' with {'term': contentRole} %}
-    {% endembed %}
-
+    
     {% if contentRole.contributions | length > 0 %}
-        <h2>Uses of <i>{{ contentRole }}</i></h2>
-        <table class="table table-hover table-condensed table-striped table-bordered">
+    {% set processNote = contentRole.contributions|filter(c => c.note is not empty)|length > 0 %}
+        <table class="table">
             <thead>
                 <tr>
-                    <th>Person</th>
-                    <th>Role</th>
+                    <th>Contributor</th>
                     <th>Content</th>
+                    {% if processNote %}
+                    <th>Note</th>
+                    {% endif %}
                 </tr>
             </thead>
             {% for contribution in contentRole.contributions %}
@@ -38,11 +34,15 @@
                     <td><a href="{{ path('person_show', {'id': contribution.person.id}) }}">
                             {{ contribution.person }}</a>
                     </td>
-                    <td>{{ contentRole }}</td>
                     <td><a href="{{ path('content_show', {'id': contribution.content.id}) }}">
                         {{ contribution.content }}
                         </a>
                     </td>
+                    {% if processNote %}
+                    <td>
+                        {{ contribution.note|raw }}
+                    </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>
