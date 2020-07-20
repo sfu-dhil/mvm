@@ -2,7 +2,9 @@
 
 {% block title %}New Period{% endblock %}
 
-
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'period'} %}
+{% endblock %}
 {% block body %}
     <h1>New Period</h1>
 

@@ -2,25 +2,45 @@
 
 {% block title %}Feature List{% endblock %}
 
-{% block pageheader %}
-    <h1>Feature List</h1>
-    <p class="count">
-        Displaying {{ features|length }} features of {{ features.getTotalItemCount }} total. </p>
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'feature'} %}
 {% endblock %}
 
-{% block body %}
+{% block pageheader %}
+    <h1>Features</h1>
+{% include 'partial/count.html.twig' with {'index': features, 'label': 'features'} %}
+{% endblock %}
 
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('feature_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-        </div>
-    </div>
 
-    {% include '@NinesUtil/term/partial/index.html.twig' with {'terms': features, 'path': 'feature_show'} %}
+{% block admin %}
+{% include 'partial/toolbar.html.twig' with {'new': 'feature_new' } %}
+{% endblock %}
 
+{% block body %}    
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Description</th>
+                    <th>Manuscripts</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feature in features %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('feature_show',{'id': feature.id}) }}">
+                                {{ feature }}
+                            </a>
+                        </td>
+                        <td>{{ feature.description | raw }}</td>
+                        <td class="number">{{ feature.manuscriptFeatures | length }}</td>
+                    </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
     <div class="navigation">
         {{ knp_pagination_render(features) }}
     </div>

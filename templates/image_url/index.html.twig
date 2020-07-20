@@ -3,9 +3,8 @@
 {% block title %}ImageUrl List{% endblock %}
 
 {% block pageheader %}
-    <h1>ImageUrl List</h1>
-    <p class="count">
-        Displaying {{ imageUrls|length }} imageUrls of {{ imageUrls.getTotalItemCount }} total. </p>
+    <h1>Image URLs</h1>
+{% include 'partial/count.html.twig' with {'index': imageUrls, 'label': 'image URLs'} %}
 {% endblock %}
 
 {% block body %}
@@ -21,7 +20,7 @@
         </div>
     </div>
 
-    <table class="table table-bordered table-condensed table-hover table-striped">
+    <table class="table">
         <thead>
             <tr></tr>
         </thead>

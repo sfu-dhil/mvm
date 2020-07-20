@@ -3,20 +3,24 @@
 {% block title %}Content Contribution List{% endblock %}
 
 {% block pageheader %}
-    <h1>Content Contribution List</h1>
-    <p class="count">
-        Displaying {{ contentContributions|length }} content contributions
-        of {{ contentContributions.getTotalItemCount }} total. </p>
+    <h1>Content Contributions</h1>
+{% include 'partial/count.html.twig' with {'index': contentContributions, 'label': 'content contributions'} %}
+{% endblock %}
+
+
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'content_contribution', 'index_label': 'Content Contributions'} %}
 {% endblock %}
 
 {% block body %}
 
-    <table class="table table-bordered table-condensed table-hover table-striped">
+    <table class="table">
         <thead>
             <tr>
                 <th>First line</th>
                 <th>Person</th>
                 <th>Role</th>
+                <th>Note</th>
             </tr>
         </thead>
         <tbody>
@@ -34,6 +38,9 @@
                     </td>
                     <td>
                         {{ contentContribution.role }}
+                    </td>
+                    <td>
+                        {{ contentContribution.note|raw }}
                     </td>
                 </tr>
             {% endfor %}

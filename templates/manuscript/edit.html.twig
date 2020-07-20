@@ -2,6 +2,10 @@
 
 {% block title %}Manuscript Edit{% endblock %}
 
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript', 'show': manuscript.callNumber} %}
+{% endblock %}
+
 {% block body %}
     <h1>Manuscript Edit</h1>
 

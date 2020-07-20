@@ -3,81 +3,25 @@
 {% block title %}Print Source{% endblock %}
 
  {% block pageheader %}
-     <h1>Print Source Details</h1>
- {% endblock %}
-
-{% block body %}
-    <div class="btn-toolbar">
-        <div class="btn-group pull-right">
-            <a href="{{ path('print_source_index') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-arrow-left"></span> Back </a>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('print_source_edit', { 'id': printSource.id }) }}" class="btn btn-default">
-                    <span class='glyphicon glyphicon-edit'></span> Edit </a>
-                <a href="{{ path('print_source_delete', { 'id': printSource.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this PrintSource?">
-                    <span class='glyphicon glyphicon-remove'></span> Delete </a>
-            {% endif %}
-        </div>
-    </div>
-    {% embed '@NinesUtil/term/partial/show.html.twig' with {'term': printSource} %}
+    {% embed 'partial/term-index.html.twig' with {'term': printSource} %}
         {% block callback %}
-            <tr>
-                <th>Region</th>
-                <td>
-                    {% if printSource.region %}
-                        <a href="{{ path('region_show', { 'id': printSource.region.id}) }}">
-                            {{ printSource.region }}
-                        </a>
-                    {% endif %}
-                </td>
-            </tr>
+            {% if printSource.region %}
+                <p>
+                    <a href="{{ path('region_show', {'id': printSource.region.id}) }}">{{ printSource.region }}</a>
+                </p>
+            {% endif %}
         {% endblock %}
     {% endembed %}
+ {% endblock %} 
+ 
+ {% block breadcrumb %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'print_source', 'index_label': 'Print Sources', 'show': printSource.label} %}
+ {% endblock %}
+ 
+{% block admin %}
+ {% include 'partial/toolbar.html.twig' with {'edit': 'print_source_edit', 'delete': 'print_source_delete', 'id': printSource.id} %}
+{% endblock %}
 
-    {% if printSource.manuscripts | length > 0 %}
-        <h2>Manuscripts</h2>
-        <ul>
-            {% for manuscript in printSource.manuscripts %}
-                <li>
-                    <a href="{{ path("manuscript_show", {"id":manuscript.id}) }}">
-                        {{ manuscript }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    {% if printSource.manuscriptContents | length > 0 %}
-        <h2>Manuscript Contents</h2>
-        <table class="table table-bordered table-condensed table-hover table-striped">
-            <thead>
-                <tr>
-                    <th>First line</th>
-                    <th>Call number</th>
-                    <th>Context</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for manuscriptContent in printSource.manuscriptContents %}
-                    <tr>
-                        <td>
-                            <a href='{{ path('content_show', {'id': manuscriptContent.content.id}) }}'>
-                                {{ manuscriptContent.content }}
-                            </a>
-                        </td>
-                        <td>
-                            <a href='{{ path('manuscript_show', {'id': manuscriptContent.manuscript.id}) }}'>
-                                {{ manuscriptContent.manuscript }}
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{{ path('manuscript_content_show', { 'id': manuscriptContent.id }) }}">
-                                {{ manuscriptContent.context|raw }}
-                            </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
+{% block body %}
+ {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': printSource.manuscripts} %}
 {% endblock %}

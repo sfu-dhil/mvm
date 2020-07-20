@@ -1,25 +1,41 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Period List{% endblock %}
+{% block breadcrumb %}
+{% include 'partial/breadcrumb.html.twig' with {'index': 'period'} %}
+{% endblock %}
 
 {% block pageheader %}
-    <h1>Period List</h1>
-    <p class="count">
-        Displaying {{ periods|length }} periods of {{ periods.getTotalItemCount }} total. </p>
+    <h1>Periods</h1>
+{% include 'partial/count.html.twig' with {'index': periods, 'label': 'periods'} %}
+{% endblock %}
+
+{% block admin %}
+{% include 'partial/toolbar.html.twig' with {'new': 'period_new' } %}
 {% endblock %}
 
 {% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Period</th>
+                <th>Description</th>
+                <th class="number">Manuscripts</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for period in periods %}
+                <tr>
+                    <td>
+                        <a href="{{ path('period_show', {'id': period.id}) }}">{{ period }}</a>
+                    </td>
+                    <td>{{ period.description|raw }}</td>
+                    <td class="number">{{ period.manuscripts|length }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('period_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-        </div>
-    </div>
-
-    {% include '@NinesUtil/term/partial/index.html.twig' with {'terms': periods, 'path': 'period_show'} %}
 
     <div class="navigation">
         {{ knp_pagination_render(periods) }}

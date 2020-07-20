@@ -1,27 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Archive List{% endblock %}
+{% block title %}Archives{% endblock %}
+
+{% block breadcrumb %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'archive'} %}
+{% endblock %}
 
 {% block pageheader %}
-    <h1>Archive List</h1>
-    <p class="count">
-        Displaying {{ archives|length }} archives of {{ archives.getTotalItemCount }} total. </p>
+    <h1>Archives</h1>
+    {% include 'partial/count.html.twig' 
+    with {'index': archives, 'label': 'archives'} %}
+{% endblock %}
+
+{% block admin %}
+{% include 'partial/toolbar.html.twig' with {'new': 'archive_new' } %}
 {% endblock %}
 
 {% block body %}
-
-    <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('archive_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New </a>
-            {% endif %}
-            <a href="{{ path('archive_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search </a>
-        </div>
-    </div>
-
-    {% include '@NinesUtil/term/partial/index.html.twig' with {'terms': archives, 'path': 'archive_show'} %}
+{% include 'partial/search-form.html.twig' with {'path': path('archive_search'), 'q': ''} %}
+{% include 'archive/partial/index.html.twig' %}
 
     <div class="navigation">
         {{ knp_pagination_render(archives) }}
