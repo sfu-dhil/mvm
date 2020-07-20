@@ -88,7 +88,7 @@ html{
                        margin-right:auto;
                        height:2px;
                        background-color:$mvm-white;
-                       transition:opacity 0.3s ease-in-out, width 0.3s ease-in-out;
+                       transition:opacity 0.3s $easeInOutSine, width 0.3s $easeInOutSine;
                 }
                &:hover, &:focus{
                    color:$mvm-white;
@@ -376,12 +376,13 @@ article.container{
                    margin-bottom:map.get($typescale, 7);
                     margin-right: map.get($typescale, 7);
                     & > a.tag{
-                    padding:map.get($typescale, 9) map.get($typescale, 7);
-                     border:2px solid rgba($mvm-dark-purple, 0.2);
-                     background-color: $mvm-white;
-                    transition: border-color 0.2s ease-in-out, 
-                    background 0.2s ease-in-out,
-                    color 0.2s ease-in-out;
+                        padding:map.get($typescale, 9) map.get($typescale, 7);
+                        border:2px solid rgba($mvm-dark-purple, 0.2);
+                        background-color: $mvm-white;
+                        display:inline-block;
+                        transition: border-color 0.2s ease-in-out, 
+                                    background 0.2s ease-in-out,
+                                    color 0.2s ease-in-out;
                      &:hover{
                          border-color: rgba($mvm-dark-purple, 0.5);
                          background-color: $mvm-dark-purple;
@@ -510,7 +511,7 @@ footer{
         img{
             max-height:8rem;
             filter:grayscale(0%);
-            transition: filter 0.2s ease-in-out;
+            transition: filter 0.4s $easeInOutSine;
             &:hover{
                 filter:grayscale(100%);
             }

@@ -43,6 +43,29 @@
  
     }
     
+    
+    
+    nav.navbar{
+        .navbar-nav{
+            & > li > a{
+                &:after{
+                    margin-left:0;
+                    margin-right:0;
+                    transition:opacity 0.3s $easeInOutSine, width 0.35s $easeInQuint;
+                    }
+            }
+            .open{
+               .dropdown-menu > li > a{
+                 color:$mvm-white;
+                 &:hover, &:focus{
+                    background: $mvm-white;
+                    color: $mvm-dark-purple;
+                   } 
+               }
+           }     
+        }
+      }
+    
     header{
         .list-group-horizontal{
             flex-direction:column;
