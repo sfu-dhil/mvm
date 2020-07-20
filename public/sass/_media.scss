@@ -43,6 +43,30 @@
  
     }
     
+    
+    
+    .navbar-default{
+        .navbar-nav{
+            & > li > a{
+                &:after{
+                    margin-left:0!important;
+                    margin-right:0!important;
+                    width:50%;
+                    transition:opacity 0.3s $easeInOutSine, width 0.35s $easeInQuint!important;
+                    }
+            }
+            .open{
+               .dropdown-menu > li > a{
+                 color:$mvm-white;
+                 &:hover, &:focus{
+                    background: $mvm-white;
+                    color: $mvm-dark-purple;
+                   } 
+               }
+           }     
+        }
+      }
+    
     header{
         .list-group-horizontal{
             flex-direction:column;

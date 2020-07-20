@@ -1,5 +1,5 @@
 
-{% set tabs = tabs|filter(v => v is not empty) %}
+{% set tabs = tabs|filter(v => v|trim is not empty) %}
 
 <ul class="nav nav-pills" id="tabs" role="tablist">
     {% for key,val in tabs %} 

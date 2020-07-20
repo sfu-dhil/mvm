@@ -324,7 +324,7 @@ nav.navbar .navbar-nav > li > a:after {
   margin-right: auto;
   height: 2px;
   background-color: #FFFFFF;
-  transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out;
+  transition: opacity 0.3s cubic-bezier(0.37, 0, 0.63, 1), width 0.3s cubic-bezier(0.37, 0, 0.63, 1);
 }
 nav.navbar .navbar-nav > li > a:hover, nav.navbar .navbar-nav > li > a:focus {
   color: #FFFFFF;
@@ -390,7 +390,7 @@ article.container .gallery .item {
   min-width: 15rem;
   border: 2px solid rgba(132, 108, 91, 0.3);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-  transition: border-color 0.2s ease-in-out;
+  transition: border-color 0.2s cubic-bezier(0.37, 0, 0.63, 1);
 }
 article.container .gallery .item.empty {
   border: none;
@@ -583,7 +583,8 @@ article.container table.table tbody .tag-list > li > a.tag {
   padding: 0.512rem 0.8rem;
   border: 2px solid rgba(57, 37, 59, 0.2);
   background-color: #FFFFFF;
-  transition: border-color 0.2s ease-in-out, background 0.2s ease-in-out, color 0.2s ease-in-out;
+  display: inline-block;
+  transition: border-color 0.2s cubic-bezier(0.37, 0, 0.63, 1), background 0.2s cubic-bezier(0.37, 0, 0.63, 1), color 0.2s cubic-bezier(0.37, 0, 0.63, 1);
 }
 article.container table.table tbody .tag-list > li > a.tag:hover {
   border-color: rgba(57, 37, 59, 0.5);
@@ -746,7 +747,7 @@ footer .footer-imgs ul li {
 footer .footer-imgs img {
   max-height: 8rem;
   filter: grayscale(0%);
-  transition: filter 0.2s ease-in-out;
+  transition: filter 0.2s cubic-bezier(0.37, 0, 0.63, 1);
 }
 footer .footer-imgs img:hover {
   filter: grayscale(100%);
@@ -1012,6 +1013,20 @@ footer .footer-imgs img:hover {
   }
   article.container .gallery .item.empty {
     display: none;
+  }
+
+  .navbar-default .navbar-nav > li > a:after {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 50%;
+    transition: opacity 0.3s cubic-bezier(0.37, 0, 0.63, 1), width 0.35s cubic-bezier(0.64, 0, 0.78, 0) !important;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #FFFFFF;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    background: #FFFFFF;
+    color: #39253B;
   }
 
   header .list-group-horizontal {
