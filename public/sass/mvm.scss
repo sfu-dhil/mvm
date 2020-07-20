@@ -246,21 +246,12 @@ article.container{
     
      main{
         a:not(.btn):not(.page-link){
-        text-decoration:none;
-        color: $mvm-black;
-        border-bottom: 0.15rem solid $mvm-underline;
-        line-height: 1.65;
-        transition: border-bottom-color 0.2s ease-in-out;
-         &:hover,
-         &:focus{
-             text-decoration:none;
-             border-bottom-color: rgba($mvm-dark-purple, 0.8);
-         }
-     }
-     /* Note that breadcrumbs are handled in their own module */
-    a:hover, a:focus{
-        text-decoration:none;
-    }
+            @include link;
+      }
+      /* Note that breadcrumbs are handled in their own module */
+        a:hover, a:focus{
+         text-decoration:none;
+        }
      
          ul.nav-pills{
              display:flex;
@@ -439,7 +430,15 @@ article.container{
         line-height: 1.4;
     }
   }
+  article.born-digital h#{$i}{
+      @if ($i > 1 ){
+        margin-top: map.get($typescale, $i);    
+      }
+      margin-bottom: map.get($typescale, 6);
+  }
+  
 }
+
 
  /* 
   * Footer
@@ -540,9 +539,15 @@ footer{
     }
 }
 
-.cat-description p{
-    max-width: 60rem;
-    margin: 0 auto;
+.cat-description{
+    & > p {
+      max-width: 60rem;
+      margin: 0 auto;
+    }
+    & + p > a{
+      @include link;  
+    }
+    
 }
  
  @import "_index.scss";

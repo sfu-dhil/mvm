@@ -97,9 +97,6 @@ class Builder implements ContainerAwareInterface {
         $browse->addChild('Features', [
             'route' => 'feature_index',
         ]);
-        $browse->addChild('Images', [
-            'uri' => '#',
-        ]);
         $browse->addChild('Manuscripts', [
             'route' => 'manuscript_index',
         ]);
@@ -157,6 +154,9 @@ class Builder implements ContainerAwareInterface {
          $menu->setChildrenAttributes([
             'class' => 'footer-links',
         ]);
+        $menu->addChild('Home', [
+            'route' => 'homepage',
+        ]);
         $menu->addChild('Archives', [
             'route' => 'archive_index',
         ]);
@@ -168,9 +168,6 @@ class Builder implements ContainerAwareInterface {
         ]);
         $menu->addChild('Features', [
             'route' => 'feature_index',
-        ]);
-        $menu->addChild('Images', [
-            'uri' => '#',
         ]);
         $menu->addChild('Manuscripts', [
             'route' => 'manuscript_index',
@@ -193,6 +190,13 @@ class Builder implements ContainerAwareInterface {
         $menu->addChild('Themes', [
             'route' => 'theme_index',
         ]);
+        $menu->addChild('Privacy', [
+            'route' => 'privacy',
+        ]);
+        $menu->addChild('Documentation', [
+            'uri' => 'docs/sphinx/index.html',
+        ]);
+
 
         return $menu;
     }

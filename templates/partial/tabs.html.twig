@@ -1,10 +1,5 @@
-{% set force = false %}
 
-{% if not force %}
-    {% set tabs = tabs|filter(v => v is not empty) %}
-{% endif %}
-
-
+{% set tabs = tabs|filter(v => v is not empty) %}
 
 <ul class="nav nav-pills" id="tabs" role="tablist">
     {% for key,val in tabs %} 
@@ -19,11 +14,7 @@
     {% for key,val in tabs %}
     {% set id = key|replace({'&amp;': ''})|u.camel %}
     <div class="tab-pane {% if loop.first %}active{% else %}fade{% endif %}" id="{{ id }}" role="tabpanel" aria-labelledby="{{ id }}-tab">
-        {% if force and val is empty %}
-            <p>None available.</p>
-        {% else %}
-            {{ val }}
-        {% endif %}
+        {{ val }}
     </div>
     {% endfor %}
 </div>

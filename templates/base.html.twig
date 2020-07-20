@@ -4,6 +4,7 @@
 
 {% set isAdmin =  is_granted('ROLE_CONTENT_ADMIN') %}
 {% set route = app.request.attributes.get('_route') %}
+{% set bornDigital = route matches '/(blog|privacy)/' %}
 
 
 <html lang="en"{% if block('id') is defined %} id="{{ block('id') }}"{% endif %}>
@@ -62,7 +63,7 @@
         </nav>
         {% block hero %}
         {% endblock %}
-        <article class="container">
+        <article class="container{% if bornDigital %} born-digital{% endif %}">
             <nav class="body-nav">
                 {% block breadcrumb %}
                 {% endblock %}
@@ -90,8 +91,6 @@
 
    
             <main>
-    
-                
                 {% block body %}
                 {% endblock %}
             </main>

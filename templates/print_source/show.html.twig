@@ -3,7 +3,7 @@
 {% block title %}Print Source{% endblock %}
 
  {% block pageheader %}
-    {% embed 'partial/category-index.html.twig' with {'term': printSource} %}
+    {% embed 'partial/term-index.html.twig' with {'term': printSource} %}
         {% block callback %}
             {% if printSource.region %}
                 <p>

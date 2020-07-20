@@ -621,6 +621,10 @@ h1 > a {
   line-height: 1.4;
 }
 
+article.born-digital h1 {
+  margin-bottom: 1rem;
+}
+
 h2 {
   font-size: 2.441rem;
   font-family: "EB Garamond";
@@ -628,6 +632,11 @@ h2 {
 }
 h2 > a {
   line-height: 1.4;
+}
+
+article.born-digital h2 {
+  margin-top: 2.441rem;
+  margin-bottom: 1rem;
 }
 
 h3 {
@@ -639,6 +648,11 @@ h3 > a {
   line-height: 1.4;
 }
 
+article.born-digital h3 {
+  margin-top: 1.953rem;
+  margin-bottom: 1rem;
+}
+
 h4 {
   font-size: 1.563rem;
   font-family: "EB Garamond";
@@ -648,6 +662,11 @@ h4 > a {
   line-height: 1.4;
 }
 
+article.born-digital h4 {
+  margin-top: 1.563rem;
+  margin-bottom: 1rem;
+}
+
 h5 {
   font-size: 1.25rem;
   font-family: "EB Garamond";
@@ -655,6 +674,11 @@ h5 {
 }
 h5 > a {
   line-height: 1.4;
+}
+
+article.born-digital h5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 /* 
@@ -742,9 +766,20 @@ footer .footer-imgs img:hover {
   color: white;
 }
 
-.cat-description p {
+.cat-description > p {
   max-width: 60rem;
   margin: 0 auto;
+}
+.cat-description + p > a {
+  text-decoration: none;
+  color: #010101;
+  border-bottom: 0.15rem solid rgba(21, 48, 145, 0.5);
+  line-height: 1.65;
+  transition: border-bottom-color 0.2s ease-in-out;
+}
+.cat-description + p > a:hover, .cat-description + p > a:focus {
+  text-decoration: none;
+  border-bottom-color: rgba(57, 37, 59, 0.8);
 }
 
 /* Special styling rules for the index page only */
