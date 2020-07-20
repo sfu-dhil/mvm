@@ -45,14 +45,13 @@
     
     
     
-    .navbar-default{
+    nav.navbar{
         .navbar-nav{
             & > li > a{
                 &:after{
-                    margin-left:0!important;
-                    margin-right:0!important;
-                    width:50%;
-                    transition:opacity 0.3s $easeInOutSine, width 0.35s $easeInQuint!important;
+                    margin-left:0;
+                    margin-right:0;
+                    transition:opacity 0.3s $easeInOutSine, width 0.35s $easeInQuint;
                     }
             }
             .open{

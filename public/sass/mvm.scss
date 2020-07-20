@@ -170,7 +170,7 @@ article.container{
             min-width:15rem;
             border: 2px solid rgba($mvm-brown, 0.3);
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-            transition: border-color 0.2s $easeInOutSine;
+            transition: border-color 0.2s ease-in-out;
             &:hover{
                 border-color: rgba($mvm-brown, 0.8);
                 
@@ -380,9 +380,9 @@ article.container{
                         border:2px solid rgba($mvm-dark-purple, 0.2);
                         background-color: $mvm-white;
                         display:inline-block;
-                        transition: border-color 0.2s $easeInOutSine, 
-                                    background 0.2s $easeInOutSine,
-                                    color 0.2s $easeInOutSine;
+                        transition: border-color 0.2s ease-in-out, 
+                                    background 0.2s ease-in-out,
+                                    color 0.2s ease-in-out;
                      &:hover{
                          border-color: rgba($mvm-dark-purple, 0.5);
                          background-color: $mvm-dark-purple;
@@ -511,7 +511,7 @@ footer{
         img{
             max-height:8rem;
             filter:grayscale(0%);
-            transition: filter 0.2s $easeInOutSine;
+            transition: filter 0.4s $easeInOutSine;
             &:hover{
                 filter:grayscale(100%);
             }
