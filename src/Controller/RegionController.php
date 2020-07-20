@@ -26,7 +26,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Region controller.
  *
- * @IsGranted("ROLE_USER")
  * @Route("/region")
  */
 class RegionController extends AbstractController implements PaginatorAwareInterface {

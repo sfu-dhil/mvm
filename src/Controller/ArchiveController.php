@@ -26,7 +26,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Archive controller.
  *
- * @IsGranted("ROLE_USER")
  * @Route("/archive")
  */
 class ArchiveController extends AbstractController implements PaginatorAwareInterface {

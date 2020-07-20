@@ -22,7 +22,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * ContentContribution controller.
  *
- * @IsGranted("ROLE_USER")
  * @Route("/content_contribution")
  */
 class ContentContributionController extends AbstractController implements PaginatorAwareInterface {
