@@ -22,7 +22,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * ManuscriptContent controller.
  *
- * @IsGranted("ROLE_USER")
  * @Route("/manuscript_content")
  */
 class ManuscriptContentController extends AbstractController implements PaginatorAwareInterface {

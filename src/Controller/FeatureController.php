@@ -26,7 +26,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Feature controller.
  *
- * @IsGranted("ROLE_USER")
  * @Route("/feature")
  */
 class FeatureController extends AbstractController implements PaginatorAwareInterface {

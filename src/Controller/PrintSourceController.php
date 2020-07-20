@@ -26,7 +26,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * PrintSource controller.
  *
- * @IsGranted("ROLE_USER")
  * @Route("/print_source")
  */
 class PrintSourceController extends AbstractController implements PaginatorAwareInterface {

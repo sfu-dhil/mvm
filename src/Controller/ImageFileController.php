@@ -26,7 +26,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * ImageFile controller.
  *
- * @IsGranted("ROLE_USER")
  * @Route("/image_file")
  */
 class ImageFileController extends AbstractController implements PaginatorAwareInterface {

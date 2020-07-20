@@ -26,7 +26,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Theme controller.
  *
- * @IsGranted("ROLE_USER")
  * @Route("/theme")
  */
 class ThemeController extends AbstractController implements PaginatorAwareInterface {
