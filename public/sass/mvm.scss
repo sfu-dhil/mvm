@@ -297,17 +297,21 @@ article.container{
                 margin-bottom:map.get($typescale, 6);
              }      
              
-             .tab-pane.active[id*='transcription']{
+            
+             .tab-pane.active[id*='Transcription']{
                  display:flex;
                  width:100%;
                  justify-content:space-between;
                  > div{
                      flex: 0 1 45%;
+                     .details{
+                        top:map.get($typescale, 8);
+                        position:sticky; 
+                        max-height:90vh;
+                        overflow-y:auto;
+                     }
                      table{
                         font-size:average(map.get($typescale,6), map.get($typescale, 7));
-                        /* If we want a sticky table */
-                       /*   top:map.get($typescale, 8);
-                        position:sticky; */
                         th {
                             vertical-align:top;
                         }
@@ -326,6 +330,7 @@ article.container{
          margin-bottom:map.get($typescale, 4);
      }
      
+    
      /* Gallery items have margins that push the galleries too far down
       * after the search form. */
      form + .gallery{
@@ -372,8 +377,8 @@ article.container{
                 padding: 0;
                 align-items:center;
                 & > li{
-                   margin-top:map.get($typescale, 7);
-                   margin-bottom:map.get($typescale, 7);
+                   margin-top:map.get($typescale, 9);
+                   margin-bottom:map.get($typescale, 9);
                     margin-right: map.get($typescale, 7);
                     & > a.tag{
                         padding:map.get($typescale, 9) map.get($typescale, 7);
