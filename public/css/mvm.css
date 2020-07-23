@@ -514,21 +514,24 @@ article.container main div.tab-content .btn-toolbar {
   margin-top: 0.64rem;
   margin-bottom: 1rem;
 }
-article.container main div.tab-content .tab-pane.active[id*=transcription] {
+article.container main div.tab-content .tab-pane.active[id*=Transcription] {
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
-article.container main div.tab-content .tab-pane.active[id*=transcription] > div {
+article.container main div.tab-content .tab-pane.active[id*=Transcription] > div {
   flex: 0 1 45%;
 }
-article.container main div.tab-content .tab-pane.active[id*=transcription] > div table {
-  font-size: 0.9rem;
-  /* If we want a sticky table */
-  /*   top:map.get($typescale, 8);
-   position:sticky; */
+article.container main div.tab-content .tab-pane.active[id*=Transcription] > div .details {
+  top: 0.64rem;
+  position: sticky;
+  max-height: 90vh;
+  overflow-y: auto;
 }
-article.container main div.tab-content .tab-pane.active[id*=transcription] > div table th {
+article.container main div.tab-content .tab-pane.active[id*=Transcription] > div table {
+  font-size: 0.9rem;
+}
+article.container main div.tab-content .tab-pane.active[id*=Transcription] > div table th {
   vertical-align: top;
 }
 article.container main div.tab-content .item {
@@ -575,8 +578,8 @@ article.container table.table tbody .tag-list {
   align-items: center;
 }
 article.container table.table tbody .tag-list > li {
-  margin-top: 0.8rem;
-  margin-bottom: 0.8rem;
+  margin-top: 0.512rem;
+  margin-bottom: 0.512rem;
   margin-right: 0.8rem;
 }
 article.container table.table tbody .tag-list > li > a.tag {
@@ -796,6 +799,9 @@ footer .footer-imgs img:hover {
 #index article.container {
   margin-top: -7.5rem;
 }
+#index body:not(.admin) article, #index body:not(.admin) footer {
+  display: none !important;
+}
 #index .jumbotron {
   height: 42rem;
   background-image: url("../images/hero.jpg");
@@ -988,14 +994,18 @@ footer .footer-imgs img:hover {
   }
 }
 @media (max-width: 992px) {
-  .tab-pane.active[id*=transcription] {
+  .tab-pane.active[id*=Transcription] {
     flex-wrap: wrap;
   }
-  .tab-pane.active[id*=transcription] > div {
+  .tab-pane.active[id*=Transcription] > div {
     flex: 1 1 100% !important;
   }
-  .tab-pane.active[id*=transcription] > div.transcription {
+  .tab-pane.active[id*=Transcription] > div.transcription {
     margin-left: 1rem;
+  }
+
+  .tab-pane .gallery .item {
+    flex-basis: 45% !important;
   }
 }
 @media (max-width: 768px) {

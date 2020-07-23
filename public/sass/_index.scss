@@ -15,6 +15,13 @@ article.container{
     margin-top: -7.5rem;
 }
 
+body:not(.admin){
+  article, footer{
+      display:none!important;
+  }  
+    
+} 
+
 
 .jumbotron{
     height: 42rem;

@@ -12,12 +12,19 @@
 }
 
 @media (max-width: 992px) {
-    .tab-pane.active[id*=transcription]{
+    .tab-pane.active[id*=Transcription]{
         flex-wrap:wrap;
         & > div {
             flex: 1 1 100%!important;
             &.transcription{
                 margin-left: map.get($typescale, 6);
+            }
+        }
+    }
+    .tab-pane{
+        .gallery{
+            .item{
+                flex-basis:45%!important;
             }
         }
     }
@@ -80,7 +87,6 @@
             margin-left:auto;
         }
     }
-    
     
 }
 

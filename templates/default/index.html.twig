@@ -6,13 +6,13 @@
     <div class="container">
         <h1 class="sr-only">Manuscript Verse Miscellanies</h1>
         <img src="{{ asset('images/title.svg') }}" alt="Manuscript Verse Miscellanies"/>
-        {# TODO: Remove the conditional once homepage is defined in production #}
-        {% if homepage is not null %}
+
+        {% if isAdmin and homepage is not null %}
             {% set firstParagraph = homepage.excerpt|split('</p>')|first  ~ '</p>' %}
             {{ firstParagraph |raw }}
             <a class="readMore" href="{{ path('nines_blog_page_show', { 'id': homepage.id }) }}">READ MORE</a>
         {% else %}
-        <p>Lorem ipsum dolor sit amet, sumo enim dicit vix at, ius commodo debitis eu, an mei novum harum. Eum id dicunt corrumpit signiferumque, integre interesset vim in, modus vituperata ut vix. Et nostro scriptorem contentiones eos. Usu ludus ceteros vituperatoribus no, vix at paulo oportere, usu ea nusquam incorrupte. In lucilius disputando sea, duis dolores consetetur mea ea. In his labore recusabo reprimique.</p>
+        <p>Coming soon.</p>
         {% endif %}
     </div>
     
@@ -20,6 +20,7 @@
 {% endblock %}
 
 {% block body %}
+    {% if isAdmin %}
     <section>
         <h2>Browse by Archive</h2>
         <ul class="archive-gallery">
@@ -44,4 +45,5 @@
         {% endfor %}
     </ul>
 </section>
+{% endif %}
 {% endblock %}
