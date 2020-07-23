@@ -36,7 +36,7 @@
         {% endblock %}
     </head>
     <body{% if isAdmin %} class="admin"{% endif %}>
-        
+
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
@@ -72,8 +72,8 @@
                     {% endblock %}
                 {% endif %}
             </nav>
-     
-            
+
+
             {% if block('pageheader') is defined %}
                     <header>
                         {{ block('pageheader') }}
@@ -89,18 +89,20 @@
                 {% endfor %}
             {% endfor %}
 
-   
+
             <main>
                 {% block body %}
                 {% endblock %}
             </main>
-     
+
         </article>
 
         <footer class="footer">
             <div class="container">
                     <div class="footer-menu">
-                        {{ knp_menu_render('footer') }}
+                        {% if is_granted('ROLE_USER') %}
+                            {{ knp_menu_render('footer') }}
+                        {% endif %}
                     </div>
                     <div class="footer-imgs">
                         <ul>
