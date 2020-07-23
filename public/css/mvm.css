@@ -799,7 +799,7 @@ footer .footer-imgs img:hover {
 #index article.container {
   margin-top: -7.5rem;
 }
-#index body:not(.admin) article, #index body:not(.admin) footer {
+#index body:not(.admin) article {
   display: none !important;
 }
 #index .jumbotron {
