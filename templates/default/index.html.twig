@@ -15,7 +15,7 @@
         <p>Coming soon.</p>
         {% endif %}
     </div>
-    
+
 </div>
 {% endblock %}
 
@@ -27,13 +27,13 @@
             {% for archive in archives %}
             <li>
                 <a href="{{ path('archive_show', {'id':archive.id}) }}"><span class="name">{{ archive }}</span></a>
-            </li>   
+            </li>
             {% endfor %}
         </ul>
     </section>
     <section>
         <h2>Browse by Person</h2>
-        <input type="text" class="contributor" placeholder="Eleanor Peart"></input>
+        {{ form(form) }}
     </section>
 <section>
     <h2>Browse by Period</h2>
@@ -46,4 +46,19 @@
     </ul>
 </section>
 {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function(){
+            // Prevent the confirmation popup.
+            $(window).unbind('beforeunload');
+
+            let $select = $("#person_typeahead_person");
+            $select.on('change', function(e){
+                e.preventDefault();
+                window.location = "{{ base }}/person/" + $select.val();
+            });
+        });
+    </script>
 {% endblock %}
