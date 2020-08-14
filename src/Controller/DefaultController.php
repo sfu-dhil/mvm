@@ -12,6 +12,7 @@ namespace App\Controller;
 
 use App\Entity\Archive;
 use App\Form\ArchiveType;
+use App\Form\PersonTypeaheadType;
 use App\Repository\ArchiveRepository;
 use App\Entity\Period;
 use App\Form\PeriodType;
@@ -37,16 +38,21 @@ class DefaultController extends AbstractController implements PaginatorAwareInte
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        
+
         $archives = $em->getRepository(Archive::class)->findBy([], ['label' => 'ASC']);
         $periods = $em->getRepository(Period::class)->findBy([], ['label' => 'ASC']);
-        
+
         $pageRepo = $em->getRepository(Page::class);
-        
+        $form = $this->createForm(PersonTypeaheadType::class);
+
+        $base = $this->getParameter('router.request_context.base_url');
+
         return [
             'archives' => $archives,
             'periods' => $periods,
-            'homepage' => $pageRepo->findHomepage()
+            'homepage' => $pageRepo->findHomepage(),
+            'form' => $form->createView(),
+            'base' => $base,
         ];
     }
 

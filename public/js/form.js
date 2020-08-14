@@ -76,6 +76,7 @@
             },
         });
     }
+
     $(document).ready(function () {
         $(window).bind('beforeunload', windowBeforeUnload);
         $('form').each(formDirty);
