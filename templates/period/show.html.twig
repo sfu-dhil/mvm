@@ -3,18 +3,18 @@
 {% block title %}{{ period.label }}{% endblock %}
 
  {% block pageheader %}
-    {% include 'partial/term-index.html.twig' with {'term': period} %}
- {% endblock %} 
- 
- 
+     {% include 'partial/term-index.html.twig' with {'term': period} %}
+ {% endblock %}
+
+
  {% block breadcrumb %}
- {% include 'partial/breadcrumb.html.twig' with {'index': 'period', 'show': period.label} %}
+     {% include 'partial/breadcrumb.html.twig' with {'index': 'period', 'show': period.label} %}
  {% endblock %}
 
 {% block admin %}
-{% include 'partial/toolbar.html.twig' with {'edit':'period_edit', 'delete': 'period_delete', 'id': period.id } %}
+    {% include 'partial/toolbar.html.twig' with {'edit':'period_edit', 'delete': 'period_delete', 'id': period.id } %}
 {% endblock %}
 
 {% block body %}
-{% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': period.manuscripts} %}
+    {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': period.manuscripts} %}
 {% endblock %}

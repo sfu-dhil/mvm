@@ -2,60 +2,60 @@
 
 {% block id %}index{% endblock %}
 {% block hero %}
-<div class="jumbotron">
-    <div class="container">
-        <h1 class="sr-only">Manuscript Verse Miscellanies</h1>
-        <img src="{{ asset('images/title.svg') }}" alt="Manuscript Verse Miscellanies"/>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="sr-only">Manuscript Verse Miscellanies</h1>
+            <img src="{{ asset('images/title.svg') }}" alt="Manuscript Verse Miscellanies" />
 
-        {% if isAdmin and homepage is not null %}
-            {% set firstParagraph = homepage.excerpt|split('</p>')|first  ~ '</p>' %}
-            {{ firstParagraph |raw }}
-            <a class="readMore" href="{{ path('nines_blog_page_show', { 'id': homepage.id }) }}">READ MORE</a>
-        {% else %}
-        <p>Coming soon.</p>
-        {% endif %}
+            {% if isAdmin and homepage is not null %}
+                {% set firstParagraph = homepage.excerpt|split('</p>')|first  ~ '</p>' %}
+                {{ firstParagraph |raw }}
+                <a class="readMore" href="{{ path('nines_blog_page_show', { 'id': homepage.id }) }}">READ MORE</a>
+            {% else %}
+                <p>Coming soon.</p>
+            {% endif %}
+        </div>
+
     </div>
-
-</div>
 {% endblock %}
 
 {% block body %}
     {% if isAdmin %}
-    <section>
-        <h2>Browse by Archive</h2>
-        <ul class="archive-gallery">
-            {% for archive in archives %}
-            <li>
-                <a href="{{ path('archive_show', {'id':archive.id}) }}"><span class="name">{{ archive }}</span></a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    <section>
-        <h2>Browse by Person</h2>
-        {{ form(form) }}
-    </section>
-<section>
-    <h2>Browse by Period</h2>
-    <ul class="period-list">
-        {% for period in periods %}
-            <li>
-                <a href="{{ path('period_show', {'id':period.id})}}">{{ period|replace({'-':'​-​'}) }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-</section>
-{% endif %}
+        <section>
+            <h2>Browse by Archive</h2>
+            <ul class="archive-gallery">
+                {% for archive in archives %}
+                    <li>
+                        <a href="{{ path('archive_show', {'id':archive.id}) }}"><span class="name">{{ archive }}</span></a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section>
+            <h2>Browse by Person</h2>
+            {{ form(form) }}
+        </section>
+        <section>
+            <h2>Browse by Period</h2>
+            <ul class="period-list">
+                {% for period in periods %}
+                    <li>
+                        <a href="{{ path('period_show', {'id':period.id}) }}">{{ period|replace({'-':'​-​'}) }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
     <script>
-        $(function(){
+        $(function () {
             // Prevent the confirmation popup.
             $(window).unbind('beforeunload');
 
-            let $select = $("#person_typeahead_person");
-            $select.on('change', function(e){
+            let $select = $('#person_typeahead_person');
+            $select.on('change', function (e) {
                 e.preventDefault();
                 window.location = "{{ base }}/person/" + $select.val();
             });

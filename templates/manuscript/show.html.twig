@@ -3,11 +3,11 @@
 {% block title %}{{ manuscript.callNumber }} {% endblock %}
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript', 'show': manuscript.callNumber} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript', 'show': manuscript.callNumber} %}
 {% endblock %}
 
 {% block pageheader %}
-     <h1>{{ manuscript.callNumber }}</h1>
+    <h1>{{ manuscript.callNumber }}</h1>
 {% endblock %}
 
 
@@ -18,272 +18,274 @@
 
 
 {% block body %}
-{% set detailsContent %}
-<table class="table">
-    <tbody>
-        <tr>
-            <th>Title</th>
-            <td>{{ manuscript.title }}</td>
-        </tr>
-        <tr>
-            <th>Untitled</th>
-            <td>{% if manuscript.untitled %}Yes{% else %}No{% endif %}</td>
-        </tr>
-        <tr>
-            <th>Archive</th>
-            <td>
-                {% if manuscript.archive %}
-                <a href="{{ path('archive_show', { 'id': manuscript.archive.id}) }}">
-                    {{ manuscript.archive }}
-                </a>
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Call Number</th>
-            <td>{{ manuscript.callNumber }}</td>
-        </tr>
-        <tr>
-            <th>Complete</th>
-            <td>{% if manuscript.complete %}Yes{% else %}No{% endif %}</td>
-        </tr>
+    {% set detailsContent %}
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ manuscript.title }}</td>
+                </tr>
+                <tr>
+                    <th>Untitled</th>
+                    <td>{% if manuscript.untitled %}Yes{% else %}No{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Archive</th>
+                    <td>
+                        {% if manuscript.archive %}
+                            <a href="{{ path('archive_show', { 'id': manuscript.archive.id}) }}">
+                                {{ manuscript.archive }}
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Call Number</th>
+                    <td>{{ manuscript.callNumber }}</td>
+                </tr>
+                <tr>
+                    <th>Complete</th>
+                    <td>{% if manuscript.complete %}Yes{% else %}No{% endif %}</td>
+                </tr>
 
-        <tr>
-            <th>Description</th>
-            <td>{{ manuscript.description|raw }}</td>
-        </tr>
-        <tr>
-            <th>Format</th>
-            <td>{{ manuscript.format }}</td>
-        </tr>
-        <tr>
-            <th>Book Size</th>
-            <td>{{ manuscript.size }}</td>
-        </tr>
-        <tr>
-            <th>Filled Page Count</th>
-            <td>{{ manuscript.filledPageCount }}</td>
-        </tr>
-        <tr>
-            <th>Item Count</th>
-            <td>{{ manuscript.itemCount }}</td>
-        </tr>
-        <tr>
-            <th>Poem Count</th>
-            <td>{{ manuscript.poemCount }}</td>
-        </tr>
-        <tr>
-            <th>Periods</th>
-            <td>
-                {% if manuscript.periods | length > 0 %}
-                <ul class="tag-list">
-                    {% for period in manuscript.periods|sort((a,b) => a.label <=> b.label) %}
-                    <li class="period">
-                        <a class="tag" href="{{ path("period_show", {"id":period.id}) }}">
-                            {{ period }}
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
+                <tr>
+                    <th>Description</th>
+                    <td>{{ manuscript.description|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Format</th>
+                    <td>{{ manuscript.format }}</td>
+                </tr>
+                <tr>
+                    <th>Book Size</th>
+                    <td>{{ manuscript.size }}</td>
+                </tr>
+                <tr>
+                    <th>Filled Page Count</th>
+                    <td>{{ manuscript.filledPageCount }}</td>
+                </tr>
+                <tr>
+                    <th>Item Count</th>
+                    <td>{{ manuscript.itemCount }}</td>
+                </tr>
+                <tr>
+                    <th>Poem Count</th>
+                    <td>{{ manuscript.poemCount }}</td>
+                </tr>
+                <tr>
+                    <th>Periods</th>
+                    <td>
+                        {% if manuscript.periods | length > 0 %}
+                            <ul class="tag-list">
+                                {% for period in manuscript.periods|sort((a,b) => a.label <=> b.label) %}
+                                    <li class="period">
+                                        <a class="tag" href="{{ path("period_show", {"id":period.id}) }}">
+                                            {{ period }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
 
-            </td>
-        </tr>
+                    </td>
+                </tr>
 
-        <tr>
-            <th>First Line Index</th>
-            <td>{% if manuscript.firstLineIndex %}Yes{% else %}No{% endif %}</td>
-        </tr>
-        <tr>
-            <th>Digitized</th>
-            <td>{% if manuscript.digitized %}Yes{% else %}No{% endif %}</td>
-        </tr>
+                <tr>
+                    <th>First Line Index</th>
+                    <td>{% if manuscript.firstLineIndex %}Yes{% else %}No{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Digitized</th>
+                    <td>{% if manuscript.digitized %}Yes{% else %}No{% endif %}</td>
+                </tr>
 
-        <tr>
-            <th>Region</th>
-            <td>
-                {% for region in manuscript.regions|sort((a,b) => a.name <=> b.name) %}
-                <a href="{{ path('region_show', { 'id': region.id}) }}">
-                    {{ region -}}
-                </a>{% if not loop.last %}, {% endif %}
-                {% endfor %}
-            </td>
-        </tr>
-        <tr>
-            <th>Additional Genres</th>
-            <td>
-                {% if manuscript.additionalGenres %}
-                    {{ manuscript.additionalGenres|sort((a,b) => a <=> b)|join(', ') }}
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Print Sources</th>
-            <td>
-                {% if manuscript.printSources | length > 0 %}
-                <ul class="tag-list">
-                    {% for printSource in manuscript.printSources|sort((a,b) => a.label <=> b.label) %}
-                    <li class="printSource">
-                        <a class="tag" href="{{ path("print_source_show", {"id":printSource.id}) }}">
-                            {{ printSource }}
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Themes</th>
-            <td>
-                {% if manuscript.themes | length > 0 %}
-                <ul class="tag-list">
-                    {% for theme in manuscript.themes|sort((a,b) => a.label <=> b.label) %}
-                    <li class="theme">
-                        <a class="tag" href="{{ path("theme_show", {"id":theme.id}) }}">
-                            {{ theme }}
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </td>
-        </tr>
+                <tr>
+                    <th>Region</th>
+                    <td>
+                        {% for region in manuscript.regions|sort((a,b) => a.name <=> b.name) %}
+                        <a href="{{ path('region_show', { 'id': region.id}) }}">
+                            {{ region -}}
+                            </a>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Additional Genres</th>
+                    <td>
+                        {% if manuscript.additionalGenres %}
+                            {{ manuscript.additionalGenres|sort((a,b) => a <=> b)|join(', ') }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Print Sources</th>
+                    <td>
+                        {% if manuscript.printSources | length > 0 %}
+                            <ul class="tag-list">
+                                {% for printSource in manuscript.printSources|sort((a,b) => a.label <=> b.label) %}
+                                    <li class="printSource">
+                                        <a class="tag" href="{{ path("print_source_show", {"id":printSource.id}) }}">
+                                            {{ printSource }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Themes</th>
+                    <td>
+                        {% if manuscript.themes | length > 0 %}
+                            <ul class="tag-list">
+                                {% for theme in manuscript.themes|sort((a,b) => a.label <=> b.label) %}
+                                    <li class="theme">
+                                        <a class="tag" href="{{ path("theme_show", {"id":theme.id}) }}">
+                                            {{ theme }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </td>
+                </tr>
 
-        <tr>
-            <th>Bibliography</th>
-            <td>{{ manuscript.bibliography|raw }}</td>
-        </tr>
-        <tr>
-            <th>Created</th>
-            <td>{% if manuscript.created %}{{ manuscript.created|date }}{% endif %}</td>
-        </tr>
-        <tr>
-            <th>Updated</th>
-            <td>{% if manuscript.updated %}{{ manuscript.updated|date }}{% endif %}</td>
-        </tr>
-    </tbody>
-</table>
-{% endset %}
+                <tr>
+                    <th>Bibliography</th>
+                    <td>{{ manuscript.bibliography|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Created</th>
+                    <td>{% if manuscript.created %}{{ manuscript.created|date }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Updated</th>
+                    <td>{% if manuscript.updated %}{{ manuscript.updated|date }}{% endif %}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endset %}
 
-{% set contributionsContent %}
-{% if isAdmin %}
-{% include 'partial/toolbar.html.twig' with {'edit': 'manuscript_contributions', 'id': manuscript.id} %}
-{% endif %}
-
-
-{% if manuscript.manuscriptContributions | length > 0 %}
-
-{% set processNote =  manuscript.manuscriptContributions|filter(c => c.note is not empty)|length > 0 %}
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Contributor</th>
-            <th>Role</th>
-            {% if processNote %}
-            <th>Note</th>
-            {% endif %}
-        </tr>
-    </thead>
-    {% for manuscriptContribution in manuscript.manuscriptContributions|sort((a,b) => a.person.sortableName <=> b.person.sortableName) %}
-    <tr>
-        <td>
-            <a href="{{ path('person_show', {'id': manuscriptContribution.person.id}) }}">{{ manuscriptContribution.person }}</a>
-        </td>
-        <td>
-            <a href="{{ path('manuscript_role_show', {'id': manuscriptContribution.role.id}) }}">{{ manuscriptContribution.role }}</a>
-        </td>
-        {% if processNote %}
-        <td>
-            {{ manuscriptContribution.note|raw }}
-        </td>
+    {% set contributionsContent %}
+        {% if isAdmin %}
+            {% include 'partial/toolbar.html.twig' with {'edit': 'manuscript_contributions', 'id': manuscript.id} %}
         {% endif %}
 
-    </tr>
-    {% endfor %}
-</table>
-{% endif %}
-{% endset %}
 
-{% set contentsContent %}
-{% if isAdmin %}
-{% include 'partial/toolbar.html.twig' with {'edit': 'manuscript_contents', 'id': manuscript.id } %}
-{% endif %}
+        {% if manuscript.manuscriptContributions | length > 0 %}
 
-{% if manuscript.manuscriptContents|length > 0 %}
+            {% set processNote =  manuscript.manuscriptContributions|filter(c => c.note is not empty)|length > 0 %}
 
-{% set showPrintSource = manuscript.manuscriptContents|filter(m => m.printSource is not null)|length > 0 %}
-<table class="table">
-    <thead>
-        <tr>
-            <th>First Line</th>
-            <th>Context</th>
-            {% if showPrintSource %}
-            <th>Print Source</th>
-            {% endif %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for manuscriptContent in manuscript.manuscriptContents|sort((a,b) => a.content.firstLine <=> b.content.firstLine) %}
-        <tr>
-            <td> <a href="{{ path('content_show', {'id': manuscriptContent.content.id}) }}">{{ manuscriptContent.content.firstLine }}</td>
-            <td>
-                {{ manuscriptContent.context | raw }}
-            </td>
-            {% if showPrintSource %}
-            <td>
-                {% if manuscriptContent.printSource %}
-                <a href="{{ path('print_source_show', {'id': manuscriptContent.printSource.id}) }}">{{ manuscriptContent.printSource }}</a>
-                {% endif %}
-            </td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% endif %}
-{% endset %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Contributor</th>
+                        <th>Role</th>
+                        {% if processNote %}
+                            <th>Note</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                {% for manuscriptContribution in manuscript.manuscriptContributions|sort((a,b) => a.person.sortableName <=> b.person.sortableName) %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('person_show', {'id': manuscriptContribution.person.id}) }}">{{ manuscriptContribution.person }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('manuscript_role_show', {'id': manuscriptContribution.role.id}) }}">{{ manuscriptContribution.role }}</a>
+                        </td>
+                        {% if processNote %}
+                            <td>
+                                {{ manuscriptContribution.note|raw }}
+                            </td>
+                        {% endif %}
 
-{% set featuresContent %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% endset %}
 
-{% if isAdmin %}
-{% include 'partial/toolbar.html.twig' with {'edit': 'manuscript_features', 'id': manuscript.id } %}
-{% endif %}
+    {% set contentsContent %}
+        {% if isAdmin %}
+            {% include 'partial/toolbar.html.twig' with {'edit': 'manuscript_contents', 'id': manuscript.id } %}
+        {% endif %}
 
-{% if manuscript.getManuscriptFeatures(true)|length > 0 %}
-<table class="table">
-    <thead>
-        <tr>
-            <th>Feature</th>
-            <th>Note</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for manuscriptFeature in manuscript.getManuscriptFeatures(true) %}
-        <tr>
-            <td>
-                <a href="{{ path('feature_show', {'id': manuscriptFeature.feature.id}) }}">
-                    {{ manuscriptFeature.feature.label }}
-                </a>
-            </td>
-            <td>{{ manuscriptFeature.note|raw }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% endif %}
-{% endset %}
+        {% if manuscript.manuscriptContents|length > 0 %}
+
+            {% set showPrintSource = manuscript.manuscriptContents|filter(m => m.printSource is not null)|length > 0 %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>First Line</th>
+                        <th>Context</th>
+                        {% if showPrintSource %}
+                            <th>Print Source</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for manuscriptContent in manuscript.manuscriptContents|sort((a,b) => a.content.firstLine <=> b.content.firstLine) %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('content_show', {'id': manuscriptContent.content.id}) }}">{{ manuscriptContent.content.firstLine }}
+                            </td>
+                            <td>
+                                {{ manuscriptContent.context | raw }}
+                            </td>
+                            {% if showPrintSource %}
+                                <td>
+                                    {% if manuscriptContent.printSource %}
+                                        <a href="{{ path('print_source_show', {'id': manuscriptContent.printSource.id}) }}">{{ manuscriptContent.printSource }}</a>
+                                    {% endif %}
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    {% endset %}
+
+    {% set featuresContent %}
+
+        {% if isAdmin %}
+            {% include 'partial/toolbar.html.twig' with {'edit': 'manuscript_features', 'id': manuscript.id } %}
+        {% endif %}
+
+        {% if manuscript.getManuscriptFeatures(true)|length > 0 %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for manuscriptFeature in manuscript.getManuscriptFeatures(true) %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('feature_show', {'id': manuscriptFeature.feature.id}) }}">
+                                    {{ manuscriptFeature.feature.label }}
+                                </a>
+                            </td>
+                            <td>{{ manuscriptFeature.note|raw }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    {% endset %}
 
 
 
-{% set tabs = {
-'Details': detailsContent,
-'Contributors': contributionsContent,
-'Contents': contentsContent,
-'Features': featuresContent
-} %}
+    {% set tabs = {
+        'Details': detailsContent,
+        'Contributors': contributionsContent,
+        'Contents': contentsContent,
+        'Features': featuresContent
+    } %}
 
-{% include 'partial/tabs.html.twig' with {'tabs': tabs} %}
+    {% include 'partial/tabs.html.twig' with {'tabs': tabs} %}
 
 {% endblock %}

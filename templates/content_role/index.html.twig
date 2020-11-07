@@ -4,39 +4,39 @@
 
 {% block pageheader %}
     <h1>Content Roles</h1>
-{% include 'partial/count.html.twig' with {'index': contentRoles, 'label': 'content roles'} %}
+    {% include 'partial/count.html.twig' with {'index': contentRoles, 'label': 'content roles'} %}
 {% endblock %}
 
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Content Roles'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Content Roles'} %}
 {% endblock %}
 
 {% block admin %}
-{% include 'partial/toolbar.html.twig' with {'new': 'content_role_new'} %}
+    {% include 'partial/toolbar.html.twig' with {'new': 'content_role_new'} %}
 {% endblock %}
 
 
 {% block body %}
 
-  <table class="table">
-      <thead>
-          <tr>
-              <th>Role</th>
-              <th>Description</th>
-              <th class="number">Contents</th>
-          </tr>
-      </thead>
-      <tbody>
-          {% for role in contentRoles %}
+    <table class="table">
+        <thead>
             <tr>
-                <td><a href="{{ path('content_role_show', {'id': role.id}) }}">{{ role }}</a></td>         
-                <td>{{ role.description|raw }}</td>
-                <td class="number">{{ role.contributions|length }}</td>
+                <th>Role</th>
+                <th>Description</th>
+                <th class="number">Contents</th>
             </tr>
-          {% endfor %}
-      </tbody>
-  </table>
+        </thead>
+        <tbody>
+            {% for role in contentRoles %}
+                <tr>
+                    <td><a href="{{ path('content_role_show', {'id': role.id}) }}">{{ role }}</a></td>
+                    <td>{{ role.description|raw }}</td>
+                    <td class="number">{{ role.contributions|length }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 
 

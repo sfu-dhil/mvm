@@ -8,133 +8,137 @@
 
 
 
-{% include 'partial/breadcrumb.html.twig' with {'index': 'person', 'index_label': 'People','show': person.fullName} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'person', 'index_label': 'People','show': person.fullName} %}
 {% endblock %}
 
 {% block pageheader %}
-   <h1>{{ person.fullName }}</h1>
+    <h1>{{ person.fullName }}</h1>
 {% endblock %}
 
 {% block admin %}
-{% include 'partial/toolbar.html.twig' with {'edit':'person_edit', 'delete': 'person_delete', 'id': person.id } %}
+    {% include 'partial/toolbar.html.twig' with {'edit':'person_edit', 'delete': 'person_delete', 'id': person.id } %}
 {% endblock %}
 
 
 {% block body %}
 
-{% set detailsContent %}
-<table class="table">
-    <tbody>
-        <tr>
-            <th>Full Name</th>
-            <td>{{ person }}</td>
-        </tr>
-        {% if isAdmin %}
-        <tr>
-            <th>Sortable Name</th>
-            <td>{{ person.sortableName }}</td>
-        </tr>
+    {% set detailsContent %}
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Full Name</th>
+                    <td>{{ person }}</td>
+                </tr>
+                {% if isAdmin %}
+                    <tr>
+                        <th>Sortable Name</th>
+                        <td>{{ person.sortableName }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <th>Variant Names</th>
+                    <td>{% if person.variantNames|length > 0 %}{{ person.variantNames|join(', ') }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>
+                        {% include 'person/partial/gender.html.twig' %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Birth Date</th>
+                    <td>{{ person.birthDate }}</td>
+                </tr>
+                <tr>
+                    <th>Death Date</th>
+                    <td>{{ person.deathDate }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ person.description|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Regions</th>
+                    <td>
+                        {% for region in person.regions|sort((a,b) => a.name <=> b.name) %}
+                            <a href="{{ path('region_show', { 'id': region.id}) }}">
+                                {{ region -}}
+                            </a>
+                            {%- if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% if isAdmin %}
+                    <tr>
+                        <th>Created</th>
+                        <td>{% if person.created %}{{ person.created|date }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Updated</th>
+                        <td>{% if person.updated %}{{ person.updated|date }}{% endif %}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    {% endset %}
+
+    {% set contentContent %}
+        {% if person.contentContributions | length > 0 %}
+            {% set showNote = person.contentContributions|filter(c => c.note is not empty)|length > 0 %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>First Line</th>
+                        {% if showNote %}
+                            <th>Note</th>
+                        {% endif %}
+
+                    </tr>
+                </thead>
+                {% for contentContribution in person.contentContributions|sort((a,b) => a.content.firstLine <=> b.content.firstLine) %}
+                <tr>
+                    <td>
+                        <a href="{{ path('content_role_show', {'id': contentContribution.role.id}) }}">{{ contentContribution.role }}</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('content_show', {'id': contentContribution.content.id}) }}">{{ contentContribution.content.firstLine }}</a>
+                    </td>
+                    {% if showNote %}
+                        <td>{{ contentContribution.note|raw }}</td>
+                    {% endif %}
+                    </li>
+                    {% endfor %}
+            </table>
         {% endif %}
-        <tr>
-            <th>Variant Names</th>
-            <td>{% if person.variantNames|length > 0 %}{{ person.variantNames|join(', ') }}{% endif %}</td>
-        </tr>
-        <tr>
-            <th>Gender</th>
-            <td>
-                {% include 'person/partial/gender.html.twig' %}
-            </td>
-        </tr>
-        <tr>
-            <th>Birth Date</th>
-            <td>{{ person.birthDate }}</td>
-        </tr>
-        <tr>
-            <th>Death Date</th>
-            <td>{{ person.deathDate }}</td>
-        </tr>
-        <tr>
-            <th>Description</th>
-            <td>{{ person.description|raw }}</td>
-        </tr>
-        <tr>
-            <th>Regions</th>
-            <td>
-                {% for region in person.regions|sort((a,b) => a.name <=> b.name) %}
-                <a href="{{ path('region_show', { 'id': region.id}) }}">
-                    {{ region -}}
-                </a>
-                {%- if not loop.last %}, {% endif %}
+    {% endset %}
+
+    {% set manuscriptContent %}
+        {% if person.manuscriptContributions|length > 0 %}
+            <div class="gallery">
+                {% for manuscriptContribution in person.manuscriptContributions|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
+                    {% set callbackDescription %}
+                        <p>Role: {{ manuscriptContribution.role }}</p>
+                        {{ manuscriptContribution.note | raw }}
+                    {% endset %}
+                    {% include 'manuscript/partial/gallery-item.html.twig' with
+                        {'manuscript': manuscriptContribution.manuscript,
+                            'callbackDescription': callbackDescription} %}
                 {% endfor %}
-            </td>
-        </tr>
-        {% if isAdmin %}
-        <tr>
-            <th>Created</th>
-            <td>{% if person.created %}{{ person.created|date }}{% endif %}</td>
-        </tr>
-        <tr>
-            <th>Updated</th>
-            <td>{% if person.updated %}{{ person.updated|date }}{% endif %}</td>
-        </tr>
+                <div class="item empty"></div>
+            </div>
         {% endif %}
-    </tbody>
-</table>
-{% endset %}
+    {% endset %}
 
-{% set contentContent %}
-{% if person.contentContributions | length > 0 %}
-{% set showNote = person.contentContributions|filter(c => c.note is not empty)|length > 0 %}
-<table class="table">
-    <thead>
-        <tr>
-            <th>Role</th>
-            <th>First Line</th>
-            {% if showNote %}
-            <th>Note</th>
-            {% endif %}
-
-        </tr>
-    </thead>
-    {% for contentContribution in person.contentContributions|sort((a,b) => a.content.firstLine <=> b.content.firstLine) %}
-    <tr>
-        <td><a href="{{path('content_role_show', {'id': contentContribution.role.id})}}">{{ contentContribution.role }}</a></td>
-        <td><a href="{{ path('content_show', {'id': contentContribution.content.id}) }}">{{ contentContribution.content.firstLine }}</a></td>
-        {% if showNote %}
-            <td>{{ contentContribution.note|raw }}</td>
-        {% endif %}
-        </li>
-     {% endfor %}
-</table>
-{% endif %}
-{% endset %}
-
-{% set manuscriptContent %}
-{% if person.manuscriptContributions|length > 0 %}
-<div class="gallery">
-    {% for manuscriptContribution in person.manuscriptContributions|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
-        {% set callbackDescription %}
-            <p>Role: {{manuscriptContribution.role }}</p>
-            {{ manuscriptContribution.note | raw }}
-        {% endset %}
-        {% include 'manuscript/partial/gallery-item.html.twig' with
-        {'manuscript': manuscriptContribution.manuscript,
-        'callbackDescription': callbackDescription} %}
-    {% endfor %}
-    <div class="item empty"></div>
-</div>
-{% endif %}
-{% endset %}
-
-{% set tabs = {
-'Details': detailsContent,
-'Manuscript Contributions': manuscriptContent,
-'Content Contributions': contentContent
-} %}
+    {% set tabs = {
+        'Details': detailsContent,
+        'Manuscript Contributions': manuscriptContent,
+        'Content Contributions': contentContent
+    } %}
 
 
 
-{% include 'partial/tabs.html.twig' with {'tabs': tabs} %}
+    {% include 'partial/tabs.html.twig' with {'tabs': tabs} %}
 
 
 

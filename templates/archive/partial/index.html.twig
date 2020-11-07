@@ -8,11 +8,11 @@
     </thead>
     <tbody>
         {% for archive in archives %}
-        <tr>
-            <td><a href="{{ path('archive_show', {'id': archive.id}) }}">{{ archive }}</a></td>
-            <td>{{ archive.description|raw }}</td>
-            <td class="number">{{ archive.manuscripts|length }}</td>
-        </tr>
+            <tr>
+                <td><a href="{{ path('archive_show', {'id': archive.id}) }}">{{ archive }}</a></td>
+                <td>{{ archive.description|raw }}</td>
+                <td class="number">{{ archive.manuscripts|length }}</td>
+            </tr>
         {% endfor %}
     </tbody>
 </table>

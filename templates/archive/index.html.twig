@@ -8,17 +8,17 @@
 
 {% block pageheader %}
     <h1>Archives</h1>
-    {% include 'partial/count.html.twig' 
-    with {'index': archives, 'label': 'archives'} %}
+    {% include 'partial/count.html.twig'
+        with {'index': archives, 'label': 'archives'} %}
 {% endblock %}
 
 {% block admin %}
-{% include 'partial/toolbar.html.twig' with {'new': 'archive_new' } %}
+    {% include 'partial/toolbar.html.twig' with {'new': 'archive_new' } %}
 {% endblock %}
 
 {% block body %}
-{% include 'partial/search-form.html.twig' with {'path': path('archive_search'), 'q': ''} %}
-{% include 'archive/partial/index.html.twig' %}
+    {% include 'partial/search-form.html.twig' with {'path': path('archive_search'), 'q': ''} %}
+    {% include 'archive/partial/index.html.twig' %}
 
     <div class="navigation">
         {{ knp_pagination_render(archives) }}

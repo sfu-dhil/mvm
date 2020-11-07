@@ -14,23 +14,25 @@ either in the body of a page or within the contents of a tab #}
                 <td>{{ manuscript.title|u.truncate(50,'[...]') }}</td>
             </tr>
             {% if manuscript.periods|length > 0 %}
-            <tr>
-                <th>Period</th>
-                <td>{% for period in manuscript.periods|sort((a,b) => a.label <=> b.label) %}
-                    <a href="{{ path('period_show', { 'id': period.id}) }}">
-                        {{ period }}
-                    </a>
-                    {%- if not loop.last %}, {% endif %}
-                    {% endfor %}
-                </td>
-            </tr>
+                <tr>
+                    <th>Period</th>
+                    <td>{% for period in manuscript.periods|sort((a,b) => a.label <=> b.label) %}
+                            <a href="{{ path('period_show', { 'id': period.id}) }}">
+                                {{ period }}
+                            </a>
+                            {%- if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
             {% endif %}
 
             {% if manuscript.archive is not null %}
-            <tr>
-                <th>Archive</th>
-                <td><a href="{{ path('archive_show', {'id' : manuscript.archive.id}) }}">{{ manuscript.archive }}</a></td>
-            </tr>
+                <tr>
+                    <th>Archive</th>
+                    <td>
+                        <a href="{{ path('archive_show', {'id' : manuscript.archive.id}) }}">{{ manuscript.archive }}</a>
+                    </td>
+                </tr>
             {% endif %}
         </tbody>
     </table>

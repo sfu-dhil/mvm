@@ -3,13 +3,13 @@
 {% block title %}Print Source Search{% endblock %}
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'print_source', 'index_label': 'Print Sources', 'show': 'Search'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'print_source', 'index_label': 'Print Sources', 'show': 'Search'} %}
 {% endblock %}
 
 {% block pageheader %}
     <h1>Print Source Search</h1>
     {% if q %}
-    {% include 'partial/count.html.twig' with {'index': printSources, 'label': 'print sources'} %}
+        {% include 'partial/count.html.twig' with {'index': printSources, 'label': 'print sources'} %}
     {% endif %}
 {% endblock %}
 
@@ -17,9 +17,9 @@
 
     {% include 'partial/search-form.html.twig' with {'path': path('print_source_search')} %}
     {% if printSources|length > 0 %}
-    {% include 'print_source/partial/index.html.twig' %}    
+        {% include 'print_source/partial/index.html.twig' %}
     {% else %}
-     {% include 'partial/search-no-results.html.twig' %}
+        {% include 'partial/search-no-results.html.twig' %}
     {% endif %}
 
     {% if q %}

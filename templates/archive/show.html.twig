@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block admin %}
-{% include 'partial/toolbar.html.twig' with {'id': archive.id, edit: 'archive_edit', 'delete': 'archive_delete'} %}
+    {% include 'partial/toolbar.html.twig' with {'id': archive.id, edit: 'archive_edit', 'delete': 'archive_delete'} %}
 {% endblock %}
 
 {% block body %}

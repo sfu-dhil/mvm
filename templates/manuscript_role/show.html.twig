@@ -3,17 +3,17 @@
 {% block title %}Manuscript Role{% endblock %}
 
  {% block pageheader %}
- {% embed 'partial/term-index.html.twig' with {'term': manuscriptRole} %}
- {% endembed %}
+     {% embed 'partial/term-index.html.twig' with {'term': manuscriptRole} %}
+     {% endembed %}
  {% endblock %}
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_role', 'index_label': 'Manuscript Roles', 'show': manuscriptRole} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_role', 'index_label': 'Manuscript Roles', 'show': manuscriptRole} %}
 {% endblock %}
 
 
 {% block admin %}
-{% include 'partial/toolbar.html.twig' with {'edit': 'manuscript_role_edit', 'delete': 'manuscript_role_delete', 'id': manuscriptRole.id} %}
+    {% include 'partial/toolbar.html.twig' with {'edit': 'manuscript_role_edit', 'delete': 'manuscript_role_delete', 'id': manuscriptRole.id} %}
 {% endblock %}
 
 {% block body %}
@@ -28,8 +28,12 @@
             </thead>
             {% for contribution in manuscriptRole.contributions|sort((a,b) => a.person.sortableName <=> b.person.sortableName) %}
                 <tr>
-                    <td><a href="{{ path('person_show', {'id': contribution.person.id}) }}">{{ contribution.person }}</a></td>
-                    <td><a href="{{ path('manuscript_show', {'id': contribution.manuscript.id}) }}">{{ contribution.manuscript }}</a></td>
+                    <td>
+                        <a href="{{ path('person_show', {'id': contribution.person.id}) }}">{{ contribution.person }}</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('manuscript_show', {'id': contribution.manuscript.id}) }}">{{ contribution.manuscript }}</a>
+                    </td>
                 </tr>
             {% endfor %}
         </table>

@@ -1,11 +1,9 @@
-
-
 {% set label %}
     {% if index_label is defined %}
         {{ index_label }}
-     {% else %}
+    {% else %}
         {{ index|capitalize ~ 's' }}
-     {% endif %}
+    {% endif %}
 {% endset %}
 
 

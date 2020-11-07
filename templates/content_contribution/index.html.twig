@@ -4,12 +4,12 @@
 
 {% block pageheader %}
     <h1>Content Contributions</h1>
-{% include 'partial/count.html.twig' with {'index': contentContributions, 'label': 'content contributions'} %}
+    {% include 'partial/count.html.twig' with {'index': contentContributions, 'label': 'content contributions'} %}
 {% endblock %}
 
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'content_contribution', 'index_label': 'Content Contributions'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'content_contribution', 'index_label': 'Content Contributions'} %}
 {% endblock %}
 
 {% block body %}

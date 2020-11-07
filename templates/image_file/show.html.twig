@@ -4,10 +4,10 @@
 
  {% block pageheader %}
      <h1>ImageFile Details</h1>
- {% endblock %} 
+ {% endblock %}
 
 {% block admin %}
-{% include 'partial/toolbar.html.twig' with {'edit': 'image_file_edit', 'delete': 'image_file_delete', 'id': imageFile.id } %}
+    {% include 'partial/toolbar.html.twig' with {'edit': 'image_file_edit', 'delete': 'image_file_delete', 'id': imageFile.id } %}
 {% endblock %}
 
 

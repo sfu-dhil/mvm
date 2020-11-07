@@ -1,5 +1,3 @@
-
-
 <table class="table">
     <thead>
         <tr>
@@ -11,21 +9,21 @@
     </thead>
     <tbody>
         {% for content in contents %}
-        <tr>
-            <td>
-                <a href="{{ path('content_show', { 'id': content.id }) }}">
-                    {{ content.firstLine }}
-                </a>
-            </td>
-            <td>
-                {% set author = content.author %}
-                {% if author is not null %}
-                    <a href='{{ path('person_show', {'id': author.id}) }}'>{{ author }}</a>
-                {% endif %}
-            </td>
-            <td>{{ content.description|raw }}</td>
-            <td class="number">{{ content.manuscriptContents|length }}</td>
-        </tr>
+            <tr>
+                <td>
+                    <a href="{{ path('content_show', { 'id': content.id }) }}">
+                        {{ content.firstLine }}
+                    </a>
+                </td>
+                <td>
+                    {% set author = content.author %}
+                    {% if author is not null %}
+                        <a href='{{ path('person_show', {'id': author.id}) }}'>{{ author }}</a>
+                    {% endif %}
+                </td>
+                <td>{{ content.description|raw }}</td>
+                <td class="number">{{ content.manuscriptContents|length }}</td>
+            </tr>
         {% endfor %}
     </tbody>
 </table>

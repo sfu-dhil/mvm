@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 
-
 {% set isAdmin =  is_granted('ROLE_CONTENT_ADMIN') %}
 {% set route = app.request.attributes.get('_route') %}
 {% set bornDigital = route matches '/(blog|privacy)/' %}
@@ -40,15 +39,11 @@
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+                        <span class="icon-bar"></span> <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{{ path('homepage') }}">
-                        <span class="sr-only">Home</span>
-                        <img src="{{ asset('images/mvm.svg') }}" alt="MVM Logo"/>
-                    </a>
+                    <a class="navbar-brand" href="{{ path('homepage') }}"> <span class="sr-only">Home</span>
+                        <img src="{{ asset('images/mvm.svg') }}" alt="MVM Logo" /> </a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     {{ knp_menu_render('nines_blog_pages') }}
@@ -74,15 +69,16 @@
 
 
             {% if block('pageheader') is defined %}
-                    <header>
-                        {{ block('pageheader') }}
-                    </header>
+                <header>
+                    {{ block('pageheader') }}
+                </header>
             {% endif %}
 
             {% for type, messages in app.session.flashbag.all() %}
                 {% for message in messages %}
                     <div class="alert alert-{{ type }}">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
                         {{ message }}
                     </div>
                 {% endfor %}
@@ -98,26 +94,24 @@
 
         <footer class="footer">
             <div class="container">
-                    <div class="footer-menu">
-                        {% if is_granted('ROLE_USER') %}
-                            {{ knp_menu_render('footer') }}
-                        {% endif %}
-                    </div>
-                    <div class="footer-imgs">
-                        <ul>
-                            <li>
-                                <a href="https://www.lib.sfu.ca/help/publish/dh/dhil" target="_blank">
-                                    <img src="{{ asset('images/dhil-home-page-logo.jpg') }}" />
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="https://www.sfu.ca/" target="_blank">
-                                    <img src="{{ asset('images/SFU_block_colour_rgb.png') }}" />
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="footer-menu">
+                    {% if is_granted('ROLE_USER') %}
+                        {{ knp_menu_render('footer') }}
+                    {% endif %}
                 </div>
+                <div class="footer-imgs">
+                    <ul>
+                        <li>
+                            <a href="https://www.lib.sfu.ca/help/publish/dh/dhil" target="_blank">
+                                <img src="{{ asset('images/dhil-home-page-logo.jpg') }}" /> </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="https://www.sfu.ca/" target="_blank">
+                                <img src="{{ asset('images/SFU_block_colour_rgb.png') }}" /> </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </footer>
         <script src="{{ asset('yarn/bootstrap3/dist/js/bootstrap.min.js') }}"></script>
         {% block javascripts %}

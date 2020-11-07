@@ -3,29 +3,29 @@
 {% block title %}Content Role{% endblock %}
 
  {% block pageheader %}
-    {% include 'partial/term-index.html.twig' with {'term': contentRole} %}
+     {% include 'partial/term-index.html.twig' with {'term': contentRole} %}
  {% endblock %}
 
 
  {% block breadcrumb %}
- {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Content Roles', 'show': contentRole} %}
+     {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Content Roles', 'show': contentRole} %}
  {% endblock %}
 
  {% block admin %}
- {% include 'partial/toolbar.html.twig' with {'edit': 'content_role_edit', 'delete': 'content_role_delete', 'id': contentRole.id } %}
+     {% include 'partial/toolbar.html.twig' with {'edit': 'content_role_edit', 'delete': 'content_role_delete', 'id': contentRole.id } %}
  {% endblock %}
 
 {% block body %}
 
     {% if contentRole.contributions | length > 0 %}
-    {% set processNote = contentRole.contributions|filter(c => c.note is not empty)|length > 0 %}
+        {% set processNote = contentRole.contributions|filter(c => c.note is not empty)|length > 0 %}
         <table class="table">
             <thead>
                 <tr>
                     <th>Contributor</th>
                     <th>Content</th>
                     {% if processNote %}
-                    <th>Note</th>
+                        <th>Note</th>
                     {% endif %}
                 </tr>
             </thead>
@@ -35,13 +35,13 @@
                             {{ contribution.person }}</a>
                     </td>
                     <td><a href="{{ path('content_show', {'id': contribution.content.id}) }}">
-                        {{ contribution.content }}
+                            {{ contribution.content }}
                         </a>
                     </td>
                     {% if processNote %}
-                    <td>
-                        {{ contribution.note|raw }}
-                    </td>
+                        <td>
+                            {{ contribution.note|raw }}
+                        </td>
                     {% endif %}
                 </tr>
             {% endfor %}

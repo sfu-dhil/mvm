@@ -3,12 +3,12 @@
 {% block title %}Search Manuscripts{% endblock %}
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript', 'show': 'Search'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript', 'show': 'Search'} %}
 {% endblock %}
 
 {% block pageheader %}
     <h1>Manuscript Search</h1>
-{% include 'partial/count.html.twig' with {'index': manuscripts, 'label': 'manuscripts'} %}
+    {% include 'partial/count.html.twig' with {'index': manuscripts, 'label': 'manuscripts'} %}
 
 {% endblock %}
 
@@ -17,13 +17,13 @@
     {% include 'partial/search-form.html.twig' with {'path': path('manuscript_search'), 'help': 'Search for manuscripts by manuscript title or call number.'} %}
 
 
-{% if manuscripts|length > 0 %}
-    {% include 'manuscript/partial/gallery.html.twig' %}
-{% else %}
-    {% include 'partial/search-no-results.html.twig' %}
-{% endif %}
+    {% if manuscripts|length > 0 %}
+        {% include 'manuscript/partial/gallery.html.twig' %}
+    {% else %}
+        {% include 'partial/search-no-results.html.twig' %}
+    {% endif %}
 
-<div class="navigation">
-    {{ knp_pagination_render(manuscripts) }}
-</div>
+    <div class="navigation">
+        {{ knp_pagination_render(manuscripts) }}
+    </div>
 {% endblock %}

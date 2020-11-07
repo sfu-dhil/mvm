@@ -1,10 +1,8 @@
-
-
 <div class="gallery">
     {% for manuscript in manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
-    {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscript} %}
-   {% endfor %}
-   {# Now the stupid empty item hack
+        {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscript} %}
+    {% endfor %}
+    {# Now the stupid empty item hack
    so that listings that aren't multiples of 3
    don't stretch #}
     <div class="item empty"></div>

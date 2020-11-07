@@ -9,21 +9,21 @@
     </thead>
     <tbody>
         {% for source in printSources %}
-        <tr>
-            <td><a href="{{ path('print_source_show',{'id': source.id}) }}">{{ source.label }}</a></td>
-            
-            <td>
-                {% if source.region is not null %}
-                <a href="{{ path('region_show', {'id': source.region.id}) }}">{{ source.region }}</a>
-                {% endif %}
-            </td>
-            <td>
-                {{ source.description|raw }}
-            </td>
-            <td class="number">
-                {{ source.manuscripts|length }}
-            </td>
-        </tr>
+            <tr>
+                <td><a href="{{ path('print_source_show',{'id': source.id}) }}">{{ source.label }}</a></td>
+
+                <td>
+                    {% if source.region is not null %}
+                        <a href="{{ path('region_show', {'id': source.region.id}) }}">{{ source.region }}</a>
+                    {% endif %}
+                </td>
+                <td>
+                    {{ source.description|raw }}
+                </td>
+                <td class="number">
+                    {{ source.manuscripts|length }}
+                </td>
+            </tr>
         {% endfor %}
     </tbody>
 </table>

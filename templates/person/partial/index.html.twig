@@ -3,39 +3,39 @@
         <tr>
             <th>Full Name</th>
             {% if isAdmin %}
-            <th>Sortable Name</th>
+                <th>Sortable Name</th>
             {% endif %}
             <th>Gender</th>
             <th class="number">Content Contributions</th>
             <th class="number">Manuscript Contributions</th>
-            
+
         </tr>
     </thead>
     <tbody>
-        
+
         {% for person in people %}
-        <tr>
-            <td>
-                <a href="{{ path('person_show', { 'id': person.id }) }}">
-                    {{ person }}
-                </a>
-            </td>
-            {% if is_granted('ROLE_CONTENT_ADMIN') %}
-            <td>
-                {{ person.sortableName }}
-            </td>
-            {% endif %}
-            <td>
-                {% include 'person/partial/gender.html.twig' %}
-            </td>
-            <td class="number">
-                {{ person.contentContributions|length }}
-            </td>
-            <td class="number">
-                {{ person.manuscriptContributions|length }}
-            </td>
-            
-        </tr>
+            <tr>
+                <td>
+                    <a href="{{ path('person_show', { 'id': person.id }) }}">
+                        {{ person }}
+                    </a>
+                </td>
+                {% if is_granted('ROLE_CONTENT_ADMIN') %}
+                    <td>
+                        {{ person.sortableName }}
+                    </td>
+                {% endif %}
+                <td>
+                    {% include 'person/partial/gender.html.twig' %}
+                </td>
+                <td class="number">
+                    {{ person.contentContributions|length }}
+                </td>
+                <td class="number">
+                    {{ person.manuscriptContributions|length }}
+                </td>
+
+            </tr>
         {% endfor %}
     </tbody>
 </table>
