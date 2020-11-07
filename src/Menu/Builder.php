@@ -143,7 +143,7 @@ class Builder implements ContainerAwareInterface {
 
         return $menu;
     }
-    
+
     /**
      * Build a menu the footer.
      *
@@ -151,7 +151,7 @@ class Builder implements ContainerAwareInterface {
      */
     public function footerMenu(array $options) {
         $menu = $this->factory->createItem('root');
-         $menu->setChildrenAttributes([
+        $menu->setChildrenAttributes([
             'class' => 'footer-links',
         ]);
         $menu->addChild('Home', [
@@ -196,7 +196,6 @@ class Builder implements ContainerAwareInterface {
         $menu->addChild('Documentation', [
             'uri' => 'docs/sphinx/index.html',
         ]);
-
 
         return $menu;
     }

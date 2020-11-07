@@ -11,16 +11,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Archive;
-use App\Form\ArchiveType;
-use App\Form\PersonTypeaheadType;
-use App\Repository\ArchiveRepository;
 use App\Entity\Period;
-use App\Form\PeriodType;
-use App\Repository\PeriodRepository;
-use Nines\BlogBundle\Entity;
-use Nines\BlogBundle\Entity\Page;
-use Nines\BlogBundle\Entity\Post;
+use App\Form\PersonTypeaheadType;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Nines\BlogBundle\Entity\Page;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

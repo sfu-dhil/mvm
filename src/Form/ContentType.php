@@ -38,7 +38,7 @@ class ContentType extends AbstractType {
             ],
         ]);
         $builder->add('date', TextType::class, [
-            'label'  => 'Date',
+            'label' => 'Date',
             'required' => false,
             'attr' => [
                 'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here.',

@@ -25,8 +25,6 @@ class ImageUrl extends Image {
 
     /**
      * Force all entities to provide a stringify function.
-     *
-     * @return string
      */
     public function __toString() : string {
         return get_class() . ' #' . $this->id;

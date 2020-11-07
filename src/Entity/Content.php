@@ -82,8 +82,6 @@ class Content extends AbstractEntity {
 
     /**
      * Force all entities to provide a stringify function.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->firstLine;
@@ -91,8 +89,6 @@ class Content extends AbstractEntity {
 
     /**
      * Add contribution.
-     *
-     * @param ContentContribution $contribution
      *
      * @return Content
      */
@@ -105,8 +101,6 @@ class Content extends AbstractEntity {
     /**
      * Remove contribution.
      *
-     * @param ContentContribution $contribution
-     *
      * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
     public function removeContribution(ContentContribution $contribution) {
@@ -116,22 +110,21 @@ class Content extends AbstractEntity {
     /**
      * Get contributions.
      *
-     * @return ContentContribution[]|Collection
+     * @return Collection|ContentContribution[]
      */
     public function getContributions() {
         return $this->contributions;
     }
 
     /**
-     * @return Person|null
+     * @return null|Person
      */
     public function getAuthor() {
         foreach ($this->contributions as $contribution) {
-            if ($contribution->getRole()->getName() === 'author') {
+            if ('author' === $contribution->getRole()->getName()) {
                 return $contribution->getPerson();
             }
         }
-        return null;
     }
 
     /**
@@ -288,9 +281,6 @@ class Content extends AbstractEntity {
         return $this->manuscriptContents;
     }
 
-    /**
-     * @return CircaDate|null
-     */
     public function getDate() : ?CircaDate {
         return $this->date;
     }
@@ -300,8 +290,9 @@ class Content extends AbstractEntity {
      *
      * @param null|CircaDate $date
      *
-     * @return Content
      * @throws \Exception
+     *
+     * @return Content
      */
     public function setDate($date = null) {
         if (is_string($date) || is_numeric($date)) {

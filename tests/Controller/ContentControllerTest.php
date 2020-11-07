@@ -14,7 +14,6 @@ use App\DataFixtures\ContentFixtures;
 use App\Entity\Content;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
-use Symfony\Component\HttpFoundation\Response;
 
 class ContentControllerTest extends ControllerBaseCase {
     protected function fixtures() : array {
