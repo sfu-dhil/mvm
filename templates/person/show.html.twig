@@ -13,7 +13,7 @@
 
 {% block pageheader %}
    <h1>{{ person.fullName }}</h1>
-{% endblock %} 
+{% endblock %}
 
 {% block admin %}
 {% include 'partial/toolbar.html.twig' with {'edit':'person_edit', 'delete': 'person_delete', 'id': person.id } %}
@@ -60,7 +60,7 @@
         <tr>
             <th>Regions</th>
             <td>
-                {% for region in person.regions %}
+                {% for region in person.regions|sort((a,b) => a.name <=> b.name) %}
                 <a href="{{ path('region_show', { 'id': region.id}) }}">
                     {{ region -}}
                 </a>
@@ -93,10 +93,10 @@
             {% if showNote %}
             <th>Note</th>
             {% endif %}
-            
+
         </tr>
     </thead>
-    {% for contentContribution in person.contentContributions %}
+    {% for contentContribution in person.contentContributions|sort((a,b) => a.content.firstLine <=> b.content.firstLine) %}
     <tr>
         <td><a href="{{path('content_role_show', {'id': contentContribution.role.id})}}">{{ contentContribution.role }}</a></td>
         <td><a href="{{ path('content_show', {'id': contentContribution.content.id}) }}">{{ contentContribution.content.firstLine }}</a></td>
@@ -112,13 +112,13 @@
 {% set manuscriptContent %}
 {% if person.manuscriptContributions|length > 0 %}
 <div class="gallery">
-    {% for manuscriptContribution in person.manuscriptContributions %}
+    {% for manuscriptContribution in person.manuscriptContributions|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
         {% set callbackDescription %}
             <p>Role: {{manuscriptContribution.role }}</p>
             {{ manuscriptContribution.note | raw }}
         {% endset %}
-        {% include 'manuscript/partial/gallery-item.html.twig' with 
-        {'manuscript': manuscriptContribution.manuscript, 
+        {% include 'manuscript/partial/gallery-item.html.twig' with
+        {'manuscript': manuscriptContribution.manuscript,
         'callbackDescription': callbackDescription} %}
     {% endfor %}
     <div class="item empty"></div>
@@ -130,12 +130,12 @@
 'Details': detailsContent,
 'Manuscript Contributions': manuscriptContent,
 'Content Contributions': contentContent
-} %} 
+} %}
 
 
 
 {% include 'partial/tabs.html.twig' with {'tabs': tabs} %}
 
 
-    
+
 {% endblock %}

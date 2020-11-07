@@ -46,11 +46,11 @@
                         {{ contribution.note | raw }}
                     </div>
                         {% endif %}
-      
+
                     </td>
                 </tr>
                 {% endfor %}
-                
+
                 {% if isAdmin %}
                 <tr>
                     <th>Created</th>
@@ -84,7 +84,7 @@
 {% set manuscripts %}
 {% if content.manuscriptContents|length > 0 %}
 <div class="gallery">
-    {% for manuscriptContent in content.manuscriptContents %}
+    {% for manuscriptContent in content.manuscriptContents|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
     {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscriptContent.manuscript, 'callbackDescription': manuscriptContent.context} %}
     {% endfor %}
     <div class="item empty"><!--Keep open--></div>

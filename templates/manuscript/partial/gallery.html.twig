@@ -1,7 +1,7 @@
 
 
 <div class="gallery">
-    {% for manuscript in manuscripts %}
+    {% for manuscript in manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
     {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscript} %}
    {% endfor %}
    {# Now the stupid empty item hack
@@ -9,11 +9,4 @@
    don't stretch #}
     <div class="item empty"></div>
     <div class="item empty"></div>
-</div>
-
-    
-
-
-        
-    
 </div>

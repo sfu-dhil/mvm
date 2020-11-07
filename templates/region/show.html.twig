@@ -5,13 +5,13 @@
 
  {% block pageheader %}
      <h1>{{ region.name }}</h1>
- {% endblock %} 
- 
+ {% endblock %}
+
 {% block breadcrumb %}
     {% include 'partial/breadcrumb.html.twig'
     with {'index': 'region', 'show':region.name} %}
 {% endblock %}
- 
+
 
 {% block admin %}
 
@@ -33,17 +33,17 @@
             <th>Description</th>
         </tr>
     </thead>
-    {% for printSource in region.printSources %}
+    {% for printSource in region.printSources|sort((a,b) => a.label <=> b.label) %}
     <tr>
         <td>
             <a href="{{ path("print_source_show", {"id":printSource.id}) }}">
                 {{ printSource }}
-            </a>  
+            </a>
         </td>
         <td>
             {{ printSource.description|raw }}
         </td>
-        
+
     </tr>
     {% endfor %}
 </table>
@@ -53,7 +53,7 @@
 {% set manuscriptContent %}
 {% if region.manuscripts|length > 0 %}
     <div class="gallery">
-        {% for manuscript in region.manuscripts %}
+        {% for manuscript in region.manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
         {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscript} %}
         {% endfor %}
         <div class="item empty"><!--Keep open--></div>
@@ -73,7 +73,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for person in region.people %}
+        {% for person in region.people|sort((a,b) => a.sortableName <=> b.sortableName) %}
         <tr>
             <td>
                 <a href="{{ path("person_show", {"id":person.id}) }}">
@@ -89,8 +89,8 @@
             <td>
                 {{ person.deathDate }}
             </td>
-            
-            
+
+
         </tr>
         {% endfor %}
     </tbody>
@@ -103,7 +103,7 @@
 'Print Sources': printSourceContent,
 'Manuscripts': manuscriptContent,
 'People': peopleContent
-} %} 
+} %}
 
 
 

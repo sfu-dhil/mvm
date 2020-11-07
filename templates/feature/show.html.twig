@@ -4,16 +4,16 @@
 
  {% block pageheader %}
      {% include 'partial/term-index.html.twig' with {'term': feature} %}
- {% endblock %} 
- 
+ {% endblock %}
+
  {% block breadcrumb %}
     {% include 'partial/breadcrumb.html.twig' with {'index': 'feature', 'show': feature} %}
  {% endblock %}
- 
+
  {% block admin %}
- 
+
  {% include 'partial/toolbar.html.twig' with {'edit': 'feature_edit', 'delete': 'feature_delete', 'id': feature.id } %}
- 
+
  {% endblock %}
 
 {% block body %}
@@ -40,17 +40,17 @@
         </tr>
     </thead>
         <tbody>
-           
-            {% for manuscriptFeature in feature.manuscriptFeatures %}
+
+            {% for manuscriptFeature in feature.manuscriptFeatures|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
             <tr>
                 <td>
                     <a href="{{ path('manuscript_show', {'id': manuscriptFeature.manuscript.id}) }}">{{ manuscriptFeature.manuscript.callNumber }}
                     </a>
                 </td>
-                
-                <td>{{ manuscriptFeature.note|raw }}</td> 
+
+                <td>{{ manuscriptFeature.note|raw }}</td>
             </tr>
-         
+
             {% endfor %}
         </tbody>
     </table>

@@ -16,7 +16,7 @@ either in the body of a page or within the contents of a tab #}
             {% if manuscript.periods|length > 0 %}
             <tr>
                 <th>Period</th>
-                <td>{% for period in manuscript.periods %}
+                <td>{% for period in manuscript.periods|sort((a,b) => a.label <=> b.label) %}
                     <a href="{{ path('period_show', { 'id': period.id}) }}">
                         {{ period }}
                     </a>
@@ -25,7 +25,7 @@ either in the body of a page or within the contents of a tab #}
                 </td>
             </tr>
             {% endif %}
-            
+
             {% if manuscript.archive is not null %}
             <tr>
                 <th>Archive</th>
@@ -34,10 +34,10 @@ either in the body of a page or within the contents of a tab #}
             {% endif %}
         </tbody>
     </table>
-    
-    
+
+
     {% if manuscript.description is not null or (callbackDescription is defined and callbackDescription is not null) %}
-  
+
         {% if callbackDescription is defined %}
             {% if callbackDescription is not null %}
                 <div class="description">{{ callbackDescription|raw }}</div>
@@ -45,7 +45,7 @@ either in the body of a page or within the contents of a tab #}
         {% else %}
             <div class="description">{{ manuscript.description | raw }}</div>
         {% endif %}
-    
+
     {% endif %}
-    
+
 </div>

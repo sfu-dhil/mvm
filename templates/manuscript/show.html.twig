@@ -8,7 +8,7 @@
 
 {% block pageheader %}
      <h1>{{ manuscript.callNumber }}</h1>
-{% endblock %} 
+{% endblock %}
 
 
 {% block admin %}
@@ -47,7 +47,7 @@
             <th>Complete</th>
             <td>{% if manuscript.complete %}Yes{% else %}No{% endif %}</td>
         </tr>
-        
+
         <tr>
             <th>Description</th>
             <td>{{ manuscript.description|raw }}</td>
@@ -77,7 +77,7 @@
             <td>
                 {% if manuscript.periods | length > 0 %}
                 <ul class="tag-list">
-                    {% for period in manuscript.periods %}
+                    {% for period in manuscript.periods|sort((a,b) => a.label <=> b.label) %}
                     <li class="period">
                         <a class="tag" href="{{ path("period_show", {"id":period.id}) }}">
                             {{ period }}
@@ -86,10 +86,10 @@
                     {% endfor %}
                 </ul>
                 {% endif %}
-               
+
             </td>
         </tr>
-        
+
         <tr>
             <th>First Line Index</th>
             <td>{% if manuscript.firstLineIndex %}Yes{% else %}No{% endif %}</td>
@@ -98,11 +98,11 @@
             <th>Digitized</th>
             <td>{% if manuscript.digitized %}Yes{% else %}No{% endif %}</td>
         </tr>
-        
+
         <tr>
             <th>Region</th>
             <td>
-                {% for region in manuscript.regions %}
+                {% for region in manuscript.regions|sort((a,b) => a.name <=> b.name) %}
                 <a href="{{ path('region_show', { 'id': region.id}) }}">
                     {{ region -}}
                 </a>{% if not loop.last %}, {% endif %}
@@ -111,14 +111,18 @@
         </tr>
         <tr>
             <th>Additional Genres</th>
-            <td>{% if manuscript.additionalGenres %}{{ manuscript.additionalGenres|join(', ') }}{% endif %}</td>
+            <td>
+                {% if manuscript.additionalGenres %}
+                    {{ manuscript.additionalGenres|sort((a,b) => a <=> b)|join(', ') }}
+                {% endif %}
+            </td>
         </tr>
         <tr>
             <th>Print Sources</th>
             <td>
                 {% if manuscript.printSources | length > 0 %}
                 <ul class="tag-list">
-                    {% for printSource in manuscript.printSources %}
+                    {% for printSource in manuscript.printSources|sort((a,b) => a.label <=> b.label) %}
                     <li class="printSource">
                         <a class="tag" href="{{ path("print_source_show", {"id":printSource.id}) }}">
                             {{ printSource }}
@@ -134,7 +138,7 @@
             <td>
                 {% if manuscript.themes | length > 0 %}
                 <ul class="tag-list">
-                    {% for theme in manuscript.themes %}
+                    {% for theme in manuscript.themes|sort((a,b) => a.label <=> b.label) %}
                     <li class="theme">
                         <a class="tag" href="{{ path("theme_show", {"id":theme.id}) }}">
                             {{ theme }}
@@ -145,7 +149,7 @@
                 {% endif %}
             </td>
         </tr>
-        
+
         <tr>
             <th>Bibliography</th>
             <td>{{ manuscript.bibliography|raw }}</td>
@@ -182,10 +186,10 @@
             {% endif %}
         </tr>
     </thead>
-    {% for manuscriptContribution in manuscript.manuscriptContributions %}
+    {% for manuscriptContribution in manuscript.manuscriptContributions|sort((a,b) => a.person.sortableName <=> b.person.sortableName) %}
     <tr>
         <td>
-            <a href="{{ path('person_show', {'id': manuscriptContribution.person.id}) }}">{{ manuscriptContribution.person }}</a> 
+            <a href="{{ path('person_show', {'id': manuscriptContribution.person.id}) }}">{{ manuscriptContribution.person }}</a>
         </td>
         <td>
             <a href="{{ path('manuscript_role_show', {'id': manuscriptContribution.role.id}) }}">{{ manuscriptContribution.role }}</a>
@@ -195,7 +199,7 @@
             {{ manuscriptContribution.note|raw }}
         </td>
         {% endif %}
-        
+
     </tr>
     {% endfor %}
 </table>
@@ -221,7 +225,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for manuscriptContent in manuscript.manuscriptContents %}
+        {% for manuscriptContent in manuscript.manuscriptContents|sort((a,b) => a.content.firstLine <=> b.content.firstLine) %}
         <tr>
             <td> <a href="{{ path('content_show', {'id': manuscriptContent.content.id}) }}">{{ manuscriptContent.content.firstLine }}</td>
             <td>

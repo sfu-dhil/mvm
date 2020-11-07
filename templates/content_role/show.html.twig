@@ -4,19 +4,19 @@
 
  {% block pageheader %}
     {% include 'partial/term-index.html.twig' with {'term': contentRole} %}
- {% endblock %} 
- 
+ {% endblock %}
+
 
  {% block breadcrumb %}
  {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Content Roles', 'show': contentRole} %}
  {% endblock %}
- 
+
  {% block admin %}
  {% include 'partial/toolbar.html.twig' with {'edit': 'content_role_edit', 'delete': 'content_role_delete', 'id': contentRole.id } %}
  {% endblock %}
- 
+
 {% block body %}
-    
+
     {% if contentRole.contributions | length > 0 %}
     {% set processNote = contentRole.contributions|filter(c => c.note is not empty)|length > 0 %}
         <table class="table">
@@ -29,7 +29,7 @@
                     {% endif %}
                 </tr>
             </thead>
-            {% for contribution in contentRole.contributions %}
+            {% for contribution in contentRole.contributions|sort((a,b) => a.person.sortableName <=> b.person.sortableName) %}
                 <tr>
                     <td><a href="{{ path('person_show', {'id': contribution.person.id}) }}">
                             {{ contribution.person }}</a>

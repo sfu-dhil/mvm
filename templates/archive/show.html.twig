@@ -8,12 +8,12 @@
 
 {% block pageheader %}
     {% include 'partial/term-index.html.twig' with {'term': archive} %}
-{% endblock %} 
+{% endblock %}
 
 {% block admin %}
 {% include 'partial/toolbar.html.twig' with {'id': archive.id, edit: 'archive_edit', 'delete': 'archive_delete'} %}
 {% endblock %}
 
 {% block body %}
-    {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': archive.manuscripts} %}
+    {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': archive.manuscripts|sort((a,b) => a.callNumber <=> b.callNumber)} %}
 {% endblock %}
