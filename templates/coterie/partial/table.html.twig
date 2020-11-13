@@ -1,0 +1,34 @@
+<table class="table table-bordered table-condensed table-hover table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Label</th>
+            <th>Description</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for coterie in coteries %}
+            <tr>
+                <td>
+                    <a href="{{ path('coterie_show', { 'id': coterie.id }) }}">
+                        {{ coterie.id }}
+                    </a>
+                </td>
+                <td>
+                    {{ coterie.name }}
+                </td>
+
+                <td>
+                    {{ coterie.label }}
+                </td>
+
+                <td>
+                    {{ coterie.description|raw }}
+                </td>
+
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

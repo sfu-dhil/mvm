@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Coterie List{% endblock %}
+
+{% block pageheader %}
+    <h1>Coterie List</h1>
+    <p class="count">
+        Displaying {{ coteries|length }} coteries of {{ coteries.getTotalItemCount }} total.
+    </p>
+{% endblock %}
+
+{% block body %}
+
+    <div class='btn-toolbar pull-right'>
+        <div class='btn-group'>
+            {% if is_granted('ROLE_CONTENT_ADMIN') %}
+                <a href="{{ path('coterie_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New </a>
+            {% endif %}
+
+            <a href="{{ path('coterie_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search </a>
+        </div>
+    </div>
+
+    {% embed '@NinesUtil/term/partial/index.html.twig' with {'terms': coteries, 'path': 'coterie_show'} %}
+    {% endembed %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(coteries) }}
+    </div>
+
+{% endblock %}
