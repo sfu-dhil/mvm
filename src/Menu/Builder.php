@@ -94,6 +94,9 @@ class Builder implements ContainerAwareInterface {
         $browse->addChild('Content Roles', [
             'route' => 'content_role_index',
         ]);
+        $browse->addChild('Coteries', [
+            'route' => 'coterie_index',
+        ]);
         $browse->addChild('Features', [
             'route' => 'feature_index',
         ]);
