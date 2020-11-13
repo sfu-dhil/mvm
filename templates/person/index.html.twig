@@ -3,7 +3,7 @@
 {% block title %}Person List{% endblock %}
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'person', 'index_label': 'People'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'person', 'index_label': 'People'} %}
 {% endblock %}
 
 {% block pageheader %}
@@ -12,14 +12,14 @@
 {% endblock %}
 
 {% block admin %}
-{% include 'partial/toolbar.html.twig' with {'new': 'person_new'} %}
+    {% include 'partial/toolbar.html.twig' with {'new': 'person_new'} %}
 {% endblock %}
 
 {% block body %}
 
-{% include 'partial/search-form.html.twig' with {'path': path('person_search'), 'q': ''} %}
+    {% include 'partial/search-form.html.twig' with {'path': path('person_search'), 'q': ''} %}
 
-{% include 'person/partial/index.html.twig' %}
+    {% include 'person/partial/index.html.twig' %}
 
     <div class="navigation">
         {{ knp_pagination_render(people) }}

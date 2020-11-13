@@ -1,4 +1,3 @@
-
 <table class="table">
     <thead>
         <tr>
@@ -9,11 +8,11 @@
     </thead>
     <tbody>
         {% for theme in themes %}
-        <tr>
-            <td><a href="{{ path('theme_show',{'id':theme.id}) }}">{{ theme.label }}</a></td>
-            <td>{{ theme.description|raw }}</td>
-            <td class="number">{{ theme.manuscripts|length}}</td>
-        </tr>
+            <tr>
+                <td><a href="{{ path('theme_show',{'id':theme.id}) }}">{{ theme.label }}</a></td>
+                <td>{{ theme.description|raw }}</td>
+                <td class="number">{{ theme.manuscripts|length }}</td>
+            </tr>
         {% endfor %}
     </tbody>
 </table>

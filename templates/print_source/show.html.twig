@@ -3,25 +3,25 @@
 {% block title %}Print Source{% endblock %}
 
  {% block pageheader %}
-    {% embed 'partial/term-index.html.twig' with {'term': printSource} %}
-        {% block callback %}
-            {% if printSource.region %}
-                <p>
-                    <a href="{{ path('region_show', {'id': printSource.region.id}) }}">{{ printSource.region }}</a>
-                </p>
-            {% endif %}
-        {% endblock %}
-    {% endembed %}
- {% endblock %} 
- 
- {% block breadcrumb %}
-    {% include 'partial/breadcrumb.html.twig' with {'index': 'print_source', 'index_label': 'Print Sources', 'show': printSource.label} %}
+     {% embed 'partial/term-index.html.twig' with {'term': printSource} %}
+         {% block callback %}
+             {% if printSource.region %}
+                 <p>
+                     <a href="{{ path('region_show', {'id': printSource.region.id}) }}">{{ printSource.region }}</a>
+                 </p>
+             {% endif %}
+         {% endblock %}
+     {% endembed %}
  {% endblock %}
- 
+
+ {% block breadcrumb %}
+     {% include 'partial/breadcrumb.html.twig' with {'index': 'print_source', 'index_label': 'Print Sources', 'show': printSource.label} %}
+ {% endblock %}
+
 {% block admin %}
- {% include 'partial/toolbar.html.twig' with {'edit': 'print_source_edit', 'delete': 'print_source_delete', 'id': printSource.id} %}
+    {% include 'partial/toolbar.html.twig' with {'edit': 'print_source_edit', 'delete': 'print_source_delete', 'id': printSource.id} %}
 {% endblock %}
 
 {% block body %}
- {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': printSource.manuscripts} %}
+    {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': printSource.manuscripts} %}
 {% endblock %}

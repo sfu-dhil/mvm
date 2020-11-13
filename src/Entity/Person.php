@@ -103,8 +103,6 @@ class Person extends AbstractEntity {
 
     /**
      * Force all entities to provide a stringify function.
-     *
-     * @return string
      */
     public function __toString() : string {
         if ( ! $this->anonymous) {

@@ -5,7 +5,7 @@
 {% block title %}Archive Search{% endblock %}
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'archive','show':'Search'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'archive','show':'Search'} %}
 {% endblock %}
 
 {% block pageheader %}
@@ -18,7 +18,7 @@
 {% block body %}
 
     {% include 'partial/search-form.html.twig' with {'path': path('archive_search')} %}
-    
+
     {% if archives|length > 0 %}
         {% include 'archive/partial/index.html.twig' %}
     {% else %}

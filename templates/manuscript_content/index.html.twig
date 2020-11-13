@@ -6,11 +6,11 @@
 
 {% block pageheader %}
     <h1>Manuscript Contents</h1>
-{% include 'partial/count.html.twig' with {'index': manuscriptContents, 'label': 'manuscript contents'} %}
+    {% include 'partial/count.html.twig' with {'index': manuscriptContents, 'label': 'manuscript contents'} %}
 {% endblock %}
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_content', 'index_label': 'Manuscript Contents'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_content', 'index_label': 'Manuscript Contents'} %}
 {% endblock %}
 
 

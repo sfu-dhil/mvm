@@ -13,7 +13,6 @@ namespace App\Controller;
 use App\Entity\ManuscriptContent;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,7 +42,8 @@ class ManuscriptContentController extends AbstractController implements Paginato
             ->leftJoin('e.content', 'c')
             ->leftJoin('e.manuscript', 'm')
             ->orderBy('c.firstLine', 'ASC')
-            ->addOrderBy('m.callNumber');
+            ->addOrderBy('m.callNumber')
+        ;
         $query = $qb->getQuery();
 
         $manuscriptContents = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);

@@ -3,7 +3,7 @@
 {% block title %}Manuscripts{% endblock %}
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript'} %}
 {% endblock %}
 
 {% block pageheader %}
@@ -14,12 +14,12 @@
 
 
 {% block admin %}
-{% include 'partial/toolbar.html.twig' with {'new': 'manuscript_new'} %}
+    {% include 'partial/toolbar.html.twig' with {'new': 'manuscript_new'} %}
 {% endblock %}
 
 
 {% block body %}
-{% include 'partial/search-form.html.twig' with {'path': path('manuscript_search'), 'help': 'Search for manuscripts by manuscript title or call number.', 'q': ''} %}
+    {% include 'partial/search-form.html.twig' with {'path': path('manuscript_search'), 'help': 'Search for manuscripts by manuscript title or call number.', 'q': ''} %}
 
 
     {% include 'manuscript/partial/gallery.html.twig' %}

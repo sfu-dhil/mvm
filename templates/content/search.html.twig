@@ -4,7 +4,7 @@
 
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'content', 'show': 'Search'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'content', 'show': 'Search'} %}
 {% endblock %}
 
 {% block pageheader %}
@@ -14,13 +14,13 @@
 
 {% block body %}
 
-{% include 'partial/search-form.html.twig' with {'path': path('content_search')} %}
+    {% include 'partial/search-form.html.twig' with {'path': path('content_search')} %}
 
-{% if contents|length > 0 %}
-    {% include 'content/partial/index.html.twig' %}
-{% else %}
-    {% include 'partial/search-no-results.html.twig' %}
-{% endif %}
+    {% if contents|length > 0 %}
+        {% include 'content/partial/index.html.twig' %}
+    {% else %}
+        {% include 'partial/search-no-results.html.twig' %}
+    {% endif %}
 
     {% if q %}
         <div class="navigation">

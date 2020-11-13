@@ -175,8 +175,6 @@ class Manuscript extends AbstractEntity {
 
     /**
      * Force all entities to provide a stringify function.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->callNumber;
@@ -708,9 +706,10 @@ class Manuscript extends AbstractEntity {
      */
     public function getManuscriptContents() {
         $iterator = $this->manuscriptContents->getIterator();
-        $iterator->uasort(function(ManuscriptContent $a, ManuscriptContent $b){
+        $iterator->uasort(function (ManuscriptContent $a, ManuscriptContent $b) {
             return strcmp($a->getContent()->getFirstLine(), $b->getContent()->getFirstLine());
         });
+
         return new ArrayCollection($iterator->getArrayCopy());
     }
 

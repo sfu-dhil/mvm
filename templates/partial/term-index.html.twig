@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 
-<h1>{% if prefix is defined %}{{prefix}}: {% endif %}{{ term.label }}</h1>
+<h1>{% if prefix is defined %}{{ prefix }}: {% endif %}{{ term.label }}</h1>
 <div class="cat-description">
-    {{ term.description|raw }} 
+    {{ term.description|raw }}
 </div>
 {% block callback %}
 
 {% endblock %}
 {% if is_granted('ROLE_CONTENT_ADMIN') %}
-<ul class="list-group-horizontal">
+    <ul class="list-group-horizontal">
         <li><em>Created</em>: {% if term.created %}{{ term.created|date }}{% endif %}</li>
         <li><em>Updated</em>: {% if term.updated %}{{ term.updated|date }}{% endif %}</li>
-</ul>
+    </ul>
 {% endif %}

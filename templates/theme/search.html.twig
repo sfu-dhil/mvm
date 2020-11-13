@@ -3,13 +3,13 @@
 {% block title %}Theme Search{% endblock %}
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'theme', 'show': 'Search'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'theme', 'show': 'Search'} %}
 {% endblock %}
 
 {% block pageheader %}
     <h1>Theme Search</h1>
     {% if q %}
-    {% include 'partial/count.html.twig' with {'index': themes, 'label': 'themes'} %}
+        {% include 'partial/count.html.twig' with {'index': themes, 'label': 'themes'} %}
     {% endif %}
 {% endblock %}
 
@@ -17,9 +17,9 @@
 
     {% include 'partial/search-form.html.twig' with {'path': path('theme_search')} %}
     {% if themes|length > 0 %}
-    {% include 'theme/partial/index.html.twig' %}
+        {% include 'theme/partial/index.html.twig' %}
     {% else %}
-    {% include 'partial/search-no-results.html.twig' %}
+        {% include 'partial/search-no-results.html.twig' %}
     {% endif %}
     {% if q %}
         <div class="navigation">

@@ -4,13 +4,13 @@
 
 {% block pageheader %}
     <h1>Image Files</h1>
-{% include 'partial/count.html.twig' with {'index': imageFiles, 'label': 'image files'} %}
+    {% include 'partial/count.html.twig' with {'index': imageFiles, 'label': 'image files'} %}
 {% endblock %}
 
 {% block body %}
 
 
-{% include 'partial/toolbar.html.twig' with {'new': 'image_file_new'} %}
+    {% include 'partial/toolbar.html.twig' with {'new': 'image_file_new'} %}
 
     <table class="table">
         <thead>

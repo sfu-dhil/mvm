@@ -4,11 +4,11 @@
 
  {% block pageheader %}
      <h1>Manuscript Content Details</h1>
- {% endblock %} 
+ {% endblock %}
 
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_content', 'index_label': 'Manuscript Contents', 'show': manuscriptContent.content.firstLine} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_content', 'index_label': 'Manuscript Contents', 'show': manuscriptContent.content.firstLine} %}
 {% endblock %}
 
 {% block body %}

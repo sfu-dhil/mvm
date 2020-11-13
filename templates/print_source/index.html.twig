@@ -3,22 +3,22 @@
 {% block title %}Print Sources{% endblock %}
 
 {% block breadcrumb %}
-{% include 'partial/breadcrumb.html.twig' with {'index': 'print_source', 'index_label': 'Print Sources'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'print_source', 'index_label': 'Print Sources'} %}
 {% endblock %}
 
 {% block pageheader %}
     <h1>Print Sources</h1>
-{% include 'partial/count.html.twig' with {'index': printSources, 'label': 'print sources'} %}
+    {% include 'partial/count.html.twig' with {'index': printSources, 'label': 'print sources'} %}
 {% endblock %}
 
 {% block admin %}
-{% include 'partial/toolbar.html.twig' with {'new': 'print_source_new'} %}
+    {% include 'partial/toolbar.html.twig' with {'new': 'print_source_new'} %}
 {% endblock %}
 
 {% block body %}
 
-{% include 'partial/search-form.html.twig' with {'path': path('print_source_search'), 'q': ''} %}
-{% include 'print_source/partial/index.html.twig' %}    
+    {% include 'partial/search-form.html.twig' with {'path': path('print_source_search'), 'q': ''} %}
+    {% include 'print_source/partial/index.html.twig' %}
 
 
     <div class="navigation">

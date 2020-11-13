@@ -4,11 +4,11 @@
 
  {% block pageheader %}
      <h1>ImageUrl Details</h1>
- {% endblock %} 
+ {% endblock %}
 
 {% block admin %}
 
-{% include 'partial/toolbar.html.twig' with {'edit': 'image_url_edit', 'delete': 'image_url_delete', 'id': imageUrl.id } %}
+    {% include 'partial/toolbar.html.twig' with {'edit': 'image_url_edit', 'delete': 'image_url_delete', 'id': imageUrl.id } %}
 
 {% endblock %}
 

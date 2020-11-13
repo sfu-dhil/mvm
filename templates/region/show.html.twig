@@ -5,18 +5,18 @@
 
  {% block pageheader %}
      <h1>{{ region.name }}</h1>
- {% endblock %} 
- 
+ {% endblock %}
+
 {% block breadcrumb %}
     {% include 'partial/breadcrumb.html.twig'
-    with {'index': 'region', 'show':region.name} %}
+        with {'index': 'region', 'show':region.name} %}
 {% endblock %}
- 
+
 
 {% block admin %}
 
 
-{% include 'partial/toolbar.html.twig' with {'edit': 'region_edit', 'delete': 'region_delete', 'id': region.id} %}
+    {% include 'partial/toolbar.html.twig' with {'edit': 'region_edit', 'delete': 'region_delete', 'id': region.id} %}
 
 {% endblock %}
 
@@ -24,90 +24,90 @@
 {% block body %}
 
 
-{% set printSourceContent %}
-{% if region.printSources|length > 0 %}
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    {% for printSource in region.printSources %}
-    <tr>
-        <td>
-            <a href="{{ path("print_source_show", {"id":printSource.id}) }}">
-                {{ printSource }}
-            </a>  
-        </td>
-        <td>
-            {{ printSource.description|raw }}
-        </td>
-        
-    </tr>
-    {% endfor %}
-</table>
-{% endif %}
-{% endset %}
+    {% set printSourceContent %}
+        {% if region.printSources|length > 0 %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                {% for printSource in region.printSources|sort((a,b) => a.label <=> b.label) %}
+                    <tr>
+                        <td>
+                            <a href="{{ path("print_source_show", {"id":printSource.id}) }}">
+                                {{ printSource }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ printSource.description|raw }}
+                        </td>
 
-{% set manuscriptContent %}
-{% if region.manuscripts|length > 0 %}
-    <div class="gallery">
-        {% for manuscript in region.manuscripts %}
-        {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscript} %}
-        {% endfor %}
-        <div class="item empty"><!--Keep open--></div>
-    </div>
-{% endif %}
-{% endset %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% endset %}
 
-{% set peopleContent %}
-{% if region.people|length > 0 %}
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Birth Date</th>
-            <th>Death Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for person in region.people %}
-        <tr>
-            <td>
-                <a href="{{ path("person_show", {"id":person.id}) }}">
-                    {{ person.fullName }}
-                </a>
-            </td>
-            <td>
-                {% include 'person/partial/gender.html.twig' %}
-            </td>
-            <td>
-                {{ person.birthDate }}
-            </td>
-            <td>
-                {{ person.deathDate }}
-            </td>
-            
-            
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% endif %}
-{% endset %}
+    {% set manuscriptContent %}
+        {% if region.manuscripts|length > 0 %}
+            <div class="gallery">
+                {% for manuscript in region.manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
+                    {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscript} %}
+                {% endfor %}
+                <div class="item empty"><!--Keep open--></div>
+            </div>
+        {% endif %}
+    {% endset %}
+
+    {% set peopleContent %}
+        {% if region.people|length > 0 %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Birth Date</th>
+                        <th>Death Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in region.people|sort((a,b) => a.sortableName <=> b.sortableName) %}
+                        <tr>
+                            <td>
+                                <a href="{{ path("person_show", {"id":person.id}) }}">
+                                    {{ person.fullName }}
+                                </a>
+                            </td>
+                            <td>
+                                {% include 'person/partial/gender.html.twig' %}
+                            </td>
+                            <td>
+                                {{ person.birthDate }}
+                            </td>
+                            <td>
+                                {{ person.deathDate }}
+                            </td>
 
 
-{% set tabs = {
-'Print Sources': printSourceContent,
-'Manuscripts': manuscriptContent,
-'People': peopleContent
-} %} 
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    {% endset %}
+
+
+    {% set tabs = {
+        'Print Sources': printSourceContent,
+        'Manuscripts': manuscriptContent,
+        'People': peopleContent
+    } %}
 
 
 
-{% include 'partial/tabs.html.twig' with {'tabs': tabs} %}
+    {% include 'partial/tabs.html.twig' with {'tabs': tabs} %}
 
 
 {% endblock %}

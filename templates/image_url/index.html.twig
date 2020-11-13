@@ -4,7 +4,7 @@
 
 {% block pageheader %}
     <h1>Image URLs</h1>
-{% include 'partial/count.html.twig' with {'index': imageUrls, 'label': 'image URLs'} %}
+    {% include 'partial/count.html.twig' with {'index': imageUrls, 'label': 'image URLs'} %}
 {% endblock %}
 
 {% block body %}
