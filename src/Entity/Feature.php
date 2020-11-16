@@ -22,11 +22,6 @@ use Nines\UtilBundle\Entity\AbstractTerm;
  * @ORM\Entity(repositoryClass="App\Repository\FeatureRepository")
  */
 class Feature extends AbstractTerm {
-    /**
-     * @var Collection|Image[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="feature", cascade={"remove"})
-     */
-    private $images;
 
     /**
      * @var Collection|ManuscriptFeature[]
@@ -36,41 +31,7 @@ class Feature extends AbstractTerm {
 
     public function __construct() {
         parent::__construct();
-        $this->images = new ArrayCollection();
         $this->manuscriptFeatures = new ArrayCollection();
-    }
-
-    /**
-     * Add image.
-     *
-     * @param \App\Entity\Image $image
-     *
-     * @return Feature
-     */
-    public function addImage(Image $image) {
-        $this->images[] = $image;
-
-        return $this;
-    }
-
-    /**
-     * Remove image.
-     *
-     * @param \App\Entity\Image $image
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeImage(Image $image) {
-        return $this->images->removeElement($image);
-    }
-
-    /**
-     * Get images.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getImages() {
-        return $this->images;
     }
 
     /**

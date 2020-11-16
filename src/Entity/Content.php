@@ -67,17 +67,10 @@ class Content extends AbstractEntity {
      */
     private $manuscriptContents;
 
-    /**
-     * @var Collection|Image[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="content")
-     */
-    private $images;
-
     public function __construct() {
         parent::__construct();
         $this->contributions = new ArrayCollection();
         $this->manuscriptContents = new ArrayCollection();
-        $this->images = new ArrayCollection();
     }
 
     /**
@@ -125,39 +118,6 @@ class Content extends AbstractEntity {
                 return $contribution->getPerson();
             }
         }
-    }
-
-    /**
-     * Add image.
-     *
-     * @param \App\Entity\Image $image
-     *
-     * @return Content
-     */
-    public function addImage(Image $image) {
-        $this->images[] = $image;
-
-        return $this;
-    }
-
-    /**
-     * Remove image.
-     *
-     * @param \App\Entity\Image $image
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeImage(Image $image) {
-        return $this->images->removeElement($image);
-    }
-
-    /**
-     * Get images.
-     *
-     * @return Collection
-     */
-    public function getImages() {
-        return $this->images;
     }
 
     /**
