@@ -54,6 +54,20 @@
                     <td>{{ person.deathDate }}</td>
                 </tr>
                 <tr>
+                    <th>Coteries</th>
+                    <td>
+                        {% if person.coteries %}
+                            <ul>
+                            {% for coterie in person.coteries %}
+                                <li>
+                                    <a href='{{ path('coterie_show', {'id': coterie.id}) }}'>{{ coterie }}</a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
                     <th>Description</th>
                     <td>{{ person.description|raw }}</td>
                 </tr>
@@ -93,7 +107,6 @@
                         {% if showNote %}
                             <th>Note</th>
                         {% endif %}
-
                     </tr>
                 </thead>
                 {% for contentContribution in person.contentContributions|sort((a,b) => a.content.firstLine <=> b.content.firstLine) %}
@@ -109,6 +122,7 @@
                     {% endif %}
                     </li>
                     {% endfor %}
+                </tr>
             </table>
         {% endif %}
     {% endset %}

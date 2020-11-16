@@ -89,6 +89,12 @@ class Person extends AbstractEntity {
     private $manuscriptContributions;
 
     /**
+     * @var Collection|Coterie[]
+     * @ORM\ManyToMany(targetEntity="App\Entity\Coterie", mappedBy="people")
+     */
+    private $coteries;
+
+    /**
      * @var Collection|Region[]
      * @ORM\ManyToMany(targetEntity="Region", inversedBy="people")
      */
@@ -99,6 +105,7 @@ class Person extends AbstractEntity {
         $this->regions = new ArrayCollection();
         $this->contentContributions = new ArrayCollection();
         $this->manuscriptContributions = new ArrayCollection();
+        $this->coteries = new ArrayCollection();
     }
 
     /**
@@ -401,5 +408,29 @@ class Person extends AbstractEntity {
      */
     public function getRegions() {
         return $this->regions;
+    }
+
+    /**
+     * @return Collection|Coterie[]
+     */
+    public function getCoteries() : Collection {
+        return $this->coteries;
+    }
+
+    public function addCoterie($coterie) : self {
+        if ( ! $this->coteries->contains($coterie)) {
+            $this->coteries[] = $coterie;
+            $coterie->addPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCoterie($coterie) : self {
+        if ($this->coteries->removeElement($coterie)) {
+            $coterie->removePerson($this);
+        }
+
+        return $this;
     }
 }
