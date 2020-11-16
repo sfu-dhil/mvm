@@ -4,7 +4,7 @@
 
  {% block pageheader %}
      <h1>Manuscript Feature Details</h1>
- {% endblock %} 
+ {% endblock %}
 
 {% block body %}
     <table class="table">
@@ -40,16 +40,4 @@
         </tbody>
     </table>
 
-    {% if manuscriptFeature.images | length > 0 %}
-        <h2>Images</h2>
-        <ul>
-            {% for image in manuscriptFeature.images %}
-                <li>
-                    <a href="{{ path("image_show", {"id":image.id}) }}">
-                        {{ image }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
 {% endblock %}

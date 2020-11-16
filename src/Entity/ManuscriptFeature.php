@@ -42,15 +42,8 @@ class ManuscriptFeature extends AbstractEntity {
      */
     private $manuscript;
 
-    /**
-     * @var Collection|Image[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="feature")
-     */
-    private $images;
-
     public function __construct() {
         parent::__construct();
-        $this->images = new ArrayCollection();
     }
 
     /**
@@ -102,39 +95,6 @@ class ManuscriptFeature extends AbstractEntity {
      */
     public function getManuscript() {
         return $this->manuscript;
-    }
-
-    /**
-     * Add image.
-     *
-     * @param \App\Entity\Image $image
-     *
-     * @return ManuscriptFeature
-     */
-    public function addImage(Image $image) {
-        $this->images[] = $image;
-
-        return $this;
-    }
-
-    /**
-     * Remove image.
-     *
-     * @param \App\Entity\Image $image
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeImage(Image $image) {
-        return $this->images->removeElement($image);
-    }
-
-    /**
-     * Get images.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getImages() {
-        return $this->images;
     }
 
     /**

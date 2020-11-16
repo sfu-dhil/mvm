@@ -77,6 +77,12 @@ class Person extends AbstractEntity {
     private $deathDate;
 
     /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $biography;
+
+    /**
      * @var Collection|ContentContribution[]
      * @ORM\OneToMany(targetEntity="App\Entity\ContentContribution", mappedBy="person")
      */
@@ -429,6 +435,37 @@ class Person extends AbstractEntity {
     public function removeCoterie($coterie) : self {
         if ($this->coteries->removeElement($coterie)) {
             $coterie->removePerson($this);
+        }
+
+        return $this;
+    }
+
+    public function getBiography(): ?string
+    {
+        return $this->biography;
+    }
+
+    public function setBiography(?string $biography): self
+    {
+        $this->biography = $biography;
+
+        return $this;
+    }
+
+    public function addCotery(Coterie $cotery): self
+    {
+        if (!$this->coteries->contains($cotery)) {
+            $this->coteries[] = $cotery;
+            $cotery->addPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCotery(Coterie $cotery): self
+    {
+        if ($this->coteries->removeElement($cotery)) {
+            $cotery->removePerson($this);
         }
 
         return $this;
