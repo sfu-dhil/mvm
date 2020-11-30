@@ -8,15 +8,13 @@
 
 {% block pageheader %}
     <h1>Manuscripts</h1>
+    <p>Poetry miscellanies examined on-site or in digitized form by the research team</p>
     {% include 'partial/count.html.twig' with {'index': manuscripts, 'label': 'manuscripts'} %}
-
 {% endblock %}
-
 
 {% block admin %}
     {% include 'partial/toolbar.html.twig' with {'new': 'manuscript_new'} %}
 {% endblock %}
-
 
 {% block body %}
     {% include 'partial/search-form.html.twig' with {'path': path('manuscript_search'), 'help': 'Search for manuscripts by manuscript title or call number.', 'q': ''} %}

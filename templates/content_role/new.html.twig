@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Content Role{% endblock %}
+{% block title %}New Poem Role{% endblock %}
 
 
 
 {% block breadcrumb %}
-    {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Content Roles', 'show': 'New'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Poem Roles', 'show': 'New'} %}
 {% endblock %}
 
 {% block body %}
-    <h1>New Content Role</h1>
+    <h1>New Poem Role</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}

@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Content Contribution{% endblock %}
+{% block title %}Poem Contribution{% endblock %}
 
  {% block pageheader %}
-     <h1>Content Contribution Details</h1>
+     <h1>Poem Contribution Details</h1>
  {% endblock %}
 
  {% block breadcrumb %}
-     {% include 'partial/breadcrumb.html.twig' with {'index': 'content_contribution', 'index_label': 'Content Contributions', 'show': contentContribution.id} %}
+     {% include 'partial/breadcrumb.html.twig' with {'index': 'content_contribution', 'index_label': 'Poem Contributions', 'show': contentContribution.id} %}
  {% endblock %}
 
 {% block body %}
     <table class="table">
         <tbody>
             <tr>
-                <th>Content</th>
+                <th>Poem</th>
                 <td>
                     <a href="{{ path('content_show', { 'id': contentContribution.content.id}) }}">
                         {{ contentContribution.content }}

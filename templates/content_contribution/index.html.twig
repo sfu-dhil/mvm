@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Content Contribution List{% endblock %}
+{% block title %}Poem Contribution List{% endblock %}
 
 {% block pageheader %}
-    <h1>Content Contributions</h1>
+    <h1>Poem Contributions</h1>
     {% include 'partial/count.html.twig' with {'index': contentContributions, 'label': 'content contributions'} %}
 {% endblock %}
 
 
 {% block breadcrumb %}
-    {% include 'partial/breadcrumb.html.twig' with {'index': 'content_contribution', 'index_label': 'Content Contributions'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'content_contribution', 'index_label': 'Poem Contributions'} %}
 {% endblock %}
 
 {% block body %}

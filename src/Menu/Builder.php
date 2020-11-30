@@ -88,10 +88,10 @@ class Builder implements ContainerAwareInterface {
         $browse->addChild('Archives', [
             'route' => 'archive_index',
         ]);
-        $browse->addChild('Contents', [
+        $browse->addChild('Poems', [
             'route' => 'content_index',
         ]);
-        $browse->addChild('Content Roles', [
+        $browse->addChild('Poem Roles', [
             'route' => 'content_role_index',
         ]);
         $browse->addChild('Coteries', [
@@ -130,10 +130,10 @@ class Builder implements ContainerAwareInterface {
                 'role' => 'separator',
                 'class' => 'divider',
             ]);
-            $browse->addChild('Content Contributions', [
+            $browse->addChild('Poem Contributions', [
                 'route' => 'content_contribution_index',
             ]);
-            $browse->addChild('Manuscript Contents', [
+            $browse->addChild('Manuscript Poems', [
                 'route' => 'manuscript_content_index',
             ]);
             $browse->addChild('Manuscript Contributions', [
@@ -163,10 +163,10 @@ class Builder implements ContainerAwareInterface {
         $menu->addChild('Archives', [
             'route' => 'archive_index',
         ]);
-        $menu->addChild('Contents', [
+        $menu->addChild('Poems', [
             'route' => 'content_index',
         ]);
-        $menu->addChild('Content Roles', [
+        $menu->addChild('Poem Roles', [
             'route' => 'content_role_index',
         ]);
         $menu->addChild('Features', [
@@ -195,9 +195,6 @@ class Builder implements ContainerAwareInterface {
         ]);
         $menu->addChild('Privacy', [
             'route' => 'privacy',
-        ]);
-        $menu->addChild('Documentation', [
-            'uri' => 'docs/sphinx/index.html',
         ]);
 
         return $menu;
