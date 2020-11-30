@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Content Role{% endblock %}
+{% block title %}Poem Role{% endblock %}
 
  {% block pageheader %}
      {% include 'partial/term-index.html.twig' with {'term': contentRole} %}
@@ -8,7 +8,7 @@
 
 
  {% block breadcrumb %}
-     {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Content Roles', 'show': contentRole} %}
+     {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Poem Roles', 'show': contentRole} %}
  {% endblock %}
 
  {% block admin %}
@@ -23,7 +23,7 @@
             <thead>
                 <tr>
                     <th>Contributor</th>
-                    <th>Content</th>
+                    <th>Poem</th>
                     {% if processNote %}
                         <th>Note</th>
                     {% endif %}

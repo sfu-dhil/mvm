@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Manuscript Contents List{% endblock %}
+{% block title %}Manuscript Poems List{% endblock %}
 
 
 
 {% block pageheader %}
-    <h1>Manuscript Contents</h1>
+    <h1>Manuscript Poems</h1>
     {% include 'partial/count.html.twig' with {'index': manuscriptContents, 'label': 'manuscript contents'} %}
 {% endblock %}
 
 {% block breadcrumb %}
-    {% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_content', 'index_label': 'Manuscript Contents'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_content', 'index_label': 'Manuscript Poems'} %}
 {% endblock %}
 
 

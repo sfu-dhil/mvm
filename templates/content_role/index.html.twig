@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Content Role List{% endblock %}
+{% block title %}Poem Role List{% endblock %}
 
 {% block pageheader %}
-    <h1>Content Roles</h1>
+    <h1>Poem Roles</h1>
     {% include 'partial/count.html.twig' with {'index': contentRoles, 'label': 'content roles'} %}
 {% endblock %}
 
 
 {% block breadcrumb %}
-    {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Content Roles'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Poem Roles'} %}
 {% endblock %}
 
 {% block admin %}
@@ -24,7 +24,7 @@
             <tr>
                 <th>Role</th>
                 <th>Description</th>
-                <th class="number">Contents</th>
+                <th class="number">Poems</th>
             </tr>
         </thead>
         <tbody>

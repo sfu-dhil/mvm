@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ManuscriptContent{% endblock %}
+{% block title %}Manuscript Poem{% endblock %}
 
  {% block pageheader %}
-     <h1>Manuscript Content Details</h1>
+     <h1>Manuscript Poem Details</h1>
  {% endblock %}
 
 
 {% block breadcrumb %}
-    {% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_content', 'index_label': 'Manuscript Contents', 'show': manuscriptContent.content.firstLine} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'manuscript_content', 'index_label': 'Manuscript Poems', 'show': manuscriptContent.content.firstLine} %}
 {% endblock %}
 
 {% block body %}
     <table class="table">
         <tbody>
             <tr>
-                <th>Content</th>
+                <th>Poem</th>
                 <td>
                     <a href="{{ path('content_show', { 'id': manuscriptContent.content.id}) }}">
                         {{ manuscriptContent.content }}
