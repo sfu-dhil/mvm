@@ -13,17 +13,24 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use Nines\MediaBundle\Entity\LinkableInterface;
+use Nines\MediaBundle\Entity\LinkableTrait;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
  * Person.
  *
  * @ORM\Table(name="person", indexes={
- *  @ORM\Index(name="person_ft", columns={"full_name"}, flags={"fulltext"})
+ *     @ORM\Index(name="person_ft", columns={"full_name"}, flags={"fulltext"})
  * })
  * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  */
-class Person extends AbstractEntity {
+class Person extends AbstractEntity implements LinkableInterface {
+    use LinkableTrait {
+        LinkableTrait::__construct as linkable_constructor;
+    }
+
     public const MALE = 'M';
 
     public const FEMALE = 'F';
@@ -108,6 +115,7 @@ class Person extends AbstractEntity {
 
     public function __construct() {
         parent::__construct();
+        $this->linkable_constructor();
         $this->regions = new ArrayCollection();
         $this->contentContributions = new ArrayCollection();
         $this->manuscriptContributions = new ArrayCollection();
@@ -130,7 +138,7 @@ class Person extends AbstractEntity {
      *
      * @param null|\App\Entity\CircaDate $birthDate
      *
-     * @throws \Exception
+     * @throws Exception
      *
      * @return Person
      */
@@ -160,7 +168,7 @@ class Person extends AbstractEntity {
      *
      * @param null|\App\Entity\CircaDate $deathDate
      *
-     * @throws \Exception
+     * @throws Exception
      *
      * @return Person
      */
@@ -440,21 +448,18 @@ class Person extends AbstractEntity {
         return $this;
     }
 
-    public function getBiography(): ?string
-    {
+    public function getBiography() : ?string {
         return $this->biography;
     }
 
-    public function setBiography(?string $biography): self
-    {
+    public function setBiography(?string $biography) : self {
         $this->biography = $biography;
 
         return $this;
     }
 
-    public function addCotery(Coterie $cotery): self
-    {
-        if (!$this->coteries->contains($cotery)) {
+    public function addCotery(Coterie $cotery) : self {
+        if ( ! $this->coteries->contains($cotery)) {
             $this->coteries[] = $cotery;
             $cotery->addPerson($this);
         }
@@ -462,8 +467,7 @@ class Person extends AbstractEntity {
         return $this;
     }
 
-    public function removeCotery(Coterie $cotery): self
-    {
+    public function removeCotery(Coterie $cotery) : self {
         if ($this->coteries->removeElement($cotery)) {
             $cotery->removePerson($this);
         }

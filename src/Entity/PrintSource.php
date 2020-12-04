@@ -53,7 +53,7 @@ class PrintSource extends AbstractTerm {
      *
      * @return PrintSource
      */
-    public function setRegion(Region $region = null) {
+    public function setRegion(?Region $region = null) {
         $this->region = $region;
 
         return $this;

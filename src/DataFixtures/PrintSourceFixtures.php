@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\PrintSource;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -37,8 +38,8 @@ class PrintSourceFixtures extends Fixture implements DependentFixtureInterface {
 
         $item1 = new PrintSource();
         $item1->setRegion($this->getReference('_reference_Region1'));
-        $item1->setCreated(new \DateTime('2019-07-29 22:19:33'));
-        $item1->setUpdated(new \DateTime('2019-07-29 22:19:33'));
+        $item1->setCreated(new DateTimeImmutable('2019-07-29 22:19:33'));
+        $item1->setUpdated(new DateTimeImmutable('2019-07-29 22:19:33'));
         $item1->setName('sgm');
         $item1->setLabel("Springfield Gentleman's Magazine");
         $item1->setDescription('<p>A fictious magazine in Springfield.</p>');

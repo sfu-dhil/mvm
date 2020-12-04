@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Theme;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
@@ -26,8 +27,8 @@ class ThemeFixtures extends Fixture {
         $manager->getClassMetadata(Theme::class)->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $item1 = new Theme();
-        $item1->setCreated(new \DateTime('2019-07-29 22:25:27'));
-        $item1->setUpdated(new \DateTime('2019-07-29 22:25:27'));
+        $item1->setCreated(new DateTimeImmutable('2019-07-29 22:25:27'));
+        $item1->setUpdated(new DateTimeImmutable('2019-07-29 22:25:27'));
         $item1->setName('butterflies');
         $item1->setLabel('Butterflies');
         $item1->setDescription('<p>Butterflies, leopodoptra, etc.</p>');

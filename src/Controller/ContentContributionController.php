@@ -32,7 +32,7 @@ class ContentContributionController extends AbstractController implements Pagina
      * @return array
      *
      * @Route("/", name="content_contribution_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -53,7 +53,7 @@ class ContentContributionController extends AbstractController implements Pagina
      * @return array
      *
      * @Route("/{id}", name="content_contribution_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(ContentContribution $contentContribution) {
         return [

@@ -14,19 +14,25 @@ use ArrayIterator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nines\MediaBundle\Entity\LinkableInterface;
+use Nines\MediaBundle\Entity\LinkableTrait;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
  * Manuscript.
  *
  * @ORM\Table(name="manuscript", indexes={
- *   @ORM\Index(name="manuscript_ft", columns={"title", "call_number", "description"}, flags={"fulltext"}),
- *   @ORM\Index(name="manuscript_title_idx", columns={"title"}),
- *   @ORM\Index(name="manuscript_call_idx", columns={"call_number"})
+ *     @ORM\Index(name="manuscript_ft", columns={"title", "call_number", "description"}, flags={"fulltext"}),
+ *     @ORM\Index(name="manuscript_title_idx", columns={"title"}),
+ *     @ORM\Index(name="manuscript_call_idx", columns={"call_number"})
  * })
  * @ORM\Entity(repositoryClass="App\Repository\ManuscriptRepository")
  */
-class Manuscript extends AbstractEntity {
+class Manuscript extends AbstractEntity implements LinkableInterface {
+    use LinkableTrait {
+        LinkableTrait::__construct as linkable_constructor;
+    }
+
     /**
      * @var bool
      * @ORM\Column(type="boolean")
@@ -163,6 +169,7 @@ class Manuscript extends AbstractEntity {
 
     public function __construct() {
         parent::__construct();
+        $this->linkable_constructor();
         $this->complete = false;
         $this->regions = new ArrayCollection();
         $this->periods = new ArrayCollection();

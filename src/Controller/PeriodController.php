@@ -37,7 +37,7 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
      * @return array
      *
      * @Route("/", name="period_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -65,6 +65,7 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -81,8 +82,8 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="period_new", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new", name="period_new", methods={"GET", "POST"})
+     * @Template
      */
     public function newAction(Request $request) {
         $period = new Period();
@@ -111,8 +112,8 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="period_new_popup", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new_popup", name="period_new_popup", methods={"GET", "POST"})
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -124,7 +125,7 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
      * @return array
      *
      * @Route("/{id}", name="period_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(Period $period) {
         return [
@@ -138,8 +139,8 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="period_edit", methods={"GET","POST"})
-     * @Template()
+     * @Route("/{id}/edit", name="period_edit", methods={"GET", "POST"})
+     * @Template
      */
     public function editAction(Request $request, Period $period) {
         $editForm = $this->createForm(PeriodType::class, $period);

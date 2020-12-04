@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Content;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -46,8 +47,8 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface {
 <p>Oh! pleasant, pleasant were the days,<br />The time, when, in our childish plays,<br />My sister Emmeline and I<br />Together chased the butterfly!<br />A very hunter did I rush<br />Upon the prey:--with leaps and springs<br />I followed on from brake to bush;<br />But she, God love her, feared to brush<br />The dust from off its wings.</p>
 <p>&nbsp;</p>");
         $item1->setDescription("<p>Marge's handwriting, with additional note.</p>");
-        $item1->setCreated(new \DateTime('2019-07-29 22:41:59'));
-        $item1->setUpdated(new \DateTime('2019-07-29 22:41:59'));
+        $item1->setCreated(new DateTimeImmutable('2019-07-29 22:41:59'));
+        $item1->setUpdated(new DateTimeImmutable('2019-07-29 22:41:59'));
         $this->addReference('_reference_Content1', $item1);
         $manager->persist($item1);
 

@@ -37,7 +37,7 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
      * @return array
      *
      * @Route("/", name="theme_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -67,6 +67,7 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -96,7 +97,7 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
      * </pre></code>
      *
      * @Route("/search", name="theme_search", methods={"GET"})
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -122,8 +123,8 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="theme_new", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new", name="theme_new", methods={"GET", "POST"})
+     * @Template
      */
     public function newAction(Request $request) {
         $theme = new Theme();
@@ -152,8 +153,8 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="theme_new_popup", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new_popup", name="theme_new_popup", methods={"GET", "POST"})
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -165,7 +166,7 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
      * @return array
      *
      * @Route("/{id}", name="theme_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(Theme $theme) {
         return [
@@ -179,8 +180,8 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="theme_edit", methods={"GET","POST"})
-     * @Template()
+     * @Route("/{id}/edit", name="theme_edit", methods={"GET", "POST"})
+     * @Template
      */
     public function editAction(Request $request, Theme $theme) {
         $editForm = $this->createForm(ThemeType::class, $theme);

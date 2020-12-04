@@ -32,7 +32,7 @@ class ManuscriptContentController extends AbstractController implements Paginato
      * @return array
      *
      * @Route("/", name="manuscript_content_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -59,7 +59,7 @@ class ManuscriptContentController extends AbstractController implements Paginato
      * @return array
      *
      * @Route("/{id}", name="manuscript_content_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(ManuscriptContent $manuscriptContent) {
         return [

@@ -86,6 +86,14 @@
                         {% endfor %}
                     </td>
                 </tr>
+                <tr>
+                    <th>Links</th>
+                    <td>
+                        {% embed '@NinesMedia/link/partial/list.html.twig'
+                            with {'entity': person} %}
+                        {% endembed %}
+                    </td>
+                </tr>
                 {% if isAdmin %}
                     <tr>
                         <th>Created</th>

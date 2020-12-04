@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Feature;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
@@ -26,8 +27,8 @@ class FeatureFixtures extends Fixture {
         $manager->getClassMetadata(Feature::class)->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $item1 = new Feature();
-        $item1->setCreated(new \DateTime('2019-07-29 22:10:36'));
-        $item1->setUpdated(new \DateTime('2019-07-29 22:10:36'));
+        $item1->setCreated(new DateTimeImmutable('2019-07-29 22:10:36'));
+        $item1->setUpdated(new DateTimeImmutable('2019-07-29 22:10:36'));
         $item1->setName('glue_binding');
         $item1->setLabel('Glue Binding');
         $item1->setDescription('<p>The binding is glue holding the pages to a spine.</p>');

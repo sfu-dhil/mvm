@@ -10,3 +10,8 @@ nines_blog:
   type: annotation
   prefix: /blog
   resource: '@NinesBlogBundle/Controller'
+
+nines_media:
+  type: annotation
+  prefix: /media
+  resource: '@NinesMediaBundle/Controller'

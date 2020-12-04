@@ -82,9 +82,9 @@ class CircaDate extends AbstractEntity {
 
     public function setValue($value) {
         $this->value = $value;
-        $value = strtolower(preg_replace('/\s*/', '', (string) $value));
+        $value = mb_strtolower(preg_replace('/\s*/', '', (string) $value));
         $matches = [];
-        if (false === strpos($value, '-')) {
+        if (false === mb_strpos($value, '-')) {
             // not a range
             if (preg_match(YEAR_RE, $value, $matches)) {
                 $this->startCirca = ('c' === $matches[1]);

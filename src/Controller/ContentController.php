@@ -15,6 +15,7 @@ use App\Form\ContentContributionsType;
 use App\Form\ContentType;
 use App\Repository\ContentRepository;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Nines\MediaBundle\Service\LinkManager;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -38,7 +39,7 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @return array
      *
      * @Route("/", name="content_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -66,6 +67,7 @@ class ContentController extends AbstractController implements PaginatorAwareInte
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -80,7 +82,7 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * Search for Content entities.
      *
      * @Route("/search", name="content_search", methods={"GET"})
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -106,17 +108,20 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="content_new", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new", name="content_new", methods={"GET", "POST"})
+     * @Template
      */
-    public function newAction(Request $request) {
+    public function newAction(Request $request, LinkManager $linkManager) {
         $content = new Content();
-        $form = $this->createForm(ContentType::class, $content);
+        $form = $this->createForm(ContentType::class, $content, ['entity' => $content]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($content);
+            $em->flush();
+
+            $linkManager->setLinks($content, $form->get('links')->getData());
             $em->flush();
 
             $this->addFlash('success', 'The new content was created.');
@@ -136,11 +141,11 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="content_new_popup", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new_popup", name="content_new_popup", methods={"GET", "POST"})
+     * @Template
      */
-    public function newPopupAction(Request $request) {
-        return $this->newAction($request);
+    public function newPopupAction(Request $request, LinkManager $linkManager) {
+        return $this->newAction($request, $linkManager);
     }
 
     /**
@@ -149,7 +154,7 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @return array
      *
      * @Route("/{id}", name="content_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(Content $content) {
         return [
@@ -163,14 +168,15 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="content_edit", methods={"GET","POST"})
-     * @Template()
+     * @Route("/{id}/edit", name="content_edit", methods={"GET", "POST"})
+     * @Template
      */
-    public function editAction(Request $request, Content $content) {
-        $editForm = $this->createForm(ContentType::class, $content);
+    public function editAction(Request $request, Content $content, LinkManager $linkManager) {
+        $editForm = $this->createForm(ContentType::class, $content, ['entity' => $content]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $linkManager->setLinks($content, $editForm->get('links')->getData());
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The content has been updated.');
@@ -208,7 +214,7 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Route("/{id}/contributions", name="content_contributions", methods={"GET", "POST"})
-     * @Template()
+     * @Template
      */
     public function contributionsAction(Request $request, Content $content) {
         $editForm = $this->createForm(ContentContributionsType::class, $content);

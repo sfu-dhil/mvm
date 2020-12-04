@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\ManuscriptContribution;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -44,8 +45,8 @@ class ManuscriptContributionFixtures extends Fixture implements DependentFixture
         $item1->setPerson($this->getReference('_reference_Person1'));
         $item1->setRole($this->getReference('_reference_ManuscriptRole1'));
         $item1->setManuscript($this->getReference('_reference_Manuscript1'));
-        $item1->setCreated(new \DateTime('2019-07-29 22:50:42'));
-        $item1->setUpdated(new \DateTime('2019-07-29 22:50:42'));
+        $item1->setCreated(new DateTimeImmutable('2019-07-29 22:50:42'));
+        $item1->setUpdated(new DateTimeImmutable('2019-07-29 22:50:42'));
         $this->addReference('_reference_ManuscriptContribution1', $item1);
         $manager->persist($item1);
 

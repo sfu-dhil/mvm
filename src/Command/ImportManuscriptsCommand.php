@@ -56,6 +56,7 @@ class ImportManuscriptsCommand extends Command {
 
     protected function import($file, $skip, $commit) : void {
         $handle = fopen($file, 'r');
+
         for ($i = 1; $i <= $skip; $i++) {
             fgetcsv($handle);
         }
@@ -87,6 +88,7 @@ class ImportManuscriptsCommand extends Command {
         $files = $input->getArgument('files');
         $skip = $input->getOption('skip');
         $commit = $input->getOption('commit');
+
         foreach ($files as $file) {
             $this->import($file, $skip, $commit);
         }

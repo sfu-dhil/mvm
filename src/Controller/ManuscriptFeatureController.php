@@ -32,7 +32,7 @@ class ManuscriptFeatureController extends AbstractController implements Paginato
      * @return array
      *
      * @Route("/", name="manuscript_feature_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -53,7 +53,7 @@ class ManuscriptFeatureController extends AbstractController implements Paginato
      * @return array
      *
      * @Route("/{id}", name="manuscript_feature_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(ManuscriptFeature $manuscriptFeature) {
         return [

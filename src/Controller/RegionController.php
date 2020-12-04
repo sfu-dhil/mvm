@@ -37,7 +37,7 @@ class RegionController extends AbstractController implements PaginatorAwareInter
      * @return array
      *
      * @Route("/", name="region_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -65,6 +65,7 @@ class RegionController extends AbstractController implements PaginatorAwareInter
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -79,7 +80,7 @@ class RegionController extends AbstractController implements PaginatorAwareInter
      * Search for Region entities.
      *
      * @Route("/search", name="region_search", methods={"GET"})
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -105,8 +106,8 @@ class RegionController extends AbstractController implements PaginatorAwareInter
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="region_new", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new", name="region_new", methods={"GET", "POST"})
+     * @Template
      */
     public function newAction(Request $request) {
         $region = new Region();
@@ -135,8 +136,8 @@ class RegionController extends AbstractController implements PaginatorAwareInter
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="region_new_popup", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new_popup", name="region_new_popup", methods={"GET", "POST"})
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -148,7 +149,7 @@ class RegionController extends AbstractController implements PaginatorAwareInter
      * @return array
      *
      * @Route("/{id}", name="region_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(Region $region) {
         return [
@@ -162,8 +163,8 @@ class RegionController extends AbstractController implements PaginatorAwareInter
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="region_edit", methods={"GET","POST"})
-     * @Template()
+     * @Route("/{id}/edit", name="region_edit", methods={"GET", "POST"})
+     * @Template
      */
     public function editAction(Request $request, Region $region) {
         $editForm = $this->createForm(RegionType::class, $region);

@@ -32,7 +32,7 @@ class CoterieController extends AbstractController implements PaginatorAwareInte
     /**
      * @Route("/", name="coterie_index", methods={"GET"})
      *
-     * @Template()
+     * @Template
      */
     public function index(Request $request, CoterieRepository $coterieRepository) : array {
         $query = $coterieRepository->indexQuery();
@@ -46,7 +46,7 @@ class CoterieController extends AbstractController implements PaginatorAwareInte
     /**
      * @Route("/search", name="coterie_search", methods={"GET"})
      *
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -76,6 +76,7 @@ class CoterieController extends AbstractController implements PaginatorAwareInte
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($coterieRepository->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -87,8 +88,8 @@ class CoterieController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
-     * @Route("/new", name="coterie_new", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new", name="coterie_new", methods={"GET", "POST"})
+     * @Template
      * @IsGranted("ROLE_CONTENT_ADMIN")
      *
      * @return array|RedirectResponse
@@ -114,8 +115,8 @@ class CoterieController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
-     * @Route("/new_popup", name="coterie_new_popup", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new_popup", name="coterie_new_popup", methods={"GET", "POST"})
+     * @Template
      * @IsGranted("ROLE_CONTENT_ADMIN")
      *
      * @return array|RedirectResponse
@@ -126,7 +127,7 @@ class CoterieController extends AbstractController implements PaginatorAwareInte
 
     /**
      * @Route("/{id}", name="coterie_show", methods={"GET"})
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -138,9 +139,9 @@ class CoterieController extends AbstractController implements PaginatorAwareInte
 
     /**
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="coterie_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="coterie_edit", methods={"GET", "POST"})
      *
-     * @Template()
+     * @Template
      *
      * @return array|RedirectResponse
      */

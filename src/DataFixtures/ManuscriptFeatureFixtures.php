@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\ManuscriptFeature;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -42,8 +43,8 @@ class ManuscriptFeatureFixtures extends Fixture implements DependentFixtureInter
         $item1->setNote('<p>Professionally bound.</p>');
         $item1->setFeature($this->getReference('_reference_Feature1'));
         $item1->setManuscript($this->getReference('_reference_Manuscript1'));
-        $item1->setCreated(new \DateTime('2019-07-29 22:49:10'));
-        $item1->setUpdated(new \DateTime('2019-07-29 22:49:10'));
+        $item1->setCreated(new DateTimeImmutable('2019-07-29 22:49:10'));
+        $item1->setUpdated(new DateTimeImmutable('2019-07-29 22:49:10'));
         $this->addReference('_reference_ManuscriptFeature1', $item1);
         $manager->persist($item1);
 

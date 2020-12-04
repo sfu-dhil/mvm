@@ -17,6 +17,7 @@ use App\Form\ManuscriptFeaturesType;
 use App\Form\ManuscriptType;
 use App\Repository\ManuscriptRepository;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Nines\MediaBundle\Service\LinkManager;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -40,7 +41,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      * @return array
      *
      * @Route("/", name="manuscript_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -68,6 +69,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -92,7 +94,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      * </pre></code>
      *
      * @Route("/search", name="manuscript_search", methods={"GET"})
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -118,17 +120,20 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="manuscript_new", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new", name="manuscript_new", methods={"GET", "POST"})
+     * @Template
      */
-    public function newAction(Request $request) {
+    public function newAction(Request $request, LinkManager $linkManager) {
         $manuscript = new Manuscript();
-        $form = $this->createForm(ManuscriptType::class, $manuscript);
+        $form = $this->createForm(ManuscriptType::class, $manuscript, ['entity' => $manuscript]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($manuscript);
+            $em->flush();
+
+            $linkManager->setLinks($manuscript, $form->get('links')->getData());
             $em->flush();
 
             $this->addFlash('success', 'The new manuscript was created.');
@@ -148,11 +153,11 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="manuscript_new_popup", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new_popup", name="manuscript_new_popup", methods={"GET", "POST"})
+     * @Template
      */
-    public function newPopupAction(Request $request) {
-        return $this->newAction($request);
+    public function newPopupAction(Request $request, LinkManager $linkManager) {
+        return $this->newAction($request, $linkManager);
     }
 
     /**
@@ -161,7 +166,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      * @return array
      *
      * @Route("/{id}", name="manuscript_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(Manuscript $manuscript) {
         return [
@@ -175,11 +180,11 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="manuscript_edit", methods={"GET","POST"})
-     * @Template()
+     * @Route("/{id}/edit", name="manuscript_edit", methods={"GET", "POST"})
+     * @Template
      */
-    public function editAction(Request $request, Manuscript $manuscript) {
-        $editForm = $this->createForm(ManuscriptType::class, $manuscript);
+    public function editAction(Request $request, Manuscript $manuscript, LinkManager $linkManager) {
+        $editForm = $this->createForm(ManuscriptType::class, $manuscript, ['entity' => $manuscript]);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             if ('complete' === $request->request->get('submit', '')) {
@@ -187,6 +192,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
             } else {
                 $manuscript->setComplete(false);
             }
+            $linkManager->setLinks($manuscript, $editForm->get('links')->getData());
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The manuscript has been updated.');
@@ -224,7 +230,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Route("/{id}/contents", name="manuscript_contents", methods={"GET", "POST"})
-     * @Template()
+     * @Template
      */
     public function contentsAction(Request $request, Manuscript $manuscript) {
         $oldContents = $manuscript->getManuscriptContents()->toArray();
@@ -234,12 +240,14 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $msContents = $manuscript->getManuscriptContents();
+
             foreach ($oldContents as $content) {
                 if ( ! $msContents->contains($content)) {
                     $manuscript->removeManuscriptContent($content);
                     $em->remove($content);
                 }
             }
+
             foreach ($manuscript->getManuscriptContents() as $content) {
                 $content->setManuscript($manuscript);
             }
@@ -262,7 +270,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Route("/{id}/contributions", name="manuscript_contributions", methods={"GET", "POST"})
-     * @Template()
+     * @Template
      */
     public function contributionsAction(Request $request, Manuscript $manuscript) {
         $oldContributions = $manuscript->getManuscriptContributions()->toArray();
@@ -272,12 +280,14 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $msContributions = $manuscript->getManuscriptContributions();
+
             foreach ($oldContributions as $contribution) {
                 if ( ! $msContributions->contains($contribution)) {
                     $manuscript->removeManuscriptContribution($contribution);
                     $em->remove($contribution);
                 }
             }
+
             foreach ($msContributions as $contribution) {
                 $contribution->setManuscript($manuscript);
             }
@@ -300,7 +310,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Route("/{id}/features", name="manuscript_features", methods={"GET", "POST"})
-     * @Template()
+     * @Template
      */
     public function featuresAction(Request $request, Manuscript $manuscript) {
         $oldFeatures = $manuscript->getManuscriptFeatures()->toArray();
@@ -310,12 +320,14 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $msFeatures = $manuscript->getManuscriptFeatures();
+
             foreach ($oldFeatures as $feature) {
                 if ( ! $msFeatures->contains($feature)) {
                     $manuscript->removeManuscriptFeature($feature);
                     $em->remove($feature);
                 }
             }
+
             foreach ($msFeatures as $feature) {
                 $feature->setManuscript($manuscript);
             }
