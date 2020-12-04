@@ -13,6 +13,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nines\MediaBundle\Entity\LinkableInterface;
+use Nines\MediaBundle\Entity\LinkableTrait;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
@@ -24,7 +26,12 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * })
  * @ORM\Entity(repositoryClass="App\Repository\ContentRepository")
  */
-class Content extends AbstractEntity {
+class Content extends AbstractEntity implements LinkableInterface {
+
+    use LinkableTrait {
+        LinkableTrait::__construct as linkable_constructor;
+    }
+
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
@@ -69,6 +76,7 @@ class Content extends AbstractEntity {
 
     public function __construct() {
         parent::__construct();
+        $this->linkable_constructor();
         $this->contributions = new ArrayCollection();
         $this->manuscriptContents = new ArrayCollection();
     }

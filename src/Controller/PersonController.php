@@ -14,6 +14,7 @@ use App\Entity\Person;
 use App\Form\PersonType;
 use App\Repository\PersonRepository;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Nines\MediaBundle\Service\LinkManager;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -108,14 +109,17 @@ class PersonController extends AbstractController implements PaginatorAwareInter
      * @Route("/new", name="person_new", methods={"GET","POST"})
      * @Template()
      */
-    public function newAction(Request $request) {
+    public function newAction(Request $request, LinkManager $linkManager) {
         $person = new Person();
-        $form = $this->createForm(PersonType::class, $person);
+        $form = $this->createForm(PersonType::class, $person, ['entity' => $person]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($person);
+            $em->flush();
+
+            $linkManager->setLinks($person, $form->get('links')->getData());
             $em->flush();
 
             $this->addFlash('success', 'The new person was created.');
@@ -138,8 +142,8 @@ class PersonController extends AbstractController implements PaginatorAwareInter
      * @Route("/new_popup", name="person_new_popup", methods={"GET","POST"})
      * @Template()
      */
-    public function newPopupAction(Request $request) {
-        return $this->newAction($request);
+    public function newPopupAction(Request $request, LinkManager $linkManager) {
+        return $this->newAction($request, $linkManager);
     }
 
     /**
@@ -165,11 +169,12 @@ class PersonController extends AbstractController implements PaginatorAwareInter
      * @Route("/{id}/edit", name="person_edit", methods={"GET","POST"})
      * @Template()
      */
-    public function editAction(Request $request, Person $person) {
-        $editForm = $this->createForm(PersonType::class, $person);
+    public function editAction(Request $request, Person $person, LinkManager $linkManager) {
+        $editForm = $this->createForm(PersonType::class, $person, ['entity' => $person]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $linkManager->setLinks($person, $editForm->get('links')->getData());
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The person has been updated.');

@@ -10,7 +10,10 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use Nines\MediaBundle\Entity\LinkableInterface;
+use Nines\MediaBundle\Form\LinkType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,6 +26,7 @@ class ContentType extends AbstractType {
      * Add form fields to $builder.
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
+        $content = $options['entity'];
         $builder->add('firstLine', null, [
             'label' => 'First Line',
             'required' => true,
@@ -60,6 +64,25 @@ class ContentType extends AbstractType {
                 'class' => 'tinymce',
             ],
         ]);
+        $builder->add('links', CollectionType::class, [
+            'label' => 'Links',
+            'required' => false,
+            'allow_add' => true,
+            'allow_delete' => true,
+            'delete_empty' => true,
+            'entry_type' => LinkType::class,
+            'entry_options' => [
+                'label' => false,
+            ],
+            'by_reference' => false,
+            'attr' => [
+                'class' => 'collection collection-complex',
+                'help_block' => '',
+            ],
+            'mapped' => false,
+            'data' => $content->getLinks(),
+        ]);
+
     }
 
     /**
@@ -71,6 +94,9 @@ class ContentType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) : void {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\Content',
+        ]);
+        $resolver->setRequired([
+            LinkableInterface::class => 'entity',
         ]);
     }
 }

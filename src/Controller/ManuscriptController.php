@@ -17,6 +17,7 @@ use App\Form\ManuscriptFeaturesType;
 use App\Form\ManuscriptType;
 use App\Repository\ManuscriptRepository;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Nines\MediaBundle\Service\LinkManager;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -121,14 +122,17 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      * @Route("/new", name="manuscript_new", methods={"GET","POST"})
      * @Template()
      */
-    public function newAction(Request $request) {
+    public function newAction(Request $request, LinkManager $linkManager) {
         $manuscript = new Manuscript();
-        $form = $this->createForm(ManuscriptType::class, $manuscript);
+        $form = $this->createForm(ManuscriptType::class, $manuscript, ['entity' => $manuscript]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($manuscript);
+            $em->flush();
+
+            $linkManager->setLinks($manuscript, $form->get('links')->getData());
             $em->flush();
 
             $this->addFlash('success', 'The new manuscript was created.');
@@ -151,8 +155,8 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      * @Route("/new_popup", name="manuscript_new_popup", methods={"GET","POST"})
      * @Template()
      */
-    public function newPopupAction(Request $request) {
-        return $this->newAction($request);
+    public function newPopupAction(Request $request, LinkManager $linkManager) {
+        return $this->newAction($request, $linkManager);
     }
 
     /**
@@ -178,8 +182,8 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      * @Route("/{id}/edit", name="manuscript_edit", methods={"GET","POST"})
      * @Template()
      */
-    public function editAction(Request $request, Manuscript $manuscript) {
-        $editForm = $this->createForm(ManuscriptType::class, $manuscript);
+    public function editAction(Request $request, Manuscript $manuscript, LinkManager $linkManager) {
+        $editForm = $this->createForm(ManuscriptType::class, $manuscript, ['entity' => $manuscript]);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             if ('complete' === $request->request->get('submit', '')) {
@@ -187,6 +191,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
             } else {
                 $manuscript->setComplete(false);
             }
+            $linkManager->setLinks($manuscript, $editForm->get('links')->getData());
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The manuscript has been updated.');

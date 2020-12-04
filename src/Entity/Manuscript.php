@@ -14,6 +14,8 @@ use ArrayIterator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nines\MediaBundle\Entity\LinkableInterface;
+use Nines\MediaBundle\Entity\LinkableTrait;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
@@ -26,7 +28,12 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * })
  * @ORM\Entity(repositoryClass="App\Repository\ManuscriptRepository")
  */
-class Manuscript extends AbstractEntity {
+class Manuscript extends AbstractEntity implements LinkableInterface {
+
+    use LinkableTrait {
+        LinkableTrait::__construct as linkable_constructor;
+    }
+
     /**
      * @var bool
      * @ORM\Column(type="boolean")
@@ -163,6 +170,7 @@ class Manuscript extends AbstractEntity {
 
     public function __construct() {
         parent::__construct();
+        $this->linkable_constructor();
         $this->complete = false;
         $this->regions = new ArrayCollection();
         $this->periods = new ArrayCollection();

@@ -144,6 +144,19 @@ class Builder implements ContainerAwareInterface {
             ]);
         }
 
+        if ($this->hasRole('ROLE_ADMIN')) {
+            $divider2 = $browse->addChild('divider2', [
+                'label' => '',
+            ]);
+            $divider2->setAttributes([
+                'role' => 'separator',
+                'class' => 'divider',
+            ]);
+            $browse->addChild('Links', [
+                'route' => 'nines_media_link_index',
+            ]);
+        }
+
         return $menu;
     }
 

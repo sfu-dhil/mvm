@@ -10,12 +10,9 @@
     <h1>{{ manuscript.callNumber }}</h1>
 {% endblock %}
 
-
 {% block admin %}
     {% include 'partial/toolbar.html.twig' with {'edit': 'manuscript_edit', 'delete': 'manuscript_delete', 'id': manuscript.id} %}
 {% endblock %}
-
-
 
 {% block body %}
     {% set detailsContent %}
@@ -149,7 +146,14 @@
                         {% endif %}
                     </td>
                 </tr>
-
+                <tr>
+                    <th>Links</th>
+                    <td>
+                        {% embed '@NinesMedia/link/partial/list.html.twig'
+                            with {'entity': manuscript} %}
+                        {% endembed %}
+                    </td>
+                </tr>
                 <tr>
                     <th>Bibliography</th>
                     <td>{{ manuscript.bibliography|raw }}</td>
