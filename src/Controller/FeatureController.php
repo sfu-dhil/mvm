@@ -37,7 +37,7 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
      * @return array
      *
      * @Route("/", name="feature_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -65,6 +65,7 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -94,7 +95,7 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
      * </pre></code>
      *
      * @Route("/search", name="feature_search", methods={"GET"})
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -120,8 +121,8 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="feature_new", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new", name="feature_new", methods={"GET", "POST"})
+     * @Template
      */
     public function newAction(Request $request) {
         $feature = new Feature();
@@ -150,8 +151,8 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="feature_new_popup", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new_popup", name="feature_new_popup", methods={"GET", "POST"})
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -163,7 +164,7 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
      * @return array
      *
      * @Route("/{id}", name="feature_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(Feature $feature) {
         return [
@@ -177,8 +178,8 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="feature_edit", methods={"GET","POST"})
-     * @Template()
+     * @Route("/{id}/edit", name="feature_edit", methods={"GET", "POST"})
+     * @Template
      */
     public function editAction(Request $request, Feature $feature) {
         $editForm = $this->createForm(FeatureType::class, $feature);

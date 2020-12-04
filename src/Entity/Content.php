@@ -13,6 +13,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Nines\MediaBundle\Entity\LinkableInterface;
 use Nines\MediaBundle\Entity\LinkableTrait;
 use Nines\UtilBundle\Entity\AbstractEntity;
@@ -21,13 +22,12 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * Content.
  *
  * @ORM\Table(name="content", indexes={
- *   @ORM\Index(name="content_ft", columns={"title", "first_line", "transcription"}, flags={"fulltext"}),
- *   @ORM\Index(name="content_firstline_idx", columns={"first_line"})
+ *     @ORM\Index(name="content_ft", columns={"title", "first_line", "transcription"}, flags={"fulltext"}),
+ *     @ORM\Index(name="content_firstline_idx", columns={"first_line"})
  * })
  * @ORM\Entity(repositoryClass="App\Repository\ContentRepository")
  */
 class Content extends AbstractEntity implements LinkableInterface {
-
     use LinkableTrait {
         LinkableTrait::__construct as linkable_constructor;
     }
@@ -64,13 +64,13 @@ class Content extends AbstractEntity implements LinkableInterface {
 
     /**
      * @var Collection|ContentContribution[]
-     * @ORM\OneToMany(targetEntity="App\Entity\ContentContribution", mappedBy="content", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\ContentContribution", mappedBy="content", cascade={"persist", "remove"})
      */
     private $contributions;
 
     /**
      * @var Collection|ManuscriptContent
-     * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptContent", mappedBy="content", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptContent", mappedBy="content", cascade={"persist", "remove"})
      */
     private $manuscriptContents;
 
@@ -258,7 +258,7 @@ class Content extends AbstractEntity implements LinkableInterface {
      *
      * @param null|CircaDate $date
      *
-     * @throws \Exception
+     * @throws Exception
      *
      * @return Content
      */

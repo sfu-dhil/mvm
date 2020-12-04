@@ -37,7 +37,7 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
      * @return array
      *
      * @Route("/", name="manuscript_role_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -65,6 +65,7 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -81,8 +82,8 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="manuscript_role_new", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new", name="manuscript_role_new", methods={"GET", "POST"})
+     * @Template
      */
     public function newAction(Request $request) {
         $manuscriptRole = new ManuscriptRole();
@@ -111,8 +112,8 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="manuscript_role_new_popup", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new_popup", name="manuscript_role_new_popup", methods={"GET", "POST"})
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -124,7 +125,7 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
      * @return array
      *
      * @Route("/{id}", name="manuscript_role_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(ManuscriptRole $manuscriptRole) {
         return [
@@ -138,8 +139,8 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="manuscript_role_edit", methods={"GET","POST"})
-     * @Template()
+     * @Route("/{id}/edit", name="manuscript_role_edit", methods={"GET", "POST"})
+     * @Template
      */
     public function editAction(Request $request, ManuscriptRole $manuscriptRole) {
         $editForm = $this->createForm(ManuscriptRoleType::class, $manuscriptRole);

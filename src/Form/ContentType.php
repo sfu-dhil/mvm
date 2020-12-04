@@ -82,7 +82,6 @@ class ContentType extends AbstractType {
             'mapped' => false,
             'data' => $content->getLinks(),
         ]);
-
     }
 
     /**

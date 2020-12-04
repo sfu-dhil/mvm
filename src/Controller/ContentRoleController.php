@@ -37,7 +37,7 @@ class ContentRoleController extends AbstractController implements PaginatorAware
      * @return array
      *
      * @Route("/", name="content_role_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -65,6 +65,7 @@ class ContentRoleController extends AbstractController implements PaginatorAware
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -81,8 +82,8 @@ class ContentRoleController extends AbstractController implements PaginatorAware
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="content_role_new", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new", name="content_role_new", methods={"GET", "POST"})
+     * @Template
      */
     public function newAction(Request $request) {
         $contentRole = new ContentRole();
@@ -111,8 +112,8 @@ class ContentRoleController extends AbstractController implements PaginatorAware
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="content_role_new_popup", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new_popup", name="content_role_new_popup", methods={"GET", "POST"})
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -124,7 +125,7 @@ class ContentRoleController extends AbstractController implements PaginatorAware
      * @return array
      *
      * @Route("/{id}", name="content_role_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(ContentRole $contentRole) {
         return [
@@ -138,8 +139,8 @@ class ContentRoleController extends AbstractController implements PaginatorAware
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="content_role_edit", methods={"GET","POST"})
-     * @Template()
+     * @Route("/{id}/edit", name="content_role_edit", methods={"GET", "POST"})
+     * @Template
      */
     public function editAction(Request $request, ContentRole $contentRole) {
         $editForm = $this->createForm(ContentRoleType::class, $contentRole);

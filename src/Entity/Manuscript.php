@@ -22,14 +22,13 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * Manuscript.
  *
  * @ORM\Table(name="manuscript", indexes={
- *   @ORM\Index(name="manuscript_ft", columns={"title", "call_number", "description"}, flags={"fulltext"}),
- *   @ORM\Index(name="manuscript_title_idx", columns={"title"}),
- *   @ORM\Index(name="manuscript_call_idx", columns={"call_number"})
+ *     @ORM\Index(name="manuscript_ft", columns={"title", "call_number", "description"}, flags={"fulltext"}),
+ *     @ORM\Index(name="manuscript_title_idx", columns={"title"}),
+ *     @ORM\Index(name="manuscript_call_idx", columns={"call_number"})
  * })
  * @ORM\Entity(repositoryClass="App\Repository\ManuscriptRepository")
  */
 class Manuscript extends AbstractEntity implements LinkableInterface {
-
     use LinkableTrait {
         LinkableTrait::__construct as linkable_constructor;
     }

@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Region;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
@@ -27,8 +28,8 @@ class RegionFixtures extends Fixture {
 
         $item1 = new Region();
         $item1->setName('Springfield IL');
-        $item1->setCreated(new \DateTime('2019-07-29 22:18:40'));
-        $item1->setUpdated(new \DateTime('2019-07-29 22:18:40'));
+        $item1->setCreated(new DateTimeImmutable('2019-07-29 22:18:40'));
+        $item1->setUpdated(new DateTimeImmutable('2019-07-29 22:18:40'));
         $this->addReference('_reference_Region1', $item1);
         $manager->persist($item1);
 

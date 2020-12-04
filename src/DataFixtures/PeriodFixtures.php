@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Period;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
@@ -26,8 +27,8 @@ class PeriodFixtures extends Fixture {
         $manager->getClassMetadata(Period::class)->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $item1 = new Period();
-        $item1->setCreated(new \DateTime('2019-07-29 22:17:32'));
-        $item1->setUpdated(new \DateTime('2019-07-29 22:17:32'));
+        $item1->setCreated(new DateTimeImmutable('2019-07-29 22:17:32'));
+        $item1->setUpdated(new DateTimeImmutable('2019-07-29 22:17:32'));
         $item1->setName('1700');
         $item1->setLabel('1700-1729');
         $item1->setDescription('<p>It was a very George II sort of time.</p>');

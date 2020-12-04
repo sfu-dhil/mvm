@@ -32,7 +32,7 @@ class ManuscriptContributionController extends AbstractController implements Pag
      * @return array
      *
      * @Route("/", name="manuscript_contribution_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -53,7 +53,7 @@ class ManuscriptContributionController extends AbstractController implements Pag
      * @return array
      *
      * @Route("/{id}", name="manuscript_contribution_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(ManuscriptContribution $manuscriptContribution) {
         return [

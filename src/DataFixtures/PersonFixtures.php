@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Person;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
@@ -29,8 +30,8 @@ class PersonFixtures extends Fixture {
         $item1->setAnonymous(false);
         $item1->setFullName('Margery Simpson');
         $item1->setSortableName('simpson margery');
-        $item1->setCreated(new \DateTime('2019-07-29 22:32:27'));
-        $item1->setUpdated(new \DateTime('2019-07-29 22:32:27'));
+        $item1->setCreated(new DateTimeImmutable('2019-07-29 22:32:27'));
+        $item1->setUpdated(new DateTimeImmutable('2019-07-29 22:32:27'));
         $this->addReference('_reference_Person1', $item1);
         $manager->persist($item1);
 
@@ -38,8 +39,8 @@ class PersonFixtures extends Fixture {
         $item2->setAnonymous(false);
         $item2->setFullName('William Wordsworth');
         $item2->setSortableName('wordsworth william');
-        $item2->setCreated(new \DateTime('2019-07-29 22:34:05'));
-        $item2->setUpdated(new \DateTime('2019-07-29 22:34:05'));
+        $item2->setCreated(new DateTimeImmutable('2019-07-29 22:34:05'));
+        $item2->setUpdated(new DateTimeImmutable('2019-07-29 22:34:05'));
         $this->addReference('_reference_Person2', $item2);
         $manager->persist($item2);
 

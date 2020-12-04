@@ -39,7 +39,7 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @return array
      *
      * @Route("/", name="content_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -67,6 +67,7 @@ class ContentController extends AbstractController implements PaginatorAwareInte
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -81,7 +82,7 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * Search for Content entities.
      *
      * @Route("/search", name="content_search", methods={"GET"})
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -107,8 +108,8 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="content_new", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new", name="content_new", methods={"GET", "POST"})
+     * @Template
      */
     public function newAction(Request $request, LinkManager $linkManager) {
         $content = new Content();
@@ -140,8 +141,8 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="content_new_popup", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new_popup", name="content_new_popup", methods={"GET", "POST"})
+     * @Template
      */
     public function newPopupAction(Request $request, LinkManager $linkManager) {
         return $this->newAction($request, $linkManager);
@@ -153,7 +154,7 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @return array
      *
      * @Route("/{id}", name="content_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(Content $content) {
         return [
@@ -167,8 +168,8 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="content_edit", methods={"GET","POST"})
-     * @Template()
+     * @Route("/{id}/edit", name="content_edit", methods={"GET", "POST"})
+     * @Template
      */
     public function editAction(Request $request, Content $content, LinkManager $linkManager) {
         $editForm = $this->createForm(ContentType::class, $content, ['entity' => $content]);
@@ -213,7 +214,7 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Route("/{id}/contributions", name="content_contributions", methods={"GET", "POST"})
-     * @Template()
+     * @Template
      */
     public function contributionsAction(Request $request, Content $content) {
         $editForm = $this->createForm(ContentContributionsType::class, $content);

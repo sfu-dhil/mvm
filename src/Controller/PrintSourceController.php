@@ -37,7 +37,7 @@ class PrintSourceController extends AbstractController implements PaginatorAware
      * @return array
      *
      * @Route("/", name="print_source_index", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -67,6 +67,7 @@ class PrintSourceController extends AbstractController implements PaginatorAware
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -96,7 +97,7 @@ class PrintSourceController extends AbstractController implements PaginatorAware
      * </pre></code>
      *
      * @Route("/search", name="print_source_search", methods={"GET"})
-     * @Template()
+     * @Template
      *
      * @return array
      */
@@ -122,8 +123,8 @@ class PrintSourceController extends AbstractController implements PaginatorAware
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="print_source_new", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new", name="print_source_new", methods={"GET", "POST"})
+     * @Template
      */
     public function newAction(Request $request) {
         $printSource = new PrintSource();
@@ -152,8 +153,8 @@ class PrintSourceController extends AbstractController implements PaginatorAware
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="print_source_new_popup", methods={"GET","POST"})
-     * @Template()
+     * @Route("/new_popup", name="print_source_new_popup", methods={"GET", "POST"})
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -165,7 +166,7 @@ class PrintSourceController extends AbstractController implements PaginatorAware
      * @return array
      *
      * @Route("/{id}", name="print_source_show", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function showAction(PrintSource $printSource) {
         return [
@@ -179,8 +180,8 @@ class PrintSourceController extends AbstractController implements PaginatorAware
      * @return array|RedirectResponse
      *
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="print_source_edit", methods={"GET","POST"})
-     * @Template()
+     * @Route("/{id}/edit", name="print_source_edit", methods={"GET", "POST"})
+     * @Template
      */
     public function editAction(Request $request, PrintSource $printSource) {
         $editForm = $this->createForm(PrintSourceType::class, $printSource);

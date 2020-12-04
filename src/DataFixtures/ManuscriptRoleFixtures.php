@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\ManuscriptRole;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
@@ -26,8 +27,8 @@ class ManuscriptRoleFixtures extends Fixture {
         $manager->getClassMetadata(ManuscriptRole::class)->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $item1 = new ManuscriptRole();
-        $item1->setCreated(new \DateTime('2019-07-29 22:13:01'));
-        $item1->setUpdated(new \DateTime('2019-07-29 22:13:01'));
+        $item1->setCreated(new DateTimeImmutable('2019-07-29 22:13:01'));
+        $item1->setUpdated(new DateTimeImmutable('2019-07-29 22:13:01'));
         $item1->setName('primary_compiler');
         $item1->setLabel('Primary Compiler');
         $item1->setDescription('<p>The person most responsible for collecting the content in a manuscript.</p>');

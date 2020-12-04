@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Manuscript;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -52,8 +53,8 @@ class ManuscriptFixtures extends Fixture implements DependentFixtureInterface {
         $item1->addRegion($this->getReference('_reference_Region1'));
         $item1->addPeriod($this->getReference('_reference_Period1'));
         $item1->setArchive($this->getReference('_reference_Archive1'));
-        $item1->setCreated(new \DateTime('2019-07-29 22:35:10'));
-        $item1->setUpdated(new \DateTime('2019-07-29 22:35:10'));
+        $item1->setCreated(new DateTimeImmutable('2019-07-29 22:35:10'));
+        $item1->setUpdated(new DateTimeImmutable('2019-07-29 22:35:10'));
         $this->addReference('_reference_Manuscript1', $item1);
         $manager->persist($item1);
 

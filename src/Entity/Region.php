@@ -21,8 +21,8 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * @todo Make this GeoNames compatible.
  *
  * @ORM\Table(name="region", indexes={
- *   @ORM\Index(name="region_name_idx", columns={"name"}),
- *   @ORM\Index(name="region_ft", columns={"name"}, flags={"fulltext"})
+ *     @ORM\Index(name="region_name_idx", columns={"name"}),
+ *     @ORM\Index(name="region_ft", columns={"name"}, flags={"fulltext"})
  * })
  * @ORM\Entity(repositoryClass="App\Repository\RegionRepository")
  */
