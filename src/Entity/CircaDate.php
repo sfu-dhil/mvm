@@ -113,8 +113,8 @@ class CircaDate extends AbstractEntity {
 
     public function isRange() {
         return
-            ($this->startCirca !== $this->endCirca) ||
-            ($this->start !== $this->end);
+            ($this->startCirca !== $this->endCirca)
+            || ($this->start !== $this->end);
     }
 
     public function hasStart() {

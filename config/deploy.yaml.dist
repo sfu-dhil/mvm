@@ -12,7 +12,7 @@ dhil.lib.sfu.ca:
 .settings:
     application: mvm
     repository: ~
-    branch: master
+    branch: main
     shared_files:
         - .env.local
     shared_dirs:
