@@ -37,7 +37,23 @@ class ContentRepository extends ServiceEntityRepository {
 
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
-        $qb->where('MATCH (e.title, e.firstLine, e.transcription) AGAINST(:q BOOLEAN) > 0');
+
+        // join the contributions, person, and role tables to query the author
+        $qb->innerJoin('e.contributions', 'c');
+        $qb->innerJoin('c.person', 'p');
+        $qb->innerJoin('c.role', 'r');
+
+        // content matches
+        $qb->where('MATCH (e.title, e.firstLine, e.transcription) AGAINST(:q BOOLEAN) > 0.1');
+
+        // author matches
+        $qb->orWhere($qb->expr()->andX(
+                $qb->expr()->gt('MATCH(p.fullName, p.variantNames) AGAINST (:q BOOLEAN)', 0.1),
+                $qb->expr()->eq('r.name', '\'author\'')
+            )
+        );
+
+        $qb->orderBy('e.firstLine');
         $qb->setParameter('q', $q);
 
         return $qb->getQuery();
