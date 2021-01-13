@@ -35,7 +35,7 @@ class PersonRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\Servic
 
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
-        $qb->where('MATCH (e.fullName) AGAINST(:q BOOLEAN) > 0');
+        $qb->where('MATCH (e.fullName, e.variantNames) AGAINST(:q BOOLEAN) > 0');
         $qb->setParameter('q', $q);
 
         return $qb->getQuery();

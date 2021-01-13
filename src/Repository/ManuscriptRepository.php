@@ -36,7 +36,7 @@ class ManuscriptRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\Se
 
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
-        $qb->andWhere('MATCH(e.callNumber, e.description) AGAINST (:q) > 0.1');
+        $qb->andWhere('MATCH(e.callNumber, e.description) AGAINST (:q BOOLEAN) > 0.1');
         $qb->orderBy('e.callNumber', 'ASC');
         $qb->setParameter('q', $q);
 
