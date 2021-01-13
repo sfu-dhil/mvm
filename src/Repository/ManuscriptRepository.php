@@ -36,10 +36,9 @@ class ManuscriptRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\Se
 
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
-        $qb->where('e.callNumber LIKE :q');
-        $qb->orWhere('e.title LIKE :q');
+        $qb->andWhere('MATCH(e.callNumber, e.description) AGAINST (:q) > 0.1');
         $qb->orderBy('e.callNumber', 'ASC');
-        $qb->setParameter('q', "%{$q}%");
+        $qb->setParameter('q', $q);
 
         return $qb->getQuery();
     }
