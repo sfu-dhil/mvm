@@ -22,7 +22,7 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * Person.
  *
  * @ORM\Table(name="person", indexes={
- *     @ORM\Index(name="person_ft", columns={"full_name"}, flags={"fulltext"})
+ *     @ORM\Index(name="person_ft", columns={"full_name", "variant_names"}, flags={"fulltext"})
  * })
  * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  */
