@@ -11,6 +11,8 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\DataFixtures\CoterieFixtures;
+use App\Entity\Coterie;
+use App\Entity\Period;
 use App\Repository\CoterieRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
@@ -138,63 +140,6 @@ class CoterieTest extends ControllerBaseCase {
         $this->assertCount(4, $json);
     }
 
-    public function testAnonSearch() : void {
-        $repo = $this->createMock(CoterieRepository::class);
-        $repo->method('searchQuery')->willReturn([$this->getReference('coterie.1')]);
-        $this->client->disableReboot();
-        $this->client->getContainer()->set('test.' . CoterieRepository::class, $repo);
-
-        $crawler = $this->client->request('GET', '/coterie/search');
-        $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
-        if (self::ANON_RESPONSE_CODE === Response::HTTP_FOUND) {
-            // If authentication is required stop here.
-            return;
-        }
-
-        $form = $crawler->selectButton('btn-search')->form([
-            'q' => 'coterie',
-        ]);
-
-        $responseCrawler = $this->client->submit($form);
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-    }
-
-    public function testUserSearch() : void {
-        $repo = $this->createMock(CoterieRepository::class);
-        $repo->method('searchQuery')->willReturn([$this->getReference('coterie.1')]);
-        $this->client->disableReboot();
-        $this->client->getContainer()->set('test.' . CoterieRepository::class, $repo);
-
-        $this->login('user.user');
-        $crawler = $this->client->request('GET', '/coterie/search');
-        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-
-        $form = $crawler->selectButton('btn-search')->form([
-            'q' => 'coterie',
-        ]);
-
-        $responseCrawler = $this->client->submit($form);
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-    }
-
-    public function testAdminSearch() : void {
-        $repo = $this->createMock(CoterieRepository::class);
-        $repo->method('searchQuery')->willReturn([$this->getReference('coterie.1')]);
-        $this->client->disableReboot();
-        $this->client->getContainer()->set('test.' . CoterieRepository::class, $repo);
-
-        $this->login('user.admin');
-        $crawler = $this->client->request('GET', '/coterie/search');
-        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-
-        $form = $crawler->selectButton('btn-search')->form([
-            'q' => 'coterie',
-        ]);
-
-        $responseCrawler = $this->client->submit($form);
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-    }
-
     /**
      * @group anon
      * @group edit
@@ -224,7 +169,7 @@ class CoterieTest extends ControllerBaseCase {
         $formCrawler = $this->client->request('GET', '/coterie/1/edit');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
-        $form = $formCrawler->selectButton('Save')->form([
+        $form = $formCrawler->selectButton('Update')->form([
             'coterie[label]' => 'Updated Label',
             'coterie[description]' => 'Updated Description',
         ]);
@@ -286,7 +231,7 @@ class CoterieTest extends ControllerBaseCase {
         $formCrawler = $this->client->request('GET', '/coterie/new');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
-        $form = $formCrawler->selectButton('Save')->form([
+        $form = $formCrawler->selectButton('Create')->form([
             'coterie[label]' => 'New Label',
             'coterie[description]' => 'New Description',
         ]);
@@ -308,7 +253,7 @@ class CoterieTest extends ControllerBaseCase {
         $formCrawler = $this->client->request('GET', '/coterie/new_popup');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
-        $form = $formCrawler->selectButton('Save')->form([
+        $form = $formCrawler->selectButton('Create')->form([
             'coterie[label]' => 'New Label',
             'coterie[description]' => 'New Description',
         ]);
@@ -326,21 +271,16 @@ class CoterieTest extends ControllerBaseCase {
      * @group delete
      */
     public function testAdminDelete() : void {
-        $repo = self::$container->get(CoterieRepository::class);
-        $preCount = count($repo->findAll());
-
+        $preCount = count($this->entityManager->getRepository(Coterie::class)->findAll());
         $this->login('user.admin');
-        $crawler = $this->client->request('GET', '/coterie/1');
-        $form = $crawler->selectButton('Delete')->form();
-        $this->client->submit($form);
-
-        $this->assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/coterie/1/delete');
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->entityManager->clear();
-        $postCount = count($repo->findAll());
+        $postCount = count($this->entityManager->getRepository(Coterie::class)->findAll());
         $this->assertSame($preCount - 1, $postCount);
     }
 }

@@ -1,11 +1,9 @@
-<table class="table table-bordered table-condensed table-hover table-striped">
+<table class="table">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
             <th>Label</th>
             <th>Description</th>
-
+            <th>Members</th>
         </tr>
     </thead>
     <tbody>
@@ -13,20 +11,15 @@
             <tr>
                 <td>
                     <a href="{{ path('coterie_show', { 'id': coterie.id }) }}">
-                        {{ coterie.id }}
+                        {{ coterie.label }}
                     </a>
-                </td>
-                <td>
-                    {{ coterie.name }}
-                </td>
-
-                <td>
-                    {{ coterie.label }}
                 </td>
 
                 <td>
                     {{ coterie.description|raw }}
                 </td>
+
+                <td class='number'>{{ coterie.people|length }}</td>
 
             </tr>
         {% endfor %}

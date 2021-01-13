@@ -4,12 +4,14 @@
 
 
 {% block breadcrumb %}
-    {% include 'partial/breadcrumb.html.twig' with {'index': 'content', 'show': 'Search'} %}
+    {% include 'partial/breadcrumb.html.twig' with {'index': 'content', 'index_label': 'Poems', 'show': 'Search'} %}
 {% endblock %}
 
 {% block pageheader %}
     <h1>Poem Search</h1>
-    {% include 'partial/count.html.twig' with {'index': contents, 'label': 'contents'} %}
+    {% if q %}
+        {% include 'partial/count.html.twig' with {'index': contents, 'label': 'contents'} %}
+    {% endif %}
 {% endblock %}
 
 {% block body %}

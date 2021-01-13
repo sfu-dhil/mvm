@@ -164,17 +164,15 @@ class CoterieController extends AbstractController implements PaginatorAwareInte
 
     /**
      * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}", name="coterie_delete", methods={"DELETE"})
+     * @Route("/{id}/delete", name="coterie_delete", methods={"GET"})
      *
      * @return RedirectResponse
      */
     public function delete(Request $request, Coterie $coterie) {
-        if ($this->isCsrfTokenValid('delete' . $coterie->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($coterie);
-            $entityManager->flush();
-            $this->addFlash('success', 'The coterie has been deleted.');
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($coterie);
+        $entityManager->flush();
+        $this->addFlash('success', 'The coterie has been deleted.');
 
         return $this->redirectToRoute('coterie_index');
     }
