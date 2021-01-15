@@ -72,17 +72,6 @@
                     <td>{{ person.description|raw }}</td>
                 </tr>
                 <tr>
-                    <th>Regions</th>
-                    <td>
-                        {% for region in person.regions|sort((a,b) => a.name <=> b.name) %}
-                            <a href="{{ path('region_show', { 'id': region.id}) }}">
-                                {{ region -}}
-                            </a>
-                            {%- if not loop.last %}, {% endif %}
-                        {% endfor %}
-                    </td>
-                </tr>
-                <tr>
                     <th>Links</th>
                     <td>
                         {% embed '@NinesMedia/link/partial/list.html.twig'

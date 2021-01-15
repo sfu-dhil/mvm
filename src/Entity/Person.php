@@ -101,16 +101,9 @@ class Person extends AbstractEntity implements LinkableInterface {
      */
     private $coteries;
 
-    /**
-     * @var Collection|Region[]
-     * @ORM\ManyToMany(targetEntity="Region", inversedBy="people")
-     */
-    private $regions;
-
     public function __construct() {
         parent::__construct();
         $this->linkable_constructor();
-        $this->regions = new ArrayCollection();
         $this->contentContributions = new ArrayCollection();
         $this->manuscriptContributions = new ArrayCollection();
         $this->coteries = new ArrayCollection();
@@ -383,39 +376,6 @@ class Person extends AbstractEntity implements LinkableInterface {
      */
     public function getGender() {
         return $this->gender;
-    }
-
-    /**
-     * Add region.
-     *
-     * @param \App\Entity\Region $region
-     *
-     * @return Person
-     */
-    public function addRegion(Region $region) {
-        $this->regions[] = $region;
-
-        return $this;
-    }
-
-    /**
-     * Remove region.
-     *
-     * @param \App\Entity\Region $region
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeRegion(Region $region) {
-        return $this->regions->removeElement($region);
-    }
-
-    /**
-     * Get regions.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRegions() {
-        return $this->regions;
     }
 
     /**

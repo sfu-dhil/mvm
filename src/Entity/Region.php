@@ -45,12 +45,6 @@ class Region extends AbstractEntity {
      */
     private $manuscripts;
 
-    /**
-     * @var Collection|People[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person", mappedBy="regions")
-     */
-    private $people;
-
     public function __construct() {
         parent::__construct();
         $this->manuscripts = new ArrayCollection();
