@@ -149,6 +149,13 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
     private $regions;
 
     /**
+     * @var Collection|Coterie[]
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Coterie", mappedBy="manuscripts")
+     */
+    private $coteries;
+
+    /**
      * @var Collection|ManuscriptContribution[]
      * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptContribution", mappedBy="manuscript", cascade={"persist", "remove"})
      */
@@ -177,6 +184,7 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         $this->manuscriptFeatures = new ArrayCollection();
         $this->printSources = new ArrayCollection();
         $this->themes = new ArrayCollection();
+        $this->coteries = new ArrayCollection();
     }
 
     /**
@@ -783,5 +791,32 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
      */
     public function getRegions() {
         return $this->regions;
+    }
+
+    /**
+     * @return Collection|Coterie[]
+     */
+    public function getCoteries(): Collection
+    {
+        return $this->coteries;
+    }
+
+    public function addCotery(Coterie $cotery): self
+    {
+        if (!$this->coteries->contains($cotery)) {
+            $this->coteries[] = $cotery;
+            $cotery->addManuscript($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCotery(Coterie $cotery): self
+    {
+        if ($this->coteries->removeElement($cotery)) {
+            $cotery->removeManuscript($this);
+        }
+
+        return $this;
     }
 }

@@ -26,9 +26,25 @@ class Coterie extends AbstractTerm {
      */
     private $people;
 
+    /**
+     * @var Collection|Manuscript[]
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Manuscript", inversedBy="coteries")
+     */
+    private $manuscripts;
+
+    /**
+     * @var Collection|Manuscript[]
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Region", inversedBy="coteries")
+     */
+    private $regions;
+
     public function __construct() {
         parent::__construct();
         $this->people = new ArrayCollection();
+        $this->manuscripts = new ArrayCollection();
+        $this->regions = new ArrayCollection();
     }
 
     /**
@@ -48,6 +64,54 @@ class Coterie extends AbstractTerm {
 
     public function removePerson(Person $person) : self {
         $this->people->removeElement($person);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Manuscript[]
+     */
+    public function getManuscripts(): Collection
+    {
+        return $this->manuscripts;
+    }
+
+    public function addManuscript(Manuscript $manuscript): self
+    {
+        if (!$this->manuscripts->contains($manuscript)) {
+            $this->manuscripts[] = $manuscript;
+        }
+
+        return $this;
+    }
+
+    public function removeManuscript(Manuscript $manuscript): self
+    {
+        $this->manuscripts->removeElement($manuscript);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Region[]
+     */
+    public function getRegions(): Collection
+    {
+        return $this->regions;
+    }
+
+    public function addRegion(Region $region): self
+    {
+        if (!$this->regions->contains($region)) {
+            $this->regions[] = $region;
+        }
+
+        return $this;
+    }
+
+    public function removeRegion(Region $region): self
+    {
+        $this->regions->removeElement($region);
 
         return $this;
     }

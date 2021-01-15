@@ -33,6 +33,38 @@
                     {% endif %}
                 </td>
             </tr>
+            <tr>
+                <th>Manuscripts</th>
+                <td>
+                    {% if coterie.manuscripts | length > 0 %}
+                        <ul>
+                            {% for manuscript in coterie.manuscripts %}
+                            <li>
+                                <a href='{{ path('manuscript_show', {'id': manuscript.id}) }}'>
+                                    {{ manuscript }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Regions</th>
+                <td>
+                    {% if coterie.regions | length > 0 %}
+                        <ul>
+                            {% for region in coterie.regions %}
+                            <li>
+                                <a href='{{ path('region_show', {'id': region.id}) }}'>
+                                    {{ region }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </td>
+            </tr>
         {% endblock %}
     {% endembed %}
 
