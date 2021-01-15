@@ -72,10 +72,6 @@
                     <td>{{ person.description|raw }}</td>
                 </tr>
                 <tr>
-                    <th>Biography</th>
-                    <td>{{ person.biography|raw }}</td>
-                </tr>
-                <tr>
                     <th>Regions</th>
                     <td>
                         {% for region in person.regions|sort((a,b) => a.name <=> b.name) %}

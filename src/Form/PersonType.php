@@ -93,15 +93,6 @@ class PersonType extends AbstractType {
             ],
         ]);
 
-        $builder->add('biography', TextareaType::class, [
-            'label' => 'Biography',
-            'required' => false,
-            'attr' => [
-                'help_block' => '',
-                'class' => 'tinymce',
-            ],
-        ]);
-
         $builder->add('birthDate', TextType::class, [
             'label' => 'Birth Date',
             'required' => false,

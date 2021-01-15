@@ -84,12 +84,6 @@ class Person extends AbstractEntity implements LinkableInterface {
     private $deathDate;
 
     /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $biography;
-
-    /**
      * @var Collection|ContentContribution[]
      * @ORM\OneToMany(targetEntity="App\Entity\ContentContribution", mappedBy="person")
      */
@@ -444,16 +438,6 @@ class Person extends AbstractEntity implements LinkableInterface {
         if ($this->coteries->removeElement($coterie)) {
             $coterie->removePerson($this);
         }
-
-        return $this;
-    }
-
-    public function getBiography() : ?string {
-        return $this->biography;
-    }
-
-    public function setBiography(?string $biography) : self {
-        $this->biography = $biography;
 
         return $this;
     }
