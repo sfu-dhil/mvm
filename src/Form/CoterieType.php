@@ -11,7 +11,9 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\Entity\Coterie;
+use App\Entity\Manuscript;
 use App\Entity\Person;
+use App\Entity\Region;
 use Nines\UtilBundle\Form\TermType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -36,6 +38,30 @@ class CoterieType extends TermType {
             'attr' => [
                 'add_path' => 'person_new_popup',
                 'add_label' => 'Add Person',
+            ],
+        ]);
+        $builder->add('manuscripts', Select2EntityType::class, [
+            'label' => 'Manuscripts',
+            'multiple' => true,
+            'remote_route' => 'manuscript_typeahead',
+            'class' => Manuscript::class,
+            'required' => false,
+            'allow_clear' => true,
+            'attr' => [
+                'add_path' => 'manuscript_new_popup',
+                'add_label' => 'Add Manuscript',
+            ],
+        ]);
+        $builder->add('regions', Select2EntityType::class, [
+            'label' => 'Regions',
+            'multiple' => true,
+            'remote_route' => 'region_typeahead',
+            'class' => Region::class,
+            'required' => false,
+            'allow_clear' => true,
+            'attr' => [
+                'add_path' => 'region_new_popup',
+                'add_label' => 'Add Region',
             ],
         ]);
     }

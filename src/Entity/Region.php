@@ -40,22 +40,23 @@ class Region extends AbstractEntity {
     private $printSources;
 
     /**
+     * @var Collection|Coterie[]
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Coterie", mappedBy="regions")
+     */
+    private $coteries;
+
+    /**
      * @var Collection|Manuscript[]
      * @ORM\ManyToMany(targetEntity="App\Entity\Manuscript", mappedBy="regions")
      */
     private $manuscripts;
 
-    /**
-     * @var Collection|People[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person", mappedBy="regions")
-     */
-    private $people;
-
     public function __construct() {
         parent::__construct();
         $this->manuscripts = new ArrayCollection();
         $this->printSources = new ArrayCollection();
-        $this->people = new ArrayCollection();
+        $this->coteries = new ArrayCollection();
     }
 
     /**
@@ -154,35 +155,29 @@ class Region extends AbstractEntity {
     }
 
     /**
-     * Add person.
-     *
-     * @param \App\Entity\Person $person
-     *
-     * @return Region
+     * @return Collection|Coterie[]
      */
-    public function addPerson(Person $person) {
-        $this->people[] = $person;
+    public function getCoteries(): Collection
+    {
+        return $this->coteries;
+    }
+
+    public function addCotery(Coterie $cotery): self
+    {
+        if (!$this->coteries->contains($cotery)) {
+            $this->coteries[] = $cotery;
+            $cotery->addRegion($this);
+        }
 
         return $this;
     }
 
-    /**
-     * Remove person.
-     *
-     * @param \App\Entity\Person $person
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removePerson(Person $person) {
-        return $this->people->removeElement($person);
-    }
+    public function removeCotery(Coterie $cotery): self
+    {
+        if ($this->coteries->removeElement($cotery)) {
+            $cotery->removeRegion($this);
+        }
 
-    /**
-     * Get people.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPeople() {
-        return $this->people;
+        return $this;
     }
 }

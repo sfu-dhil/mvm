@@ -93,15 +93,6 @@ class PersonType extends AbstractType {
             ],
         ]);
 
-        $builder->add('biography', TextareaType::class, [
-            'label' => 'Biography',
-            'required' => false,
-            'attr' => [
-                'help_block' => '',
-                'class' => 'tinymce',
-            ],
-        ]);
-
         $builder->add('birthDate', TextType::class, [
             'label' => 'Birth Date',
             'required' => false,
@@ -114,18 +105,6 @@ class PersonType extends AbstractType {
             'required' => false,
             'attr' => [
                 'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
-            ],
-        ]);
-        $builder->add('regions', Select2EntityType::class, [
-            'label' => 'Regions',
-            'multiple' => true,
-            'remote_route' => 'region_typeahead',
-            'class' => Region::class,
-            'required' => false,
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'region_new_popup',
-                'add_label' => 'Add Region',
             ],
         ]);
         $builder->add('links', CollectionType::class, [

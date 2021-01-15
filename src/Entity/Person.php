@@ -84,12 +84,6 @@ class Person extends AbstractEntity implements LinkableInterface {
     private $deathDate;
 
     /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $biography;
-
-    /**
      * @var Collection|ContentContribution[]
      * @ORM\OneToMany(targetEntity="App\Entity\ContentContribution", mappedBy="person")
      */
@@ -107,16 +101,9 @@ class Person extends AbstractEntity implements LinkableInterface {
      */
     private $coteries;
 
-    /**
-     * @var Collection|Region[]
-     * @ORM\ManyToMany(targetEntity="Region", inversedBy="people")
-     */
-    private $regions;
-
     public function __construct() {
         parent::__construct();
         $this->linkable_constructor();
-        $this->regions = new ArrayCollection();
         $this->contentContributions = new ArrayCollection();
         $this->manuscriptContributions = new ArrayCollection();
         $this->coteries = new ArrayCollection();
@@ -392,39 +379,6 @@ class Person extends AbstractEntity implements LinkableInterface {
     }
 
     /**
-     * Add region.
-     *
-     * @param \App\Entity\Region $region
-     *
-     * @return Person
-     */
-    public function addRegion(Region $region) {
-        $this->regions[] = $region;
-
-        return $this;
-    }
-
-    /**
-     * Remove region.
-     *
-     * @param \App\Entity\Region $region
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeRegion(Region $region) {
-        return $this->regions->removeElement($region);
-    }
-
-    /**
-     * Get regions.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRegions() {
-        return $this->regions;
-    }
-
-    /**
      * @return Collection|Coterie[]
      */
     public function getCoteries() : Collection {
@@ -444,16 +398,6 @@ class Person extends AbstractEntity implements LinkableInterface {
         if ($this->coteries->removeElement($coterie)) {
             $coterie->removePerson($this);
         }
-
-        return $this;
-    }
-
-    public function getBiography() : ?string {
-        return $this->biography;
-    }
-
-    public function setBiography(?string $biography) : self {
-        $this->biography = $biography;
 
         return $this;
     }

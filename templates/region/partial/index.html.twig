@@ -4,7 +4,6 @@
             <th>Region</th>
             <th class="number">Print Sources</th>
             <th class="number">Manuscripts</th>
-            <th class="number">People</th>
         </tr>
     </thead>
     <tbody>
@@ -21,9 +20,6 @@
                 </td>
                 <td class="number">
                     {{ region.manuscripts|length }}
-                </td>
-                <td class="number">
-                    {{ region.people|length }}
                 </td>
             </tr>
         {% endfor %}
