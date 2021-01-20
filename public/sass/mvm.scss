@@ -555,6 +555,17 @@ footer{
     }
     
 }
+
+.title.untitled{
+  color: rgba(#333, 0.8);
+  cursor:help;
+  &:before{
+    content:'[';
+  }
+  &:after{
+    content:']';
+  }
+}
  
  @import "_index.scss";
 

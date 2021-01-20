@@ -20,11 +20,7 @@
             <tbody>
                 <tr>
                     <th>Title</th>
-                    <td>{{ manuscript.title }}</td>
-                </tr>
-                <tr>
-                    <th>Untitled</th>
-                    <td>{% if manuscript.untitled %}Yes{% else %}No{% endif %}</td>
+                    <td>{% include 'manuscript/partial/title.html.twig' with {'manuscript': manuscript} %}</td>
                 </tr>
                 <tr>
                     <th>Archive</th>

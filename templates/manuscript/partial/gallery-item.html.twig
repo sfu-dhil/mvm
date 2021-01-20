@@ -11,7 +11,7 @@ either in the body of a page or within the contents of a tab #}
         <tbody>
             <tr>
                 <th>Title</th>
-                <td>{{ manuscript.title|u.truncate(50,'[...]') }}</td>
+                <td>{% include 'manuscript/partial/title.html.twig' with {'title': manuscript.title|u.truncate(50,' [...]')} %}</td>
             </tr>
             {% if manuscript.periods|length > 0 %}
                 <tr>
