@@ -35,7 +35,7 @@ class Region extends AbstractEntity {
 
     /**
      * @var Collection|PrintSource[]
-     * @ORM\OneToMany(targetEntity="App\Entity\PrintSource", mappedBy="region")
+     * @ORM\ManyToMany(targetEntity="App\Entity\PrintSource", mappedBy="regions")
      */
     private $printSources;
 

@@ -5,10 +5,14 @@
  {% block pageheader %}
      {% embed 'partial/term-index.html.twig' with {'term': printSource} %}
          {% block callback %}
-             {% if printSource.region %}
-                 <p>
-                     <a href="{{ path('region_show', {'id': printSource.region.id}) }}">{{ printSource.region }}</a>
-                 </p>
+             {% if printSource.regions %}
+                 <ul>
+                     {% for region in printSource.regions %}
+                     <li>
+                         <a href="{{ path('region_show', {'id': region.id}) }}">{{ region }}</a>
+                     </li>
+                     {% endfor %}
+                 </ul>
              {% endif %}
          {% endblock %}
      {% endembed %}

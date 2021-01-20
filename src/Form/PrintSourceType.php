@@ -24,9 +24,9 @@ class PrintSourceType extends ArchiveType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
         parent::buildForm($builder, $options);
-        $builder->add('region', Select2EntityType::class, [
-            'label' => 'Region',
-            'multiple' => false,
+        $builder->add('regions', Select2EntityType::class, [
+            'label' => 'Regions',
+            'multiple' => true,
             'remote_route' => 'region_typeahead',
             'class' => Region::class,
             'required' => false,

@@ -13,8 +13,14 @@
                 <td><a href="{{ path('print_source_show',{'id': source.id}) }}">{{ source.label }}</a></td>
 
                 <td>
-                    {% if source.region is not null %}
-                        <a href="{{ path('region_show', {'id': source.region.id}) }}">{{ source.region }}</a>
+                    {% if source.regions|length > 0 %}
+                        <ul>
+                            {% for region in source.regions %}
+                            <li>
+                                <a href="{{ path('region_show', {'id': region.id}) }}">{{ region }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
                     {% endif %}
                 </td>
                 <td>
