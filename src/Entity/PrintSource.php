@@ -23,10 +23,10 @@ use Nines\UtilBundle\Entity\AbstractTerm;
  */
 class PrintSource extends AbstractTerm {
     /**
-     * @var Region
-     * @ORM\ManyToOne(targetEntity="App\Entity\Region", inversedBy="printSources")
+     * @var Collection|Region[]
+     * @ORM\ManyToMany(targetEntity="App\Entity\Region", inversedBy="printSources")
      */
-    private $region;
+    private $regions;
 
     /**
      * @var Collection|ManuscriptContent
@@ -44,28 +44,7 @@ class PrintSource extends AbstractTerm {
         parent::__construct();
         $this->manuscriptContents = new ArrayCollection();
         $this->manuscripts = new ArrayCollection();
-    }
-
-    /**
-     * Set region.
-     *
-     * @param null|\App\Entity\Region $region
-     *
-     * @return PrintSource
-     */
-    public function setRegion(?Region $region = null) {
-        $this->region = $region;
-
-        return $this;
-    }
-
-    /**
-     * Get region.
-     *
-     * @return null|\App\Entity\Region
-     */
-    public function getRegion() {
-        return $this->region;
+        $this->regions = new ArrayCollection();
     }
 
     /**
@@ -132,5 +111,41 @@ class PrintSource extends AbstractTerm {
      */
     public function getManuscriptContents() {
         return $this->manuscriptContents;
+    }
+
+    /**
+     * @return Collection|Region[]
+     */
+    public function getRegions(): Collection
+    {
+        return $this->regions;
+    }
+
+    public function setRegions($regions) : self {
+        if($regions instanceof Collection) {
+            $this->regions = $regions;
+        } else if(is_array($regions)) {
+            $this->regions = new ArrayCollection($regions);
+        } else {
+            $this->regions = new ArrayCollection();
+        }
+
+        return $this;
+    }
+
+    public function addRegion(Region $region): self
+    {
+        if (!$this->regions->contains($region)) {
+            $this->regions[] = $region;
+        }
+
+        return $this;
+    }
+
+    public function removeRegion(Region $region): self
+    {
+        $this->regions->removeElement($region);
+
+        return $this;
     }
 }

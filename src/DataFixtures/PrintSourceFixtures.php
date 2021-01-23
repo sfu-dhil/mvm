@@ -24,10 +24,12 @@ class PrintSourceFixtures extends Fixture implements DependentFixtureInterface {
     /**
      * Set loading order.
      *
-     * @return int
+     * @return string[]
      */
     public function getDependencies() {
-        return [RegionFixtures::class];
+        return [
+            RegionFixtures::class
+        ];
     }
 
     /**
@@ -37,7 +39,7 @@ class PrintSourceFixtures extends Fixture implements DependentFixtureInterface {
         $manager->getClassMetadata(PrintSource::class)->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $item1 = new PrintSource();
-        $item1->setRegion($this->getReference('_reference_Region1'));
+        $item1->setRegions([$this->getReference('_reference_Region1')]);
         $item1->setCreated(new DateTimeImmutable('2019-07-29 22:19:33'));
         $item1->setUpdated(new DateTimeImmutable('2019-07-29 22:19:33'));
         $item1->setName('sgm');
