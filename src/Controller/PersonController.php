@@ -46,7 +46,7 @@ class PersonController extends AbstractController implements PaginatorAwareInter
         $qb->select('e')->from(Person::class, 'e')->orderBy('e.sortableName', 'ASC');
         $query = $qb->getQuery();
 
-        $people = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $people = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
         return [
             'people' => $people,
@@ -90,7 +90,7 @@ class PersonController extends AbstractController implements PaginatorAwareInter
         if ($q) {
             $query = $repo->searchQuery($q);
 
-            $people = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
+            $people = $this->paginator->paginate($query, $request->query->getInt('page', 1), 24);
         } else {
             $people = [];
         }
