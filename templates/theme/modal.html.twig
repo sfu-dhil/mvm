@@ -1,0 +1,14 @@
+{% extends 'modal.html.twig' %}
+
+{% set manuscripts = theme.manuscripts %}
+
+{% block heading %}
+    <a href="{{ path('theme_show', {'id': theme.id}) }}">{{ theme }}</a>
+{% endblock %}
+
+{% block body %}
+    {{ theme.description|raw }}
+{% endblock %}
+
+
+

@@ -1,0 +1,14 @@
+{% extends 'modal.html.twig' %}
+
+{% set manuscripts = coterie.manuscripts %}
+
+{% block heading %}
+    <a href="{{ path('coterie_show', {'id': coterie.id}) }}">{{ coterie }}</a>
+{% endblock %}
+
+{% block body %}
+    {{ coterie.description|raw }}
+{% endblock %}
+
+
+

@@ -138,6 +138,20 @@ class CoterieController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
+     * Finds and displays a coterie modal.
+     *
+     * @Route("/{id}/modal", name="coterie_modal", methods={"GET"})
+     * @Template
+     *
+     * @return array
+     */
+    public function modal(Coterie $coterie) {
+        return [
+            'coterie' => $coterie,
+        ];
+    }
+
+    /**
      * @IsGranted("ROLE_CONTENT_ADMIN")
      * @Route("/{id}/edit", name="coterie_edit", methods={"GET", "POST"})
      *

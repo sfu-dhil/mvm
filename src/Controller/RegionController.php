@@ -158,6 +158,20 @@ class RegionController extends AbstractController implements PaginatorAwareInter
     }
 
     /**
+     * Finds and displays a Region modal.
+     *
+     * @return array
+     *
+     * @Route("/{id}/modal", name="region_modal", methods={"GET"})
+     * @Template
+     */
+    public function modalAction(Region $region) {
+        return [
+            'region' => $region,
+        ];
+    }
+
+    /**
      * Displays a form to edit an existing Region entity.
      *
      * @return array|RedirectResponse

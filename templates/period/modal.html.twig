@@ -1,0 +1,14 @@
+{% extends 'modal.html.twig' %}
+
+{% set manuscripts = period.manuscripts %}
+
+{% block heading %}
+    <a href="{{ path('period_show', {'id': period.id}) }}">{{ period }}</a>
+{% endblock %}
+
+{% block body %}
+    {{ period.description|raw }}
+{% endblock %}
+
+
+

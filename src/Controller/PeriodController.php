@@ -134,6 +134,21 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
     }
 
     /**
+     * Finds and displays a Period modal.
+     *
+     * @return array
+     *
+     * @Route("/{id}/modal", name="period_modal", methods={"GET"})
+     * @Template
+     */
+    public function modalAction(Period $period) {
+        return [
+            'period' => $period,
+        ];
+    }
+
+
+    /**
      * Displays a form to edit an existing Period entity.
      *
      * @return array|RedirectResponse

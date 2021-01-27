@@ -5,6 +5,7 @@
   "license": "GPL-v2-or-later",
   "dependencies": {
     "bootstrap3": "^3.3.5",
+    "dhilux": "https://github.com/joeytakeda/dhilux",
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
     "select2": "^4.0.12",

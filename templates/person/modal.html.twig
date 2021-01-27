@@ -1,0 +1,23 @@
+{% extends 'modal.html.twig' %}
+
+{% set manuscripts = [] %}
+{% for contribution in person.manuscriptContributions %}
+    {% if contribution.manuscript not in manuscripts %}
+        {% set manuscripts = manuscripts|merge([contribution.manuscript]) %}
+    {% endif %}
+{% endfor %}
+
+{% block heading %}
+    <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a>
+{% endblock %}
+
+{% block subheading %}
+    {% include 'person/partial/dates.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {{ person.description|raw }}
+{% endblock %}
+
+
+
