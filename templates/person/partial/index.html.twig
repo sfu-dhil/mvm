@@ -1,3 +1,5 @@
+
+
 <div class="gallery person">
     {% for person in people|sort((a,b) => (a.sortableName <=> b.sortableName)) %}
         {% embed 'partial/gallery-item.html.twig' %}
@@ -17,9 +19,9 @@
                     {% endfor %}
                     <table>
                         <tbody>
-                        <tr>
-                            <th>Coteries</th>
-                            <td>{{ arr|join(', ',', and ')|raw }}</td>
+                            <tr>
+                                <th>Coteries</th>
+                                <td>{{ arr|join(', ',', and ')|raw }}</td>
                         </tbody>
 
                     </table>

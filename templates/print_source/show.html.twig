@@ -7,15 +7,15 @@
          {% block callback %}
              {% if printSource.regions %}
                  <ul class="list-group-horizontal">
-                     {% for region in printSource.regions %}
-                         <li>
-                             {% if loop.first %}
-                                 <em>Regions:</em>
-                             {% endif %}
-                             <a href="{{ path('region_show', {'id': region.id}) }}">{{ region }}</a>
-                         </li>
-                     {% endfor %}
-                 </ul>
+                         {% for region in printSource.regions %}
+                             <li>
+                                 {% if loop.first %}
+                                    <em>Regions:</em>
+                                 {% endif %}
+                                 <a href="{{ path('region_show', {'id': region.id}) }}">{{ region }}</a>
+                             </li>
+                         {% endfor %}
+                     </ul>
              {% endif %}
          {% endblock %}
      {% endembed %}
@@ -36,4 +36,9 @@
             'Manuscript Poems': include('manuscript_content/partial/index.html.twig', { 'manuscriptContents': printSource.manuscriptContents })
         }
     } %}
+
+    {#
+    {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': printSource.manuscripts} %}
+    #}
+
 {% endblock %}

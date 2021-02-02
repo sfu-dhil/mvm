@@ -11,32 +11,32 @@
 
     <table class="table">
         <thead>
-        <tr>
-            <th>Manuscript</th>
-            <th>Feature</th>
-            <th>Note</th>
-        </tr>
+            <tr>
+                <th>Manuscript</th>
+                <th>Feature</th>
+                <th>Note</th>
+            </tr>
         </thead>
         <tbody>
-        {% for manuscriptFeature in manuscriptFeatures %}
-            <tr>
-                <td>
-                    <a href="{{ path('manuscript_show', {'id': manuscriptFeature.manuscript.id}) }}">
-                        {{ manuscriptFeature.manuscript }}
-                    </a>
-                </td>
-                <td>
-                    <a href="{{ path('feature_show', {'id': manuscriptFeature.feature.id}) }}">
-                        {{ manuscriptFeature.feature }}
-                    </a>
-                </td>
-                <td>
-                    <a href="{{ path('manuscript_feature_show', { 'id': manuscriptFeature.id }) }}">
-                        {{ manuscriptFeature.note|raw }}
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for manuscriptFeature in manuscriptFeatures %}
+                <tr>
+                    <td>
+                        <a href="{{ path('manuscript_show', {'id': manuscriptFeature.manuscript.id}) }}">
+                            {{ manuscriptFeature.manuscript }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('feature_show', {'id': manuscriptFeature.feature.id}) }}">
+                            {{ manuscriptFeature.feature }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('manuscript_feature_show', { 'id': manuscriptFeature.id }) }}">
+                            {{ manuscriptFeature.note|raw }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

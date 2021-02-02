@@ -1,3 +1,4 @@
+
 {% set index = route|replace({'search':'index'}) %}
 {% set searches = [
     {
@@ -28,7 +29,8 @@
         'label': 'Themes',
         'route': 'theme_search'
     }
-] %}
+]
+%}
 
 {% set current = searches|filter(s => s.route == route)|first %}
 

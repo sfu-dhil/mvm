@@ -35,10 +35,10 @@
     {% if contentRole.contributions | length > 0 %}
         <table class="table">
             <thead>
-            <tr>
-                <th>Contributor</th>
-                <th>Poem</th>
-            </tr>
+                <tr>
+                    <th>Contributor</th>
+                    <th>Poem</th>
+                </tr>
             </thead>
             {% set people = [] %}
             {% for person in contentRole.contributions|map(c => c.person) %}

@@ -21,43 +21,43 @@
 
         <table class="table">
             <tbody>
-            <tr>
-                <th>Full Name</th>
-                <td>{{ person }}</td>
-            </tr>
-            <tr>
-                <th>Variant Names</th>
-                <td>{% if person.variantNames|length > 0 %}{{ person.variantNames|join(', ') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Gender</th>
-                <td>
-                    {% include 'person/partial/gender.html.twig' %}
-                </td>
-            </tr>
-            <tr>
-                <th>Birth Date</th>
-                <td>{{ person.birthDate }}</td>
-            </tr>
-            <tr>
-                <th>Death Date</th>
-                <td>{{ person.deathDate }}</td>
-            </tr>
-            <tr>
-                <th>Coteries</th>
-                <td>
-                    {% include 'partial/tag-list.html.twig' with {
-                        'att': 'coteries',
-                        'route': 'coterie_show'
-                    } %}
-                </td>
-            </tr>
-            <tr>
-                <th>Links</th>
-                <td>
-                    {% include 'partial/link.html.twig' %}
-                </td>
-            </tr>
+                <tr>
+                    <th>Full Name</th>
+                    <td>{{ person }}</td>
+                </tr>
+                <tr>
+                    <th>Variant Names</th>
+                    <td>{% if person.variantNames|length > 0 %}{{ person.variantNames|join(', ') }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>
+                        {% include 'person/partial/gender.html.twig' %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Birth Date</th>
+                    <td>{{ person.birthDate }}</td>
+                </tr>
+                <tr>
+                    <th>Death Date</th>
+                    <td>{{ person.deathDate }}</td>
+                </tr>
+                <tr>
+                    <th>Coteries</th>
+                    <td>
+                        {% include 'partial/tag-list.html.twig' with {
+                            'att': 'coteries',
+                            'route': 'coterie_show'
+                        } %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Links</th>
+                    <td>
+                        {% include 'partial/link.html.twig' %}
+                    </td>
+                </tr>
             </tbody>
         </table>
     {% endset %}
@@ -66,13 +66,13 @@
         {% if person.contentContributions | length > 0 %}
             <table class="table">
                 <thead>
-                <tr>
-                    <th>Role</th>
-                    <th>First Line</th>
-                </tr>
+                    <tr>
+                        <th>Role</th>
+                        <th>First Line</th>
+                    </tr>
                 </thead>
                 {% set allRoles = person.contentContributions|map(c => c.role) %}
-                {% set roles = [] %}
+                {% set roles = []  %}
                 {% for role in allRoles %}
                     {% set roles = (role in roles) ? roles : roles|merge([role]) %}
                 {% endfor %}

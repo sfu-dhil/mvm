@@ -18,22 +18,22 @@
 {% block body %}
     <table class="table">
         <thead>
-        <tr>
-            <th>Period</th>
-            <th>Description</th>
-            <th class="number">Manuscripts</th>
-        </tr>
+            <tr>
+                <th>Period</th>
+                <th>Description</th>
+                <th class="number">Manuscripts</th>
+            </tr>
         </thead>
         <tbody>
-        {% for period in periods %}
-            <tr>
-                <td>
-                    <a href="{{ path('period_show', {'id': period.id}) }}">{{ period }}</a>
-                </td>
-                <td>{{ period.description|raw }}</td>
-                <td class="number">{{ period.manuscripts|length }}</td>
-            </tr>
-        {% endfor %}
+            {% for period in periods %}
+                <tr>
+                    <td>
+                        <a href="{{ path('period_show', {'id': period.id}) }}">{{ period }}</a>
+                    </td>
+                    <td>{{ period.description|raw }}</td>
+                    <td class="number">{{ period.manuscripts|length }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

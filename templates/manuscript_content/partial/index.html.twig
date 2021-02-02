@@ -1,43 +1,43 @@
 {% if manuscriptContents|length > 0 %}
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Manuscript</th>
-            <th>Poem</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% set manuscripts = [] %}
-        {% for content in manuscriptContents %}
-            {% set manuscripts = (content.manuscript in manuscripts) ? manuscripts : manuscripts|merge([content.manuscript]) %}
-        {% endfor %}
+<table class="table">
+    <thead>
+    <tr>
+        <th>Manuscript</th>
+        <th>Poem</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% set manuscripts = [] %}
+    {% for content in manuscriptContents %}
+        {% set manuscripts = (content.manuscript in manuscripts) ? manuscripts : manuscripts|merge([content.manuscript])  %}
+    {% endfor %}
 
-        {% for manuscript in manuscripts %}
-            <tr>
-                <td>
-                    <a href='{{ path('manuscript_show', {'id': manuscript.id}) }}'>
-                        {{ manuscript }}
-                    </a>
-                </td>
-                <td>
-                    <ul>
-                        {% for manuscriptContent in manuscriptContents|filter(m => m.manuscript == manuscript) %}
-                            <li>
-                                <a href='{{ path('content_show', {'id': manuscriptContent.content.id}) }}'>
-                                    {{ manuscriptContent.content }}
-                                </a>
-                                {% if manuscriptContent.context %}
-                                    <div class="note">
-                                        {{ manuscriptContent.context|raw }}
-                                    </div>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% for manuscript in manuscripts %}
+        <tr>
+            <td>
+                <a href='{{ path('manuscript_show', {'id': manuscript.id}) }}'>
+                    {{ manuscript }}
+                </a>
+            </td>
+            <td>
+                <ul>
+                    {% for manuscriptContent in manuscriptContents|filter(m => m.manuscript == manuscript) %}
+                        <li>
+                            <a href='{{ path('content_show', {'id': manuscriptContent.content.id}) }}'>
+                                {{ manuscriptContent.content }}
+                            </a>
+                            {% if manuscriptContent.context %}
+                                <div class="note">
+                                    {{ manuscriptContent.context|raw }}
+                                </div>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 
 {% endif %}

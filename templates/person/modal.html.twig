@@ -8,8 +8,8 @@
 {% endfor %}
 
 {% set contents = [] %}
-{% for contribution in person.contentContributions %}
-    {% if contribution.content not in contents %}
+{% for contribution in person.contentContributions  %}
+    {% if contribution.content not in contents  %}
         {% set contents = contents|merge([contribution.content]) %}
     {% endif %}
 {% endfor %}

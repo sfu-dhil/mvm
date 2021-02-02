@@ -21,21 +21,21 @@
     {% if feature.manuscriptFeatures | length > 0 %}
         <table class="table">
             <thead>
-            <tr>
-                <th>Manuscript</th>
-                <th>Note</th>
-            </tr>
+                <tr>
+                    <th>Manuscript</th>
+                    <th>Note</th>
+                </tr>
             </thead>
             <tbody>
-            {% for manuscriptFeature in feature.manuscriptFeatures|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
-                <tr>
-                    <td>
-                        <a href="{{ path('manuscript_show', {'id': manuscriptFeature.manuscript.id}) }}">{{ manuscriptFeature.manuscript.callNumber }}
-                        </a>
-                    </td>
-                    <td>{{ manuscriptFeature.note|raw }}</td>
-                </tr>
-            {% endfor %}
+                {% for manuscriptFeature in feature.manuscriptFeatures|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('manuscript_show', {'id': manuscriptFeature.manuscript.id}) }}">{{ manuscriptFeature.manuscript.callNumber }}
+                            </a>
+                        </td>
+                        <td>{{ manuscriptFeature.note|raw }}</td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     {% endif %}

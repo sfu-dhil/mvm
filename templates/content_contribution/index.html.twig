@@ -16,34 +16,34 @@
 
     <table class="table">
         <thead>
-        <tr>
-            <th>First line</th>
-            <th>Person</th>
-            <th>Role</th>
-            <th>Note</th>
-        </tr>
+            <tr>
+                <th>First line</th>
+                <th>Person</th>
+                <th>Role</th>
+                <th>Note</th>
+            </tr>
         </thead>
         <tbody>
-        {% for contentContribution in contentContributions %}
-            <tr>
-                <td>
-                    <a href="{{ path('content_show', { 'id': contentContribution.content.id }) }}">
-                        {{ contentContribution.content }}
-                    </a>
-                </td>
-                <td>
-                    <a href="{{ path('person_show', {'id': contentContribution.person.id}) }}">
-                        {{ contentContribution.person }}
-                    </a>
-                </td>
-                <td>
-                    {{ contentContribution.role }}
-                </td>
-                <td>
-                    {{ contentContribution.note|raw }}
-                </td>
-            </tr>
-        {% endfor %}
+            {% for contentContribution in contentContributions %}
+                <tr>
+                    <td>
+                        <a href="{{ path('content_show', { 'id': contentContribution.content.id }) }}">
+                            {{ contentContribution.content }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('person_show', {'id': contentContribution.person.id}) }}">
+                            {{ contentContribution.person }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ contentContribution.role }}
+                    </td>
+                    <td>
+                        {{ contentContribution.note|raw }}
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

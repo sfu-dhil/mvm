@@ -9,34 +9,34 @@
 {% block body %}
     <table class="table">
         <tbody>
-        <tr>
-            <th>Feature</th>
-            <td>
-                <a href="{{ path('feature_show', { 'id': manuscriptFeature.feature.id}) }}">
-                    {{ manuscriptFeature.feature }}
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <th>Manuscript</th>
-            <td>
-                <a href="{{ path('manuscript_show', { 'id': manuscriptFeature.manuscript.id}) }}">
-                    {{ manuscriptFeature.manuscript }}
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <th>Note</th>
-            <td>{{ manuscriptFeature.note|raw }}</td>
-        </tr>
-        <tr>
-            <th>Created</th>
-            <td>{% if manuscriptFeature.created %}{{ manuscriptFeature.created|date }}{% endif %}</td>
-        </tr>
-        <tr>
-            <th>Updated</th>
-            <td>{% if manuscriptFeature.updated %}{{ manuscriptFeature.updated|date }}{% endif %}</td>
-        </tr>
+            <tr>
+                <th>Feature</th>
+                <td>
+                    <a href="{{ path('feature_show', { 'id': manuscriptFeature.feature.id}) }}">
+                        {{ manuscriptFeature.feature }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Manuscript</th>
+                <td>
+                    <a href="{{ path('manuscript_show', { 'id': manuscriptFeature.manuscript.id}) }}">
+                        {{ manuscriptFeature.manuscript }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ manuscriptFeature.note|raw }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if manuscriptFeature.created %}{{ manuscriptFeature.created|date }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if manuscriptFeature.updated %}{{ manuscriptFeature.updated|date }}{% endif %}</td>
+            </tr>
         </tbody>
     </table>
 

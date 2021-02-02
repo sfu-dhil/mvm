@@ -1,35 +1,35 @@
 <table class="table">
     <thead>
-    <tr>
-        <th>Title</th>
-        <th>Region</th>
-        <th>Description</th>
-        <th>Manuscripts</th>
-    </tr>
+        <tr>
+            <th>Title</th>
+            <th>Region</th>
+            <th>Description</th>
+            <th>Manuscripts</th>
+        </tr>
     </thead>
     <tbody>
-    {% for source in printSources %}
-        <tr>
-            <td><a href="{{ path('print_source_show',{'id': source.id}) }}">{{ source.label }}</a></td>
+        {% for source in printSources %}
+            <tr>
+                <td><a href="{{ path('print_source_show',{'id': source.id}) }}">{{ source.label }}</a></td>
 
-            <td>
-                {% if source.regions|length > 0 %}
-                    <ul>
-                        {% for region in source.regions %}
+                <td>
+                    {% if source.regions|length > 0 %}
+                        <ul>
+                            {% for region in source.regions %}
                             <li>
                                 <a href="{{ path('region_show', {'id': region.id}) }}">{{ region }}</a>
                             </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </td>
-            <td>
-                {{ source.description|raw }}
-            </td>
-            <td class="number">
-                {{ source.manuscripts|length }}
-            </td>
-        </tr>
-    {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </td>
+                <td>
+                    {{ source.description|raw }}
+                </td>
+                <td class="number">
+                    {{ source.manuscripts|length }}
+                </td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
