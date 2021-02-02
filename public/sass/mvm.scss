@@ -207,11 +207,6 @@ div.tab-content{
     margin-bottom:map.get($typescale, 6);
   }
 
-
-  .item{
-    flex-basis:40%;
-  }
-
 }
 
 
@@ -325,7 +320,7 @@ table.table ul{
 
 .gallery{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
   .item {
     margin:map.get($typescale, 3) map.get($typescale, 6);
     padding: map.get($typescale, 5);
@@ -335,7 +330,6 @@ table.table ul{
     position:relative;
     &:hover{
       border-color: rgba($mvm-brown, 0.8);
-
     }
     h1{
       font-size: map.get($typescale, 4);
@@ -347,7 +341,6 @@ table.table ul{
       top:6px;
       right:6px;
       background-color:#ccc;
-
     }
 
     table {
@@ -397,6 +390,11 @@ form + .gallery{
   margin-top: -2rem;
 }
 
+.tab-pane{
+  .gallery{
+
+  }
+}
 
 // Special transcription panel
 .tab-pane.active[id*='Transcription']{
