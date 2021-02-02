@@ -1,7 +1,36 @@
+<div class="gallery coterie">
+    {% for coterie in coteries %}
+        {% embed 'partial/gallery-item.html.twig' %}
+            {% block item_class %}coterie{% endblock %}
+            {% block item_heading %}
+                <a href="{{ path('coterie_show', { 'id': coterie.id }) }}">{{ coterie }}</a>
+            {% endblock %}
+            {% block item_top %}
+            {% endblock %}
+            {% block item_body %}
+                {{ coterie.description|raw }}
+                {% if coterie.people|length > 0 %}
+                    <div>
+                        <div>Members</div>
+                        <ul>
+                            {% for person in coterie.people %}
+                                <li> <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                {% endif %}
+            {% endblock %}
+        {% endembed %}
+    {% endfor %}
+</div>
+
+{#
+
 <table class="table">
     <thead>
         <tr>
-            <th>Label</th>
+            <th>Name</th>
             <th>Description</th>
             <th>Members</th>
         </tr>
@@ -19,9 +48,22 @@
                     {{ coterie.description|raw }}
                 </td>
 
-                <td class='number'>{{ coterie.people|length }}</td>
-
+                <td>
+                    {% if coterie.people|length > 0 %}
+                        <ul>
+                            {% for person in coterie.people %}
+                                <li>
+                                    <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
+
+
+#}
+
