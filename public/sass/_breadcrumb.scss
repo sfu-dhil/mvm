@@ -96,6 +96,9 @@ paddings etc*/
   margin-right:1rem;
   text-overflow:ellipsis;
   max-width:25ch;
+  @media (max-width: 768px){
+    max-width:15ch;
+  }
   white-space:nowrap;
   overflow-x:hidden;
   font-style:italic;
@@ -109,14 +112,6 @@ paddings etc*/
 .breadcrumbs li:last-child > *:after,
 .breadcrumbs li:last-child > *:before{
   content: unset;
-}
-
-/* Media query to reset the size of things */
-@media (max-width:780px){
-    
-    .current{
-        max-width:15ch;
-    }
 }
 
   
