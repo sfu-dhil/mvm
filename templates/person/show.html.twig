@@ -1,40 +1,30 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block title %}{{ person.fullName }}{% endblock %}
 
 {% block breadcrumb %}
-
-
-
     {% include 'partial/breadcrumb.html.twig' with {'index': 'person', 'index_label': 'People','show': person.fullName} %}
 {% endblock %}
 
 {% block pageheader %}
-    <h1>{{ person.fullName }}</h1>
+    {% include 'partial/term-index.html.twig' with {'term': person} %}
 {% endblock %}
 
 {% block admin %}
     {% include 'partial/toolbar.html.twig' with {'edit':'person_edit', 'delete': 'person_delete', 'id': person.id } %}
 {% endblock %}
 
+{% set entity = person %}
 
 {% block body %}
-
     {% set detailsContent %}
+
         <table class="table">
             <tbody>
                 <tr>
                     <th>Full Name</th>
                     <td>{{ person }}</td>
                 </tr>
-                {% if isAdmin %}
-                    <tr>
-                        <th>Sortable Name</th>
-                        <td>{{ person.sortableName }}</td>
-                    </tr>
-                {% endif %}
                 <tr>
                     <th>Variant Names</th>
                     <td>{% if person.variantNames|length > 0 %}{{ person.variantNames|join(', ') }}{% endif %}</td>
@@ -56,87 +46,79 @@
                 <tr>
                     <th>Coteries</th>
                     <td>
-                        {% if person.coteries %}
-                            <ul>
-                            {% for coterie in person.coteries %}
-                                <li>
-                                    <a href='{{ path('coterie_show', {'id': coterie.id}) }}'>{{ coterie }}</a>
-                                </li>
-                            {% endfor %}
-                            </ul>
-                        {% endif %}
+                        {% include 'partial/tag-list.html.twig' with {
+                            'att': 'coteries',
+                            'route': 'coterie_show'
+                        } %}
                     </td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td>{{ person.description|raw }}</td>
                 </tr>
                 <tr>
                     <th>Links</th>
                     <td>
-                        {% embed '@NinesMedia/link/partial/list.html.twig'
-                            with {'entity': person} %}
-                        {% endembed %}
+                        {% include 'partial/link.html.twig' %}
                     </td>
                 </tr>
-                {% if isAdmin %}
-                    <tr>
-                        <th>Created</th>
-                        <td>{% if person.created %}{{ person.created|date }}{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <th>Updated</th>
-                        <td>{% if person.updated %}{{ person.updated|date }}{% endif %}</td>
-                    </tr>
-                {% endif %}
             </tbody>
         </table>
     {% endset %}
 
     {% set contentContent %}
         {% if person.contentContributions | length > 0 %}
-            {% set showNote = person.contentContributions|filter(c => c.note is not empty)|length > 0 %}
             <table class="table">
                 <thead>
                     <tr>
                         <th>Role</th>
                         <th>First Line</th>
-                        {% if showNote %}
-                            <th>Note</th>
-                        {% endif %}
                     </tr>
                 </thead>
-                {% for contentContribution in person.contentContributions|sort((a,b) => a.content.firstLine <=> b.content.firstLine) %}
-                <tr>
-                    <td>
-                        <a href="{{ path('content_role_show', {'id': contentContribution.role.id}) }}">{{ contentContribution.role }}</a>
-                    </td>
-                    <td>
-                        <a href="{{ path('content_show', {'id': contentContribution.content.id}) }}">{{ contentContribution.content.firstLine }}</a>
-                    </td>
-                    {% if showNote %}
-                        <td>{{ contentContribution.note|raw }}</td>
-                    {% endif %}
-                    </li>
-                    {% endfor %}
-                </tr>
+                {% set allRoles = person.contentContributions|map(c => c.role) %}
+                {% set roles = []  %}
+                {% for role in allRoles %}
+                    {% set roles = (role in roles) ? roles : roles|merge([role]) %}
+                {% endfor %}
+                {% for role in roles %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('content_role_show', {'id': role.id}) }}">{{ role }}</a>
+                        </td>
+                        <td>
+                            <ul>
+                                {% for contentContribution in person.contentContributions %}
+                                    {% if contentContribution.role is same as(role) %}
+                                        <li>
+                                            <a href="{{ path('content_show', {'id': contentContribution.content.id}) }}">{{ contentContribution.content }}</a>
+                                            {% if contentContribution.note %}
+                                                <div class="note">
+                                                    {{ contentContribution.note|raw }}
+                                                </div>
+                                            {% endif %}
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
             </table>
         {% endif %}
     {% endset %}
 
     {% set manuscriptContent %}
         {% if person.manuscriptContributions|length > 0 %}
+            {% set allManuscripts = person.manuscriptContributions|map(c => c.manuscript) %}
+            {% set manuscripts = [] %}
+            {% for manuscript in allManuscripts %}
+                {% set manuscripts = (manuscript in manuscripts) ? manuscripts : manuscripts|merge([manuscript]) %}
+            {% endfor %}
+
             <div class="gallery">
-                {% for manuscriptContribution in person.manuscriptContributions|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
+                {% for manuscript in manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
+                    {% set roles = person.manuscriptContributions|filter(m => m.manuscript == manuscript)|map(m => m.role) %}
                     {% set callbackDescription %}
-                        <p>Role: {{ manuscriptContribution.role }}</p>
-                        {{ manuscriptContribution.note | raw }}
+                        <p>Role{% if roles|length > 1 %}s{% endif %}: {{ roles|join(', ') }}</p>
                     {% endset %}
-                    {% include 'manuscript/partial/gallery-item.html.twig' with
-                        {'manuscript': manuscriptContribution.manuscript,
-                            'callbackDescription': callbackDescription} %}
+                    {% include 'manuscript/partial/gallery-item.html.twig' %}
                 {% endfor %}
-                <div class="item empty"></div>
             </div>
         {% endif %}
     {% endset %}
@@ -144,7 +126,7 @@
     {% set tabs = {
         'Details': detailsContent,
         'Manuscript Contributions': manuscriptContent,
-        'Content Contributions': contentContent
+        'Poem Contributions': contentContent
     } %}
 
 

@@ -1,0 +1,12 @@
+{#  Partial for display birth, death dates #}
+
+{% if person.birthDate or person.deathDate %}
+    <ul class="person dates">
+        {% if person.birthDate %}
+            <li class="dob">{{ person.birthDate }}</li>
+        {% endif %}
+        {% if person.deathDate %}
+            <li class="dod">{{ person.deathDate }}</li>
+        {% endif %}
+    </ul>
+{% endif %}
