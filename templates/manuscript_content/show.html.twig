@@ -14,44 +14,44 @@
 {% block body %}
     <table class="table">
         <tbody>
-            <tr>
-                <th>Poem</th>
-                <td>
-                    <a href="{{ path('content_show', { 'id': manuscriptContent.content.id}) }}">
-                        {{ manuscriptContent.content }}
+        <tr>
+            <th>Poem</th>
+            <td>
+                <a href="{{ path('content_show', { 'id': manuscriptContent.content.id}) }}">
+                    {{ manuscriptContent.content }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>Manuscript</th>
+            <td>
+                <a href="{{ path('manuscript_show', { 'id': manuscriptContent.manuscript.id}) }}">
+                    {{ manuscriptContent.manuscript }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>Context</th>
+            <td>{{ manuscriptContent.context|raw }}</td>
+        </tr>
+        <tr>
+            <th>Print Source</th>
+            <td>
+                {% if manuscriptContent.printSource %}
+                    <a href="{{ path('print_source_show', { 'id': manuscriptContent.printSource.id}) }}">
+                        {{ manuscriptContent.printSource }}
                     </a>
-                </td>
-            </tr>
-            <tr>
-                <th>Manuscript</th>
-                <td>
-                    <a href="{{ path('manuscript_show', { 'id': manuscriptContent.manuscript.id}) }}">
-                        {{ manuscriptContent.manuscript }}
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th>Context</th>
-                <td>{{ manuscriptContent.context|raw }}</td>
-            </tr>
-            <tr>
-                <th>Print Source</th>
-                <td>
-                    {% if manuscriptContent.printSource %}
-                        <a href="{{ path('print_source_show', { 'id': manuscriptContent.printSource.id}) }}">
-                            {{ manuscriptContent.printSource }}
-                        </a>
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{% if manuscriptContent.created %}{{ manuscriptContent.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if manuscriptContent.updated %}{{ manuscriptContent.updated|date }}{% endif %}</td>
-            </tr>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Created</th>
+            <td>{% if manuscriptContent.created %}{{ manuscriptContent.created|date }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Updated</th>
+            <td>{% if manuscriptContent.updated %}{{ manuscriptContent.updated|date }}{% endif %}</td>
+        </tr>
         </tbody>
     </table>
 {% endblock %}

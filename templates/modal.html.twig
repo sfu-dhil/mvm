@@ -62,7 +62,7 @@
             {% if manuscripts is defined and manuscripts|length > 0 %}
                 <div>
                     <div class="dialog-content__heading">Related Manuscripts</div>
-                    <ul{% if manuscripts|length >= 10%} class="columns"{% endif %}>
+                    <ul{% if manuscripts|length >= 10 %} class="columns"{% endif %}>
                         {{ _self.link_list(manuscripts, 'manuscript_show') }}
                     </ul>
                 </div>
@@ -81,7 +81,6 @@
         </div>
     </section>
 </dialog>
-
 
 
 {% macro link_list(items, route) %}

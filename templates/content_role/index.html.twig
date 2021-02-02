@@ -21,20 +21,20 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Role</th>
-                <th>Description</th>
-                <th class="number">Poems</th>
-            </tr>
+        <tr>
+            <th>Role</th>
+            <th>Description</th>
+            <th class="number">Poems</th>
+        </tr>
         </thead>
         <tbody>
-            {% for role in contentRoles %}
-                <tr>
-                    <td><a href="{{ path('content_role_show', {'id': role.id}) }}">{{ role }}</a></td>
-                    <td>{{ role.description|raw }}</td>
-                    <td class="number">{{ role.contributions|length }}</td>
-                </tr>
-            {% endfor %}
+        {% for role in contentRoles %}
+            <tr>
+                <td><a href="{{ path('content_role_show', {'id': role.id}) }}">{{ role }}</a></td>
+                <td>{{ role.description|raw }}</td>
+                <td class="number">{{ role.contributions|length }}</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 

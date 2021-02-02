@@ -11,38 +11,38 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Manuscript</th>
-                <th>Person</th>
-                <th>Role</th>
-                <th>Note</th>
-            </tr>
+        <tr>
+            <th>Manuscript</th>
+            <th>Person</th>
+            <th>Role</th>
+            <th>Note</th>
+        </tr>
         </thead>
         <tbody>
-            {% for manuscriptContribution in manuscriptContributions %}
-                <tr>
-                    <td>
-                        <a href="{{ path('manuscript_show', {'id': manuscriptContribution.manuscript.id}) }}">
-                            {{ manuscriptContribution.manuscript }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ path('person_show', {'id': manuscriptContribution.person.id }) }}">
-                            {{ manuscriptContribution.person }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ path('manuscript_role_show', {'id': manuscriptContribution.role.id }) }}">
-                            {{ manuscriptContribution.role }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ path('manuscript_contribution_show', { 'id': manuscriptContribution.id }) }}">
-                            {{ manuscriptContribution.note|raw }}
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
+        {% for manuscriptContribution in manuscriptContributions %}
+            <tr>
+                <td>
+                    <a href="{{ path('manuscript_show', {'id': manuscriptContribution.manuscript.id}) }}">
+                        {{ manuscriptContribution.manuscript }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('person_show', {'id': manuscriptContribution.person.id }) }}">
+                        {{ manuscriptContribution.person }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('manuscript_role_show', {'id': manuscriptContribution.role.id }) }}">
+                        {{ manuscriptContribution.role }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('manuscript_contribution_show', { 'id': manuscriptContribution.id }) }}">
+                        {{ manuscriptContribution.note|raw }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 

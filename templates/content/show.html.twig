@@ -22,59 +22,50 @@
             <div class="details">
                 <table class="table table-condensed">
                     <tbody>
-                    {#
-
-                    <tr>
-                                              <th>First Line</th>
-                                              <td>{{ content.firstLine }}</td>
-                                          </tr>
-
-                    #}
-
-                        {% for contribution in content.contributions %}
-                            <tr>
-                                <th>
-                                    <a href="{{ path('content_role_show', {'id': contribution.role.id}) }}">{{ contribution.role }}</a>
-                                </th>
-                                <td>
-                                    <a href="{{ path('person_show', {'id': contribution.person.id}) }}">{{ contribution.person }}</a>
-                                    {% if contribution.note|trim is not empty %}
-                                        <div class="note">
-                                            {{ contribution.note | raw }}
-                                        </div>
-                                    {% endif %}
-
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        {% if content.date is not null %}
-                            <tr>
-                                <th>Date</th>
-                                <td>{{ content.date }}</td>
-                            </tr>
-                        {% endif %}
+                    {% for contribution in content.contributions %}
                         <tr>
-                            <th>Description</th>
-                            <td>{{ content.description|raw }}</td>
+                            <th>
+                                <a href="{{ path('content_role_show', {'id': contribution.role.id}) }}">{{ contribution.role }}</a>
+                            </th>
+                            <td>
+                                <a href="{{ path('person_show', {'id': contribution.person.id}) }}">{{ contribution.person }}</a>
+                                {% if contribution.note|trim is not empty %}
+                                    <div class="note">
+                                        {{ contribution.note | raw }}
+                                    </div>
+                                {% endif %}
+
+                            </td>
                         </tr>
-                        {% if content.links|length > 0 %}
-                            <tr>
-                                <th>Links</th>
-                                <td>
-                                    {% include 'partial/link.html.twig' %}
-                                </td>
-                            </tr>
-                        {% endif %}
-                        {% if isAdmin %}
-                            <tr>
-                                <th>Created</th>
-                                <td>{% if content.created %}{{ content.created|date }}{% endif %}</td>
-                            </tr>
-                            <tr>
-                                <th>Updated</th>
-                                <td>{% if content.updated %}{{ content.updated|date }}{% endif %}</td>
-                            </tr>
-                        {% endif %}
+                    {% endfor %}
+                    {% if content.date is not null %}
+                        <tr>
+                            <th>Date</th>
+                            <td>{{ content.date }}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ content.description|raw }}</td>
+                    </tr>
+                    {% if content.links|length > 0 %}
+                        <tr>
+                            <th>Links</th>
+                            <td>
+                                {% include 'partial/link.html.twig' %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if isAdmin %}
+                        <tr>
+                            <th>Created</th>
+                            <td>{% if content.created %}{{ content.created|date }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Updated</th>
+                            <td>{% if content.updated %}{{ content.updated|date }}{% endif %}</td>
+                        </tr>
+                    {% endif %}
                     </tbody>
                 </table>
                 {% if isAdmin %}

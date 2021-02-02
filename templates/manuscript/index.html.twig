@@ -18,8 +18,7 @@
 
 {% block body %}
     {% include 'partial/search-form.html.twig'
-        with {'path': path('manuscript_search'), 'help': 'Search for manuscripts by manuscript title or call number.', 'q': ''}
-    %}
+        with {'path': path('manuscript_search'), 'help': 'Search for manuscripts by manuscript title or call number.', 'q': ''} %}
 
     {% include 'manuscript/partial/gallery.html.twig' %}
 

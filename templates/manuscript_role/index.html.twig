@@ -20,22 +20,22 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Role</th>
-                <th>Description</th>
-                <th>Contributions</th>
-            </tr>
+        <tr>
+            <th>Role</th>
+            <th>Description</th>
+            <th>Contributions</th>
+        </tr>
         </thead>
         <tbody>
-            {% for role in manuscriptRoles %}
-                <tr>
-                    <td><a href="{{ path('manuscript_role_show', {'id': role.id}) }}">{{ role.label }}</a></td>
+        {% for role in manuscriptRoles %}
+            <tr>
+                <td><a href="{{ path('manuscript_role_show', {'id': role.id}) }}">{{ role.label }}</a></td>
 
-                    <td>{{ role.description|raw }}</td>
-                    <td class="number">{{ role.contributions|length }}</td>
-                </tr>
+                <td>{{ role.description|raw }}</td>
+                <td class="number">{{ role.contributions|length }}</td>
+            </tr>
 
-            {% endfor %}
+        {% endfor %}
         </tbody>
     </table>
 

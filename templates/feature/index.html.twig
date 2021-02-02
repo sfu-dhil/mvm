@@ -21,25 +21,25 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Feature</th>
-                <th>Description</th>
-                <th>Manuscripts</th>
-            </tr>
+        <tr>
+            <th>Feature</th>
+            <th>Description</th>
+            <th>Manuscripts</th>
+        </tr>
         </thead>
         <tbody>
-            {% for feature in features %}
-                <tr>
-                    <td>
-                        <a href="{{ path('feature_show',{'id': feature.id}) }}">
-                            {{ feature }}
-                        </a>
-                    </td>
-                    <td>{{ feature.description | raw }}</td>
-                    <td class="number">{{ feature.manuscriptFeatures | length }}</td>
-                </tr>
+        {% for feature in features %}
+            <tr>
+                <td>
+                    <a href="{{ path('feature_show',{'id': feature.id}) }}">
+                        {{ feature }}
+                    </a>
+                </td>
+                <td>{{ feature.description | raw }}</td>
+                <td class="number">{{ feature.manuscriptFeatures | length }}</td>
+            </tr>
 
-            {% endfor %}
+        {% endfor %}
         </tbody>
     </table>
     <div class="navigation">

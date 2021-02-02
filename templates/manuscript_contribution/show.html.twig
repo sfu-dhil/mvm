@@ -9,42 +9,42 @@
 {% block body %}
     <table class="table">
         <tbody>
-            <tr>
-                <th>Manuscript</th>
-                <td>
-                    <a href="{{ path('manuscript_show', { 'id': manuscriptContribution.manuscript.id}) }}">
-                        {{ manuscriptContribution.manuscript }}
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th>Person</th>
-                <td>
-                    <a href="{{ path('person_show', { 'id': manuscriptContribution.person.id}) }}">
-                        {{ manuscriptContribution.person }}
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th>Role</th>
-                <td>
-                    <a href="{{ path('manuscript_role_show', { 'id': manuscriptContribution.role.id}) }}">
-                        {{ manuscriptContribution.role }}
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th>Note</th>
-                <td>{{ manuscriptContribution.note|raw }}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{% if manuscriptContribution.created %}{{ manuscriptContribution.created|date }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{% if manuscriptContribution.updated %}{{ manuscriptContribution.updated|date }}{% endif %}</td>
-            </tr>
+        <tr>
+            <th>Manuscript</th>
+            <td>
+                <a href="{{ path('manuscript_show', { 'id': manuscriptContribution.manuscript.id}) }}">
+                    {{ manuscriptContribution.manuscript }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>Person</th>
+            <td>
+                <a href="{{ path('person_show', { 'id': manuscriptContribution.person.id}) }}">
+                    {{ manuscriptContribution.person }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td>
+                <a href="{{ path('manuscript_role_show', { 'id': manuscriptContribution.role.id}) }}">
+                    {{ manuscriptContribution.role }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>Note</th>
+            <td>{{ manuscriptContribution.note|raw }}</td>
+        </tr>
+        <tr>
+            <th>Created</th>
+            <td>{% if manuscriptContribution.created %}{{ manuscriptContribution.created|date }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Updated</th>
+            <td>{% if manuscriptContribution.updated %}{{ manuscriptContribution.updated|date }}{% endif %}</td>
+        </tr>
         </tbody>
     </table>
 {% endblock %}

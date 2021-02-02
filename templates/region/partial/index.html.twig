@@ -1,26 +1,26 @@
 <table class="table">
     <thead>
-        <tr>
-            <th>Region</th>
-            <th class="number">Print Sources</th>
-            <th class="number">Manuscripts</th>
-        </tr>
+    <tr>
+        <th>Region</th>
+        <th class="number">Print Sources</th>
+        <th class="number">Manuscripts</th>
+    </tr>
     </thead>
     <tbody>
-        {% for region in regions %}
-            <tr>
-                <td>
-                    <a href="{{ path('region_show', { 'id': region.id }) }}">
-                        {{ region.name }}
-                    </a>
-                </td>
-                <td class="number">
-                    {{ region.printSources|length }}
-                </td>
-                <td class="number">
-                    {{ region.manuscripts|length }}
-                </td>
-            </tr>
-        {% endfor %}
+    {% for region in regions %}
+        <tr>
+            <td>
+                <a href="{{ path('region_show', { 'id': region.id }) }}">
+                    {{ region.name }}
+                </a>
+            </td>
+            <td class="number">
+                {{ region.printSources|length }}
+            </td>
+            <td class="number">
+                {{ region.manuscripts|length }}
+            </td>
+        </tr>
+    {% endfor %}
     </tbody>
 </table>

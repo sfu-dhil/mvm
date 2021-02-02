@@ -22,10 +22,10 @@
         {% if region.printSources|length > 0 %}
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                    </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
                 </thead>
                 {% for printSource in region.printSources|sort((a,b) => a.label <=> b.label) %}
                     <tr>

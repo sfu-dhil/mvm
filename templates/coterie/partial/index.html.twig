@@ -14,7 +14,7 @@
                         <div>Members</div>
                         <ul>
                             {% for person in coterie.people %}
-                                <li> <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a></li>
+                                <li><a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -24,46 +24,3 @@
         {% endembed %}
     {% endfor %}
 </div>
-
-{#
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Members</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for coterie in coteries %}
-            <tr>
-                <td>
-                    <a href="{{ path('coterie_show', { 'id': coterie.id }) }}">
-                        {{ coterie.label }}
-                    </a>
-                </td>
-
-                <td>
-                    {{ coterie.description|raw }}
-                </td>
-
-                <td>
-                    {% if coterie.people|length > 0 %}
-                        <ul>
-                            {% for person in coterie.people %}
-                                <li>
-                                    <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-
-#}
-
