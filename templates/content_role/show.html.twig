@@ -17,32 +17,57 @@
 
 {% block body %}
 
+    {% if contentRole.contributions|length > 0 %}
+
+        <div class="gallery role">
+            {% set contributors = {} %}
+            {% for contribution in contentRole.contributions %}
+                {% set key = contribution.person.id %}
+                {% if contributors[key] is defined %}
+                {% else %}
+                    {% set this = { key : key } %}
+                    {% set contributors = contributors|merge(this) %}
+                {% endif %}
+
+            {% endfor %}
+        </div>
+    {% endif %}
     {% if contentRole.contributions | length > 0 %}
-        {% set processNote = contentRole.contributions|filter(c => c.note is not empty)|length > 0 %}
         <table class="table">
             <thead>
                 <tr>
                     <th>Contributor</th>
                     <th>Poem</th>
-                    {% if processNote %}
-                        <th>Note</th>
-                    {% endif %}
                 </tr>
             </thead>
-            {% for contribution in contentRole.contributions|sort((a,b) => a.person.sortableName <=> b.person.sortableName) %}
+            {% set people = [] %}
+            {% for person in contentRole.contributions|map(c => c.person) %}
+                {% set people = (person in people) ? people : people|merge([person]) %}
+            {% endfor %}
+
+            {% for person in people %}
                 <tr>
-                    <td><a href="{{ path('person_show', {'id': contribution.person.id}) }}">
-                            {{ contribution.person }}</a>
+                    <td>
+                        <a href="{{ path('person_show', {'id': person.id}) }}">
+                            {{ person }}</a>
                     </td>
-                    <td><a href="{{ path('content_show', {'id': contribution.content.id}) }}">
-                            {{ contribution.content }}
-                        </a>
+                    <td>
+                        <ul>
+                            {% for contribution in contentRole.contributions|filter(c => c.person == person)|sort((a,b) => a.content <=> b.content ) %}
+                                <li>
+                                    <a href="{{ path('content_show', {'id': contribution.content.id}) }}">
+                                        {{ contribution.content }}
+                                    </a>
+                                    {% if contribution.note %}
+                                        <div class="note">
+                                            {{ contribution.note|raw }}
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+
                     </td>
-                    {% if processNote %}
-                        <td>
-                            {{ contribution.note|raw }}
-                        </td>
-                    {% endif %}
                 </tr>
             {% endfor %}
         </table>

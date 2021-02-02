@@ -1,0 +1,10 @@
+{% set body = block('item_body')|spaceless %}
+{% set class = block('item_class') is defined ? block('item_class')|spaceless : null %}
+<div class="{{ ['item', class]|join(' ') }}">
+    <h1>{% block item_heading %}{% endblock %}</h1>
+    {% block item_top %}
+    {% endblock %}
+    {% if body is defined and body is not empty %}
+        <div class="description">{{ body|raw }}</div>
+    {% endif %}
+</div>
