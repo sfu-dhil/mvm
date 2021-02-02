@@ -30,15 +30,5 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'partial/tabs.html.twig' with {
-        'tabs': {
-            'Manuscripts': include('manuscript/partial/gallery.html.twig', {'manuscripts': printSource.manuscripts}),
-            'Manuscript Poems': include('manuscript_content/partial/index.html.twig', { 'manuscriptContents': printSource.manuscriptContents })
-        }
-    } %}
-
-    {#
     {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': printSource.manuscripts} %}
-    #}
-
 {% endblock %}
