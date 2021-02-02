@@ -1,2 +1,54 @@
+
 {% set index = route|replace({'search':'index'}) %}
-<p>No results found. Try a simpler search or <a href="{{ path(index) }}">browse all items</a>.</p>
+{% set searches = [
+    {
+        'label': 'Manuscripts',
+        'route': 'manuscript_search'
+    },
+    {
+        'label': 'Poems',
+        'route': 'content_search'
+    },
+    {
+        'label': 'Coteries',
+        'route': 'coterie_search'
+    },
+    {
+        'label': 'People',
+        'route': 'person_search'
+    },
+    {
+        'label': 'Print Sources',
+        'route': 'print_source_search'
+    },
+    {
+        'label': 'Regions',
+        'route': 'region_search'
+    },
+    {
+        'label': 'Themes',
+        'route': 'theme_search'
+    }
+]
+%}
+
+{% set current = searches|filter(s => s.route == route)|first %}
+
+<div>
+    <p>No results found.</p>
+    <ul>
+        <li><a href="{{ path(index) }}">Browse all {{ current.label }}</a></li>
+        <li>Or try searching in:
+            <ul>
+                {% for search in searches|filter(a => (a.route != route))|sort((a,b) => a.label <=> b.label) %}
+                    <li>
+                        <a href="{{ path(search.route, {q: q}) }}">{{ search.label }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+
