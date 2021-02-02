@@ -7,15 +7,21 @@
     {% endif %}
 {% endfor %}
 
+{% set contents = [] %}
+{% for contribution in person.contentContributions  %}
+    {% if contribution.content not in contents  %}
+        {% set contents = contents|merge([contribution.content]) %}
+    {% endif %}
+{% endfor %}
+
+{% block label %}<a href="{{ path('person_index') }}">Person</a>{% endblock %}
+
 {% block heading %}
     <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a>
 {% endblock %}
 
-{% block subheading %}
-    {% include 'person/partial/dates.html.twig' %}
-{% endblock %}
 
-{% block body %}
+{% block description %}
     {{ person.description|raw }}
 {% endblock %}
 

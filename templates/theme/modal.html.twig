@@ -1,12 +1,14 @@
 {% extends 'modal.html.twig' %}
 
-{% set manuscripts = theme.manuscripts %}
+{% set entity = theme %}
 
 {% block heading %}
     <a href="{{ path('theme_show', {'id': theme.id}) }}">{{ theme }}</a>
 {% endblock %}
 
-{% block body %}
+{% block label %}<a href="{{ path('theme_index') }}">Theme</a>{% endblock %}
+
+{% block description %}
     {{ theme.description|raw }}
 {% endblock %}
 

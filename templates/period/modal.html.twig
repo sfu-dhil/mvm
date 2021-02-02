@@ -1,12 +1,14 @@
 {% extends 'modal.html.twig' %}
 
-{% set manuscripts = period.manuscripts %}
+{% set entity = period %}
 
 {% block heading %}
     <a href="{{ path('period_show', {'id': period.id}) }}">{{ period }}</a>
 {% endblock %}
 
-{% block body %}
+{% block label %}<a href="{{ path('period_index') }}">Period</a>{% endblock %}
+
+{% block description %}
     {{ period.description|raw }}
 {% endblock %}
 

@@ -1,14 +1,13 @@
 {% extends 'modal.html.twig' %}
 
-{% set manuscripts = region.manuscripts %}
+{% set entity = region %}
 
 {% block heading %}
     <a href="{{ path('region_show', {'id': region.id}) }}">{{ region }}</a>
 {% endblock %}
 
-{% block body %}
-    {{ region.description|raw }}
-{% endblock %}
+{% block label %}<a href="{{ path('region_index') }}">Region</a>{% endblock %}
+
 
 
 
