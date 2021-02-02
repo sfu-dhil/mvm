@@ -27,17 +27,14 @@
                 </tr>
             </thead>
             <tbody>
-
                 {% for manuscriptFeature in feature.manuscriptFeatures|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
                     <tr>
                         <td>
                             <a href="{{ path('manuscript_show', {'id': manuscriptFeature.manuscript.id}) }}">{{ manuscriptFeature.manuscript.callNumber }}
                             </a>
                         </td>
-
                         <td>{{ manuscriptFeature.note|raw }}</td>
                     </tr>
-
                 {% endfor %}
             </tbody>
         </table>

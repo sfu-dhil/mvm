@@ -1,0 +1,25 @@
+{# partial/tag-list.html.twig #}
+{# Template for creating list of links in a "tag" format #}
+{# Parameters:
+    Req: entity (the entity to use)
+    Req: att (the property from which to create the tags)
+    Req: route (the route to link)
+    Opt: sort (the property for each entity.att to sort by)
+#}
+
+{% set tags = attribute(entity, att) %}
+{% if tags|length > 0 %}
+    {% if sort is defined %}
+        {% set tags = tags|sort((a,b) => attribute(a,sort) <=> attribute(b,sort)) %}
+    {% endif %}
+    <ul class="tag-list">
+        {% for tag in tags %}
+            <li class="tag-item {{ att }}">
+                <a class="tag" href="{{ path(route, {'id': tag.id }) }}">
+                    {{ tag|u.truncate(30,'...') }}
+                </a>
+            </li>
+        {% endfor %}
+        </li>
+    </ul>
+{% endif %}
