@@ -1,41 +1,103 @@
 {# Extension for modal #}
 
-{% set subheading = block('subheading') %}
-{% set ms_route = 'manuscript_show' %}
-<dialog id="{{ app.request.pathInfo|replace({'/':'', 'modal':''}) }}">
-    <header class="dialog-heading">
-        <div>
-            <h3>{% block heading %}Hello{% endblock %}</h3>
-            {% if subheading is defined and subheading is not empty %}
-                <div class="subheading">{% block subheading %}{% endblock %}</div>
-            {% endif %}
-        </div>
-        <div class="dialog-closer">
-            <form method="dialog">
-                <button class="btn">
-                    <svg viewBox="0 0 24 24" height="1rem" width="1rem">
-                        <line x1="0" x2="24" y1="0" y2="24"/>
-                        <line x1="24" x2="0" y1="0" y2="24"/>
-                    </svg>
-                    <span class="sr-only">Close</span>
-                </button>
-            </form>
+{% set description = block('description') %}
+
+{% if manuscripts is not defined and entity.manuscripts is defined %}
+    {% set manuscripts = entity.manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
+{% endif %}
+
+{% if people is not defined and entity.people is defined %}
+    {% set people = entity.people|sort((a,b) => a.sortableName <=> b.sortableName) %}
+{% endif %}
+
+
+<dialog id="{{ app.request.pathInfo|replace({'/':'', 'modal':''}) }}" open="open">
+    <header>
+        <div class="dialog-content">
+            <div class="dialog-heading">
+                <div class="dialog-label">{% block label %}{% endblock %}</div>
+                <h3>{% block heading %}Hello{% endblock %}</h3>
+            </div>
+            <div class="dialog-closer">
+                <form method="dialog">
+                    <button class="btn">
+                        <svg viewBox="0 0 24 24" height="1rem" width="1rem">
+                            <line x1="0" x2="24" y1="0" y2="24"/>
+                            <line x1="24" x2="0" y1="0" y2="24"/>
+                        </svg>
+                        <span class="sr-only">Close</span>
+                    </button>
+                </form>
+            </div>
         </div>
     </header>
-    <div class="dialog-content">
-        {% block body %}
-        {% endblock %}
-        <div class="dialog-content__manuscripts">
-            <h3>Manuscripts</h3>
-            {% for manuscript in manuscripts %}
-                {% set params = {'id': manuscript.id } %}
-                <li>
-                    <a href="{{ path(ms_route, params) }}">{{ manuscript }}</a>
-                    {% if url(ms_route, params) == app.request.server.get('HTTP_REFERER') %}
-                        THIS IS THE SAME AND IT WORKED
-                    {% endif %}
-                </li>
-            {% endfor %}
+    <section class="dialog-body">
+        <div class="dialog-content">
+
+            {% if description is defined and description|spaceless is not empty %}
+                <div class="dialog-content__description">
+                    {% block description %}
+                    {% endblock %}
+                </div>
+            {% endif %}
+
+            {% if people is defined and people|length > 0 %}
+                <div>
+                    <div class="dialog-content__heading">Coterie Members</div>
+                    <ul>
+                        {{ _self.link_list(people, 'person_show') }}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if coteries is defined and coteries|length > 0 %}
+                <div>
+                    <div class="dialog-content__heading">Related Coteries</div>
+                    <ul>
+                        {{ _self.link_list(coteries, 'coterie_show') }}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if manuscripts is defined and manuscripts|length > 0 %}
+                <div>
+                    <div class="dialog-content__heading">Related Manuscripts</div>
+                    <ul{% if manuscripts|length >= 10%} class="columns"{% endif %}>
+                        {{ _self.link_list(manuscripts, 'manuscript_show') }}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if contents is defined and contents|length > 0 %}
+                <div>
+                    <div class="dialog-content__heading">Related Poems</div>
+                    <ul>
+                        {{ _self.link_list(contents, 'content_show') }}
+                    </ul>
+                </div>
+            {% endif %}
+
+
         </div>
-    </div>
+    </section>
 </dialog>
+
+
+
+{% macro link_list(items, route) %}
+    {% set referer = _context.app.request.server.get('HTTP_REFERER') %}
+    {% for item in items %}
+        {% set path = path(route, {'id': item.id}) %}
+        {% set url = url(route, {'id': item.id}) %}
+        {% set isCurrent = (url == referer) %}
+        {% if isCurrent %}
+            <li class="current">
+                {{ item }}
+            </li>
+        {% else %}
+            <li>
+                <a href="{{ path }}">{{ item }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
