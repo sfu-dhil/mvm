@@ -16,36 +16,7 @@
 
 {% block body %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>First line</th>
-                <th>Call number</th>
-                <th>Context</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for manuscriptContent in manuscriptContents %}
-                <tr>
-                    <td>
-                        <a href='{{ path('content_show', {'id': manuscriptContent.content.id}) }}'>
-                            {{ manuscriptContent.content }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href='{{ path('manuscript_show', {'id': manuscriptContent.manuscript.id}) }}'>
-                            {{ manuscriptContent.manuscript }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ path('manuscript_content_show', { 'id': manuscriptContent.id }) }}">
-                            {{ manuscriptContent.context|raw }}
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {% include 'manuscript_content/partial/index.html.twig' %}
 
     <div class="navigation">
         {{ knp_pagination_render(manuscriptContents) }}

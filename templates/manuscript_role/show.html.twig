@@ -17,7 +17,6 @@
 {% endblock %}
 
 {% block body %}
-
     {% if manuscriptRole.contributions | length > 0 %}
         <table class="table">
             <thead>
@@ -26,17 +25,28 @@
                     <th>Manuscript</th>
                 </tr>
             </thead>
-            {% for contribution in manuscriptRole.contributions|sort((a,b) => a.person.sortableName <=> b.person.sortableName) %}
+            {% set allPeople = manuscriptRole.contributions|map(c => c.person) %}
+            {% set people = [] %}
+            {% for person in allPeople %}
+                {%  if person not in people %}
+                    {% set people = people|merge([person]) %}
+                {% endif %}
+            {% endfor %}
+            {% for person in people|sort((a,b) => a.sortableName <=> b.sortableName) %}
                 <tr>
+                    <td><a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a></td>
                     <td>
-                        <a href="{{ path('person_show', {'id': contribution.person.id}) }}">{{ contribution.person }}</a>
-                    </td>
-                    <td>
-                        <a href="{{ path('manuscript_show', {'id': contribution.manuscript.id}) }}">{{ contribution.manuscript }}</a>
+                        <ul>
+                            {% for contribution in manuscriptRole.contributions|filter(c => c.person == person)|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
+                                <li>
+                                    <a href="{{ path('manuscript_show', {'id': contribution.manuscript.id}) }}">{{ contribution.manuscript }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
                     </td>
                 </tr>
             {% endfor %}
         </table>
     {% endif %}
-
 {% endblock %}
