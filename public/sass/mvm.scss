@@ -325,7 +325,7 @@ table.table ul{
 
 .gallery{
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
   .item {
     margin:map.get($typescale, 3) map.get($typescale, 6);
     padding: map.get($typescale, 5);

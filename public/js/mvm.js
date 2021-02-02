@@ -26,7 +26,9 @@ function makeModals(){
     modals.el = document.querySelector('main');
     modals.filterParentsSelector = '.gallery, html[id$="_index"], header, p';
     modals.linkFilter = (link) => {
-        console.log(link);
+        if (/^manuscript_show_\d+/.test(docId)){
+            return true;
+        }
         let table = link.closest('table');
         if (table){
             let thead = table.querySelector('thead');
