@@ -6,8 +6,7 @@
 *
 * */
 
-import dialogPolyfill from '../yarn/dhilux/js/modals.bundle.js';
-import Modals from '../yarn/dhilux/js/modals.js';
+import Modals from '../yarn/dhilux/js/modals.bundle.js';
 
 
 const docId = document.querySelector('html').id;
