@@ -20,7 +20,8 @@
     {% if manuscripts|length > 0 %}
         {% include 'manuscript/partial/gallery.html.twig' %}
     {% else %}
-        {% include 'partial/search-no-results.html.twig' %}
+        {% embed 'partial/search-no-results.html.twig' %}
+        {% endembed %}
     {% endif %}
 
     <div class="navigation">

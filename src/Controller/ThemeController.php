@@ -175,6 +175,20 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
     }
 
     /**
+     * Finds and displays a Theme modal.
+     *
+     * @return array
+     *
+     * @Route("/{id}/modal", name="theme_modal", methods={"GET"})
+     * @Template
+     */
+    public function modalAction(Theme $theme) {
+        return [
+            'theme' => $theme,
+        ];
+    }
+
+    /**
      * Displays a form to edit an existing Theme entity.
      *
      * @return array|RedirectResponse

@@ -175,6 +175,21 @@ class PrintSourceController extends AbstractController implements PaginatorAware
     }
 
     /**
+     * Finds and displays a PrintSource modal.
+     *
+     * @return array
+     *
+     * @Route("/{id}/modal", name="print_source_modal", methods={"GET"})
+     * @Template
+     */
+    public function modalAction(PrintSource $printSource) {
+        return [
+            'printSource' => $printSource,
+        ];
+    }
+
+
+    /**
      * Displays a form to edit an existing PrintSource entity.
      *
      * @return array|RedirectResponse

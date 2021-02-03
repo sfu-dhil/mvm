@@ -1,0 +1,15 @@
+{% extends 'modal.html.twig' %}
+
+{% set entity = archive %}
+
+{% block heading %}
+    <a href="{{ path('archive_show', {'id': archive.id}) }}">{{ archive }}</a>
+{% endblock %}
+
+{% block label %}<a href="{{ path('archive_index') }}">Archive</a>{% endblock %}
+
+{% block description %}
+    {{ archive.description|raw }}
+{% endblock %}
+
+

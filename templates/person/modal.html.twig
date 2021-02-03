@@ -1,0 +1,29 @@
+{% extends 'modal.html.twig' %}
+
+{% set manuscripts = [] %}
+{% for contribution in person.manuscriptContributions %}
+    {% if contribution.manuscript not in manuscripts %}
+        {% set manuscripts = manuscripts|merge([contribution.manuscript]) %}
+    {% endif %}
+{% endfor %}
+
+{% set contents = [] %}
+{% for contribution in person.contentContributions  %}
+    {% if contribution.content not in contents  %}
+        {% set contents = contents|merge([contribution.content]) %}
+    {% endif %}
+{% endfor %}
+
+{% block label %}<a href="{{ path('person_index') }}">Person</a>{% endblock %}
+
+{% block heading %}
+    <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a>
+{% endblock %}
+
+
+{% block description %}
+    {{ person.description|raw }}
+{% endblock %}
+
+
+

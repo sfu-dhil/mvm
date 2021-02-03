@@ -1,0 +1,18 @@
+{% extends 'modal.html.twig' %}
+
+{% set entity = printSource %}
+
+{% set contents = printSource.manuscriptContents|map(m => m.content) %}
+
+{% block heading %}
+    <a href="{{ path('print_source_show', {'id': printSource.id}) }}">{{ printSource }}</a>
+{% endblock %}
+
+{% block label %} <a href="{{ path('print_source_index') }}">Print Source</a>{% endblock %}
+
+{% block description %}
+    {{ printSource.description|raw }}
+{% endblock %}
+
+
+

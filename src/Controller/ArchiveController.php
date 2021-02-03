@@ -158,6 +158,21 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
+     * Finds and displays a Archive modal.
+     *
+     * @return array
+     *
+     * @Route("/{id}/modal", name="archive_modal", methods={"GET"})
+     * @Template
+     */
+    public function modalAction(Archive $archive) {
+        return [
+            'archive' => $archive,
+        ];
+    }
+
+
+    /**
      * Displays a form to edit an existing Archive entity.
      *
      * @return array|RedirectResponse

@@ -46,12 +46,15 @@ class PersonController extends AbstractController implements PaginatorAwareInter
         $qb->select('e')->from(Person::class, 'e')->orderBy('e.sortableName', 'ASC');
         $query = $qb->getQuery();
 
-        $people = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $people = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
 
         return [
             'people' => $people,
         ];
     }
+
+
+
 
     /**
      * Typeahead API endpoint for Person entities.
@@ -90,7 +93,7 @@ class PersonController extends AbstractController implements PaginatorAwareInter
         if ($q) {
             $query = $repo->searchQuery($q);
 
-            $people = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
+            $people = $this->paginator->paginate($query, $request->query->getInt('page', 1), 24);
         } else {
             $people = [];
         }
@@ -162,6 +165,20 @@ class PersonController extends AbstractController implements PaginatorAwareInter
     }
 
     /**
+     * Finds and displays a Person modal.
+     *
+     * @return array
+     *
+     * @Route("/{id}/modal", name="person_modal", methods={"GET"})
+     * @Template
+     */
+    public function modalAction(Person $person){
+        return [
+            'person' => $person
+        ];
+    }
+
+        /**
      * Displays a form to edit an existing Person entity.
      *
      * @return array|RedirectResponse

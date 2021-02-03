@@ -1,0 +1,6 @@
+
+{% if manuscript.untitled %}
+    <span class="title untitled" title="Untitled">Untitled</span>
+{% else %}
+    <span class="title">{{ title|default(manuscript.title) }}</span>
+{% endif %}

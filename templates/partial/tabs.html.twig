@@ -13,7 +13,7 @@
     {% for key,val in tabs %}
         {% set id = key|replace({'&amp;': ''})|u.camel %}
         <div class="tab-pane {% if loop.first %}active{% else %}fade{% endif %}" id="{{ id }}" role="tabpanel" aria-labelledby="{{ id }}-tab">
-            {{ val }}
+            {{ val|raw }}
         </div>
     {% endfor %}
 </div>

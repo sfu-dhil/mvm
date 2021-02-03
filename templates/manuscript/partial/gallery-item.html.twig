@@ -3,15 +3,22 @@
 {# Creates an manuscript item for use within a gallery context,
 either in the body of a page or within the contents of a tab #}
 
-{# Requires: manuscripts #}
+{# Requires: manuscript #}
 
-<div class="item">
-    <h1><a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">{{ manuscript.callNumber }}</a></h1>
-    <table>
-        <tbody>
+{% embed 'partial/gallery-item.html.twig' %}
+    {% block item_class %}ms{% endblock %}
+    {% block item_heading %}
+        <a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">{{ manuscript.callNumber }}</a>
+    {% endblock %}
+    {% block item_top %}
+        {% if not(manuscript.complete) and isAdmin %}
+            <span class="badge draft">Draft</span>
+        {% endif %}
+        <table>
+            <tbody>
             <tr>
                 <th>Title</th>
-                <td>{{ manuscript.title|u.truncate(50,'[...]') }}</td>
+                <td>{% include 'manuscript/partial/title.html.twig' with {'title': manuscript.title|u.truncate(50,' [...]')} %}</td>
             </tr>
             {% if manuscript.periods|length > 0 %}
                 <tr>
@@ -25,7 +32,6 @@ either in the body of a page or within the contents of a tab #}
                     </td>
                 </tr>
             {% endif %}
-
             {% if manuscript.archive is not null %}
                 <tr>
                     <th>Archive</th>
@@ -34,20 +40,16 @@ either in the body of a page or within the contents of a tab #}
                     </td>
                 </tr>
             {% endif %}
-        </tbody>
-    </table>
-
-
-    {% if manuscript.description is not null or (callbackDescription is defined and callbackDescription is not null) %}
-
-        {% if callbackDescription is defined %}
-            {% if callbackDescription is not null %}
-                <div class="description">{{ callbackDescription|raw }}</div>
+            </tbody>
+        </table>
+    {% endblock %}
+    {% block item_body %}
+        {% if (manuscript.description is defined and not null) or (callbackDescription is defined and callbackDescription is not null) %}
+            {% if callbackDescription is defined and callbackDescription is not null %}
+                {{ callbackDescription|raw }}
+            {% else %}
+                {{ manuscript.description | raw }}
             {% endif %}
-        {% else %}
-            <div class="description">{{ manuscript.description | raw }}</div>
         {% endif %}
-
-    {% endif %}
-
-</div>
+    {% endblock %}
+{% endembed %}

@@ -1,41 +1,35 @@
-<table class="table">
-    <thead>
-        <tr>
-            <th>Full Name</th>
-            {% if isAdmin %}
-                <th>Sortable Name</th>
-            {% endif %}
-            <th>Gender</th>
-            <th class="number">Content Contributions</th>
-            <th class="number">Manuscript Contributions</th>
 
-        </tr>
-    </thead>
-    <tbody>
 
-        {% for person in people %}
-            <tr>
-                <td>
-                    <a href="{{ path('person_show', { 'id': person.id }) }}">
-                        {{ person }}
-                    </a>
-                </td>
-                {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                    <td>
-                        {{ person.sortableName }}
-                    </td>
+<div class="gallery person">
+    {% for person in people|sort((a,b) => (a.sortableName <=> b.sortableName)) %}
+        {% embed 'partial/gallery-item.html.twig' %}
+            {% block item_class %}person{% endblock %}
+            {% block item_heading %}
+                <a href="{{ path('person_show', { 'id': person.id }) }}">{{ person }}</a>
+            {% endblock %}
+            {% block item_top %}
+                {% include 'person/partial/dates.html.twig' %}
+                {% if person.coteries|length > 0 %}
+                    {% set arr = [] %}
+                    {% for coterie in person.coteries %}
+                        {% set link %}
+                            <a href="{{ path('coterie_show', {'id': coterie.id}) }}">{{ coterie }}</a>
+                        {% endset %}
+                        {% set arr = arr|merge([link|spaceless]) %}
+                    {% endfor %}
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Coteries</th>
+                                <td>{{ arr|join(', ',', and ')|raw }}</td>
+                        </tbody>
+
+                    </table>
                 {% endif %}
-                <td>
-                    {% include 'person/partial/gender.html.twig' %}
-                </td>
-                <td class="number">
-                    {{ person.contentContributions|length }}
-                </td>
-                <td class="number">
-                    {{ person.manuscriptContributions|length }}
-                </td>
-
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            {% endblock %}
+            {% block item_body %}
+                {{ person.description|raw }}
+            {% endblock %}
+        {% endembed %}
+    {% endfor %}
+</div>

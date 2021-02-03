@@ -1,0 +1,28 @@
+{% if manuscriptContents|length > 0 %}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>First Line</th>
+        <th>Manuscript</th>
+        <th>Context</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for manuscriptContent in manuscriptContents %}
+        <tr>
+            <td>
+                <a href="{{ path('content_show', {'id': manuscriptContent.content.id}) }}">{{ manuscriptContent.content.firstLine }}</a>
+            </td>
+            <td>
+                <a href="{{ path('manuscript_show', {'id': manuscriptContent.manuscript.id}) }}">{{ manuscriptContent.manuscript.callNumber }}</a>
+            </td>
+            <td>
+                {{ manuscriptContent.context|raw }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endif %}

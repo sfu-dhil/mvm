@@ -11,61 +11,17 @@
 {% endblock %}
 
  {% block pageheader %}
-     <h1>{{ coterie.label }}</h1>
+     {% embed 'partial/term-index.html.twig' with {'term': coterie} %}
+     {% endembed %}
  {% endblock %}
 
 {% block body %}
-    {% embed '@NinesUtil/term/partial/show.html.twig' with {'term': coterie} %}
-        {% block callback %}
-            <tr>
-                <th>Person</th>
-                <td>
-                    {% if coterie.people|length > 0 %}
-                        <ul>
-                            {% for person in coterie.people %}
-                                <li>
-                                    <a href='{{ path("person_show", {"id":person.id }) }}'>
-                                        {{ person }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Manuscripts</th>
-                <td>
-                    {% if coterie.manuscripts | length > 0 %}
-                        <ul>
-                            {% for manuscript in coterie.manuscripts %}
-                            <li>
-                                <a href='{{ path('manuscript_show', {'id': manuscript.id}) }}'>
-                                    {{ manuscript }}
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Regions</th>
-                <td>
-                    {% if coterie.regions | length > 0 %}
-                        <ul>
-                            {% for region in coterie.regions %}
-                            <li>
-                                <a href='{{ path('region_show', {'id': region.id}) }}'>
-                                    {{ region }}
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endblock %}
-    {% endembed %}
+    {% include 'partial/tabs.html.twig' with {
+        'tabs':
+        {
+            'People': include('person/partial/index.html.twig', {'people': coterie.people})|raw,
+            'Manuscripts': include('manuscript/partial/gallery.html.twig', {'manuscripts': coterie.manuscripts})|raw
 
+        }
+    } %}
 {% endblock %}

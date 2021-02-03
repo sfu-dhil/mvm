@@ -1,0 +1,16 @@
+{% extends 'modal.html.twig' %}
+
+{% set entity = coterie %}
+
+{% block heading %}
+    <a href="{{ path('coterie_show', {'id': coterie.id}) }}">{{ coterie }}</a>
+{% endblock %}
+
+{% block label %}<a href="{{ path('coterie_index') }}">Coterie</a>{% endblock %}
+
+{% block description %}
+    {{ coterie.description|raw }}
+{% endblock %}
+
+
+

@@ -1,58 +1,37 @@
-@media (max-width: 1200px){
-    article.container {
-        .gallery{
-            .item{
-                flex-basis:45%;
-            }
-        }
- 
-    }
-    
-    
-}
 
 @media (max-width: 992px) {
     .tab-pane.active[id*=Transcription]{
-        flex-wrap:wrap;
         & > div {
-            flex: 1 1 100%!important;
             &.transcription{
                 margin-left: map.get($typescale, 6);
-            }
-        }
-    }
-    .tab-pane{
-        .gallery{
-            .item{
-                flex-basis:45%!important;
             }
         }
     }
 }
 
 @media (max-width: 768px){
-    article.container {
-        margin-left: 0rem;
-        margin-right: 0rem;
-        padding-left: .75rem;
-        padding-right: .75rem;
-        .gallery{
-            .item{
-                margin-left:2rem;
-                margin-right:2rem;
-                margin-top:1rem;
-                margin-bottom:1rem;
-                &.empty{
-                    display:none;
-                }
-            }
-        }
- 
-    }
-    
-    
-    
+  article.container {
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
+  }
+
     nav.navbar{
+        .navbar-toggle{
+          transition: all 0.3s ease-in-out;
+          color:$mvm-white;
+          .icon-bar{
+            background-color:$mvm-white;
+          }
+          &:hover, &:focus{
+            background-color:$mvm-white;
+            color:$mvm-dark-purple;
+            .icon-bar{
+              background-color:$mvm-dark-purple;
+            }
+          }
+        }
         .navbar-nav{
             & > li > a{
                 &:after{

@@ -3,33 +3,33 @@
 
 {% set isAdmin =  is_granted('ROLE_CONTENT_ADMIN') %}
 {% set route = app.request.attributes.get('_route') %}
+{% set routeParams = app.request.attributes.get('_route_params') %}
 {% set bornDigital = route matches '/(blog|privacy)/' %}
 
 
-<html lang="en"{% if block('id') is defined %} id="{{ block('id') }}"{% endif %}>
+<html lang="en" id="{% block id %}{{ routeParams|length > 0 ? route ~ '_' ~ routeParams|join('_') : route }}{% endblock %}">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="google" content="notranslate" />
         <title>{% block title %}Welcome{% endblock %} | Manuscript Verse Miscellanies</title>
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+        {% for n in [32, 128, 152, 167, 180, 192, 196] %}
+            <link rel="icon" type="image/png"
+                  href="{{ asset('images/favicon/favicon-' ~ n ~ '.png') }}"
+                  sizes="{{ n ~'x' ~ n }}"/>
+        {% endfor %}
 
-        <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap-theme.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap-theme.min.css') }}"/>
         <link rel="stylesheet" href="{{ asset('css/mvm.css') }}">
-
+        <link rel="stylesheet" href="{{ asset('yarn/select2/dist/css/select2.min.css') }}" >
+        <link rel="stylesheet" href="{{ asset('yarn/select2-bootstrap-css/select2-bootstrap.min.css') }}" >
         <script src="{{ asset('yarn/jquery/dist/jquery.min.js') }}"></script>
-
         <script src="{{ asset('yarn/select2/dist/js/select2.full.min.js') }}"></script>
-        <link href="{{ asset('yarn/select2/dist/css/select2.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('yarn/select2-bootstrap-css/select2-bootstrap.min.css') }}" rel="stylesheet">
-
         <script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
         <script src="{{ asset('yarn/symfony-collection/jquery.collection.js') }}"></script>
-
         <script src="{{ asset('js/form.js') }}"></script>
-
         {% block styles %}
         {% endblock %}
     </head>
@@ -63,8 +63,6 @@
                     {% endblock %}
                 {% endif %}
             </nav>
-
-
             {% if block('pageheader') is defined %}
                 <header>
                     {{ block('pageheader') }}
@@ -110,7 +108,9 @@
                 </div>
             </div>
         </footer>
+
         <script src="{{ asset('yarn/bootstrap3/dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/mvm.js') }}" type="module"></script>
         {% block javascripts %}
         {% endblock %}
 
