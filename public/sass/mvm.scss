@@ -384,14 +384,8 @@ table.table ul{
   }
 }
 
-
-/* Gallery items have margins that push the galleries too far down
- * after the search form. */
-form + .gallery{
-  margin-top: -2rem;
-}
-
 .tab-pane{
+  // Adjust the gallery slight so it stretches nearly the full width
   .gallery{
     margin-left: -2.5%;
     margin-right: -2.5%;
