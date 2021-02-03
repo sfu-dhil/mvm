@@ -178,8 +178,8 @@ class CoterieTest extends ControllerBaseCase {
         $this->assertTrue($this->client->getResponse()->isRedirect('/coterie/1'));
         $responseCrawler = $this->client->followRedirect();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-        $this->assertSame(1, $responseCrawler->filter('td:contains("Updated Label")')->count());
-        $this->assertSame(1, $responseCrawler->filter('td:contains("Updated Description")')->count());
+        $this->assertSame(1, $responseCrawler->filter('h1:contains("Updated Label")')->count());
+        $this->assertSame(1, $responseCrawler->filter('div:contains("Updated Description")')->count());
     }
 
     /**
@@ -240,8 +240,8 @@ class CoterieTest extends ControllerBaseCase {
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-        $this->assertSame(1, $responseCrawler->filter('td:contains("New Label")')->count());
-        $this->assertSame(1, $responseCrawler->filter('td:contains("New Description")')->count());
+        $this->assertSame(1, $responseCrawler->filter('h1:contains("New Label")')->count());
+        $this->assertSame(1, $responseCrawler->filter('div:contains("New Description")')->count());
     }
 
     /**
@@ -262,8 +262,8 @@ class CoterieTest extends ControllerBaseCase {
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-        $this->assertSame(1, $responseCrawler->filter('td:contains("New Label")')->count());
-        $this->assertSame(1, $responseCrawler->filter('td:contains("New Description")')->count());
+        $this->assertSame(1, $responseCrawler->filter('h1:contains("New Label")')->count());
+        $this->assertSame(1, $responseCrawler->filter('div:contains("New Description")')->count());
     }
 
     /**
