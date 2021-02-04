@@ -1,24 +1,24 @@
-<table class="table">
-    <thead>
+{% if printSources|length > 0 %}
+    <table class="table">
+        <thead>
         <tr>
             <th>Title</th>
-            <th>Region</th>
+            <th>Regions</th>
             <th>Description</th>
             <th>Manuscripts</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         {% for source in printSources %}
             <tr>
                 <td><a href="{{ path('print_source_show',{'id': source.id}) }}">{{ source.label }}</a></td>
-
                 <td>
                     {% if source.regions|length > 0 %}
                         <ul>
                             {% for region in source.regions %}
-                            <li>
-                                <a href="{{ path('region_show', {'id': region.id}) }}">{{ region }}</a>
-                            </li>
+                                <li>
+                                    <a href="{{ path('region_show', {'id': region.id}) }}">{{ region }}</a>
+                                </li>
                             {% endfor %}
                         </ul>
                     {% endif %}
@@ -31,5 +31,6 @@
                 </td>
             </tr>
         {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
+{% endif %}

@@ -3,9 +3,7 @@
         <thead>
         <tr>
             <th>Region</th>
-            {% if coterie is not defined  %}
-                <th>Coteries</th>
-            {% endif %}
+            <th>Coteries</th>
             <th class="number">Print Sources</th>
             <th class="number">Manuscripts</th>
         </tr>
@@ -18,19 +16,17 @@
                         {{ region.name }}
                     </a>
                 </td>
-                {% if coterie is not defined %}
-                    <td>
-                        {% if region.coteries|length > 0 %}
-                            <ul>
-                                {% for c in region.coteries %}
-                                    <li>
-                                        <a href="{{ path('coterie_show', {'id': c.id}) }}">{{ c }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </td>
-                {% endif %}
+                <td>
+                    {% if region.coteries|length > 0 %}
+                        <ul>
+                            {% for c in region.coteries %}
+                                <li>
+                                    <a href="{{ path('coterie_show', {'id': c.id}) }}">{{ c }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </td>
                 <td class="number">
                     {{ region.printSources|length }}
                 </td>
