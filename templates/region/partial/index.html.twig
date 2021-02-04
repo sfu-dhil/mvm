@@ -1,18 +1,31 @@
-<table class="table">
-    <thead>
+{% if regions|length > 0 %}
+    <table class="table">
+        <thead>
         <tr>
             <th>Region</th>
+            <th>Coteries</th>
             <th class="number">Print Sources</th>
             <th class="number">Manuscripts</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         {% for region in regions %}
             <tr>
                 <td>
                     <a href="{{ path('region_show', { 'id': region.id }) }}">
                         {{ region.name }}
                     </a>
+                </td>
+                <td>
+                    {% if region.coteries|length > 0 %}
+                        <ul>
+                            {% for c in region.coteries %}
+                                <li>
+                                    <a href="{{ path('coterie_show', {'id': c.id}) }}">{{ c }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 </td>
                 <td class="number">
                     {{ region.printSources|length }}
@@ -22,5 +35,6 @@
                 </td>
             </tr>
         {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
+{% endif %}

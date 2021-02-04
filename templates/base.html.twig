@@ -13,7 +13,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="google" content="notranslate" />
-        <title>{% block title %}Welcome{% endblock %} | Manuscript Verse Miscellanies</title>
+        <title>{% block title %}{% endblock %}{% if block('title') is defined and block('title') is not empty %} | {% endif %}Manuscript Verse Miscellanies</title>
         {% for n in [32, 128, 152, 167, 180, 192, 196] %}
             <link rel="icon" type="image/png"
                   href="{{ asset('images/favicon/favicon-' ~ n ~ '.png') }}"

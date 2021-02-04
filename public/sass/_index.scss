@@ -24,6 +24,7 @@ body:not(.admin){
 
 
 .jumbotron{
+    padding-top: 38px;
     height: 42rem;
     background-image: url('../images/hero.jpg');
     background-attachment: fixed;
@@ -40,15 +41,19 @@ body:not(.admin){
             text-align:left;
             line-height: $hero-line-height;
             font-size: $hero-font-size;
-            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            //text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             max-width:$hero-para-width;
             margin-left: auto;
             margin-right:auto;
             margin-top:map.get($typescale, 1);
-            
+            margin-bottom:map.get($typescale, 4);
+            backdrop-filter: blur(3px);
             /* Hide the overflow */
             overflow: hidden; 
-            
+            @media (max-width: 767px){
+                line-height: 1.3;
+                font-size: 1.3rem;
+            }
             /* Set the max-height in case -webkit-box isn't available */
             /* Note that this is in ems rather than rems */
             max-height: #{$hero-max-lines * $hero-line-height}em;

@@ -1,26 +1,28 @@
-<div class="gallery coterie">
-    {% for coterie in coteries %}
-        {% embed 'partial/gallery-item.html.twig' %}
-            {% block item_class %}coterie{% endblock %}
-            {% block item_heading %}
-                <a href="{{ path('coterie_show', { 'id': coterie.id }) }}">{{ coterie }}</a>
-            {% endblock %}
-            {% block item_top %}
-            {% endblock %}
-            {% block item_body %}
-                {{ coterie.description|raw }}
-                {% if coterie.people|length > 0 %}
-                    <div>
-                        <div>Members</div>
-                        <ul>
-                            {% for person in coterie.people %}
-                                <li> <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+{% if coteries|length > 0 %}
+    <div class="gallery coterie">
+        {% for coterie in coteries %}
+            {% embed 'partial/gallery-item.html.twig' %}
+                {% block item_class %}coterie{% endblock %}
+                {% block item_heading %}
+                    <a href="{{ path('coterie_show', { 'id': coterie.id }) }}">{{ coterie }}</a>
+                {% endblock %}
+                {% block item_top %}
+                {% endblock %}
+                {% block item_body %}
+                    {{ coterie.description|raw }}
+                    {% if coterie.people|length > 0 %}
+                        <div>
+                            <div>Members</div>
+                            <ul>
+                                {% for person in coterie.people %}
+                                    <li> <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
 
-                {% endif %}
-            {% endblock %}
-        {% endembed %}
-    {% endfor %}
-</div>
+                    {% endif %}
+                {% endblock %}
+            {% endembed %}
+        {% endfor %}
+    </div>
+{% endif %}

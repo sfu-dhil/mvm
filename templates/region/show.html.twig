@@ -18,57 +18,11 @@
 {% endblock %}
 
 {% block body %}
-    {% set printSourceContent %}
-        {% if region.printSources|length > 0 %}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                {% for printSource in region.printSources|sort((a,b) => a.label <=> b.label) %}
-                    <tr>
-                        <td>
-                            <a href="{{ path("print_source_show", {"id":printSource.id}) }}">
-                                {{ printSource }}
-                            </a>
-                        </td>
-                        <td>
-                            {{ printSource.description|raw }}
-                        </td>
-
-                    </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
-    {% endset %}
-
-    {% set manuscriptContent %}
-        {% if region.manuscripts|length > 0 %}
-            <div class="gallery">
-                {% for manuscript in region.manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
-                    {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscript} %}
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endset %}
-
-    {% set coteriesContent %}
-        {% if region.coteries|length > 0 %}
-
-        {% endif %}
-    {% endset %}
-
-    {% set tabs = {
-        'Manuscripts': manuscriptContent,
-        'Print Sources': printSourceContent,
-        'Coteries': coteriesContent
+    {% include 'partial/tabs.html.twig' with {'tabs':
+        {
+            'Manuscripts': include('manuscript/partial/gallery.html.twig', {'manuscripts': region.manuscripts})|raw,
+            'Print Sources': include('print_source/partial/index.html.twig', {'printSources': region.printSources})|raw,
+            'Coteries': include('coterie/partial/index.html.twig', {'coteries': region.coteries})|raw
+        }
     } %}
-
-
-
-    {% include 'partial/tabs.html.twig' with {'tabs': tabs} %}
-
-
 {% endblock %}
