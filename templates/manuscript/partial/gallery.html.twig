@@ -1,5 +1,7 @@
-<div class="gallery ms">
-    {% for manuscript in manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
-        {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscript} %}
-    {% endfor %}
-</div>
+{% if manuscripts|length > 0 %}
+    <div class="gallery ms">
+        {% for manuscript in manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
+            {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscript} %}
+        {% endfor %}
+    </div>
+{% endif %}

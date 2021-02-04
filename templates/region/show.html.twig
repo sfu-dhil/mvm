@@ -46,6 +46,7 @@
 
     {% set manuscriptContent %}
         {% if region.manuscripts|length > 0 %}
+
             <div class="gallery">
                 {% for manuscript in region.manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
                     {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscript} %}
@@ -56,7 +57,7 @@
 
     {% set coteriesContent %}
         {% if region.coteries|length > 0 %}
-
+            {% include 'coterie/partial/index.html.twig' with {'coteries': region.coteries} %}
         {% endif %}
     {% endset %}
 

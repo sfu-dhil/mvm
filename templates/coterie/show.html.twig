@@ -20,8 +20,8 @@
         'tabs':
         {
             'People': include('person/partial/index.html.twig', {'people': coterie.people})|raw,
-            'Manuscripts': include('manuscript/partial/gallery.html.twig', {'manuscripts': coterie.manuscripts})|raw
-
+            'Manuscripts': include('manuscript/partial/gallery.html.twig', {'manuscripts': coterie.manuscripts})|raw,
+            'Regions': include('region/partial/index.html.twig', {'regions': coterie.regions})|raw
         }
     } %}
 {% endblock %}
