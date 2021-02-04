@@ -408,6 +408,11 @@ table.table ul{
       position:sticky;
       max-height:90vh;
       overflow-y:auto;
+      @media (max-width: 768px){
+        max-height:unset;
+        position:static;
+        top:unset;
+      }
     }
     table{
       font-size:average(map.get($typescale,6), map.get($typescale, 7));
