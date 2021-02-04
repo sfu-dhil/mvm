@@ -12,6 +12,7 @@ namespace App\Repository;
 
 use App\Entity\Manuscript;
 use Doctrine\Persistence\ManagerRegistry;
+use Nines\UtilBundle\Services\Text;
 
 /**
  * ManuscriptRepository.
@@ -36,9 +37,15 @@ class ManuscriptRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\Se
 
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
-        $qb->andWhere('MATCH(e.callNumber, e.description) AGAINST (:q BOOLEAN) > 0.1');
+        $matches = [];
+        if(preg_match('/^\s*"(.*?)"\s*$/u', $q, $matches)) {
+            $qb->andWhere('e.callNumber LIKE :q');
+            $qb->setParameter('q', "%${matches[1]}%");
+        } else {
+            $qb->andWhere('MATCH(e.callNumber, e.description) AGAINST (:q BOOLEAN) > 0.1');
+            $qb->setParameter('q', $q);
+        }
         $qb->orderBy('e.callNumber', 'ASC');
-        $qb->setParameter('q', $q);
 
         return $qb->getQuery();
     }
