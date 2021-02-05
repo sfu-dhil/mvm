@@ -47,10 +47,11 @@ class ContentRepository extends ServiceEntityRepository {
         $qb->where('MATCH (e.title, e.firstLine, e.transcription) AGAINST(:q BOOLEAN) > 0.1');
 
         // author matches
-        $qb->orWhere($qb->expr()->andX(
-                $qb->expr()->gt('MATCH(p.fullName, p.variantNames) AGAINST (:q BOOLEAN)', 0.1),
-                $qb->expr()->eq('r.name', '\'author\'')
-            )
+        $qb->orWhere(
+            $qb->expr()->andX(
+            $qb->expr()->gt('MATCH(p.fullName, p.variantNames) AGAINST (:q BOOLEAN)', 0.1),
+            $qb->expr()->eq('r.name', '\'author\'')
+        )
         );
 
         $qb->orderBy('e.firstLine');

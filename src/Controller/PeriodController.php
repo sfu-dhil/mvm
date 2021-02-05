@@ -147,7 +147,6 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
         ];
     }
 
-
     /**
      * Displays a form to edit an existing Period entity.
      *

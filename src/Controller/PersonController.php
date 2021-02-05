@@ -53,9 +53,6 @@ class PersonController extends AbstractController implements PaginatorAwareInter
         ];
     }
 
-
-
-
     /**
      * Typeahead API endpoint for Person entities.
      *
@@ -172,13 +169,13 @@ class PersonController extends AbstractController implements PaginatorAwareInter
      * @Route("/{id}/modal", name="person_modal", methods={"GET"})
      * @Template
      */
-    public function modalAction(Person $person){
+    public function modalAction(Person $person) {
         return [
-            'person' => $person
+            'person' => $person,
         ];
     }
 
-        /**
+    /**
      * Displays a form to edit an existing Person entity.
      *
      * @return array|RedirectResponse

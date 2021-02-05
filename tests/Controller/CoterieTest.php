@@ -12,8 +12,6 @@ namespace App\Tests\Controller;
 
 use App\DataFixtures\CoterieFixtures;
 use App\Entity\Coterie;
-use App\Entity\Period;
-use App\Repository\CoterieRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 use Symfony\Component\HttpFoundation\Response;
