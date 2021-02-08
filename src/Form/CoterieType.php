@@ -12,6 +12,7 @@ namespace App\Form;
 
 use App\Entity\Coterie;
 use App\Entity\Manuscript;
+use App\Entity\Period;
 use App\Entity\Person;
 use App\Entity\Region;
 use Nines\UtilBundle\Form\TermType;
@@ -62,6 +63,18 @@ class CoterieType extends TermType {
             'attr' => [
                 'add_path' => 'region_new_popup',
                 'add_label' => 'Add Region',
+            ],
+        ]);
+        $builder->add('periods', Select2EntityType::class, [
+            'label' => 'Periods',
+            'multiple' => true,
+            'remote_route' => 'period_typeahead',
+            'class' => Period::class,
+            'required' => false,
+            'allow_clear' => true,
+            'attr' => [
+                'add_path' => 'period_new_popup',
+                'add_label' => 'Add Period',
             ],
         ]);
     }
