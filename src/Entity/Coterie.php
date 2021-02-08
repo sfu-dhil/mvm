@@ -71,22 +71,19 @@ class Coterie extends AbstractTerm {
     /**
      * @return Collection|Manuscript[]
      */
-    public function getManuscripts(): Collection
-    {
+    public function getManuscripts() : Collection {
         return $this->manuscripts;
     }
 
-    public function addManuscript(Manuscript $manuscript): self
-    {
-        if (!$this->manuscripts->contains($manuscript)) {
+    public function addManuscript(Manuscript $manuscript) : self {
+        if ( ! $this->manuscripts->contains($manuscript)) {
             $this->manuscripts[] = $manuscript;
         }
 
         return $this;
     }
 
-    public function removeManuscript(Manuscript $manuscript): self
-    {
+    public function removeManuscript(Manuscript $manuscript) : self {
         $this->manuscripts->removeElement($manuscript);
 
         return $this;
@@ -95,22 +92,19 @@ class Coterie extends AbstractTerm {
     /**
      * @return Collection|Region[]
      */
-    public function getRegions(): Collection
-    {
+    public function getRegions() : Collection {
         return $this->regions;
     }
 
-    public function addRegion(Region $region): self
-    {
-        if (!$this->regions->contains($region)) {
+    public function addRegion(Region $region) : self {
+        if ( ! $this->regions->contains($region)) {
             $this->regions[] = $region;
         }
 
         return $this;
     }
 
-    public function removeRegion(Region $region): self
-    {
+    public function removeRegion(Region $region) : self {
         $this->regions->removeElement($region);
 
         return $this;

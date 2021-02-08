@@ -157,14 +157,12 @@ class Region extends AbstractEntity {
     /**
      * @return Collection|Coterie[]
      */
-    public function getCoteries(): Collection
-    {
+    public function getCoteries() : Collection {
         return $this->coteries;
     }
 
-    public function addCotery(Coterie $cotery): self
-    {
-        if (!$this->coteries->contains($cotery)) {
+    public function addCotery(Coterie $cotery) : self {
+        if ( ! $this->coteries->contains($cotery)) {
             $this->coteries[] = $cotery;
             $cotery->addRegion($this);
         }
@@ -172,8 +170,7 @@ class Region extends AbstractEntity {
         return $this;
     }
 
-    public function removeCotery(Coterie $cotery): self
-    {
+    public function removeCotery(Coterie $cotery) : self {
         if ($this->coteries->removeElement($cotery)) {
             $cotery->removeRegion($this);
         }

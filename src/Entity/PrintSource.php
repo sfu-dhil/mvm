@@ -116,34 +116,33 @@ class PrintSource extends AbstractTerm {
     /**
      * @return Collection|Region[]
      */
-    public function getRegions(): Collection
-    {
+    public function getRegions() : Collection {
         return $this->regions;
     }
 
     public function setRegions($regions) : self {
-        if($regions instanceof Collection) {
+        if ($regions instanceof Collection) {
             $this->regions = $regions;
-        } else if(is_array($regions)) {
-            $this->regions = new ArrayCollection($regions);
         } else {
-            $this->regions = new ArrayCollection();
+            if (is_array($regions)) {
+                $this->regions = new ArrayCollection($regions);
+            } else {
+                $this->regions = new ArrayCollection();
+            }
         }
 
         return $this;
     }
 
-    public function addRegion(Region $region): self
-    {
-        if (!$this->regions->contains($region)) {
+    public function addRegion(Region $region) : self {
+        if ( ! $this->regions->contains($region)) {
             $this->regions[] = $region;
         }
 
         return $this;
     }
 
-    public function removeRegion(Region $region): self
-    {
+    public function removeRegion(Region $region) : self {
         $this->regions->removeElement($region);
 
         return $this;

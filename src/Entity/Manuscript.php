@@ -796,14 +796,12 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
     /**
      * @return Collection|Coterie[]
      */
-    public function getCoteries(): Collection
-    {
+    public function getCoteries() : Collection {
         return $this->coteries;
     }
 
-    public function addCotery(Coterie $cotery): self
-    {
-        if (!$this->coteries->contains($cotery)) {
+    public function addCotery(Coterie $cotery) : self {
+        if ( ! $this->coteries->contains($cotery)) {
             $this->coteries[] = $cotery;
             $cotery->addManuscript($this);
         }
@@ -811,8 +809,7 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         return $this;
     }
 
-    public function removeCotery(Coterie $cotery): self
-    {
+    public function removeCotery(Coterie $cotery) : self {
         if ($this->coteries->removeElement($cotery)) {
             $cotery->removeManuscript($this);
         }

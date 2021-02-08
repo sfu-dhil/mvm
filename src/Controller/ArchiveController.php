@@ -171,7 +171,6 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
         ];
     }
 
-
     /**
      * Displays a form to edit an existing Archive entity.
      *

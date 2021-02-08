@@ -28,7 +28,7 @@ class PrintSourceFixtures extends Fixture implements DependentFixtureInterface {
      */
     public function getDependencies() {
         return [
-            RegionFixtures::class
+            RegionFixtures::class,
         ];
     }
 
