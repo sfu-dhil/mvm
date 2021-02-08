@@ -23,4 +23,14 @@ class PrintSourceRepository extends AbstractSourceRepository {
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, PrintSource::class);
     }
+
+    public function searchQuery($q) {
+        $qb = $this->createQueryBuilder('print_source');
+        $qb->innerJoin('print_source.regions', 'region');
+        $qb->where('MATCH(print_source.label, print_source.description) AGAINST (:q BOOLEAN) > 0.0');
+        $qb->orWhere('MATCH(region.name) AGAINST (:q BOOLEAN) > 0.0');
+        $qb->setParameter('q', $q);
+
+        return $qb->getQuery()->execute();
+    }
 }

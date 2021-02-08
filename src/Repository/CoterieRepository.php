@@ -24,4 +24,14 @@ class CoterieRepository extends TermRepository {
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Coterie::class);
     }
+
+    public function searchQuery($q) {
+        $qb = $this->createQueryBuilder('coterie');
+        $qb->innerJoin('coterie.regions', 'region');
+        $qb->where('MATCH(coterie.label, coterie.description) AGAINST (:q BOOLEAN) > 0.0');
+        $qb->orWhere('MATCH(region.name) AGAINST (:q BOOLEAN) > 0.0');
+        $qb->setParameter('q', $q);
+
+        return $qb->getQuery()->execute();
+    }
 }
