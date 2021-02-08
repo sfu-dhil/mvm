@@ -40,11 +40,18 @@ class Coterie extends AbstractTerm {
      */
     private $regions;
 
+    /**
+     * @var Collection|Period[]
+     * @ORM\ManyToMany(targetEntity="App\Entity\Period", inversedBy="coteries")
+     */
+    private $periods;
+
     public function __construct() {
         parent::__construct();
         $this->people = new ArrayCollection();
         $this->manuscripts = new ArrayCollection();
         $this->regions = new ArrayCollection();
+        $this->periods = new ArrayCollection();
     }
 
     /**
@@ -106,6 +113,27 @@ class Coterie extends AbstractTerm {
 
     public function removeRegion(Region $region) : self {
         $this->regions->removeElement($region);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Period[]
+     */
+    public function getPeriods() : Collection {
+        return $this->periods;
+    }
+
+    public function addPeriod(Period $period) : self {
+        if ( ! $this->periods->contains($period)) {
+            $this->periods[] = $period;
+        }
+
+        return $this;
+    }
+
+    public function removePeriod(Period $period) : self {
+        $this->periods->removeElement($period);
 
         return $this;
     }

@@ -28,9 +28,16 @@ class Period extends AbstractTerm {
      */
     private $manuscripts;
 
+    /**
+     * @var Collection|Coterie[]
+     * @ORM\ManyToMany(targetEntity="App\Entity\Coterie", mappedBy="periods")
+     */
+    private $coteries;
+
     public function __construct() {
         parent::__construct();
         $this->manuscripts = new ArrayCollection();
+        $this->coteries = new ArrayCollection();
     }
 
     /**
@@ -64,5 +71,29 @@ class Period extends AbstractTerm {
      */
     public function getManuscripts() {
         return $this->manuscripts;
+    }
+
+    /**
+     * @return Collection|Period[]
+     */
+    public function getCoteries() : Collection {
+        return $this->coteries;
+    }
+
+    public function addCotery(self $cotery) : self {
+        if ( ! $this->coteries->contains($cotery)) {
+            $this->coteries[] = $cotery;
+            $cotery->addPeriod($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCotery(self $cotery) : self {
+        if ($this->coteries->removeElement($cotery)) {
+            $cotery->removePeriod($this);
+        }
+
+        return $this;
     }
 }
