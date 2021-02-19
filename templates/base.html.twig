@@ -14,17 +14,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="google" content="notranslate" />
         <title>{% block title %}{% endblock %}{% if block('title') is defined and block('title') is not empty %} | {% endif %}Manuscript Verse Miscellanies</title>
-        {% for n in [32, 128, 152, 167, 180, 192, 196] %}
-            <link rel="icon" type="image/png"
-                  href="{{ asset('images/favicon/favicon-' ~ n ~ '.png') }}"
-                  sizes="{{ n ~'x' ~ n }}"/>
-        {% endfor %}
-
+        <link rel="icon" href="{{ asset('images/favicon/favicon.ico') }}"/>
+        <link rel="icon" href="{{ asset('images/favicon/favicon.svg') }}" type="image/svg+xml"/>
         <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap.min.css') }}"/>
         <link rel="stylesheet" href="{{ asset('yarn/bootstrap3/dist/css/bootstrap-theme.min.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('css/mvm.css') }}">
-        <link rel="stylesheet" href="{{ asset('yarn/select2/dist/css/select2.min.css') }}" >
-        <link rel="stylesheet" href="{{ asset('yarn/select2-bootstrap-css/select2-bootstrap.min.css') }}" >
+        <link rel="stylesheet" href="{{ asset('css/mvm.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('yarn/select2/dist/css/select2.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('yarn/select2-bootstrap-css/select2-bootstrap.min.css') }}" />
         <script src="{{ asset('yarn/jquery/dist/jquery.min.js') }}"></script>
         <script src="{{ asset('yarn/select2/dist/js/select2.full.min.js') }}"></script>
         <script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
