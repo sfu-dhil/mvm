@@ -12,6 +12,20 @@
 
  {% block pageheader %}
      {% embed 'partial/term-index.html.twig' with {'term': coterie} %}
+         {% block callback %}
+             {% if coterie.regions %}
+                 <ul class="list-group-horizontal">
+                     {% for region in coterie.regions %}
+                         <li>
+                             {% if loop.first %}
+                                 <em>Regions:</em>
+                             {% endif %}
+                             <a href="{{ path('region_show', {'id': region.id}) }}">{{ region }}</a>
+                         </li>
+                     {% endfor %}
+                 </ul>
+             {% endif %}
+         {% endblock %}
      {% endembed %}
  {% endblock %}
 
@@ -21,7 +35,6 @@
         {
             'People': include('person/partial/index.html.twig', {'people': coterie.people})|raw,
             'Manuscripts': include('manuscript/partial/gallery.html.twig', {'manuscripts': coterie.manuscripts})|raw,
-            'Regions': include('region/partial/index.html.twig', {'regions': coterie.regions})|raw,
             'Periods': include('period/partial/index.html.twig', {'periods': coterie.periods})|raw
         }
     } %}

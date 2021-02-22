@@ -607,6 +607,8 @@ footer{
         margin:0;
     }
 
+
+
     .footer-menu{
         display:flex;
         flex:0.25 1 30%;
@@ -688,6 +690,12 @@ footer{
   }
   &:after{
     content:']';
+  }
+}
+
+.list-unstyled{
+  & > li{
+    margin: ms(-2) 0;
   }
 }
  
