@@ -16,5 +16,10 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': period.manuscripts} %}
+    {% include 'partial/tabs.html.twig' with {
+        'tabs':{
+            'Manuscripts': include('manuscript/partial/gallery.html.twig', {'manuscripts': period.manuscripts}|raw),
+            'Coteries': include('coterie/partial/index.html.twig', {coteries: period.coteries})|raw
+        }
+    } %}
 {% endblock %}

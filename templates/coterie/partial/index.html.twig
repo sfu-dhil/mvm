@@ -11,11 +11,11 @@
                 {% block item_body %}
                     {{ coterie.description|raw }}
                     {% if coterie.people|length > 0 %}
-                        <div>
-                            <div>Members</div>
-                            <ul>
+                        <div class="description">
+                            <h5>Members</h5>
+                            <ul class="list-unstyled">
                                 {% for person in coterie.people %}
-                                    <li> <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a></li>
+                                    <li><a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a></li>
                                 {% endfor %}
                             </ul>
                         </div>
