@@ -44,7 +44,7 @@ class ContentRepository extends ServiceEntityRepository {
         $qb->innerJoin('c.role', 'r');
 
         // content matches
-        $qb->where('MATCH (e.title, e.firstLine, e.transcription) AGAINST(:q BOOLEAN) > 0.1');
+        $qb->where('MATCH (e.firstLine, e.transcription) AGAINST(:q BOOLEAN) > 0.1');
 
         // author matches
         $qb->orWhere(
