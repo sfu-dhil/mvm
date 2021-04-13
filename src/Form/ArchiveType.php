@@ -17,7 +17,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ArchiveType form.
  */
-class ArchiveType extends TermType {
+class ArchiveType extends TermType
+{
     /**
      * Add form fields to $builder.
      */

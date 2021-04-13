@@ -26,7 +26,8 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/coterie")
  */
-class CoterieController extends AbstractController implements PaginatorAwareInterface {
+class CoterieController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

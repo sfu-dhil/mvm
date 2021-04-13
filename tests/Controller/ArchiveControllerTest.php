@@ -15,7 +15,8 @@ use App\Entity\Archive;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class ArchiveControllerTest extends ControllerBaseCase {
+class ArchiveControllerTest extends ControllerBaseCase
+{
     protected function fixtures() : array {
         return [
             UserFixtures::class,

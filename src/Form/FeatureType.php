@@ -17,7 +17,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * FeatureType form.
  */
-class FeatureType extends TermType {
+class FeatureType extends TermType
+{
     /**
      * Add form fields to $builder.
      */

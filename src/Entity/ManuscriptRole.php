@@ -21,7 +21,8 @@ use Nines\UtilBundle\Entity\AbstractTerm;
  * @ORM\Table(name="manuscript_role")
  * @ORM\Entity(repositoryClass="App\Repository\ManuscriptRoleRepository")
  */
-class ManuscriptRole extends AbstractTerm {
+class ManuscriptRole extends AbstractTerm
+{
     /**
      * @var Collection|ManuscriptContribution[]
      * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptContribution", mappedBy="role")

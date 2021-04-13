@@ -18,7 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ContentContributionType form.
  */
-class ContentContributionsType extends AbstractType {
+class ContentContributionsType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */

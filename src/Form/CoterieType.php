@@ -23,7 +23,8 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 /**
  * Coterie form.
  */
-class CoterieType extends TermType {
+class CoterieType extends TermType
+{
     /**
      * Add form fields to $builder.
      */
