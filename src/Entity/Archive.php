@@ -20,7 +20,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="archive")
  * @ORM\Entity(repositoryClass="App\Repository\ArchiveRepository")
  */
-class Archive extends AbstractSource {
+class Archive extends AbstractSource
+{
     /**
      * @var Collection|Manuscript[]
      * @ORM\OneToMany(targetEntity="App\Entity\Manuscript", mappedBy="archive")

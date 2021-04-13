@@ -21,7 +21,8 @@ use Nines\UtilBundle\Entity\AbstractTerm;
  * @ORM\Table(name="print_source")
  * @ORM\Entity(repositoryClass="App\Repository\PrintSourceRepository")
  */
-class PrintSource extends AbstractTerm {
+class PrintSource extends AbstractTerm
+{
     /**
      * @var Collection|Region[]
      * @ORM\ManyToMany(targetEntity="App\Entity\Region", inversedBy="printSources")

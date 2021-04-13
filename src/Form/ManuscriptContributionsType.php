@@ -18,7 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ManuscriptFeatureType form.
  */
-class ManuscriptContributionsType extends AbstractType {
+class ManuscriptContributionsType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */

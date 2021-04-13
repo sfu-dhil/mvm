@@ -19,7 +19,8 @@ use Nines\UtilBundle\Entity\AbstractTerm;
 /**
  * @ORM\Entity(repositoryClass=CoterieRepository::class)
  */
-class Coterie extends AbstractTerm {
+class Coterie extends AbstractTerm
+{
     /**
      * @var Collection|Person[]
      * @ORM\ManyToMany(targetEntity="App\Entity\Person", inversedBy="coteries")

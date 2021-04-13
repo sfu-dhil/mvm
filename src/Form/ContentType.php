@@ -21,7 +21,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ContentType form.
  */
-class ContentType extends AbstractType {
+class ContentType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */

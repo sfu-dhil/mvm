@@ -17,7 +17,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ThemeType form.
  */
-class ThemeType extends TermType {
+class ThemeType extends TermType
+{
     /**
      * Add form fields to $builder.
      */

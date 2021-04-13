@@ -23,7 +23,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/manuscript_contribution")
  */
-class ManuscriptContributionController extends AbstractController implements PaginatorAwareInterface {
+class ManuscriptContributionController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

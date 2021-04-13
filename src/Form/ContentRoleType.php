@@ -17,7 +17,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ContentRoleType form.
  */
-class ContentRoleType extends TermType {
+class ContentRoleType extends TermType
+{
     /**
      * Add form fields to $builder.
      */

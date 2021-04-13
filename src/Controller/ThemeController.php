@@ -28,7 +28,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/theme")
  */
-class ThemeController extends AbstractController implements PaginatorAwareInterface {
+class ThemeController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

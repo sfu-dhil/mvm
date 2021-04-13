@@ -32,7 +32,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/manuscript")
  */
-class ManuscriptController extends AbstractController implements PaginatorAwareInterface {
+class ManuscriptController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

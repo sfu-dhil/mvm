@@ -18,7 +18,8 @@ use Nines\UtilBundle\Entity\AbstractTerm;
  *
  * @ORM\MappedSuperclass
  */
-abstract class AbstractSource extends AbstractTerm {
+abstract class AbstractSource extends AbstractTerm
+{
     public function __construct() {
         parent::__construct();
     }
