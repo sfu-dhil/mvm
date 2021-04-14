@@ -44,7 +44,7 @@ class ManuscriptContent extends AbstractEntity
     /**
      * @var PrintSource
      * @ORM\ManyToOne(targetEntity="App\Entity\PrintSource", inversedBy="manuscriptContents")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $printSource;
 
