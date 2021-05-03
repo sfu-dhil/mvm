@@ -15,8 +15,7 @@ use App\Entity\ContentRole;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class ContentRoleControllerTest extends ControllerBaseCase
-{
+class ContentRoleControllerTest extends ControllerBaseCase {
     protected function fixtures() : array {
         return [
             UserFixtures::class,

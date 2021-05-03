@@ -15,8 +15,7 @@ use App\Entity\PrintSource;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class PrintSourceControllerTest extends ControllerBaseCase
-{
+class PrintSourceControllerTest extends ControllerBaseCase {
     protected function fixtures() : array {
         return [
             UserFixtures::class,

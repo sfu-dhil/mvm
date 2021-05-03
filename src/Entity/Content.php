@@ -27,8 +27,7 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * })
  * @ORM\Entity(repositoryClass="App\Repository\ContentRepository")
  */
-class Content extends AbstractEntity implements LinkableInterface
-{
+class Content extends AbstractEntity implements LinkableInterface {
     use LinkableTrait {
         LinkableTrait::__construct as linkable_constructor;
     }

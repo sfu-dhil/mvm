@@ -28,8 +28,7 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 /**
  * ManuscriptType form.
  */
-class ManuscriptType extends AbstractType
-{
+class ManuscriptType extends AbstractType {
     /**
      * Add form fields to $builder.
      */

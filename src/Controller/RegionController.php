@@ -28,8 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/region")
  */
-class RegionController extends AbstractController implements PaginatorAwareInterface
-{
+class RegionController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**

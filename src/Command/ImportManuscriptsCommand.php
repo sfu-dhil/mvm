@@ -22,8 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * ImportManuscriptsCommand command.
  */
-class ImportManuscriptsCommand extends Command
-{
+class ImportManuscriptsCommand extends Command {
     public const SPACE = '/^\p{Z}+|\p{Z}+$/';
 
     /**

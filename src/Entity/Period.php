@@ -21,8 +21,7 @@ use Nines\UtilBundle\Entity\AbstractTerm;
  * @ORM\Table(name="period")
  * @ORM\Entity(repositoryClass="App\Repository\PeriodRepository")
  */
-class Period extends AbstractTerm
-{
+class Period extends AbstractTerm {
     /**
      * @var Collection|Manuscript[]
      * @ORM\ManyToMany(targetEntity="App\Entity\Manuscript", mappedBy="periods")

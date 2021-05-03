@@ -21,8 +21,7 @@ use Nines\UtilBundle\Entity\AbstractTerm;
  * @ORM\Table(name="theme")
  * @ORM\Entity(repositoryClass="App\Repository\ThemeRepository")
  */
-class Theme extends AbstractTerm
-{
+class Theme extends AbstractTerm {
     /**
      * @var Collection|Manuscript[]
      * @ORM\ManyToMany(targetEntity="App\Entity\Manuscript", mappedBy="themes")

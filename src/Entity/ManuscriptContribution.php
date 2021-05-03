@@ -19,8 +19,7 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * @ORM\Table(name="manuscript_contribution")
  * @ORM\Entity(repositoryClass="App\Repository\ManuscriptContributionRepository")
  */
-class ManuscriptContribution extends AbstractEntity
-{
+class ManuscriptContribution extends AbstractEntity {
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)

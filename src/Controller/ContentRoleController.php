@@ -28,8 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/content_role")
  */
-class ContentRoleController extends AbstractController implements PaginatorAwareInterface
-{
+class ContentRoleController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**

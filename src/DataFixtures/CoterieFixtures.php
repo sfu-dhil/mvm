@@ -14,8 +14,7 @@ use App\Entity\Coterie;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class CoterieFixtures extends Fixture
-{
+class CoterieFixtures extends Fixture {
     /**
      * {@inheritdoc}
      */
