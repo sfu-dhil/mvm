@@ -28,8 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/print_source")
  */
-class PrintSourceController extends AbstractController implements PaginatorAwareInterface
-{
+class PrintSourceController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**

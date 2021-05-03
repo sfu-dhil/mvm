@@ -15,8 +15,7 @@ use App\Entity\ManuscriptRole;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class ManuscriptRoleControllerTest extends ControllerBaseCase
-{
+class ManuscriptRoleControllerTest extends ControllerBaseCase {
     protected function fixtures() : array {
         return [
             UserFixtures::class,

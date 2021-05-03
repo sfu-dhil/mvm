@@ -24,8 +24,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * PersonType form.
  */
-class PersonType extends AbstractType
-{
+class PersonType extends AbstractType {
     /**
      * Add form fields to $builder.
      */

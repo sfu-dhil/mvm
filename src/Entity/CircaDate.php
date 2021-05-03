@@ -24,8 +24,7 @@ define('RANGE_RE', '/^(?:' . CIRCA_RE . ')?-(?:' . CIRCA_RE . ')?$/');
  * @ORM\Table(name="circa_date")
  * @ORM\Entity(repositoryClass="App\Repository\CircaDateRepository")
  */
-class CircaDate extends AbstractEntity
-{
+class CircaDate extends AbstractEntity {
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)

@@ -21,8 +21,7 @@ use Nines\UtilBundle\Entity\AbstractTerm;
  * @ORM\Table(name="feature")
  * @ORM\Entity(repositoryClass="App\Repository\FeatureRepository")
  */
-class Feature extends AbstractTerm
-{
+class Feature extends AbstractTerm {
     /**
      * @var Collection|ManuscriptFeature[]
      * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptFeature", mappedBy="feature", cascade={"remove"})

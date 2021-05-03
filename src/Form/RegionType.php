@@ -17,8 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * RegionType form.
  */
-class RegionType extends AbstractType
-{
+class RegionType extends AbstractType {
     /**
      * Add form fields to $builder.
      */

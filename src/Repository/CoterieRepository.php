@@ -20,8 +20,7 @@ use Nines\UtilBundle\Repository\TermRepository;
  * @method Coterie[]    findAll()
  * @method Coterie[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CoterieRepository extends TermRepository
-{
+class CoterieRepository extends TermRepository {
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Coterie::class);
     }

@@ -17,8 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ManuscriptRoleType form.
  */
-class ManuscriptRoleType extends TermType
-{
+class ManuscriptRoleType extends TermType {
     /**
      * Add form fields to $builder.
      */

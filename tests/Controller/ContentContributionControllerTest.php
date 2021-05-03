@@ -14,8 +14,7 @@ use App\DataFixtures\ContentContributionFixtures;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class ContentContributionControllerTest extends ControllerBaseCase
-{
+class ContentContributionControllerTest extends ControllerBaseCase {
     protected function fixtures() : array {
         return [
             UserFixtures::class,
