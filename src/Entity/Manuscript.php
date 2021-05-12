@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -283,9 +283,7 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
     public function getManuscriptFeatures($sort = false) {
         if ($sort) {
             $iterator = $this->manuscriptFeatures->getIterator();
-            $iterator->uasort(function (ManuscriptFeature $a, ManuscriptFeature $b) {
-                return strcasecmp($a->getFeature()->getLabel(), $b->getFeature()->getLabel());
-            });
+            $iterator->uasort(fn (ManuscriptFeature $a, ManuscriptFeature $b) => strcasecmp($a->getFeature()->getLabel(), $b->getFeature()->getLabel()));
 
             return $iterator;
         }
@@ -720,9 +718,7 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
      */
     public function getManuscriptContents() {
         $iterator = $this->manuscriptContents->getIterator();
-        $iterator->uasort(function (ManuscriptContent $a, ManuscriptContent $b) {
-            return strcmp($a->getContent()->getFirstLine(), $b->getContent()->getFirstLine());
-        });
+        $iterator->uasort(fn (ManuscriptContent $a, ManuscriptContent $b) => strcmp($a->getContent()->getFirstLine(), $b->getContent()->getFirstLine()));
 
         return new ArrayCollection($iterator->getArrayCopy());
     }
