@@ -43,10 +43,10 @@
             {% set host = link.host %}
             {% set value = linkValues|filter(v => v.host in host)|first %}
             {% set type = value.open is defined ? (value.open ? 'open' : 'closed') : 'unknown' %}
-            <a href="{{ link.url }}" class="link {{ type }}">
+            <li><a href="{{ link.url }}" class="link {{ type }}">
                 {{ attribute(_context, type) }}
                 {{ value.alias|default(host) }}
-            </a>
+                </a></li>
         {% endfor %}
     </ul>
 {% endif %}
