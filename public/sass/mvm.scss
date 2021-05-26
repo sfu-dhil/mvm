@@ -1,31 +1,31 @@
-/* 
+/*
  * Base SCSS stylesheet for the Manuscript Verse Miscellanies
  * Database.
- * 
+ *
  * @author: Joey Takeda
  * @date: 2020
  */
- 
+
  /**
- * Namespaces 
- * 
+ * Namespaces
+ *
  **/
 
 @use 'sass:map';
 @use 'sass:math';
 @use 'sass:color';
 @use 'sass:list';
-/* 
- * Imports 
+/*
+ * Imports
  */
- 
+
  @import "_variables.scss";
  @import "_fonts.scss";
  @import "_functions.scss";
  @import "_breadcrumb.scss";
  @import "../yarn/dhilux/scss/dhilux.scss";
 
-/* 
+/*
  * Root
  */
 
@@ -97,20 +97,20 @@ html{
                        opacity:1;
                        width:100%;
                    }
-                   
+
                }
            }
       & .current > a{
           font-weight:bold;
-      }     
+      }
        }
    }
  }
 
 
- 
 
- 
+
+
 .list-group-horizontal{
     list-style-type:none;
     display:flex;
@@ -509,9 +509,10 @@ h1 + ul.person.dates{
 
 // External links
 
-.links, .link{
+.links {
   margin-left:0;
   padding-left:0;
+  list-style-type: none;
 }
 
 .link{
@@ -541,16 +542,16 @@ td .note{
 }
 
 
- /* 
+ /*
   * Headings
   * */
- 
+
  /*
  * Headings
- * 
+ *
  * This little formula iterates through all of the heading levels
  * and associates it with the typography scale
- */ 
+ */
  @for $i from 1 to 6 {
   h#{$i} {
     font-size: map.get($typescale, $i);
@@ -562,18 +563,18 @@ td .note{
   }
   article.born-digital h#{$i}{
       @if ($i > 1 ){
-        margin-top: map.get($typescale, $i);    
+        margin-top: map.get($typescale, $i);
       }
       margin-bottom: map.get($typescale, 6);
   }
-  
+
 }
 
 
- /* 
+ /*
   * Footer
   * */
- 
+
 /*
  *  Footer
  *  */
@@ -600,7 +601,7 @@ footer{
           margin-right:-3rem;
         }
      }
-    
+
     ul, li{
         list-style-type:none;
         padding:0;
@@ -677,9 +678,9 @@ footer{
       margin: 0 auto;
     }
     & + p > a{
-      @include link;  
+      @include link;
     }
-    
+
 }
 
 .title.untitled{
@@ -698,7 +699,7 @@ footer{
     margin: ms(-2) 0;
   }
 }
- 
+
  @import "_index.scss";
 
  /* Alwys import media last */
