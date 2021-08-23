@@ -12,7 +12,9 @@ namespace App\Form;
 
 use App\Entity\Person;
 use Nines\MediaBundle\Entity\LinkableInterface;
+use Nines\MediaBundle\Form\LinkableType;
 use Nines\MediaBundle\Form\LinkType;
+use Nines\MediaBundle\Form\Mapper\LinkableMapper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,11 +27,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * PersonType form.
  */
 class PersonType extends AbstractType {
+    private LinkableMapper $mapper;
+
     /**
      * Add form fields to $builder.
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
-        $person = $options['entity'];
         $builder->add('anonymous', CheckboxType::class, [
             'label' => 'Anonymous',
             'required' => false,
@@ -104,25 +107,18 @@ class PersonType extends AbstractType {
                 'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
             ],
         ]);
-        $builder->add('links', CollectionType::class, [
-            'label' => 'Links',
-            'required' => false,
-            'allow_add' => true,
-            'allow_delete' => true,
-            'delete_empty' => true,
-            'entry_type' => LinkType::class,
-            'entry_options' => [
-                'label' => false,
-            ],
-            'by_reference' => false,
-            'attr' => [
-                'class' => 'collection collection-complex',
-                'help_block' => '',
-            ],
-            'mapped' => false,
-            'data' => $person->getLinks(),
-        ]);
+        LinkableType::add($builder, $options);
+        $builder->setDataMapper($this->mapper);
     }
+
+    /**
+     * @param LinkableMapper $mapper
+     * @required
+     */
+    public function setMapper(LinkableMapper $mapper) {
+        $this->mapper = $mapper;
+    }
+
 
     /**
      * Define options for the form.
@@ -133,9 +129,6 @@ class PersonType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) : void {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\Person',
-        ]);
-        $resolver->setRequired([
-            LinkableInterface::class => 'entity',
         ]);
     }
 }

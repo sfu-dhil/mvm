@@ -111,17 +111,14 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @Route("/new", name="content_new", methods={"GET", "POST"})
      * @Template
      */
-    public function newAction(Request $request, LinkManager $linkManager) {
+    public function newAction(Request $request) {
         $content = new Content();
-        $form = $this->createForm(ContentType::class, $content, ['entity' => $content]);
+        $form = $this->createForm(ContentType::class, $content);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($content);
-            $em->flush();
-
-            $linkManager->setLinks($content, $form->get('links')->getData());
             $em->flush();
 
             $this->addFlash('success', 'The new content was created.');
@@ -144,8 +141,8 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @Route("/new_popup", name="content_new_popup", methods={"GET", "POST"})
      * @Template
      */
-    public function newPopupAction(Request $request, LinkManager $linkManager) {
-        return $this->newAction($request, $linkManager);
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
     }
 
     /**
@@ -171,12 +168,11 @@ class ContentController extends AbstractController implements PaginatorAwareInte
      * @Route("/{id}/edit", name="content_edit", methods={"GET", "POST"})
      * @Template
      */
-    public function editAction(Request $request, Content $content, LinkManager $linkManager) {
-        $editForm = $this->createForm(ContentType::class, $content, ['entity' => $content]);
+    public function editAction(Request $request, Content $content) {
+        $editForm = $this->createForm(ContentType::class, $content);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $linkManager->setLinks($content, $editForm->get('links')->getData());
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The content has been updated.');
