@@ -28,7 +28,7 @@
             {% set allPeople = manuscriptRole.contributions|map(c => c.person) %}
             {% set people = [] %}
             {% for person in allPeople %}
-                {%  if person not in people %}
+                {% if person not in people %}
                     {% set people = people|merge([person]) %}
                 {% endif %}
             {% endfor %}
