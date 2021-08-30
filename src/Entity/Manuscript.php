@@ -30,6 +30,7 @@ use Nines\UtilBundle\Entity\AbstractEntity;
 class Manuscript extends AbstractEntity implements LinkableInterface {
     use LinkableTrait {
         LinkableTrait::__construct as linkable_constructor;
+
     }
 
     /**

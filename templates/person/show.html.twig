@@ -72,7 +72,7 @@
                     </tr>
                 </thead>
                 {% set allRoles = person.contentContributions|map(c => c.role) %}
-                {% set roles = []  %}
+                {% set roles = [] %}
                 {% for role in allRoles %}
                     {% set roles = (role in roles) ? roles : roles|merge([role]) %}
                 {% endfor %}

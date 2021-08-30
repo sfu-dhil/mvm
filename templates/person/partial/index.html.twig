@@ -1,5 +1,3 @@
-
-
 <div class="gallery person">
     {% for person in people|sort((a,b) => (a.sortableName <=> b.sortableName)) %}
         {% embed 'partial/gallery-item.html.twig' %}

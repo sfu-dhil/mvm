@@ -15,8 +15,8 @@ use App\Entity\Period;
 use App\Entity\PrintSource;
 use App\Entity\Region;
 use App\Entity\Theme;
-use Nines\MediaBundle\Entity\LinkableInterface;
-use Nines\MediaBundle\Form\LinkType;
+use Nines\MediaBundle\Form\LinkableType;
+use Nines\MediaBundle\Form\Mapper\LinkableMapper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -29,11 +29,12 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
  * ManuscriptType form.
  */
 class ManuscriptType extends AbstractType {
+    private LinkableMapper $mapper;
+
     /**
      * Add form fields to $builder.
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
-        $manuscript = $options['entity'];
         $builder->add('untitled', CheckboxType::class, [
             'label' => 'Untitled',
             'required' => false,
@@ -170,24 +171,6 @@ class ManuscriptType extends AbstractType {
                 'class' => 'tinymce',
             ],
         ]);
-        $builder->add('links', CollectionType::class, [
-            'label' => 'Links',
-            'required' => false,
-            'allow_add' => true,
-            'allow_delete' => true,
-            'delete_empty' => true,
-            'entry_type' => LinkType::class,
-            'entry_options' => [
-                'label' => false,
-            ],
-            'by_reference' => false,
-            'attr' => [
-                'class' => 'collection collection-complex',
-                'help_block' => '',
-            ],
-            'mapped' => false,
-            'data' => $manuscript->getLinks(),
-        ]);
         $builder->add('bibliography', TextType::class, [
             'label' => 'Bibliography',
             'required' => false,
@@ -196,6 +179,15 @@ class ManuscriptType extends AbstractType {
                 'class' => 'tinymce',
             ],
         ]);
+        LinkableType::add($builder, $options);
+        $builder->setDataMapper($this->mapper);
+    }
+
+    /**
+     * @required
+     */
+    public function setMapper(LinkableMapper $mapper) : void {
+        $this->mapper = $mapper;
     }
 
     /**
@@ -205,9 +197,8 @@ class ManuscriptType extends AbstractType {
      * buildForm() method via the $options parameter.
      */
     public function configureOptions(OptionsResolver $resolver) : void {
-        $resolver->setDefaults(['data_class' => 'App\Entity\Manuscript']);
-        $resolver->setRequired([
-            LinkableInterface::class => 'entity',
+        $resolver->setDefaults([
+            'data_class' => 'App\Entity\Manuscript',
         ]);
     }
 }

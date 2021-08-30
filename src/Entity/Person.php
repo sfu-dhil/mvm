@@ -29,6 +29,7 @@ use Nines\UtilBundle\Entity\AbstractEntity;
 class Person extends AbstractEntity implements LinkableInterface {
     use LinkableTrait {
         LinkableTrait::__construct as linkable_constructor;
+
     }
 
     public const MALE = 'M';

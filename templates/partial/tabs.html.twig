@@ -6,8 +6,8 @@
             {% set id = key|replace({'&amp;': ''})|u.camel %}
             <li class="nav-item{{ active }}">
                 <a class="nav-link{{ active }}" id="{{ id }}-tab" href="#{{ id }}"
-                   data-toggle="tab"  role="tab" aria-controls="{{ id }}"
-                   aria-selected="{{ loop.first }}">{{ key|raw }}</a>
+                        data-toggle="tab" role="tab" aria-controls="{{ id }}"
+                        aria-selected="{{ loop.first }}">{{ key|raw }}</a>
             </li>
         {% endfor %}
     </ul>

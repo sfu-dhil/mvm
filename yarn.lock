@@ -9,7 +9,7 @@ bootstrap3@^3.3.5:
 
 "dhilux@https://github.com/joeytakeda/dhilux":
   version "0.2.0"
-  resolved "https://github.com/joeytakeda/dhilux#3b07676a507a5675a9f431fdf86263b763b61f4b"
+  resolved "https://github.com/joeytakeda/dhilux#116e14933751584cb333c5d37497b456c0d28029"
   dependencies:
     modularscale-sass "^3.0.10"
 
@@ -47,6 +47,6 @@ symfony-collection@^2.1.30:
     jquery-ui ">=1.0"
 
 tinymce@^5.4.0:
-  version "5.8.2"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.8.2.tgz#54eb8160b697796c3b52282e648d9d12b1a7399a"
-  integrity sha512-qfWThBrSzbj4DoUk+lgGeDoP2GzLDSWrfvVUxf40HZhTzsG15X2nZ4N49IFqwaVgRl5AyFDtuWiEH/lCmiAcRA==
+  version "5.9.1"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.9.1.tgz#95100cd6748bbe5a5dfaaf8353f129756a0a5372"
+  integrity sha512-GaG15OhQB1zR2L63fywhEAViTxkAlhX5JbA+48+O0zCo1FwDuQ8iUVi/FzaOX9Uo7ULp+Y2gu4r3P4ZNueDVPQ==

@@ -22,8 +22,8 @@
                 <form method="dialog">
                     <button class="btn">
                         <svg viewBox="0 0 24 24" height="1rem" width="1rem">
-                            <line x1="0" x2="24" y1="0" y2="24"/>
-                            <line x1="24" x2="0" y1="0" y2="24"/>
+                            <line x1="0" x2="24" y1="0" y2="24" />
+                            <line x1="24" x2="0" y1="0" y2="24" />
                         </svg>
                         <span class="sr-only">Close</span>
                     </button>
@@ -62,7 +62,7 @@
             {% if manuscripts is defined and manuscripts|length > 0 %}
                 <div>
                     <div class="dialog-content__heading">Related Manuscripts</div>
-                    <ul{% if manuscripts|length >= 10%} class="columns"{% endif %}>
+                    <ul{% if manuscripts|length >= 10 %} class="columns"{% endif %}>
                         {{ _self.link_list(manuscripts, 'manuscript_show') }}
                     </ul>
                 </div>
@@ -79,7 +79,6 @@
         </div>
     </section>
 </dialog>
-
 
 
 {% macro link_list(items, route) %}
