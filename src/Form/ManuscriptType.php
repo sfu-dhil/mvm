@@ -15,9 +15,7 @@ use App\Entity\Period;
 use App\Entity\PrintSource;
 use App\Entity\Region;
 use App\Entity\Theme;
-use Nines\MediaBundle\Entity\LinkableInterface;
 use Nines\MediaBundle\Form\LinkableType;
-use Nines\MediaBundle\Form\LinkType;
 use Nines\MediaBundle\Form\Mapper\LinkableMapper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -186,13 +184,11 @@ class ManuscriptType extends AbstractType {
     }
 
     /**
-     * @param LinkableMapper $mapper
      * @required
      */
-    public function setMapper(LinkableMapper $mapper) {
+    public function setMapper(LinkableMapper $mapper) : void {
         $this->mapper = $mapper;
     }
-
 
     /**
      * Define options for the form.
@@ -202,7 +198,7 @@ class ManuscriptType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) : void {
         $resolver->setDefaults([
-            'data_class' => 'App\Entity\Manuscript'
+            'data_class' => 'App\Entity\Manuscript',
         ]);
     }
 }

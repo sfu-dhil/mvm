@@ -10,12 +10,9 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use Nines\MediaBundle\Entity\LinkableInterface;
 use Nines\MediaBundle\Form\LinkableType;
-use Nines\MediaBundle\Form\LinkType;
 use Nines\MediaBundle\Form\Mapper\LinkableMapper;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -72,13 +69,11 @@ class ContentType extends AbstractType {
     }
 
     /**
-     * @param LinkableMapper $mapper
      * @required
      */
-    public function setMapper(LinkableMapper $mapper) {
+    public function setMapper(LinkableMapper $mapper) : void {
         $this->mapper = $mapper;
     }
-
 
     /**
      * Define options for the form.
