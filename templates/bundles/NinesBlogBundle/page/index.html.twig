@@ -1,0 +1,40 @@
+{% extends '@!NinesBlog/page/index.html.twig' %}
+
+
+{% block pageheader %}
+    <h1>About</h1>
+{% endblock %}
+
+{% block admin %}
+    <div class='btn-toolbar pull-right'>
+        <div class='btn-group'>
+
+            <a href="{{ path('nines_blog_page_new') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span> New
+            </a>
+            <a href="{{ path('nines_blog_page_sort') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-sort"></span> Sort
+            </a>
+            <a href="{{ path('nines_blog_page_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block body %}
+    <div class="gallery">
+        {% for page in pages %}
+            {% embed 'partial/gallery-item.html.twig' %}
+                {% block item_heading %}<a href="{{ path('nines_blog_page_show', {'id': page.id}) }}">{{ page.title }}</a>{% endblock %}
+                {% block item_body %}
+                    {{ page.excerpt|raw }}
+                {% endblock %}
+            {% endembed %}
+        {% endfor %}
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(pages) }}
+    </div>
+{% endblock %}

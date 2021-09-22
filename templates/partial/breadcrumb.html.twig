@@ -6,11 +6,19 @@
     {% endif %}
 {% endset %}
 
+{% set path %}
+    {% if index_path is defined  %}
+        {{ index_path }}
+    {% else %}
+        {{ path(index ~ '_index') }}
+    {% endif %}
+{% endset %}
+
 
 <ul class="breadcrumbs">
     <li><a href="{{ path('homepage') }}">Home</a></li>
     {% if show is defined %}
-        <li><a href="{{ path(index ~ '_index') }}">{{ label }}</a></li>
+        <li><a href="{{ path }}">{{ label }}</a></li>
         <li><span class="current">{{ show }}</span></li>
     {% else %}
         <li><span class="current">{{ label }}</span></li>

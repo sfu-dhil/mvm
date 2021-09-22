@@ -1,0 +1,39 @@
+/*
+ * Styles for born digital pages
+ * (the blog, privacy, etc), but not including
+ * the index page.
+ *
+ */
+
+// Nest everything within .born-digital (which is attached to article)
+.born-digital{
+  display:flex;
+  flex-direction:column;
+
+  main{
+    display:flex;
+    height:100%;
+    flex-direction:column;
+    flex:1;
+  }
+
+  .blog_page{
+    max-width:52rem;
+    margin:0 auto;
+  }
+
+  section{
+    font-size: 1.1rem;
+    line-height: 1.65;
+  }
+
+  .gallery .item .description{
+      padding-top:0;
+      padding-bottom:0;
+      @include dhil-clamp-lines($lines: 6, $font-size: 0.9rem);
+      & > p{
+        margin-top:1rem;
+        margin-bottom:1rem;
+      }
+  }
+}

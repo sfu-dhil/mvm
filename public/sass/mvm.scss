@@ -22,8 +22,11 @@
  @import "_variables.scss";
  @import "_fonts.scss";
  @import "_functions.scss";
- @import "_breadcrumb.scss";
  @import "../yarn/dhilux/scss/dhilux.scss";
+
+ @import "components/breadcrumb";
+ @import "components/carousel";
+ @import "components/nextPrev";
 
 /*
  * Root
@@ -700,7 +703,8 @@ footer{
   }
 }
 
- @import "_index.scss";
+ @import "pages/_index";
+ @import "pages/_bornDigital";
 
  /* Alwys import media last */
   @import "_media.scss";

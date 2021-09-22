@@ -135,16 +135,21 @@ input.contributor{
     font-family: "EB Garamond";
 }
 
+
 ul.archive-gallery{
+    /*
     display:flex;
-    flex-wrap:wrap;
     padding-left: 0;
+    overflow-x:auto;
     list-style-type:none;
     margin-bottom:map.get($typescale, 2);
+    width:100%;
+
+     */
     & > li{
         display:block;
-        margin:1rem;
-        flex: 1 1 25%;
+        //margin:1rem;
+        flex: 1 0 25%;
         height:13rem;
         position:relative;
         overflow:hidden;

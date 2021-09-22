@@ -1,0 +1,34 @@
+
+{% set currMenu = knp_menu_get('nines_blog_pages',['about']) %}
+{% set children = currMenu.children[:-2] %}
+{% set len = children|length  %}
+{% set idx = -1 %}
+{% for child in children %}
+    {% if child is knp_menu_current %}
+        {% set idx = loop.index0 %}
+    {% endif %}
+{% endfor %}
+
+
+{#
+{% set prev = idx < 2 ? null : children[idx - 1] %}
+{% set next = (idx == len - 2) ? null : children[idx + 1] %}
+#}
+
+
+{% if (idx > -1) %}
+    <div class="nextPrev">
+        {% if idx != 0 %}
+            {% set prev = children|slice(idx - 1, 1)|first %}
+            <div class="prev">
+                <a href="{{ prev.uri }}">{{ prev.label }}</a>
+            </div>
+        {% endif %}
+        {% if (idx + 1) < len %}
+            {% set next = children|slice(idx + 1, 1)|first %}
+            <div class="next">
+                <a href="{{ next.uri }}">{{ next.label }}</a>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
