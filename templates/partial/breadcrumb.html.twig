@@ -9,7 +9,7 @@
 {% set path %}
     {% if index_path is defined  %}
         {{ index_path }}
-    {% else %}
+    {% elseif index is defined %}
         {{ path(index ~ '_index') }}
     {% endif %}
 {% endset %}

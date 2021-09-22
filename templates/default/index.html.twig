@@ -57,7 +57,7 @@
             let $select = $('#person_typeahead_person');
             $select.on('change', function (e) {
                 e.preventDefault();
-                window.location = "{{ base }}/person/" + $select.val();
+                window.location = "{{ base }}person/" + $select.val();
             });
         });
     </script>
