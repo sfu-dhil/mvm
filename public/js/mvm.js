@@ -6,17 +6,57 @@
 *
 * */
 
-import Modals from '../yarn/dhilux/js/modals.bundle.js';
-
+import Modals from 'dhilux/js/modals.bundle.js';
+// core version + navigation, pagination modules:
+import Swiper, { Navigation } from 'swiper';
 
 const docId = document.querySelector('html').id;
 const entities = ['person','theme','region','period','coterie', 'print_source', 'archive'].filter(isIndex);
 
-(function(){
-    if (!(/(edit|new)\/?$/gi.test(location) || docId == 'index')){
+
+init();
+
+function init() {
+    console.log('init');
+    makeHomepageGallery();
+    if (!(/(edit|new)\/?$/gi.test(location) || docId == 'index')) {
         makeModals();
     }
-})();
+
+}
+
+function makeHomepageGallery() {
+    let q = '.archive-gallery';
+    let gallery = document.querySelector(q);
+    console.log(gallery);
+    if (!gallery) {
+        return;
+    }
+    Swiper.use([Navigation]);
+    let cfg = {
+       // centeredSlides: true,
+        spaceBetween: 16,
+        slidesPerView: 3,
+       // loop: true,
+        navigation: {}
+    }
+    let wrapper = document.createElement('div');
+    gallery.insertAdjacentElement('beforebegin', wrapper);
+    wrapper.appendChild(gallery);
+    wrapper.classList.add('swiper');
+    gallery.classList.add('swiper-wrapper');
+    [...gallery.children].forEach(child => {
+        child.classList.add('swiper-slide');
+    });
+        ['next', 'prev'].forEach(bc => {
+        let div = document.createElement('div');
+        let divClass = `swiper-button-${bc}`;
+        div.classList.add(divClass);
+        wrapper.appendChild(div);
+        cfg.navigation[`${bc}El`] = '.' + divClass;
+    });
+    const carousel = new Swiper('.swiper', cfg);
+}
 
 
 function makeModals(){
@@ -34,7 +74,6 @@ function makeModals(){
             return (thead === null);
         }
     }
-    modals.debug = true;
     modals.init();
 }
 
