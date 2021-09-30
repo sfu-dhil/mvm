@@ -75,87 +75,91 @@ class Builder implements ContainerAwareInterface {
         $menu->setChildrenAttributes([
             'class' => 'nav navbar-nav',
         ]);
-
-        $browse = $menu->addChild('browse', [
-            'uri' => '#',
-            'label' => 'Explore ' . self::CARET,
-        ]);
-        $browse->setAttribute('dropdown', true);
-        $browse->setLinkAttribute('class', 'dropdown-toggle');
-        $browse->setLinkAttribute('data-toggle', 'dropdown');
-        $browse->setChildrenAttribute('class', 'dropdown-menu');
-
-        $browse->addChild('Archives', [
-            'route' => 'archive_index',
-        ]);
-        $browse->addChild('Poems', [
-            'route' => 'content_index',
-        ]);
-        $browse->addChild('Poem Roles', [
-            'route' => 'content_role_index',
-        ]);
-        $browse->addChild('Coteries', [
-            'route' => 'coterie_index',
-        ]);
-        $browse->addChild('Features', [
-            'route' => 'feature_index',
-        ]);
-        $browse->addChild('Manuscripts', [
+        $menuItems = [
+            'manuscripts' => 'Manuscripts',
+            'people' => 'People, Coteries, Roles',
+            'poems' => 'Poems'
+        ];
+        foreach ($menuItems as $name => $label) {
+            $menuItems[$name] = $menu->addChild($name, [
+                'uri' => '#',
+                'label' => $label
+            ]);
+            $menuItems[$name]->setAttribute('dropdown', true);
+            $menuItems[$name]->setAttribute('class','dropdown-toggle');
+            $menuItems[$name]->setLinkAttribute('data-toggle', 'dropdown');
+            $menuItems[$name]->setChildrenAttribute('class', 'dropdown-menu');
+        }
+        $menuItems['manuscripts']->addChild('Browse all MSS', [
             'route' => 'manuscript_index',
         ]);
-        $browse->addChild('Manuscript Roles', [
-            'route' => 'manuscript_role_index',
+        $menuItems['manuscripts']->addChild('Browse MSS by Archive', [
+            'route' => 'archive_index',
         ]);
-        $browse->addChild('Periods', [
+        $menuItems['manuscripts']->addChild('Browse MSS by Period', [
             'route' => 'period_index',
         ]);
-        $browse->addChild('People', [
-            'route' => 'person_index',
+        $menuItems['manuscripts']->addChild('Browse MSS by Feature', [
+            'route' => 'feature_index',
         ]);
-        $browse->addChild('Print Sources', [
-            'route' => 'print_source_index',
-        ]);
-        $browse->addChild('Regions', [
-            'route' => 'region_index',
-        ]);
-        $browse->addChild('Themes', [
+        $menuItems['manuscripts']->addChild('Browse MSS by Themes', [
             'route' => 'theme_index',
         ]);
-
+        $menuItems['manuscripts']->addChild('Browse MSS by Print Sources', [
+            'route' => 'print_source_index',
+        ]);
+        $menuItems['manuscripts']->addChild('Browse MSS by Region', [
+            'route' => 'region_index'
+        ]);
         if ($this->hasRole('ROLE_USER')) {
-            $divider = $browse->addChild('divider', [
+            $divider = $menuItems['manuscripts']->addChild('divider', [
                 'label' => '',
             ]);
             $divider->setAttributes([
                 'role' => 'separator',
                 'class' => 'divider',
             ]);
-            $browse->addChild('Poem Contributions', [
+            $menuItems['manuscripts']->addChild('Poem Contributions', [
                 'route' => 'content_contribution_index',
             ]);
-            $browse->addChild('Manuscript Poems', [
+            $menuItems['manuscripts']->addChild('Manuscript Poems', [
                 'route' => 'manuscript_content_index',
             ]);
-            $browse->addChild('Manuscript Contributions', [
+            $menuItems['manuscripts']->addChild('Manuscript Contributions', [
                 'route' => 'manuscript_contribution_index',
             ]);
-            $browse->addChild('Manuscript Features', [
+            $menuItems['manuscripts']->addChild('Manuscript Features', [
                 'route' => 'manuscript_feature_index',
             ]);
         }
 
         if ($this->hasRole('ROLE_ADMIN')) {
-            $divider2 = $browse->addChild('divider2', [
+            $divider2 = $menuItems['manuscripts']->addChild('divider2', [
                 'label' => '',
             ]);
             $divider2->setAttributes([
                 'role' => 'separator',
                 'class' => 'divider',
             ]);
-            $browse->addChild('Links', [
+            $menuItems['manuscripts']->addChild('Links', [
                 'route' => 'nines_media_link_index',
             ]);
         }
+        $menuItems['people']->addChild('Browse all People', [
+            'route' => 'person_index',
+        ]);
+        $menuItems['people']->addChild('Browse all Coteries', [
+            'route' => 'coterie_index',
+        ]);
+        $menuItems['people']->addChild('Browse Poem Roles', [
+            'route' => 'content_role_index',
+        ]);
+        $menuItems['people']->addChild('Manuscript Roles', [
+            'route' => 'manuscript_role_index',
+        ]);
+        $menuItems['poems']->addChild('Browse all Poems', [
+            'route' => 'content_index',
+        ]);
 
         return $menu;
     }
