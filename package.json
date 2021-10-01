@@ -11,7 +11,7 @@
     "bootstrap3": "^3.3.5",
     "dhilux": "https://github.com/joeytakeda/dhilux",
     "jquery": "^3.4.1",
-    "jquery-ui": "^1.12.1",
+    "jquery-ui-dist": "^1.12.1",
     "select2": "^4.0.12",
     "select2-bootstrap-css": "^1.4.6",
     "swiper": "^7.0.6",
