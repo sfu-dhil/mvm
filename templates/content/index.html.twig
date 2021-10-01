@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'partial/search-form.html.twig' with {'path': path('content_search'), 'q': ''} %}
+    {% include 'content/partial/search-form.html.twig' %}
     {% include 'content/partial/index.html.twig' %}
 
     <div class="navigation">

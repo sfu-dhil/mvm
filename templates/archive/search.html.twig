@@ -16,8 +16,7 @@
 {% endblock %}
 
 {% block body %}
-
-    {% include 'partial/search-form.html.twig' with {'path': path('archive_search')} %}
+    {% include 'archive/partial/search-form.html.twig' %}
 
     {% if archives|length > 0 %}
         {% include 'archive/partial/index.html.twig' %}

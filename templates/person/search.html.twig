@@ -16,7 +16,7 @@
 
 {% block body %}
 
-    {% include 'partial/search-form.html.twig' with {'path': path('person_search')} %}
+    {% include 'person/partial/search-form.html.twig' %}
     {% if people|length > 0 %}
         {% include 'person/partial/index.html.twig' %}
     {% else %}

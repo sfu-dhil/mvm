@@ -14,8 +14,7 @@
 {% endblock %}
 
 {% block body %}
-
-    {% include 'partial/search-form.html.twig' with {'path': path('theme_search')} %}
+    {% include 'theme/partial/search-form.html.twig' %}
     {% if themes|length > 0 %}
         {% include 'theme/partial/index.html.twig' %}
     {% else %}
@@ -26,5 +25,4 @@
             {{ knp_pagination_render(themes) }}
         </div>
     {% endif %}
-
 {% endblock %}

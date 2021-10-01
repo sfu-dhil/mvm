@@ -17,9 +17,8 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'partial/search-form.html.twig' with {'path': path('print_source_search'), 'q': ''} %}
+    {% include 'print_source/partial/search-form.html.twig' %}
     {% include 'print_source/partial/index.html.twig' %}
-
     <div class="navigation">
         {{ knp_pagination_render(printSources) }}
     </div>

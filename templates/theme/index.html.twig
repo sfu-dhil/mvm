@@ -16,13 +16,10 @@
     {% include 'partial/toolbar.html.twig' with {'new': 'theme_new'} %}
 {% endblock %}
 
-
 {% block body %}
-    {% include 'partial/search-form.html.twig' with {'path': path('theme_search'), 'q': ''} %}
+    {% include 'theme/partial/search-form.html.twig' %}
     {% include 'theme/partial/index.html.twig' %}
-
     <div class="navigation">
         {{ knp_pagination_render(themes) }}
     </div>
-
 {% endblock %}

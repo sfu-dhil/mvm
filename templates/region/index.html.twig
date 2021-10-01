@@ -17,12 +17,9 @@
 {% endblock %}
 
 {% block body %}
-
-    {% include 'partial/search-form.html.twig' with {'path': path('region_search'), 'q': ''} %}
+    {% include 'region/partial/search-form.html.twig' %}
     {% include 'region/partial/index.html.twig' %}
-
     <div class="navigation">
         {{ knp_pagination_render(regions) }}
     </div>
-
 {% endblock %}
