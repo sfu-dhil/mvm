@@ -22,14 +22,8 @@
 {% endblock %}
 
 {% block body %}
-
-
     <section class="blog_page">
         {{ page.content | raw }}
     </section>
     {% include 'partial/next-prev.html.twig' %}
-{% endblock %}
-
-{% block javascripts %}
-    <script src="{{ asset('js/blog_fix_test.js') }}"></script>
 {% endblock %}

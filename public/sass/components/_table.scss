@@ -1,0 +1,90 @@
+
+// Import the DHILUX table package
+@import "../../yarn/dhilux/scss/a11y_tables";
+
+// Make tables horizontally scrollable
+.table-container{
+  overflow-x:auto;
+  width:100%;
+}
+
+table.table,
+table.table-condensed {
+  border-collapse:separate;
+  border-color: rgba($mvm-brown, 0.15);
+  tbody, thead{
+    th, td{
+      padding: map.get($typescale, 7) map.get($typescale, 5);
+      & > p{
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+      }
+      /* Constraint paragraph width IFF the cell count
+       * is greater than 3  */
+      &:nth-child(n+3) > p{
+        max-width: 25rem;
+      }
+      &.number{
+        text-align:right;
+      }
+    }
+  }
+
+
+  thead > tr > th:not(:first-child),
+  thead + tbody > tr > td:not(:first-child){
+    border-left-style: solid;
+    border-left-color: rgba($mvm-brown, 0.15);
+    border-left-width: 2px;
+  }
+
+  th[role='rowheader']{
+    width:33%;
+  }
+
+
+  tbody{
+    tr{
+      th,td{
+        border-top-color: rgba($mvm-brown, 0.15);
+        border-top-width: 2px;
+        vertical-align:middle;
+      }
+      &:first-child{
+        th, td{
+          border-top:none;
+        }
+      }
+    }
+  }
+}
+
+// When tables are in mobile mode
+@media (max-width:767px){
+  .table-container table.table thead + tbody tr{
+    & + tr{
+      border-top: 2px solid rgba($mvm-brown, 0.15);
+    }
+    th, td{
+      border:none;
+      align-items:baseline;
+      p{
+        margin:0;
+      }
+    }
+  }
+}
+
+// Hack for really wide tables
+
+@media (min-width:768px) and (max-width: 991px){
+  table.table .removable{
+      display:none;
+  }
+}
+
+
+
+
+

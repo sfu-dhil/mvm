@@ -4,7 +4,7 @@
             <th>First Line</th>
             <th>Author</th>
             <th>Description</th>
-            <th>Manuscripts</th>
+            <th class="removable">Manuscripts</th>
         </tr>
     </thead>
     <tbody>
@@ -22,7 +22,7 @@
                     {% endif %}
                 </td>
                 <td>{{ content.description|raw }}</td>
-                <td class="number">{{ content.manuscriptContents|length }}</td>
+                <td class="number removable">{{ content.manuscriptContents|length }}</td>
             </tr>
         {% endfor %}
     </tbody>

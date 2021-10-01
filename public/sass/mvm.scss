@@ -24,9 +24,11 @@
  @import "_functions.scss";
  @import "../yarn/dhilux/scss/dhilux.scss";
 
+
  @import "components/breadcrumb";
  @import "components/carousel";
  @import "components/nextPrev";
+ @import "components/table";
 
 /*
  * Root
@@ -110,6 +112,12 @@ html{
    }
  }
 
+ // Hack to make navbar-toggle centered etc.
+ .navbar-toggle{
+   right: 40px;
+   top:5px;
+
+ }
 
 
 
@@ -212,53 +220,6 @@ div.tab-content{
 
 }
 
-
-table.table,
-table.table-condensed {
-  border-collapse:separate;
-  border-color: rgba($mvm-brown, 0.15);
-  tbody, thead{
-    th, td{
-      padding: map.get($typescale, 7) map.get($typescale, 5);
-      & > p{
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-        word-break: break-word;
-      }
-      /* Constraint paragraph width IFF the cell count
-       * is greater than 3  */
-      &:nth-child(n+3) > p{
-        max-width: 25rem;
-      }
-      &.number{
-        text-align:right;
-      }
-    }
-  }
-
-  thead > tr > th:not(:last-child),
-  tbody > tr > td:not(:last-child){
-    border-right-style: solid;
-    border-right-color: rgba($mvm-brown, 0.15);
-    border-right-width: 2px;
-  }
-
-
-  tbody{
-    tr{
-      th,td{
-        border-top-color: rgba($mvm-brown, 0.15);
-        border-top-width: 2px;
-        vertical-align:middle;
-      }
-      &:first-child{
-        th, td{
-          border-top:none;
-        }
-      }
-    }
-  }
-}
 
 ul.nav-pills{
   display:flex;
@@ -433,6 +394,9 @@ table.table ul{
           padding-bottom: map.get($typescale, 7);
         }
       }
+      th[role='rowheader']{
+        width:unset;
+      }
       .note{
         border:none;
         &:before{
@@ -583,6 +547,9 @@ td .note{
  *  */
 
 footer{
+  @media (max-width:767px){
+    overflow-x:hidden;
+  }
     & > .container{
         display:flex;
         flex-wrap:wrap;
@@ -604,6 +571,7 @@ footer{
           margin-right:-3rem;
         }
      }
+
 
     ul, li{
         list-style-type:none;
