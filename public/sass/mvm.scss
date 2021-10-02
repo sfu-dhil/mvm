@@ -656,6 +656,12 @@ footer{
             }
         }
     }
+
+  @media (max-width: 768px){
+    .page-label{
+      display:none;
+    }
+  }
 }
 
 .cat-description{
