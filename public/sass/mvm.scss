@@ -230,12 +230,14 @@ div.tab-content{
 
 ul.nav-pills{
   display:flex;
+  flex-wrap:wrap;
+  gap:2px;
   & > li.nav-item{
     flex: 1;
     text-align:center;
     font-size:map.get($typescale, 6);
     background: $mvm-grey;
-
+    margin-left:0;
     &.active{
       & > a {
         background: $mvm-dark-purple;
