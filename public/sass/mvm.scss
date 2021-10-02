@@ -55,6 +55,13 @@ html{
      }
  }
 
+ @media (min-width:768px) and (max-width: 991px){
+   .container{
+     width:95%;
+   }
+ }
+
+
  nav.navbar{
      background: $mvm-dark-purple;
      color: $mvm-white;
@@ -139,7 +146,7 @@ html{
 
 //Modals
 
-@include  dhil-modal;
+@include dhil-modal;
 
 a{
   @include link;
@@ -585,13 +592,19 @@ footer{
         display:flex;
         flex:0.25 1 30%;
         flex-wrap:wrap;
+        @media (max-width: 991px){
+          flex:1;
+          width:100%;
+        }
         ul{
-            columns: 3;
+          display:grid;
+          grid-template-columns: repeat(3, 1fr);
+          @media (max-width: 991px){
+            width:100%;
+            grid-template-columns: repeat(auto-fill, minmax(9rem, 0.5fr));
+          }
             li{
                 margin: 1rem;
-                &:first-child{
-                    margin-top: 0;
-                }
             }
             a{
                color:$mvm-dark-purple;
