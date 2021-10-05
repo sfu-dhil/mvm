@@ -83,7 +83,7 @@ class Builder implements ContainerAwareInterface {
         foreach ($menuItems as $name => $label) {
             $menuItems[$name] = $menu->addChild($name, [
                 'uri' => '#',
-                'label' => $label
+                'label' => $label  . self::CARET
             ]);
             $menuItems[$name]->setAttribute('dropdown', true);
             $menuItems[$name]->setAttribute('class','dropdown-toggle');

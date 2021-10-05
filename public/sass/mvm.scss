@@ -601,6 +601,7 @@ footer{
         ul{
           display:grid;
           grid-template-columns: repeat(3, 1fr);
+          grid-gap: 0.75rem;
           @media (max-width: 991px){
             width:100%;
             grid-template-columns: repeat(auto-fill, minmax(9rem, 0.5fr));
@@ -608,6 +609,9 @@ footer{
             li{
                 margin: 1rem;
             }
+          &.footer-links li{
+            margin:0;
+          }
             a{
                color:$mvm-dark-purple;
              }
