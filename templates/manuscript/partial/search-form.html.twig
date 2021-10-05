@@ -1,7 +1,7 @@
 {% include 'partial/search-form.html.twig' with {
     'path': path('manuscript_search'),
-    'help': 'Search within call numbers, titles, or descriptions.
-            To find specific manuscripts by call number or title,
-            put some or all of the phrase in quotation marks (e.g. "M.b.23" or “Lusus”)'
-}
-%}
+    'help': 'Search within call numbers, titles, descriptions, or formats.
+            To find specific manuscripts by call number, all of the call in
+            quotation marks (e.g. "M.b.23"). Use an asterisk as a wild card to
+            find partial words (e.g. "school*" for school, schoolmistress, etc)'
+} %}

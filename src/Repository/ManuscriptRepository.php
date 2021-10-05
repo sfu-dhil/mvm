@@ -42,7 +42,7 @@ class ManuscriptRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\Se
             $qb->orWhere('e.title like :q');
             $qb->setParameter('q', "%${matches[1]}%");
         } else {
-            $qb->where('MATCH(e.callNumber, e.description) AGAINST (:q BOOLEAN) > 0.1');
+            $qb->where('MATCH(e.callNumber, e.description, e.format) AGAINST (:q BOOLEAN) > 0.1');
             $qb->setParameter('q', $q);
         }
         $qb->orderBy('e.callNumber', 'ASC');
