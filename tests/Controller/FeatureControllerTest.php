@@ -29,7 +29,7 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testAnonIndex() : void {
         $crawler = $this->client->request('GET', '/feature/');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
 
@@ -61,7 +61,7 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testAnonShow() : void {
         $crawler = $this->client->request('GET', '/feature/1');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
         $this->assertSame(0, $crawler->selectLink('Delete')->count());
     }
@@ -97,7 +97,7 @@ class FeatureControllerTest extends ControllerBaseCase {
     public function testAnonTypeahead() : void {
         $this->client->request('GET', '/feature/typeahead?q=STUFF');
         $response = $this->client->getResponse();
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 //        $this->assertEquals('application/json', $response->headers->get('content-type'));
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
