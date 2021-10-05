@@ -154,7 +154,7 @@ class Builder implements ContainerAwareInterface {
         $menuItems['people']->addChild('Browse Poem Roles', [
             'route' => 'content_role_index',
         ]);
-        $menuItems['people']->addChild('Manuscript Roles', [
+        $menuItems['people']->addChild('Browse Manuscript Roles', [
             'route' => 'manuscript_role_index',
         ]);
         $menuItems['poems']->addChild('Browse all Poems', [
