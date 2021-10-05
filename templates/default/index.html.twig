@@ -7,7 +7,7 @@
             <h1 class="sr-only">Manuscript Verse Miscellanies</h1>
             <img src="{{ asset('images/title.svg') }}" alt="Manuscript Verse Miscellanies" />
 
-            {% if isAdmin and homepage is not null %}
+            {% if homepage is not null %}
                 {% set firstParagraph = homepage.excerpt|split('</p>')|first  ~ '</p>' %}
                 {{ firstParagraph |raw }}
                 <a class="readMore" href="{{ path('nines_blog_page_show', { 'id': homepage.id }) }}">READ MORE</a>
