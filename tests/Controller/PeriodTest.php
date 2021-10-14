@@ -10,16 +10,22 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\DataFixtures\FeatureFixtures;
-use App\Entity\Feature;
+use App\DataFixtures\PeriodFixtures;
+use App\Repository\PeriodRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
+use Symfony\Component\HttpFoundation\Response;
 
-class FeatureControllerTest extends ControllerBaseCase {
+class PeriodTest extends ControllerBaseCase {
+    // Change this to HTTP_OK when the site is public.
+    private const ANON_RESPONSE_CODE=Response::HTTP_OK;
+
+    private const TYPEAHEAD_QUERY = 'label';
+
     protected function fixtures() : array {
         return [
+            PeriodFixtures::class,
             UserFixtures::class,
-            FeatureFixtures::class,
         ];
     }
 
@@ -28,8 +34,8 @@ class FeatureControllerTest extends ControllerBaseCase {
      * @group index
      */
     public function testAnonIndex() : void {
-        $crawler = $this->client->request('GET', '/feature/');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/period/');
+        $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
 
@@ -39,8 +45,8 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testUserIndex() : void {
         $this->login('user.user');
-        $crawler = $this->client->request('GET', '/feature/');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/period/');
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
 
@@ -50,8 +56,8 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testAdminIndex() : void {
         $this->login('user.admin');
-        $crawler = $this->client->request('GET', '/feature/');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/period/');
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $crawler->selectLink('New')->count());
     }
 
@@ -60,10 +66,9 @@ class FeatureControllerTest extends ControllerBaseCase {
      * @group show
      */
     public function testAnonShow() : void {
-        $crawler = $this->client->request('GET', '/feature/1');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/period/1');
+        $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
-        $this->assertSame(0, $crawler->selectLink('Delete')->count());
     }
 
     /**
@@ -72,10 +77,9 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testUserShow() : void {
         $this->login('user.user');
-        $crawler = $this->client->request('GET', '/feature/1');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/period/1');
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
-        $this->assertSame(0, $crawler->selectLink('Delete')->count());
     }
 
     /**
@@ -84,10 +88,9 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testAdminShow() : void {
         $this->login('user.admin');
-        $crawler = $this->client->request('GET', '/feature/1');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/period/1');
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $crawler->selectLink('Edit')->count());
-        $this->assertSame(1, $crawler->selectLink('Delete')->count());
     }
 
     /**
@@ -95,13 +98,14 @@ class FeatureControllerTest extends ControllerBaseCase {
      * @group typeahead
      */
     public function testAnonTypeahead() : void {
-        $this->client->request('GET', '/feature/typeahead?q=STUFF');
+        $this->client->request('GET', '/period/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-//        $this->assertEquals('application/json', $response->headers->get('content-type'));
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
+        if (self::ANON_RESPONSE_CODE === Response::HTTP_FOUND) {
+            // If authentication is required stop here.
+            return;
+        }
+        $this->assertSame('application/json', $response->headers->get('content-type'));
         $json = json_decode($response->getContent());
         $this->assertCount(4, $json);
     }
@@ -112,13 +116,10 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testUserTypeahead() : void {
         $this->login('user.user');
-        $this->client->request('GET', '/feature/typeahead?q=STUFF');
+        $this->client->request('GET', '/period/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
         $json = json_decode($response->getContent());
         $this->assertCount(4, $json);
     }
@@ -129,13 +130,10 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testAdminTypeahead() : void {
         $this->login('user.admin');
-        $this->client->request('GET', '/feature/typeahead?q=STUFF');
+        $this->client->request('GET', '/period/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
         $json = json_decode($response->getContent());
         $this->assertCount(4, $json);
     }
@@ -145,8 +143,8 @@ class FeatureControllerTest extends ControllerBaseCase {
      * @group edit
      */
     public function testAnonEdit() : void {
-        $crawler = $this->client->request('GET', '/feature/1/edit');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/period/1/edit');
+        $this->assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
 
@@ -156,7 +154,7 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testUserEdit() : void {
         $this->login('user.user');
-        $crawler = $this->client->request('GET', '/feature/1/edit');
+        $crawler = $this->client->request('GET', '/period/1/edit');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
@@ -166,22 +164,20 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testAdminEdit() : void {
         $this->login('user.admin');
-        $formCrawler = $this->client->request('GET', '/feature/1/edit');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $formCrawler = $this->client->request('GET', '/period/1/edit');
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'features[FIELDNAME]' => 'FIELDVALUE',
+            'period[label]' => 'Updated Label',
+            'period[description]' => 'Updated Description',
         ]);
 
         $this->client->submit($form);
-        $this->assertTrue($this->client->getResponse()->isRedirect('/feature/1'));
+        $this->assertTrue($this->client->getResponse()->isRedirect('/period/1'));
         $responseCrawler = $this->client->followRedirect();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(1, $responseCrawler->filter('h1:contains("Updated Label")')->count());
+        $this->assertSame(1, $responseCrawler->filter('div:contains("Updated Description")')->count());
     }
 
     /**
@@ -189,8 +185,8 @@ class FeatureControllerTest extends ControllerBaseCase {
      * @group new
      */
     public function testAnonNew() : void {
-        $crawler = $this->client->request('GET', '/feature/new');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/period/new');
+        $this->assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
 
@@ -199,8 +195,8 @@ class FeatureControllerTest extends ControllerBaseCase {
      * @group new
      */
     public function testAnonNewPopup() : void {
-        $crawler = $this->client->request('GET', '/feature/new_popup');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', '/period/new_popup');
+        $this->assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
 
@@ -210,7 +206,7 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testUserNew() : void {
         $this->login('user.user');
-        $crawler = $this->client->request('GET', '/feature/new');
+        $crawler = $this->client->request('GET', '/period/new');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
@@ -220,7 +216,7 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testUserNewPopup() : void {
         $this->login('user.user');
-        $crawler = $this->client->request('GET', '/feature/new_popup');
+        $crawler = $this->client->request('GET', '/period/new_popup');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
@@ -230,22 +226,20 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testAdminNew() : void {
         $this->login('user.admin');
-        $formCrawler = $this->client->request('GET', '/feature/new');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $formCrawler = $this->client->request('GET', '/period/new');
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
         $form = $formCrawler->selectButton('Create')->form([
-            // DO STUFF HERE.
-            // 'features[FIELDNAME]' => 'FIELDVALUE',
+            'period[label]' => 'New Label',
+            'period[description]' => 'New Description',
         ]);
 
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(1, $responseCrawler->filter('h1:contains("New Label")')->count());
+        $this->assertSame(1, $responseCrawler->filter('div:contains("New Description")')->count());
     }
 
     /**
@@ -254,42 +248,20 @@ class FeatureControllerTest extends ControllerBaseCase {
      */
     public function testAdminNewPopup() : void {
         $this->login('user.admin');
-        $formCrawler = $this->client->request('GET', '/feature/new_popup');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $formCrawler = $this->client->request('GET', '/period/new_popup');
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
         $form = $formCrawler->selectButton('Create')->form([
-            // DO STUFF HERE.
-            // 'features[FIELDNAME]' => 'FIELDVALUE',
+            'period[label]' => 'New Label',
+            'period[description]' => 'New Description',
         ]);
 
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
-    }
-
-    /**
-     * @group anon
-     * @group delete
-     */
-    public function testAnonDelete() : void {
-        $crawler = $this->client->request('GET', '/feature/1/delete');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
-        $this->assertTrue($this->client->getResponse()->isRedirect());
-    }
-
-    /**
-     * @group user
-     * @group delete
-     */
-    public function testUserDelete() : void {
-        $this->login('user.user');
-        $crawler = $this->client->request('GET', '/feature/1/delete');
-        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(1, $responseCrawler->filter('h1:contains("New Label")')->count());
+        $this->assertSame(1, $responseCrawler->filter('div:contains("New Description")')->count());
     }
 
     /**
@@ -297,16 +269,18 @@ class FeatureControllerTest extends ControllerBaseCase {
      * @group delete
      */
     public function testAdminDelete() : void {
-        $preCount = count($this->entityManager->getRepository(Feature::class)->findAll());
+        $repo = self::$container->get(PeriodRepository::class);
+        $preCount = count($repo->findAll());
+
         $this->login('user.admin');
-        $crawler = $this->client->request('GET', '/feature/1/delete');
+        $crawler = $this->client->request('GET', '/period/1/delete');
         $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->entityManager->clear();
-        $postCount = count($this->entityManager->getRepository(Feature::class)->findAll());
+        $postCount = count($repo->findAll());
         $this->assertSame($preCount - 1, $postCount);
     }
 }

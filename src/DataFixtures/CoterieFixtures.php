@@ -16,10 +16,10 @@ use Doctrine\Persistence\ObjectManager;
 
 class CoterieFixtures extends Fixture {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function load(ObjectManager $em) : void {
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             $fixture = new Coterie();
             $fixture->setName('Name ' . $i);
             $fixture->setLabel('Label ' . $i);
