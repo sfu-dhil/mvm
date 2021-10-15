@@ -8,8 +8,9 @@
 
 {% block pageheader %}
     <h1>Manuscript Search</h1>
-    {% include 'partial/count.html.twig' with {'index': manuscripts, 'label': 'manuscripts'} %}
-
+    {% if manuscripts|length > 0 %}
+        {% include 'partial/count.html.twig' with {'index': manuscripts, 'label': 'manuscripts'} %}
+    {% endif %}
 {% endblock %}
 
 {% block body %}
@@ -23,7 +24,9 @@
         {% endembed %}
     {% endif %}
 
+    {% if manuscripts|length > 0 %}
     <div class="navigation">
         {{ knp_pagination_render(manuscripts) }}
     </div>
+    {% endif %}
 {% endblock %}
