@@ -11,14 +11,19 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\DataFixtures\ContentContributionFixtures;
+use App\Repository\ContentContributionRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
+use Symfony\Component\HttpFoundation\Response;
 
-class ContentContributionControllerTest extends ControllerBaseCase {
+class ContentContributionTest extends ControllerBaseCase {
+    // Change this to HTTP_OK when the site is public.
+    private const ANON_RESPONSE_CODE=Response::HTTP_OK;
+
     protected function fixtures() : array {
         return [
-            UserFixtures::class,
             ContentContributionFixtures::class,
+            UserFixtures::class,
         ];
     }
 
@@ -28,8 +33,7 @@ class ContentContributionControllerTest extends ControllerBaseCase {
      */
     public function testAnonIndex() : void {
         $crawler = $this->client->request('GET', '/content_contribution/');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        $this->assertSame(0, $crawler->selectLink('New')->count());
+        $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -39,8 +43,7 @@ class ContentContributionControllerTest extends ControllerBaseCase {
     public function testUserIndex() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/content_contribution/');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        $this->assertSame(0, $crawler->selectLink('New')->count());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -50,7 +53,7 @@ class ContentContributionControllerTest extends ControllerBaseCase {
     public function testAdminIndex() : void {
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/content_contribution/');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -59,9 +62,7 @@ class ContentContributionControllerTest extends ControllerBaseCase {
      */
     public function testAnonShow() : void {
         $crawler = $this->client->request('GET', '/content_contribution/1');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        $this->assertSame(0, $crawler->selectLink('Edit')->count());
-        $this->assertSame(0, $crawler->selectLink('Delete')->count());
+        $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -71,9 +72,7 @@ class ContentContributionControllerTest extends ControllerBaseCase {
     public function testUserShow() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/content_contribution/1');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        $this->assertSame(0, $crawler->selectLink('Edit')->count());
-        $this->assertSame(0, $crawler->selectLink('Delete')->count());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -83,6 +82,7 @@ class ContentContributionControllerTest extends ControllerBaseCase {
     public function testAdminShow() : void {
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/content_contribution/1');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
     }
+
 }

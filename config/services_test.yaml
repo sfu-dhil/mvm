@@ -6,4 +6,20 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         public: true
 
+    test.App\Repository\ArchiveRepository: '@App\Repository\ArchiveRepository'
+    test.App\Repository\CircaDateRepository: '@App\Repository\CircaDateRepository'
+    test.App\Repository\ContentRepository: '@App\Repository\ContentRepository'
+    test.App\Repository\ContentContributionRepository: '@App\Repository\ContentContributionRepository'
+    test.App\Repository\ContentRoleRepository: '@App\Repository\ContentRoleRepository'
     test.App\Repository\CoterieRepository: '@App\Repository\CoterieRepository'
+    test.App\Repository\FeatureRepository: '@App\Repository\FeatureRepository'
+    test.App\Repository\ManuscriptRepository: '@App\Repository\ManuscriptRepository'
+    test.App\Repository\ManuscriptContentRepository: '@App\Repository\ManuscriptContentRepository'
+    test.App\Repository\ManuscriptContributionRepository: '@App\Repository\ManuscriptContributionRepository'
+    test.App\Repository\ManuscriptFeatureRepository: '@App\Repository\ManuscriptFeatureRepository'
+    test.App\Repository\ManuscriptRoleRepository: '@App\Repository\ManuscriptRoleRepository'
+    test.App\Repository\PeriodRepository: '@App\Repository\PeriodRepository'
+    test.App\Repository\PersonRepository: '@App\Repository\PersonRepository'
+    test.App\Repository\PrintSourceRepository: '@App\Repository\PrintSourceRepository'
+    test.App\Repository\RegionRepository: '@App\Repository\RegionRepository'
+    test.App\Repository\ThemeRepository: '@App\Repository\ThemeRepository'
