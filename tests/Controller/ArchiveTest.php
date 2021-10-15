@@ -10,13 +10,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\DataFixtures\CoterieFixtures;
-use App\Repository\CoterieRepository;
+use App\DataFixtures\ArchiveFixtures;
+use App\Repository\ArchiveRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class CoterieTest extends ControllerBaseCase {
+class ArchiveTest extends ControllerBaseCase {
     // Change this to HTTP_OK when the site is public.
     private const ANON_RESPONSE_CODE=Response::HTTP_OK;
 
@@ -24,7 +24,7 @@ class CoterieTest extends ControllerBaseCase {
 
     protected function fixtures() : array {
         return [
-            CoterieFixtures::class,
+            ArchiveFixtures::class,
             UserFixtures::class,
         ];
     }
@@ -34,7 +34,7 @@ class CoterieTest extends ControllerBaseCase {
      * @group index
      */
     public function testAnonIndex() : void {
-        $crawler = $this->client->request('GET', '/coterie/');
+        $crawler = $this->client->request('GET', '/archive/');
         $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
@@ -45,7 +45,7 @@ class CoterieTest extends ControllerBaseCase {
      */
     public function testUserIndex() : void {
         $this->login('user.user');
-        $crawler = $this->client->request('GET', '/coterie/');
+        $crawler = $this->client->request('GET', '/archive/');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
@@ -56,7 +56,7 @@ class CoterieTest extends ControllerBaseCase {
      */
     public function testAdminIndex() : void {
         $this->login('user.admin');
-        $crawler = $this->client->request('GET', '/coterie/');
+        $crawler = $this->client->request('GET', '/archive/');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $crawler->selectLink('New')->count());
     }
@@ -66,7 +66,7 @@ class CoterieTest extends ControllerBaseCase {
      * @group show
      */
     public function testAnonShow() : void {
-        $crawler = $this->client->request('GET', '/coterie/1');
+        $crawler = $this->client->request('GET', '/archive/1');
         $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
     }
@@ -77,7 +77,7 @@ class CoterieTest extends ControllerBaseCase {
      */
     public function testUserShow() : void {
         $this->login('user.user');
-        $crawler = $this->client->request('GET', '/coterie/1');
+        $crawler = $this->client->request('GET', '/archive/1');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
     }
@@ -88,7 +88,7 @@ class CoterieTest extends ControllerBaseCase {
      */
     public function testAdminShow() : void {
         $this->login('user.admin');
-        $crawler = $this->client->request('GET', '/coterie/1');
+        $crawler = $this->client->request('GET', '/archive/1');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $crawler->selectLink('Edit')->count());
     }
@@ -98,7 +98,7 @@ class CoterieTest extends ControllerBaseCase {
      * @group typeahead
      */
     public function testAnonTypeahead() : void {
-        $this->client->request('GET', '/coterie/typeahead?q=' . self::TYPEAHEAD_QUERY);
+        $this->client->request('GET', '/archive/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
         $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
         if (self::ANON_RESPONSE_CODE === Response::HTTP_FOUND) {
@@ -116,7 +116,7 @@ class CoterieTest extends ControllerBaseCase {
      */
     public function testUserTypeahead() : void {
         $this->login('user.user');
-        $this->client->request('GET', '/coterie/typeahead?q=' . self::TYPEAHEAD_QUERY);
+        $this->client->request('GET', '/archive/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
@@ -130,7 +130,7 @@ class CoterieTest extends ControllerBaseCase {
      */
     public function testAdminTypeahead() : void {
         $this->login('user.admin');
-        $this->client->request('GET', '/coterie/typeahead?q=' . self::TYPEAHEAD_QUERY);
+        $this->client->request('GET', '/archive/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
@@ -139,12 +139,12 @@ class CoterieTest extends ControllerBaseCase {
     }
 
     public function testAnonSearch() : void {
-        $repo = $this->createMock(CoterieRepository::class);
-        $repo->method('searchQuery')->willReturn([$this->getReference('coterie.1')]);
+        $repo = $this->createMock(ArchiveRepository::class);
+        $repo->method('searchQuery')->willReturn([$this->getReference('archive.1')]);
         $this->client->disableReboot();
-        $this->client->getContainer()->set('test.' . CoterieRepository::class, $repo);
+        $this->client->getContainer()->set('test.' . ArchiveRepository::class, $repo);
 
-        $crawler = $this->client->request('GET', '/coterie/search');
+        $crawler = $this->client->request('GET', '/archive/search');
         $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
         if (self::ANON_RESPONSE_CODE === Response::HTTP_FOUND) {
             // If authentication is required stop here.
@@ -152,7 +152,7 @@ class CoterieTest extends ControllerBaseCase {
         }
 
         $form = $crawler->selectButton('Search')->form([
-            'q' => 'coterie',
+            'q' => 'archive',
         ]);
 
         $responseCrawler = $this->client->submit($form);
@@ -160,17 +160,17 @@ class CoterieTest extends ControllerBaseCase {
     }
 
     public function testUserSearch() : void {
-        $repo = $this->createMock(CoterieRepository::class);
-        $repo->method('searchQuery')->willReturn([$this->getReference('coterie.1')]);
+        $repo = $this->createMock(ArchiveRepository::class);
+        $repo->method('searchQuery')->willReturn([$this->getReference('archive.1')]);
         $this->client->disableReboot();
-        $this->client->getContainer()->set('test.' . CoterieRepository::class, $repo);
+        $this->client->getContainer()->set('test.' . ArchiveRepository::class, $repo);
 
         $this->login('user.user');
-        $crawler = $this->client->request('GET', '/coterie/search');
+        $crawler = $this->client->request('GET', '/archive/search');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         $form = $crawler->selectButton('Search')->form([
-            'q' => 'coterie',
+            'q' => 'archive',
         ]);
 
         $responseCrawler = $this->client->submit($form);
@@ -178,17 +178,17 @@ class CoterieTest extends ControllerBaseCase {
     }
 
     public function testAdminSearch() : void {
-        $repo = $this->createMock(CoterieRepository::class);
-        $repo->method('searchQuery')->willReturn([$this->getReference('coterie.1')]);
+        $repo = $this->createMock(ArchiveRepository::class);
+        $repo->method('searchQuery')->willReturn([$this->getReference('archive.1')]);
         $this->client->disableReboot();
-        $this->client->getContainer()->set('test.' . CoterieRepository::class, $repo);
+        $this->client->getContainer()->set('test.' . ArchiveRepository::class, $repo);
 
         $this->login('user.admin');
-        $crawler = $this->client->request('GET', '/coterie/search');
+        $crawler = $this->client->request('GET', '/archive/search');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         $form = $crawler->selectButton('Search')->form([
-            'q' => 'coterie',
+            'q' => 'archive',
         ]);
 
         $responseCrawler = $this->client->submit($form);
@@ -200,7 +200,7 @@ class CoterieTest extends ControllerBaseCase {
      * @group edit
      */
     public function testAnonEdit() : void {
-        $crawler = $this->client->request('GET', '/coterie/1/edit');
+        $crawler = $this->client->request('GET', '/archive/1/edit');
         $this->assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
@@ -211,7 +211,7 @@ class CoterieTest extends ControllerBaseCase {
      */
     public function testUserEdit() : void {
         $this->login('user.user');
-        $crawler = $this->client->request('GET', '/coterie/1/edit');
+        $crawler = $this->client->request('GET', '/archive/1/edit');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
@@ -221,16 +221,16 @@ class CoterieTest extends ControllerBaseCase {
      */
     public function testAdminEdit() : void {
         $this->login('user.admin');
-        $formCrawler = $this->client->request('GET', '/coterie/1/edit');
+        $formCrawler = $this->client->request('GET', '/archive/1/edit');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Update')->form([
-            'coterie[label]' => 'Updated Label',
-            'coterie[description]' => 'Updated Description',
+            'archive[label]' => 'Updated Label',
+            'archive[description]' => 'Updated Description',
         ]);
 
         $this->client->submit($form);
-        $this->assertTrue($this->client->getResponse()->isRedirect('/coterie/1'));
+        $this->assertTrue($this->client->getResponse()->isRedirect('/archive/1'));
         $responseCrawler = $this->client->followRedirect();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $responseCrawler->filter('h1:contains("Updated Label")')->count());
@@ -242,7 +242,7 @@ class CoterieTest extends ControllerBaseCase {
      * @group new
      */
     public function testAnonNew() : void {
-        $crawler = $this->client->request('GET', '/coterie/new');
+        $crawler = $this->client->request('GET', '/archive/new');
         $this->assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
@@ -252,7 +252,7 @@ class CoterieTest extends ControllerBaseCase {
      * @group new
      */
     public function testAnonNewPopup() : void {
-        $crawler = $this->client->request('GET', '/coterie/new_popup');
+        $crawler = $this->client->request('GET', '/archive/new_popup');
         $this->assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
@@ -263,7 +263,7 @@ class CoterieTest extends ControllerBaseCase {
      */
     public function testUserNew() : void {
         $this->login('user.user');
-        $crawler = $this->client->request('GET', '/coterie/new');
+        $crawler = $this->client->request('GET', '/archive/new');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
@@ -273,7 +273,7 @@ class CoterieTest extends ControllerBaseCase {
      */
     public function testUserNewPopup() : void {
         $this->login('user.user');
-        $crawler = $this->client->request('GET', '/coterie/new_popup');
+        $crawler = $this->client->request('GET', '/archive/new_popup');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
@@ -283,12 +283,12 @@ class CoterieTest extends ControllerBaseCase {
      */
     public function testAdminNew() : void {
         $this->login('user.admin');
-        $formCrawler = $this->client->request('GET', '/coterie/new');
+        $formCrawler = $this->client->request('GET', '/archive/new');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Create')->form([
-            'coterie[label]' => 'New Label',
-            'coterie[description]' => 'New Description',
+            'archive[label]' => 'New Label',
+            'archive[description]' => 'New Description',
         ]);
 
         $this->client->submit($form);
@@ -305,12 +305,12 @@ class CoterieTest extends ControllerBaseCase {
      */
     public function testAdminNewPopup() : void {
         $this->login('user.admin');
-        $formCrawler = $this->client->request('GET', '/coterie/new_popup');
+        $formCrawler = $this->client->request('GET', '/archive/new_popup');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Create')->form([
-            'coterie[label]' => 'New Label',
-            'coterie[description]' => 'New Description',
+            'archive[label]' => 'New Label',
+            'archive[description]' => 'New Description',
         ]);
 
         $this->client->submit($form);
@@ -326,11 +326,11 @@ class CoterieTest extends ControllerBaseCase {
      * @group delete
      */
     public function testAdminDelete() : void {
-        $repo = self::$container->get(CoterieRepository::class);
+        $repo = self::$container->get(ArchiveRepository::class);
         $preCount = count($repo->findAll());
 
         $this->login('user.admin');
-        $crawler = $this->client->request('GET', '/coterie/1/delete');
+        $crawler = $this->client->request('GET', '/archive/1/delete');
         $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();

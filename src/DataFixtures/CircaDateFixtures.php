@@ -10,22 +10,20 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\Entity\ManuscriptRole;
+use App\Entity\CircaDate;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class ManuscriptRoleFixtures extends Fixture {
+class CircaDateFixtures extends Fixture {
     /**
      * {@inheritDoc}
      */
     public function load(ObjectManager $em) : void {
         for ($i = 1; $i <= 4; $i++) {
-            $fixture = new ManuscriptRole();
-            $fixture->setName('Name ' . $i);
-            $fixture->setLabel('Label ' . $i);
-            $fixture->setDescription("<p>This is paragraph {$i}</p>");
+            $fixture = new CircaDate();
+            $fixture->setValue('200' . $i);
             $em->persist($fixture);
-            $this->setReference('manuscriptrole.' . $i, $fixture);
+            $this->setReference('circadate.' . $i, $fixture);
         }
         $em->flush();
     }

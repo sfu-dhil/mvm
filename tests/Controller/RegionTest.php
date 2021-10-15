@@ -11,15 +11,21 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\DataFixtures\RegionFixtures;
-use App\Entity\Region;
+use App\Repository\RegionRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
+use Symfony\Component\HttpFoundation\Response;
 
-class RegionControllerTest extends ControllerBaseCase {
+class RegionTest extends ControllerBaseCase {
+    // Change this to HTTP_OK when the site is public.
+    private const ANON_RESPONSE_CODE=Response::HTTP_OK;
+
+    private const TYPEAHEAD_QUERY = 'name';
+
     protected function fixtures() : array {
         return [
-            UserFixtures::class,
             RegionFixtures::class,
+            UserFixtures::class,
         ];
     }
 
@@ -29,7 +35,7 @@ class RegionControllerTest extends ControllerBaseCase {
      */
     public function testAnonIndex() : void {
         $crawler = $this->client->request('GET', '/region/');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
 
@@ -40,7 +46,7 @@ class RegionControllerTest extends ControllerBaseCase {
     public function testUserIndex() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/region/');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
 
@@ -51,7 +57,7 @@ class RegionControllerTest extends ControllerBaseCase {
     public function testAdminIndex() : void {
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/region/');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $crawler->selectLink('New')->count());
     }
 
@@ -61,9 +67,8 @@ class RegionControllerTest extends ControllerBaseCase {
      */
     public function testAnonShow() : void {
         $crawler = $this->client->request('GET', '/region/1');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
-        $this->assertSame(0, $crawler->selectLink('Delete')->count());
     }
 
     /**
@@ -73,9 +78,8 @@ class RegionControllerTest extends ControllerBaseCase {
     public function testUserShow() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/region/1');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
-        $this->assertSame(0, $crawler->selectLink('Delete')->count());
     }
 
     /**
@@ -85,9 +89,8 @@ class RegionControllerTest extends ControllerBaseCase {
     public function testAdminShow() : void {
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/region/1');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $crawler->selectLink('Edit')->count());
-        $this->assertSame(1, $crawler->selectLink('Delete')->count());
     }
 
     /**
@@ -95,13 +98,14 @@ class RegionControllerTest extends ControllerBaseCase {
      * @group typeahead
      */
     public function testAnonTypeahead() : void {
-        $this->client->request('GET', '/region/typeahead?q=STUFF');
+        $this->client->request('GET', '/region/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-//        $this->assertEquals('application/json', $response->headers->get('content-type'));
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
+        if (self::ANON_RESPONSE_CODE === Response::HTTP_FOUND) {
+            // If authentication is required stop here.
+            return;
+        }
+        $this->assertSame('application/json', $response->headers->get('content-type'));
         $json = json_decode($response->getContent());
         $this->assertCount(4, $json);
     }
@@ -112,13 +116,10 @@ class RegionControllerTest extends ControllerBaseCase {
      */
     public function testUserTypeahead() : void {
         $this->login('user.user');
-        $this->client->request('GET', '/region/typeahead?q=STUFF');
+        $this->client->request('GET', '/region/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
         $json = json_decode($response->getContent());
         $this->assertCount(4, $json);
     }
@@ -129,15 +130,69 @@ class RegionControllerTest extends ControllerBaseCase {
      */
     public function testAdminTypeahead() : void {
         $this->login('user.admin');
-        $this->client->request('GET', '/region/typeahead?q=STUFF');
+        $this->client->request('GET', '/region/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
         $json = json_decode($response->getContent());
         $this->assertCount(4, $json);
+    }
+
+    public function testAnonSearch() : void {
+        $repo = $this->createMock(RegionRepository::class);
+        $repo->method('searchQuery')->willReturn([$this->getReference('region.1')]);
+        $this->client->disableReboot();
+        $this->client->getContainer()->set('test.' . RegionRepository::class, $repo);
+
+        $crawler = $this->client->request('GET', '/region/search');
+        $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
+        if (self::ANON_RESPONSE_CODE === Response::HTTP_FOUND) {
+            // If authentication is required stop here.
+            return;
+        }
+
+        $form = $crawler->selectButton('Search')->form([
+            'q' => 'region',
+        ]);
+
+        $responseCrawler = $this->client->submit($form);
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testUserSearch() : void {
+        $repo = $this->createMock(RegionRepository::class);
+        $repo->method('searchQuery')->willReturn([$this->getReference('region.1')]);
+        $this->client->disableReboot();
+        $this->client->getContainer()->set('test.' . RegionRepository::class, $repo);
+
+        $this->login('user.user');
+        $crawler = $this->client->request('GET', '/region/search');
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+        $form = $crawler->selectButton('Search')->form([
+            'q' => 'region',
+        ]);
+
+        $responseCrawler = $this->client->submit($form);
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testAdminSearch() : void {
+        $repo = $this->createMock(RegionRepository::class);
+        $repo->method('searchQuery')->willReturn([$this->getReference('region.1')]);
+        $this->client->disableReboot();
+        $this->client->getContainer()->set('test.' . RegionRepository::class, $repo);
+
+        $this->login('user.admin');
+        $crawler = $this->client->request('GET', '/region/search');
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+        $form = $crawler->selectButton('Search')->form([
+            'q' => 'region',
+        ]);
+
+        $responseCrawler = $this->client->submit($form);
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -146,7 +201,7 @@ class RegionControllerTest extends ControllerBaseCase {
      */
     public function testAnonEdit() : void {
         $crawler = $this->client->request('GET', '/region/1/edit');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
 
@@ -167,21 +222,17 @@ class RegionControllerTest extends ControllerBaseCase {
     public function testAdminEdit() : void {
         $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/region/1/edit');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'regions[FIELDNAME]' => 'FIELDVALUE',
+            'region[name]' => 'Updated Name',
         ]);
 
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect('/region/1'));
         $responseCrawler = $this->client->followRedirect();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(1, $responseCrawler->filter('h1:contains("Updated Name")')->count());
     }
 
     /**
@@ -190,7 +241,7 @@ class RegionControllerTest extends ControllerBaseCase {
      */
     public function testAnonNew() : void {
         $crawler = $this->client->request('GET', '/region/new');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
 
@@ -200,7 +251,7 @@ class RegionControllerTest extends ControllerBaseCase {
      */
     public function testAnonNewPopup() : void {
         $crawler = $this->client->request('GET', '/region/new_popup');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
     }
 
@@ -231,21 +282,17 @@ class RegionControllerTest extends ControllerBaseCase {
     public function testAdminNew() : void {
         $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/region/new');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
         $form = $formCrawler->selectButton('Create')->form([
-            // DO STUFF HERE.
-            // 'regions[FIELDNAME]' => 'FIELDVALUE',
+            'region[name]' => 'New Name',
         ]);
 
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(1, $responseCrawler->filter('h1:contains("New Name")')->count());
     }
 
     /**
@@ -255,41 +302,17 @@ class RegionControllerTest extends ControllerBaseCase {
     public function testAdminNewPopup() : void {
         $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/region/new_popup');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
         $form = $formCrawler->selectButton('Create')->form([
-            // DO STUFF HERE.
-            // 'regions[FIELDNAME]' => 'FIELDVALUE',
+            'region[name]' => 'New Name',
         ]);
 
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
-    }
-
-    /**
-     * @group anon
-     * @group delete
-     */
-    public function testAnonDelete() : void {
-        $crawler = $this->client->request('GET', '/region/1/delete');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
-        $this->assertTrue($this->client->getResponse()->isRedirect());
-    }
-
-    /**
-     * @group user
-     * @group delete
-     */
-    public function testUserDelete() : void {
-        $this->login('user.user');
-        $crawler = $this->client->request('GET', '/region/1/delete');
-        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(1, $responseCrawler->filter('h1:contains("New Name")')->count());
     }
 
     /**
@@ -297,7 +320,9 @@ class RegionControllerTest extends ControllerBaseCase {
      * @group delete
      */
     public function testAdminDelete() : void {
-        $preCount = count($this->entityManager->getRepository(Region::class)->findAll());
+        $repo = self::$container->get(RegionRepository::class);
+        $preCount = count($repo->findAll());
+
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/region/1/delete');
         $this->assertSame(302, $this->client->getResponse()->getStatusCode());
@@ -306,7 +331,7 @@ class RegionControllerTest extends ControllerBaseCase {
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->entityManager->clear();
-        $postCount = count($this->entityManager->getRepository(Region::class)->findAll());
+        $postCount = count($repo->findAll());
         $this->assertSame($preCount - 1, $postCount);
     }
 }
