@@ -7,7 +7,7 @@
     "webpack": "webpack --config webpack.config.js",
     "watch": "webpack watch --config webpack.config.js"
   },
-    "dependencies": {
+  "dependencies": {
     "bootstrap3": "^3.3.5",
     "dhilux": "https://github.com/joeytakeda/dhilux",
     "jquery": "^3.4.1",
