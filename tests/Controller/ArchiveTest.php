@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArchiveTest extends ControllerBaseCase {
     // Change this to HTTP_OK when the site is public.
-    private const ANON_RESPONSE_CODE=Response::HTTP_OK;
+    private const ANON_RESPONSE_CODE = Response::HTTP_OK;
 
     private const TYPEAHEAD_QUERY = 'label';
 

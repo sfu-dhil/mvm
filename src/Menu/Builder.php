@@ -78,15 +78,15 @@ class Builder implements ContainerAwareInterface {
         $menuItems = [
             'manuscripts' => 'Manuscripts',
             'people' => 'People, Coteries, Roles',
-            'poems' => 'Poems'
+            'poems' => 'Poems',
         ];
         foreach ($menuItems as $name => $label) {
             $menuItems[$name] = $menu->addChild($name, [
                 'uri' => '#',
-                'label' => $label  . self::CARET
+                'label' => $label . self::CARET,
             ]);
             $menuItems[$name]->setAttribute('dropdown', true);
-            $menuItems[$name]->setAttribute('class','dropdown-toggle');
+            $menuItems[$name]->setAttribute('class', 'dropdown-toggle');
             $menuItems[$name]->setLinkAttribute('data-toggle', 'dropdown');
             $menuItems[$name]->setChildrenAttribute('class', 'dropdown-menu');
         }
@@ -109,7 +109,7 @@ class Builder implements ContainerAwareInterface {
             'route' => 'print_source_index',
         ]);
         $menuItems['manuscripts']->addChild('Browse MSS by Region', [
-            'route' => 'region_index'
+            'route' => 'region_index',
         ]);
         if ($this->hasRole('ROLE_USER')) {
             $divider = $menuItems['manuscripts']->addChild('divider', [

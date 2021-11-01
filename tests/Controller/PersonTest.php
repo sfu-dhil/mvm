@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PersonTest extends ControllerBaseCase {
     // Change this to HTTP_OK when the site is public.
-    private const ANON_RESPONSE_CODE=Response::HTTP_OK;
+    private const ANON_RESPONSE_CODE = Response::HTTP_OK;
 
     private const TYPEAHEAD_QUERY = 'fullname';
 
@@ -333,7 +333,7 @@ class PersonTest extends ControllerBaseCase {
         $this->assertSame(1, $responseCrawler->filter('h1:contains("New FullName")')->count());
         $this->assertSame(1, $responseCrawler->filter('td:contains("Male")')->count());
         $this->assertSame(1, $responseCrawler->filter('div:contains("New Description")')->count());
-   }
+    }
 
     /**
      * @group admin

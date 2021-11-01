@@ -11,14 +11,13 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\DataFixtures\ManuscriptFeatureFixtures;
-use App\Repository\ManuscriptFeatureRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 use Symfony\Component\HttpFoundation\Response;
 
 class ManuscriptFeatureTest extends ControllerBaseCase {
     // Change this to HTTP_OK when the site is public.
-    private const ANON_RESPONSE_CODE=Response::HTTP_OK;
+    private const ANON_RESPONSE_CODE = Response::HTTP_OK;
 
     protected function fixtures() : array {
         return [
@@ -90,5 +89,4 @@ class ManuscriptFeatureTest extends ControllerBaseCase {
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
     }
-
 }
