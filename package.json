@@ -2,7 +2,7 @@
   "name": "mvm",
   "version": "1.0.0",
   "author": "Michael Joyce <ubermichael@gmail.com>",
-  "license": "GPL-v2-or-later",
+  "license": "GPL-2.0-or-later",
   "scripts": {
     "webpack": "webpack --config webpack.config.js",
     "watch": "webpack watch --config webpack.config.js"

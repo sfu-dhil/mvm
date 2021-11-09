@@ -22,7 +22,7 @@ use Nines\UtilBundle\Entity\AbstractEntity;
  * Content.
  *
  * @ORM\Table(name="content", indexes={
- *     @ORM\Index(name="content_ft", columns={"first_line", "transcription"}, flags={"fulltext"}),
+ *     @ORM\Index(name="content_ft", columns={"first_line", "transcription", "description"}, flags={"fulltext"}),
  *     @ORM\Index(name="content_firstline_idx", columns={"first_line"})
  * })
  * @ORM\Entity(repositoryClass="App\Repository\ContentRepository")
