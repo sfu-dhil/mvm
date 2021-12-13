@@ -45,7 +45,7 @@
                 {% set people = (person in people) ? people : people|merge([person]) %}
             {% endfor %}
 
-            {% for person in people %}
+            {% for person in people|sort((a,b) => a.sortableName <=> b.sortableName) %}
                 <tr>
                     <td>
                         <a href="{{ path('person_show', {'id': person.id}) }}">
