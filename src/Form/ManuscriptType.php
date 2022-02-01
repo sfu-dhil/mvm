@@ -179,6 +179,14 @@ class ManuscriptType extends AbstractType {
                 'class' => 'tinymce',
             ],
         ]);
+        $builder->add('citation', TextType::class, [
+            'label' => 'Citation',
+            'required' => false,
+            'attr' => [
+                'help_block' => 'Recommended citation for this manuscript, without the "Accessed on" date',
+                'class' => 'tinymce',
+            ],
+        ]);
         LinkableType::add($builder, $options);
         $builder->setDataMapper($this->mapper);
     }

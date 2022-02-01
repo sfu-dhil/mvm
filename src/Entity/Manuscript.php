@@ -118,6 +118,12 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
     private $complete;
 
     /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $citation;
+
+    /**
      * @var Collection|Period[]
      * @ORM\ManyToMany(targetEntity="App\Entity\Period", inversedBy="manuscripts")
      */
@@ -810,6 +816,18 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         if ($this->coteries->removeElement($cotery)) {
             $cotery->removeManuscript($this);
         }
+
+        return $this;
+    }
+
+    public function getCitation(): ?string
+    {
+        return $this->citation;
+    }
+
+    public function setCitation(?string $citation): self
+    {
+        $this->citation = $citation;
 
         return $this;
     }
