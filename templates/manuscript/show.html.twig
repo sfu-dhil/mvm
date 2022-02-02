@@ -137,7 +137,6 @@
                     <th>Bibliography</th>
                     <td>{{ manuscript.bibliography|raw }}</td>
                 </tr>
-                {% if is_granted('ROLE_USER') %}
                 <tr>
                     <th>Citation</th>
                     <td>
@@ -145,7 +144,6 @@
                         Accessed {{ "now"|date("j M. Y") }}.
                     </td>
                 </tr>
-                {% endif %}
                 <tr>
                     <th>Created</th>
                     <td>{% if manuscript.created %}{{ manuscript.created|date }}{% endif %}</td>
