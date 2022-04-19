@@ -39,9 +39,9 @@ class ContentRepository extends ServiceEntityRepository {
         $qb = $this->createQueryBuilder('e');
 
         // join the contributions, person, and role tables to query the author
-        $qb->innerJoin('e.contributions', 'c');
-        $qb->innerJoin('c.person', 'p');
-        $qb->innerJoin('c.role', 'r');
+        $qb->leftJoin('e.contributions', 'c');
+        $qb->leftJoin('c.person', 'p');
+        $qb->leftJoin('c.role', 'r');
 
         // content matches
         $qb->where('MATCH (e.firstLine, e.transcription, e.description) AGAINST(:q BOOLEAN) > 0.1');
