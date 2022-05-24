@@ -30,7 +30,7 @@ class RegionRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\Servic
         $qb->orderBy('e.name');
         $qb->setParameter('q', "{$q}%");
 
-        return $qb->getQuery()->execute();
+        return $qb->getQuery();
     }
 
     public function searchQuery($q) {

@@ -32,7 +32,7 @@ class ContentRepository extends ServiceEntityRepository {
         $qb->orderBy('e.title');
         $qb->setParameter('q', "%{$q}%");
 
-        return $qb->getQuery()->execute();
+        return $qb->getQuery();
     }
 
     public function searchQuery($q) {

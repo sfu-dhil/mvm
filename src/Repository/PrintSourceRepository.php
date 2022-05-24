@@ -32,6 +32,6 @@ class PrintSourceRepository extends AbstractSourceRepository {
         $qb->orWhere('MATCH(region.name) AGAINST (:q BOOLEAN) > 0.0');
         $qb->setParameter('q', $q);
 
-        return $qb->getQuery()->execute();
+        return $qb->getQuery();
     }
 }

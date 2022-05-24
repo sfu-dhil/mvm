@@ -31,7 +31,7 @@ class ManuscriptRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\Se
         $qb->orderBy('e.title');
         $qb->setParameter('q', "%{$q}%");
 
-        return $qb->getQuery()->execute();
+        return $qb->getQuery();
     }
 
     public function searchQuery($q) {

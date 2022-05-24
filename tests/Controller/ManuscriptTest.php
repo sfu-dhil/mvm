@@ -307,23 +307,4 @@ class ManuscriptTest extends ControllerTestCase {
         $this->assertSame(1, $responseCrawler->filter('td:contains("New CallNumber")')->count());
     }
 
-    /**
-     * @group admin
-     * @group delete
-     */
-    public function testAdminDelete() : void {
-        $repo = self::$container->get(ManuscriptRepository::class);
-        $preCount = count($repo->findAll());
-
-        $this->login(UserFixtures::ADMIN);
-        $crawler = $this->client->request('GET', '/manuscript/1/delete');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
-        $this->assertTrue($this->client->getResponse()->isRedirect());
-        $responseCrawler = $this->client->followRedirect();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-
-        $this->em->clear();
-        $postCount = count($repo->findAll());
-        $this->assertSame($preCount - 1, $postCount);
-    }
 }

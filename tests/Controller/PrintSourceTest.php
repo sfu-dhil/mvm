@@ -299,23 +299,4 @@ class PrintSourceTest extends ControllerTestCase {
         $this->assertSame(1, $responseCrawler->filter('div:contains("New Description")')->count());
     }
 
-    /**
-     * @group admin
-     * @group delete
-     */
-    public function testAdminDelete() : void {
-        $repo = self::$container->get(PrintSourceRepository::class);
-        $preCount = count($repo->findAll());
-
-        $this->login(UserFixtures::ADMIN);
-        $crawler = $this->client->request('GET', '/print_source/1/delete');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
-        $this->assertTrue($this->client->getResponse()->isRedirect());
-        $responseCrawler = $this->client->followRedirect();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-
-        $this->em->clear();
-        $postCount = count($repo->findAll());
-        $this->assertSame($preCount - 1, $postCount);
-    }
 }
