@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Command;
 
 use App\Entity\Manuscript;
@@ -7,7 +15,6 @@ use App\Entity\ManuscriptContribution;
 use App\Repository\ManuscriptRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -23,7 +30,8 @@ class GenerateCitationsCommand extends Command {
      * @var ManuscriptRepository;
      */
     private $repo;
-    private UrlGeneratorInterface $generator;
+
+    private ?UrlGeneratorInterface $generator = null;
 
     /**
      * Configure the command.
@@ -39,32 +47,27 @@ class GenerateCitationsCommand extends Command {
      * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output) : void {
-        foreach($this->repo->findAll() as $manuscript) {
+        foreach ($this->repo->findAll() as $manuscript) {
             /** @var Manuscript $manuscript $contributions */
-            $contributions = $manuscript->getManuscriptContributions()->filter(function(ManuscriptContribution $mc) {
-                return $mc->getRole()->getName() === 'compiler';
-            });
+            $contributions = $manuscript->getManuscriptContributions()->filter(fn (ManuscriptContribution $mc) => 'compiler' === $mc->getRole()->getName());
             $iterator = $contributions->getIterator();
-            $iterator->uasort(function(ManuscriptContribution $a, ManuscriptContribution $b) {
-                return strcmp($a->getPerson()->getSortableName(), $b->getPerson()->getSortableName());
-            });
+            $iterator->uasort(fn (ManuscriptContribution $a, ManuscriptContribution $b) => strcmp($a->getPerson()->getSortableName(), $b->getPerson()->getSortableName()));
 
             $citation = '';
-            foreach($iterator as $contribution) {
-                if($citation) {
+            foreach ($iterator as $contribution) {
+                if ($citation) {
                     $citation .= ' and ';
                 }
                 $citation .= $contribution->getPerson()->getSortableName();
             }
             $citation .= '. ';
-            if($manuscript->getUntitled()) {
+            if ($manuscript->getUntitled()) {
                 $citation .= '[Untitled].';
             } else {
                 $citation .= '"' . $manuscript->getTitle();
                 if (ctype_punct($manuscript->getCallNumber()[-1])) {
                     $citation .= '"';
-                }
-                else {
+                } else {
                     $citation .= '."';
                 }
             }
@@ -91,15 +94,14 @@ class GenerateCitationsCommand extends Command {
     /**
      * @required
      */
-    public function setEntityManager(EntityManagerInterface $em) {
+    public function setEntityManager(EntityManagerInterface $em) : void {
         $this->em = $em;
     }
 
     /**
      * @required
      */
-    public function setUrlGenerator(UrlGeneratorInterface $generator) {
+    public function setUrlGenerator(UrlGeneratorInterface $generator) : void {
         $this->generator = $generator;
     }
-
 }

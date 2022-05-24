@@ -12,28 +12,33 @@ namespace App\DataFixtures;
 
 use App\Entity\Person;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class PersonFixtures extends Fixture implements DependentFixtureInterface {
+class PersonFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface {
+    public static function getGroups() : array {
+        return ['dev', 'test'];
+    }
+
     /**
      * {@inheritDoc}
      */
-    public function load(ObjectManager $em) : void {
+    public function load(ObjectManager $manager) : void {
         for ($i = 1; $i <= 4; $i++) {
             $fixture = new Person();
             $fixture->setAnonymous(0 === $i % 2);
             $fixture->setFullName('FullName ' . $i);
             $fixture->setVariantNames(['VariantNames ' . $i]);
             $fixture->setSortableName('SortableName ' . $i);
-            $fixture->setGender('Gender ' . $i);
+            $fixture->setGender($i % 2 === 0 ? Person::FEMALE : Person::MALE);
             $fixture->setDescription("<p>This is paragraph {$i}</p>");
             $fixture->setBirthdate($this->getReference('circadate.' . $i));
             $fixture->setDeathdate($this->getReference('circadate.' . $i));
-            $em->persist($fixture);
+            $manager->persist($fixture);
             $this->setReference('person.' . $i, $fixture);
         }
-        $em->flush();
+        $manager->flush();
     }
 
     /**

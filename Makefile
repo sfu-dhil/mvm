@@ -4,7 +4,7 @@
 DB := dhil_mvm
 PROJECT := mvm
 
-include etc/Makefile.legacy
+include etc/Makefile
 
 ## Local make file
 

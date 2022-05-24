@@ -16,18 +16,22 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220201180423 extends AbstractMigration {
+final class Version20220209205307 extends AbstractMigration {
     public function getDescription() : string {
         return '';
     }
 
     public function up(Schema $schema) : void {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE manuscript ADD citation LONGTEXT DEFAULT NULL');
+        $this->addSql('RENAME TABLE blog_page TO nines_blog_page');
+        $this->addSql('RENAME TABLE blog_post TO nines_blog_post');
+        $this->addSql('RENAME TABLE blog_post_category TO nines_blog_post_category');
+        $this->addSql('RENAME TABLE blog_post_status TO nines_blog_post_status');
+        $this->addSql('RENAME TABLE image TO nines_media_image');
+        $this->addSql('RENAME TABLE link TO nines_media_link');
     }
 
     public function down(Schema $schema) : void {
-        // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE manuscript DROP citation');
+        $this->throwIrreversibleMigrationException();
     }
 }

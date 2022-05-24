@@ -13,21 +13,14 @@ namespace App\Tests\Controller;
 use App\DataFixtures\ArchiveFixtures;
 use App\Repository\ArchiveRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
-use Nines\UtilBundle\Tests\ControllerBaseCase;
+use Nines\UtilBundle\TestCase\ControllerTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class ArchiveTest extends ControllerBaseCase {
+class ArchiveTest extends ControllerTestCase {
     // Change this to HTTP_OK when the site is public.
     private const ANON_RESPONSE_CODE = Response::HTTP_OK;
 
     private const TYPEAHEAD_QUERY = 'label';
-
-    protected function fixtures() : array {
-        return [
-            ArchiveFixtures::class,
-            UserFixtures::class,
-        ];
-    }
 
     /**
      * @group anon
@@ -44,7 +37,7 @@ class ArchiveTest extends ControllerBaseCase {
      * @group index
      */
     public function testUserIndex() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/archive/');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
@@ -55,7 +48,7 @@ class ArchiveTest extends ControllerBaseCase {
      * @group index
      */
     public function testAdminIndex() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/archive/');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $crawler->selectLink('New')->count());
@@ -76,7 +69,7 @@ class ArchiveTest extends ControllerBaseCase {
      * @group show
      */
     public function testUserShow() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/archive/1');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
@@ -87,7 +80,7 @@ class ArchiveTest extends ControllerBaseCase {
      * @group show
      */
     public function testAdminShow() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/archive/1');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $crawler->selectLink('Edit')->count());
@@ -115,7 +108,7 @@ class ArchiveTest extends ControllerBaseCase {
      * @group typeahead
      */
     public function testUserTypeahead() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $this->client->request('GET', '/archive/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
@@ -129,7 +122,7 @@ class ArchiveTest extends ControllerBaseCase {
      * @group typeahead
      */
     public function testAdminTypeahead() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $this->client->request('GET', '/archive/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
@@ -139,11 +132,6 @@ class ArchiveTest extends ControllerBaseCase {
     }
 
     public function testAnonSearch() : void {
-        $repo = $this->createMock(ArchiveRepository::class);
-        $repo->method('searchQuery')->willReturn([$this->getReference('archive.1')]);
-        $this->client->disableReboot();
-        $this->client->getContainer()->set('test.' . ArchiveRepository::class, $repo);
-
         $crawler = $this->client->request('GET', '/archive/search');
         $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
         if (self::ANON_RESPONSE_CODE === Response::HTTP_FOUND) {
@@ -160,12 +148,7 @@ class ArchiveTest extends ControllerBaseCase {
     }
 
     public function testUserSearch() : void {
-        $repo = $this->createMock(ArchiveRepository::class);
-        $repo->method('searchQuery')->willReturn([$this->getReference('archive.1')]);
-        $this->client->disableReboot();
-        $this->client->getContainer()->set('test.' . ArchiveRepository::class, $repo);
-
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/archive/search');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
@@ -178,12 +161,7 @@ class ArchiveTest extends ControllerBaseCase {
     }
 
     public function testAdminSearch() : void {
-        $repo = $this->createMock(ArchiveRepository::class);
-        $repo->method('searchQuery')->willReturn([$this->getReference('archive.1')]);
-        $this->client->disableReboot();
-        $this->client->getContainer()->set('test.' . ArchiveRepository::class, $repo);
-
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/archive/search');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
@@ -210,7 +188,7 @@ class ArchiveTest extends ControllerBaseCase {
      * @group edit
      */
     public function testUserEdit() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/archive/1/edit');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
@@ -220,7 +198,7 @@ class ArchiveTest extends ControllerBaseCase {
      * @group edit
      */
     public function testAdminEdit() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $formCrawler = $this->client->request('GET', '/archive/1/edit');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
@@ -230,7 +208,7 @@ class ArchiveTest extends ControllerBaseCase {
         ]);
 
         $this->client->submit($form);
-        $this->assertTrue($this->client->getResponse()->isRedirect('/archive/1'));
+        $this->assertResponseRedirects('/archive/1');
         $responseCrawler = $this->client->followRedirect();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $responseCrawler->filter('h1:contains("Updated Label")')->count());
@@ -262,7 +240,7 @@ class ArchiveTest extends ControllerBaseCase {
      * @group new
      */
     public function testUserNew() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/archive/new');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
@@ -272,7 +250,7 @@ class ArchiveTest extends ControllerBaseCase {
      * @group new
      */
     public function testUserNewPopup() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/archive/new_popup');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
@@ -282,7 +260,7 @@ class ArchiveTest extends ControllerBaseCase {
      * @group new
      */
     public function testAdminNew() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $formCrawler = $this->client->request('GET', '/archive/new');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
@@ -304,7 +282,7 @@ class ArchiveTest extends ControllerBaseCase {
      * @group new
      */
     public function testAdminNewPopup() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $formCrawler = $this->client->request('GET', '/archive/new_popup');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
@@ -329,14 +307,14 @@ class ArchiveTest extends ControllerBaseCase {
         $repo = self::$container->get(ArchiveRepository::class);
         $preCount = count($repo->findAll());
 
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/archive/1/delete');
         $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
-        $this->entityManager->clear();
+        $this->em->clear();
         $postCount = count($repo->findAll());
         $this->assertSame($preCount - 1, $postCount);
     }

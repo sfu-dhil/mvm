@@ -12,14 +12,19 @@ namespace App\DataFixtures;
 
 use App\Entity\Manuscript;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ManuscriptFixtures extends Fixture implements DependentFixtureInterface {
+class ManuscriptFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface {
+    public static function getGroups() : array {
+        return ['dev', 'test'];
+    }
+
     /**
      * {@inheritDoc}
      */
-    public function load(ObjectManager $em) : void {
+    public function load(ObjectManager $manager) : void {
         for ($i = 1; $i <= 4; $i++) {
             $fixture = new Manuscript();
             $fixture->setUntitled(0 === $i % 2);
@@ -37,10 +42,10 @@ class ManuscriptFixtures extends Fixture implements DependentFixtureInterface {
             $fixture->setCallNumber('CallNumber ' . $i);
             $fixture->setComplete(0 === $i % 2);
             $fixture->setArchive($this->getReference('archive.' . $i));
-            $em->persist($fixture);
+            $manager->persist($fixture);
             $this->setReference('manuscript.' . $i, $fixture);
         }
-        $em->flush();
+        $manager->flush();
     }
 
     /**

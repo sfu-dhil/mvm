@@ -820,13 +820,11 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         return $this;
     }
 
-    public function getCitation(): ?string
-    {
+    public function getCitation() : ?string {
         return $this->citation;
     }
 
-    public function setCitation(?string $citation): self
-    {
+    public function setCitation(?string $citation) : self {
         $this->citation = $citation;
 
         return $this;

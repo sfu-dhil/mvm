@@ -29,7 +29,7 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
  * ManuscriptType form.
  */
 class ManuscriptType extends AbstractType {
-    private LinkableMapper $mapper;
+    private ?LinkableMapper $mapper = null;
 
     /**
      * Add form fields to $builder.

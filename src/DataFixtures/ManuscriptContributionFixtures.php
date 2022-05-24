@@ -12,24 +12,29 @@ namespace App\DataFixtures;
 
 use App\Entity\ManuscriptContribution;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ManuscriptContributionFixtures extends Fixture implements DependentFixtureInterface {
+class ManuscriptContributionFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface {
+    public static function getGroups() : array {
+        return ['dev', 'test'];
+    }
+
     /**
      * {@inheritDoc}
      */
-    public function load(ObjectManager $em) : void {
+    public function load(ObjectManager $manager) : void {
         for ($i = 1; $i <= 4; $i++) {
             $fixture = new ManuscriptContribution();
             $fixture->setNote("<p>This is paragraph {$i}</p>");
             $fixture->setPerson($this->getReference('person.' . $i));
             $fixture->setRole($this->getReference('manuscriptrole.' . $i));
             $fixture->setManuscript($this->getReference('manuscript.' . $i));
-            $em->persist($fixture);
+            $manager->persist($fixture);
             $this->setReference('manuscriptcontribution.' . $i, $fixture);
         }
-        $em->flush();
+        $manager->flush();
     }
 
     /**

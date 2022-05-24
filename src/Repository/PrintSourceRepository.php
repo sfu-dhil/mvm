@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\PrintSource;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -24,7 +25,7 @@ class PrintSourceRepository extends AbstractSourceRepository {
         parent::__construct($registry, PrintSource::class);
     }
 
-    public function searchQuery($q) {
+    public function searchQuery(string $q) : Query {
         $qb = $this->createQueryBuilder('print_source');
         $qb->innerJoin('print_source.regions', 'region');
         $qb->where('MATCH(print_source.label, print_source.description) AGAINST (:q BOOLEAN) > 0.0');
