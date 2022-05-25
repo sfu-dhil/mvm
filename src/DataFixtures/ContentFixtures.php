@@ -10,13 +10,14 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\CircaDate;
 use App\Entity\Content;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ContentFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface {
+class ContentFixtures extends Fixture implements FixtureGroupInterface {
     public static function getGroups() : array {
         return ['dev', 'test'];
     }
@@ -31,19 +32,15 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface, Fixt
             $fixture->setTitle('Title ' . $i);
             $fixture->setTranscription("<p>This is paragraph {$i}</p>");
             $fixture->setDescription("<p>This is paragraph {$i}</p>");
-            $fixture->setDate($this->getReference('circadate.' . $i));
+
+            $date = new CircaDate();
+            $date->setValue(($i % 2 === 0 ? 'c' : '') . "200{$i}");
+            $manager->persist($date);
+            $fixture->setDate($date);
+
             $manager->persist($fixture);
             $this->setReference('content.' . $i, $fixture);
         }
         $manager->flush();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDependencies() {
-        return [
-            CircaDateFixtures::class,
-        ];
     }
 }

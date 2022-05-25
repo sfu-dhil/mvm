@@ -28,7 +28,7 @@ class CoterieRepository extends TermRepository {
 
     public function searchQuery(string $q) : Query {
         $qb = $this->createQueryBuilder('coterie');
-        $qb->innerJoin('coterie.regions', 'region');
+        $qb->leftJoin('coterie.regions', 'region');
         $qb->where('MATCH(coterie.label, coterie.description) AGAINST (:q BOOLEAN) > 0.0');
         $qb->orWhere('MATCH(region.name) AGAINST (:q BOOLEAN) > 0.0');
         $qb->setParameter('q', $q);
