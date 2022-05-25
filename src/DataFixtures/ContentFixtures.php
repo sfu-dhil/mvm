@@ -14,7 +14,6 @@ use App\Entity\CircaDate;
 use App\Entity\Content;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class ContentFixtures extends Fixture implements FixtureGroupInterface {
@@ -34,7 +33,7 @@ class ContentFixtures extends Fixture implements FixtureGroupInterface {
             $fixture->setDescription("<p>This is paragraph {$i}</p>");
 
             $date = new CircaDate();
-            $date->setValue(($i % 2 === 0 ? 'c' : '') . "200{$i}");
+            $date->setValue((0 === $i % 2 ? 'c' : '') . "200{$i}");
             $manager->persist($date);
             $fixture->setDate($date);
 

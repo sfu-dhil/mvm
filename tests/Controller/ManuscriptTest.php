@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\DataFixtures\ManuscriptFixtures;
-use App\Repository\ManuscriptRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\TestCase\ControllerTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -306,5 +304,4 @@ class ManuscriptTest extends ControllerTestCase {
         $this->assertSame(1, $responseCrawler->filter('td:contains("New FilledPageCount")')->count());
         $this->assertSame(1, $responseCrawler->filter('td:contains("New CallNumber")')->count());
     }
-
 }

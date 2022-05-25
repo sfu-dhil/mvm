@@ -14,7 +14,6 @@ use App\Entity\CircaDate;
 use App\Entity\Person;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class PersonFixtures extends Fixture implements FixtureGroupInterface {
@@ -32,16 +31,16 @@ class PersonFixtures extends Fixture implements FixtureGroupInterface {
             $fixture->setFullName('FullName ' . $i);
             $fixture->setVariantNames(['VariantNames ' . $i]);
             $fixture->setSortableName('SortableName ' . $i);
-            $fixture->setGender($i % 2 === 0 ? Person::FEMALE : Person::MALE);
+            $fixture->setGender(0 === $i % 2 ? Person::FEMALE : Person::MALE);
             $fixture->setDescription("<p>This is paragraph {$i}</p>");
 
             $birthDate = new CircaDate();
-            $birthDate->setValue(($i % 2 === 0 ? 'c' : '') . "195{$i}");
+            $birthDate->setValue((0 === $i % 2 ? 'c' : '') . "195{$i}");
             $manager->persist($birthDate);
             $fixture->setBirthDate($birthDate);
 
             $deathDate = new CircaDate();
-            $deathDate->setValue(($i % 2 === 0 ? 'c' : '') . "200{$i}");
+            $deathDate->setValue((0 === $i % 2 ? 'c' : '') . "200{$i}");
             $manager->persist($deathDate);
             $fixture->setDeathDate($deathDate);
 

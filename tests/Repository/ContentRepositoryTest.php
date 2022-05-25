@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+/*
+ * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Tests\Repository;
 
 use App\Repository\ContentRepository;
@@ -22,7 +28,7 @@ class ContentRepositoryTest extends ServiceTestCase {
     }
 
     public function testSearchQuery() : void {
-        $query = $this->repo->searchQuery("firstline");
+        $query = $this->repo->searchQuery('firstline');
         $this->assertCount(4, $query->execute());
     }
 

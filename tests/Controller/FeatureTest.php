@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\DataFixtures\FeatureFixtures;
-use App\Repository\FeatureRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\TestCase\ControllerTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -256,5 +254,4 @@ class FeatureTest extends ControllerTestCase {
         $this->assertSame(1, $responseCrawler->filter('h1:contains("New Label")')->count());
         $this->assertSame(1, $responseCrawler->filter('div:contains("New Description")')->count());
     }
-
 }

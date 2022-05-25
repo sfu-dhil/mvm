@@ -10,9 +10,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\DataFixtures\ArchiveFixtures;
-use App\Entity\Archive;
-use App\Repository\ArchiveRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\TestCase\ControllerTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -299,5 +296,4 @@ class ArchiveTest extends ControllerTestCase {
         $this->assertSame(1, $responseCrawler->filter('h1:contains("New Label")')->count());
         $this->assertSame(1, $responseCrawler->filter('div:contains("New Description")')->count());
     }
-
 }

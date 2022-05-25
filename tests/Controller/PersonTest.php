@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\DataFixtures\PersonFixtures;
-use App\Repository\PersonRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\TestCase\ControllerTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -312,5 +310,4 @@ class PersonTest extends ControllerTestCase {
         $this->assertSame(1, $responseCrawler->filter('td:contains("Male")')->count());
         $this->assertSame(1, $responseCrawler->filter('div:contains("New Description")')->count());
     }
-
 }
