@@ -77,7 +77,7 @@ class CoterieController extends AbstractController implements PaginatorAwareInte
         }
         $data = [];
 
-        foreach ($coterieRepository->typeaheadQuery($q) as $result) {
+        foreach ($coterieRepository->typeaheadQuery($q)->execute() as $result) {
             $data[] = [
                 'id' => $result->getId(),
                 'text' => (string) $result,

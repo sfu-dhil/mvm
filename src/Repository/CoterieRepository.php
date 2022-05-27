@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Coterie;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Nines\UtilBundle\Repository\TermRepository;
 
@@ -25,13 +26,13 @@ class CoterieRepository extends TermRepository {
         parent::__construct($registry, Coterie::class);
     }
 
-    public function searchQuery($q) {
+    public function searchQuery(string $q) : Query {
         $qb = $this->createQueryBuilder('coterie');
-        $qb->innerJoin('coterie.regions', 'region');
+        $qb->leftJoin('coterie.regions', 'region');
         $qb->where('MATCH(coterie.label, coterie.description) AGAINST (:q BOOLEAN) > 0.0');
         $qb->orWhere('MATCH(region.name) AGAINST (:q BOOLEAN) > 0.0');
         $qb->setParameter('q', $q);
 
-        return $qb->getQuery()->execute();
+        return $qb->getQuery();
     }
 }

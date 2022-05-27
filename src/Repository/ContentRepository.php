@@ -32,7 +32,7 @@ class ContentRepository extends ServiceEntityRepository {
         $qb->orderBy('e.title');
         $qb->setParameter('q', "%{$q}%");
 
-        return $qb->getQuery()->execute();
+        return $qb->getQuery();
     }
 
     public function searchQuery($q) {
@@ -44,12 +44,12 @@ class ContentRepository extends ServiceEntityRepository {
         $qb->leftJoin('c.role', 'r');
 
         // content matches
-        $qb->where('MATCH (e.firstLine, e.transcription, e.description) AGAINST(:q BOOLEAN) > 0.1');
+        $qb->where('MATCH (e.firstLine, e.transcription, e.description) AGAINST(:q BOOLEAN) > 0.0');
 
         // author matches
         $qb->orWhere(
             $qb->expr()->andX(
-                $qb->expr()->gt('MATCH(p.fullName, p.variantNames) AGAINST (:q BOOLEAN)', 0.1),
+                $qb->expr()->gt('MATCH(p.fullName, p.variantNames) AGAINST (:q BOOLEAN)', 0.0),
                 $qb->expr()->eq('r.name', '\'author\'')
             )
         );

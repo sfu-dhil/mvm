@@ -10,24 +10,15 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\DataFixtures\ContentFixtures;
-use App\Repository\ContentRepository;
 use Nines\UserBundle\DataFixtures\UserFixtures;
-use Nines\UtilBundle\Tests\ControllerBaseCase;
+use Nines\UtilBundle\TestCase\ControllerTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class ContentTest extends ControllerBaseCase {
+class ContentTest extends ControllerTestCase {
     // Change this to HTTP_OK when the site is public.
     private const ANON_RESPONSE_CODE = Response::HTTP_OK;
 
     private const TYPEAHEAD_QUERY = 'title';
-
-    protected function fixtures() : array {
-        return [
-            ContentFixtures::class,
-            UserFixtures::class,
-        ];
-    }
 
     /**
      * @group anon
@@ -44,7 +35,7 @@ class ContentTest extends ControllerBaseCase {
      * @group index
      */
     public function testUserIndex() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/content/');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
@@ -55,7 +46,7 @@ class ContentTest extends ControllerBaseCase {
      * @group index
      */
     public function testAdminIndex() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/content/');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $crawler->selectLink('New')->count());
@@ -76,7 +67,7 @@ class ContentTest extends ControllerBaseCase {
      * @group show
      */
     public function testUserShow() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/content/1');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
@@ -87,7 +78,7 @@ class ContentTest extends ControllerBaseCase {
      * @group show
      */
     public function testAdminShow() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/content/1');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(2, $crawler->selectLink('Edit')->count());
@@ -115,7 +106,7 @@ class ContentTest extends ControllerBaseCase {
      * @group typeahead
      */
     public function testUserTypeahead() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $this->client->request('GET', '/content/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
@@ -129,7 +120,7 @@ class ContentTest extends ControllerBaseCase {
      * @group typeahead
      */
     public function testAdminTypeahead() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $this->client->request('GET', '/content/typeahead?q=' . self::TYPEAHEAD_QUERY);
         $response = $this->client->getResponse();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
@@ -139,11 +130,6 @@ class ContentTest extends ControllerBaseCase {
     }
 
     public function testAnonSearch() : void {
-        $repo = $this->createMock(ContentRepository::class);
-        $repo->method('searchQuery')->willReturn([$this->getReference('content.1')]);
-        $this->client->disableReboot();
-        $this->client->getContainer()->set('test.' . ContentRepository::class, $repo);
-
         $crawler = $this->client->request('GET', '/content/search');
         $this->assertSame(self::ANON_RESPONSE_CODE, $this->client->getResponse()->getStatusCode());
         if (self::ANON_RESPONSE_CODE === Response::HTTP_FOUND) {
@@ -160,12 +146,7 @@ class ContentTest extends ControllerBaseCase {
     }
 
     public function testUserSearch() : void {
-        $repo = $this->createMock(ContentRepository::class);
-        $repo->method('searchQuery')->willReturn([$this->getReference('content.1')]);
-        $this->client->disableReboot();
-        $this->client->getContainer()->set('test.' . ContentRepository::class, $repo);
-
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/content/search');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
@@ -178,12 +159,7 @@ class ContentTest extends ControllerBaseCase {
     }
 
     public function testAdminSearch() : void {
-        $repo = $this->createMock(ContentRepository::class);
-        $repo->method('searchQuery')->willReturn([$this->getReference('content.1')]);
-        $this->client->disableReboot();
-        $this->client->getContainer()->set('test.' . ContentRepository::class, $repo);
-
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/content/search');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
@@ -210,7 +186,7 @@ class ContentTest extends ControllerBaseCase {
      * @group edit
      */
     public function testUserEdit() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/content/1/edit');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
@@ -220,7 +196,7 @@ class ContentTest extends ControllerBaseCase {
      * @group edit
      */
     public function testAdminEdit() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $formCrawler = $this->client->request('GET', '/content/1/edit');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
@@ -232,7 +208,7 @@ class ContentTest extends ControllerBaseCase {
         ]);
 
         $this->client->submit($form);
-        $this->assertTrue($this->client->getResponse()->isRedirect('/content/1'));
+        $this->assertResponseRedirects('/content/1');
         $responseCrawler = $this->client->followRedirect();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $responseCrawler->filter('h1:contains("Updated FirstLine")')->count());
@@ -263,7 +239,7 @@ class ContentTest extends ControllerBaseCase {
      * @group new
      */
     public function testUserNew() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/content/new');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
@@ -273,7 +249,7 @@ class ContentTest extends ControllerBaseCase {
      * @group new
      */
     public function testUserNewPopup() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/content/new_popup');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
@@ -283,7 +259,7 @@ class ContentTest extends ControllerBaseCase {
      * @group new
      */
     public function testAdminNew() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $formCrawler = $this->client->request('GET', '/content/new');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
@@ -306,7 +282,7 @@ class ContentTest extends ControllerBaseCase {
      * @group new
      */
     public function testAdminNewPopup() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $formCrawler = $this->client->request('GET', '/content/new_popup');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
@@ -322,25 +298,5 @@ class ContentTest extends ControllerBaseCase {
         $responseCrawler = $this->client->followRedirect();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(1, $responseCrawler->filter('h1:contains("New FirstLine")')->count());
-    }
-
-    /**
-     * @group admin
-     * @group delete
-     */
-    public function testAdminDelete() : void {
-        $repo = self::$container->get(ContentRepository::class);
-        $preCount = count($repo->findAll());
-
-        $this->login('user.admin');
-        $crawler = $this->client->request('GET', '/content/1/delete');
-        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
-        $this->assertTrue($this->client->getResponse()->isRedirect());
-        $responseCrawler = $this->client->followRedirect();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-
-        $this->entityManager->clear();
-        $postCount = count($repo->findAll());
-        $this->assertSame($preCount - 1, $postCount);
     }
 }

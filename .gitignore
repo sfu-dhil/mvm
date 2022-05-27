@@ -1,35 +1,44 @@
-/.web-server-pid
-/app/config/parameters.yml
-/build/
-/phpunit.xml
-/var/*
-!/var/cache
-/var/cache/*
-!var/cache/.gitkeep
-!/var/logs
-/var/logs/*
-!var/logs/.gitkeep
-!/var/sessions
-/var/sessions/*
-!var/sessions/.gitkeep
-!var/SymfonyRequirements.php
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
 /vendor/
-/.idea
-/app/Resources/views/jquery.collection.html.twig
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
 .phpunit.result.cache
-/app/config/deploy.yml
-/data
-*.sql
-/bin/.phpunit
-/public/bundles
-/public/yarn
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
+
+# Editors
+/.idea
+
+# Bundles
 /public/js/jquery.collection.js
 /templates/jquery.collection.html.twig
-config/deploy.yaml
-.env.local
-/public/fonts
 
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
+# Yarn packages.
+/public/yarn
+/public/fonts
+/config/deploy.yaml
+/*.sql
+/data
+/src/.preload.php
+
+# hacking and exporting
+/lib
+/ps
+/export
+
+# Code coverage and QA reports
+public/dev

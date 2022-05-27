@@ -10,21 +10,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\DataFixtures\ManuscriptFeatureFixtures;
 use Nines\UserBundle\DataFixtures\UserFixtures;
-use Nines\UtilBundle\Tests\ControllerBaseCase;
+use Nines\UtilBundle\TestCase\ControllerTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class ManuscriptFeatureTest extends ControllerBaseCase {
+class ManuscriptFeatureTest extends ControllerTestCase {
     // Change this to HTTP_OK when the site is public.
     private const ANON_RESPONSE_CODE = Response::HTTP_OK;
-
-    protected function fixtures() : array {
-        return [
-            ManuscriptFeatureFixtures::class,
-            UserFixtures::class,
-        ];
-    }
 
     /**
      * @group anon
@@ -41,7 +33,7 @@ class ManuscriptFeatureTest extends ControllerBaseCase {
      * @group index
      */
     public function testUserIndex() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/manuscript_feature/');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
@@ -52,7 +44,7 @@ class ManuscriptFeatureTest extends ControllerBaseCase {
      * @group index
      */
     public function testAdminIndex() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/manuscript_feature/');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
@@ -73,7 +65,7 @@ class ManuscriptFeatureTest extends ControllerBaseCase {
      * @group show
      */
     public function testUserShow() : void {
-        $this->login('user.user');
+        $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/manuscript_feature/1');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
@@ -84,7 +76,7 @@ class ManuscriptFeatureTest extends ControllerBaseCase {
      * @group show
      */
     public function testAdminShow() : void {
-        $this->login('user.admin');
+        $this->login(UserFixtures::ADMIN);
         $crawler = $this->client->request('GET', '/manuscript_feature/1');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());

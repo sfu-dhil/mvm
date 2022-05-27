@@ -66,7 +66,7 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
         }
         $data = [];
 
-        foreach ($repo->typeaheadQuery($q) as $result) {
+        foreach ($repo->typeaheadQuery($q)->execute() as $result) {
             $data[] = [
                 'id' => $result->getId(),
                 'text' => (string) $result,
@@ -77,23 +77,6 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
-     * Search for Feature entities.
-     *
-     * To make this work, add a method like this one to the
-     * App:Feature repository. Reregion the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     *
-     * <code><pre>
-     *    public function searchQuery($q) {
-     *       $qb = $this->createQueryBuilder('e');
-     *       $qb->addSelect("MATCH (e.title) AGAINST(:q BOOLEAN) as HIDDEN score");
-     *       $qb->orderBy('score', 'DESC');
-     *       $qb->setParameter('q', $q);
-     *       return $qb->getQuery();
-     *    }
-     * </pre></code>
-     *
      * @Route("/search", name="feature_search", methods={"GET"})
      * @Template
      *

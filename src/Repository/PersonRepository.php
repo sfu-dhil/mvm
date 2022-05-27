@@ -30,7 +30,7 @@ class PersonRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\Servic
         $qb->orderBy('e.sortableName');
         $qb->setParameter('q', "%{$q}%");
 
-        return $qb->getQuery()->execute();
+        return $qb->getQuery();
     }
 
     public function searchQuery($q) {

@@ -24,7 +24,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * PersonType form.
  */
 class PersonType extends AbstractType {
-    private LinkableMapper $mapper;
+    private ?LinkableMapper $mapper = null;
 
     /**
      * Add form fields to $builder.

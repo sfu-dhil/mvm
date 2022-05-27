@@ -10,38 +10,43 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\CircaDate;
 use App\Entity\Person;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class PersonFixtures extends Fixture implements DependentFixtureInterface {
+class PersonFixtures extends Fixture implements FixtureGroupInterface {
+    public static function getGroups() : array {
+        return ['dev', 'test'];
+    }
+
     /**
      * {@inheritDoc}
      */
-    public function load(ObjectManager $em) : void {
+    public function load(ObjectManager $manager) : void {
         for ($i = 1; $i <= 4; $i++) {
             $fixture = new Person();
             $fixture->setAnonymous(0 === $i % 2);
             $fixture->setFullName('FullName ' . $i);
             $fixture->setVariantNames(['VariantNames ' . $i]);
             $fixture->setSortableName('SortableName ' . $i);
-            $fixture->setGender('Gender ' . $i);
+            $fixture->setGender(0 === $i % 2 ? Person::FEMALE : Person::MALE);
             $fixture->setDescription("<p>This is paragraph {$i}</p>");
-            $fixture->setBirthdate($this->getReference('circadate.' . $i));
-            $fixture->setDeathdate($this->getReference('circadate.' . $i));
-            $em->persist($fixture);
+
+            $birthDate = new CircaDate();
+            $birthDate->setValue((0 === $i % 2 ? 'c' : '') . "195{$i}");
+            $manager->persist($birthDate);
+            $fixture->setBirthDate($birthDate);
+
+            $deathDate = new CircaDate();
+            $deathDate->setValue((0 === $i % 2 ? 'c' : '') . "200{$i}");
+            $manager->persist($deathDate);
+            $fixture->setDeathDate($deathDate);
+
+            $manager->persist($fixture);
             $this->setReference('person.' . $i, $fixture);
         }
-        $em->flush();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDependencies() {
-        return [
-            CircaDateFixtures::class,
-        ];
+        $manager->flush();
     }
 }

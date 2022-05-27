@@ -66,7 +66,7 @@ class ContentRoleController extends AbstractController implements PaginatorAware
         }
         $data = [];
 
-        foreach ($repo->typeaheadQuery($q) as $result) {
+        foreach ($repo->typeaheadQuery($q)->execute() as $result) {
             $data[] = [
                 'id' => $result->getId(),
                 'text' => (string) $result,

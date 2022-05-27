@@ -21,7 +21,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * ContentType form.
  */
 class ContentType extends AbstractType {
-    private LinkableMapper $mapper;
+    private ?LinkableMapper $mapper = null;
 
     /**
      * Add form fields to $builder.
