@@ -151,8 +151,20 @@ class ManuscriptType extends AbstractType {
                 'help_block' => 'Any print sources of the content listed in the manuscript, if not included with selected content entries.',
             ],
         ]);
-        $builder->add('themes', Select2EntityType::class, [
-            'label' => 'Themes',
+        $builder->add('majorThemes', Select2EntityType::class, [
+            'label' => 'Major Themes',
+            'multiple' => true,
+            'remote_route' => 'theme_typeahead',
+            'class' => Theme::class,
+            'required' => false,
+            'allow_clear' => true,
+            'attr' => [
+                'add_path' => 'theme_new_popup',
+                'add_label' => 'Add Theme',
+            ],
+        ]);
+        $builder->add('otherThemes', Select2EntityType::class, [
+            'label' => 'Other Themes',
             'multiple' => true,
             'remote_route' => 'theme_typeahead',
             'class' => Theme::class,

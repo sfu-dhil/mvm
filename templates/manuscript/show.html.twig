@@ -118,13 +118,23 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Themes</th>
+                    <th>Major Themes</th>
                     <td>
                         {% include 'partial/tag-list.html.twig' with {
-                            'att': 'themes',
+                            'att': 'majorThemes',
                             'route': "theme_show"
                         } %}
-                        <p class='help-block'>Themes prominent among the manuscript contents are identified in descending order of prominence.</p>
+                        <p class='help-block'>Major themes prominent among the manuscript contents in alphabetical order.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Also of Interest</th>
+                    <td>
+                        {% include 'partial/tag-list.html.twig' with {
+                            'att': 'otherThemes',
+                            'route': "theme_show"
+                        } %}
+                        <p class='help-block'>Other themes of interest among the manuscript contents in alphabetical order.</p>
                     </td>
                 </tr>
                 <tr>

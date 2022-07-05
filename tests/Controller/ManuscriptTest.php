@@ -214,6 +214,8 @@ class ManuscriptTest extends ControllerTestCase {
             'manuscript[callNumber]' => 'Updated CallNumber',
         ]);
         $form['manuscript[untitled]']->untick();
+        $this->overrideField($form, 'manuscript[majorThemes]', [2]);
+        $this->overrideField($form, 'manuscript[otherThemes]', [1]);
 
         $this->client->submit($form);
         $this->assertResponseRedirects('/manuscript/1');
