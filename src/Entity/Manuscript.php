@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -144,10 +144,19 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
 
     /**
      * @var Collection|Theme[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Theme", inversedBy="manuscripts")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Theme", inversedBy="majorManuscripts")
+     * @ORM\OrderBy({"label" = "ASC"})
+     * @ORM\JoinTable(name="manuscript_majortheme")
      */
-    private $themes;
+    private $majorThemes;
+
+    /**
+     * @var Collection|Theme[]
+     * @ORM\ManyToMany(targetEntity="App\Entity\Theme", inversedBy="otherManuscripts")
+     * @ORM\OrderBy({"label" = "ASC"})
+     * @ORM\JoinTable(name="manuscript_othertheme")
+     */
+    private $otherThemes;
 
     /**
      * @var Region
@@ -190,7 +199,8 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         $this->manuscriptContributions = new ArrayCollection();
         $this->manuscriptFeatures = new ArrayCollection();
         $this->printSources = new ArrayCollection();
-        $this->themes = new ArrayCollection();
+        $this->majorThemes = new ArrayCollection();
+        $this->otherThemes = new ArrayCollection();
         $this->coteries = new ArrayCollection();
     }
 
@@ -329,39 +339,6 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
      */
     public function getPrintSources() {
         return $this->printSources;
-    }
-
-    /**
-     * Add theme.
-     *
-     * @param \App\Entity\Theme $theme
-     *
-     * @return Manuscript
-     */
-    public function addTheme(Theme $theme) {
-        $this->themes[] = $theme;
-
-        return $this;
-    }
-
-    /**
-     * Remove theme.
-     *
-     * @param \App\Entity\Theme $theme
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeTheme(Theme $theme) {
-        return $this->themes->removeElement($theme);
-    }
-
-    /**
-     * Get themes.
-     *
-     * @return Collection
-     */
-    public function getThemes() {
-        return $this->themes;
     }
 
     /**
@@ -826,6 +803,48 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
 
     public function setCitation(?string $citation) : self {
         $this->citation = $citation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Theme>
+     */
+    public function getMajorThemes() : Collection {
+        return $this->majorThemes;
+    }
+
+    public function addMajorTheme(Theme $majorTheme) : self {
+        if ( ! $this->majorThemes->contains($majorTheme)) {
+            $this->majorThemes[] = $majorTheme;
+        }
+
+        return $this;
+    }
+
+    public function removeMajorTheme(Theme $majorTheme) : self {
+        $this->majorThemes->removeElement($majorTheme);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Theme>
+     */
+    public function getOtherThemes() : Collection {
+        return $this->otherThemes;
+    }
+
+    public function addOtherTheme(Theme $otherTheme) : self {
+        if ( ! $this->otherThemes->contains($otherTheme)) {
+            $this->otherThemes[] = $otherTheme;
+        }
+
+        return $this;
+    }
+
+    public function removeOtherTheme(Theme $otherTheme) : self {
+        $this->otherThemes->removeElement($otherTheme);
 
         return $this;
     }

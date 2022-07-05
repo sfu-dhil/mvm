@@ -24,45 +24,74 @@ use Nines\UtilBundle\Entity\AbstractTerm;
 class Theme extends AbstractTerm {
     /**
      * @var Collection|Manuscript[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Manuscript", mappedBy="themes")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Manuscript", mappedBy="majorThemes")
      */
-    private $manuscripts;
+    private $majorManuscripts;
+
+    /**
+     * @var Collection|Manuscript[]
+     * @ORM\ManyToMany(targetEntity="App\Entity\Manuscript", mappedBy="otherThemes")
+     */
+    private $otherManuscripts;
 
     public function __construct() {
         parent::__construct();
-        $this->manuscripts = new ArrayCollection();
+        $this->majorManuscripts = new ArrayCollection();
+        $this->otherManuscripts = new ArrayCollection();
     }
 
     /**
-     * Add manuscript.
-     *
-     * @param \App\Entity\Manuscript $manuscript
-     *
-     * @return Theme
+     * @return Collection<int, Manuscript>
      */
-    public function addManuscript(Manuscript $manuscript) {
-        $this->manuscripts[] = $manuscript;
+    public function getMajorManuscripts(): Collection
+    {
+        return $this->majorManuscripts;
+    }
+
+    public function addMajorManuscript(Manuscript $majorManuscript): self
+    {
+        if (!$this->majorManuscripts->contains($majorManuscript)) {
+            $this->majorManuscripts[] = $majorManuscript;
+            $majorManuscript->addMajorTheme($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMajorManuscript(Manuscript $majorManuscript): self
+    {
+        if ($this->majorManuscripts->removeElement($majorManuscript)) {
+            $majorManuscript->removeMajorTheme($this);
+        }
 
         return $this;
     }
 
     /**
-     * Remove manuscript.
-     *
-     * @param \App\Entity\Manuscript $manuscript
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return Collection<int, Manuscript>
      */
-    public function removeManuscript(Manuscript $manuscript) {
-        return $this->manuscripts->removeElement($manuscript);
+    public function getOtherManuscripts(): Collection
+    {
+        return $this->otherManuscripts;
     }
 
-    /**
-     * Get manuscripts.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getManuscripts() {
-        return $this->manuscripts;
+    public function addOtherManuscript(Manuscript $otherManuscript): self
+    {
+        if (!$this->otherManuscripts->contains($otherManuscript)) {
+            $this->otherManuscripts[] = $otherManuscript;
+            $otherManuscript->addOtherTheme($this);
+        }
+
+        return $this;
     }
+
+    public function removeOtherManuscript(Manuscript $otherManuscript): self
+    {
+        if ($this->otherManuscripts->removeElement($otherManuscript)) {
+            $otherManuscript->removeOtherTheme($this);
+        }
+
+        return $this;
+    }
+
 }

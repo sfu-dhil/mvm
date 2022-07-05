@@ -15,5 +15,19 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': theme.manuscripts} %}
+    {% set majorContent %}
+        {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': theme.majorManuscripts} %}
+    {% endset %}
+
+    {% set otherContent %}
+        {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': theme.otherManuscripts} %}
+    {% endset %}
+
+    {% set tabs = {
+        'Major Uses': majorContent,
+        'Other Uses': otherContent,
+    } %}
+
+    {% include 'partial/tabs.html.twig' with {'tabs': tabs} %}
+
 {% endblock %}

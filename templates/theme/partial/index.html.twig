@@ -3,7 +3,8 @@
         <tr>
             <th>Theme</th>
             <th>Description</th>
-            <th>Manuscripts</th>
+            <th>Major uses</th>
+            <th>Other uses</th>
         </tr>
     </thead>
     <tbody>
@@ -11,7 +12,8 @@
             <tr>
                 <td><a href="{{ path('theme_show',{'id':theme.id}) }}">{{ theme.label }}</a></td>
                 <td>{{ theme.description|raw }}</td>
-                <td class="number">{{ theme.manuscripts|length }}</td>
+                <td class="number">{{ theme.majorManuscripts|length }}</td>
+                <td class="number">{{ theme.otherManuscripts|length }}</td>
             </tr>
         {% endfor %}
     </tbody>
