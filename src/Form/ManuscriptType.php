@@ -164,7 +164,7 @@ class ManuscriptType extends AbstractType {
             ],
         ]);
         $builder->add('otherThemes', Select2EntityType::class, [
-            'label' => 'Other Themes',
+            'label' => 'Minor Themes',
             'multiple' => true,
             'remote_route' => 'theme_typeahead',
             'class' => Theme::class,
