@@ -18,5 +18,8 @@
                 {% endif %}
             </div>
         </div>
+        {% if extra is defined %}
+            {{ extra }}
+        {% endif %}
     </fieldset>
 </form>
