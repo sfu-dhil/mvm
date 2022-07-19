@@ -35,7 +35,7 @@ class ManuscriptRepository extends ServiceEntityRepository {
         return $qb->getQuery();
     }
 
-    public function searchQuery($q) {
+    public function searchQuery($q, $digitized = null) {
         $qb = $this->createQueryBuilder('e');
         $matches = [];
         if (preg_match('/^\s*"(.*?)"\s*$/u', $q, $matches)) {
@@ -45,6 +45,9 @@ class ManuscriptRepository extends ServiceEntityRepository {
         } else {
             $qb->where('MATCH(e.callNumber, e.description, e.format) AGAINST (:q BOOLEAN) > 0.0');
             $qb->setParameter('q', $q);
+        }
+        if($digitized === 'yes') {
+            $qb->andWhere('e.digitized = 1');
         }
         $qb->orderBy('e.callNumber', 'ASC');
 

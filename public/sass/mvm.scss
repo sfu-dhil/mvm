@@ -696,6 +696,67 @@ footer{
   }
 }
 
+@include dhil-details-accordion();
+
+summary{
+  padding: ms(0);
+  text-transform: uppercase;
+  font-variant:small-caps;
+  font-size: 1rem;
+  font-weight:500;
+  background-color: transparentize($mvm-grey, 0.2);
+  transition: background-color 0.2s ease(in-out-quad);
+  cursor:pointer;
+  .icon{
+    float:right;
+    clear:both;
+    display:inline-block;
+    transform: translate(0, 0);
+    transition: transform 0.3s ease(in-out-quad);
+    margin-right: calc(#{ms(-1)} + 4px);
+    svg{
+      height: ms(0);
+      width: ms(0);
+    }
+  }
+}
+
+div.details{
+  details{
+    box-shadow: $tw-box-shadow;
+    flex-basis: 100%;
+    flex-shrink:0;
+  }
+}
+
+details {
+  &[aria-expanded='false'] {
+    summary:hover {
+      background-color: transparentize($mvm-grey, 0.1);
+      &:not(:focus) .icon {
+        animation: gesture-left;
+        animation-duration: 1s;
+        animation-timing-function: ease(in-out-quad);
+        animation-iteration-count: 1;
+      }
+    }
+  }
+
+  &[aria-expanded='true']{
+    summary{
+      background-color: $mvm-grey;
+    }
+    .icon{
+      transform: rotate(90deg);
+    }
+  }
+
+  > div {
+    padding: ms(0) ms(-1);
+  }
+}
+
+
  @import "pages/_index";
  @import "pages/_bornDigital";
 
