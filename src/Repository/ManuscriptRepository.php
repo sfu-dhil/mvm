@@ -35,14 +35,14 @@ class ManuscriptRepository extends ServiceEntityRepository {
         return $qb->getQuery();
     }
 
-    public function searchQuery($q, $digitized = null) {
+    public function searchQuery($q = null, $digitized = null) {
         $qb = $this->createQueryBuilder('e');
         $matches = [];
-        if (preg_match('/^\s*"(.*?)"\s*$/u', $q, $matches)) {
+        if ($q && preg_match('/^\s*"(.*?)"\s*$/u', $q, $matches)) {
             $qb->where('e.callNumber LIKE :q');
             $qb->orWhere('e.title like :q');
             $qb->setParameter('q', "%${matches[1]}%");
-        } else {
+        } else if($q) {
             $qb->where('MATCH(e.callNumber, e.description, e.format) AGAINST (:q BOOLEAN) > 0.0');
             $qb->setParameter('q', $q);
         }

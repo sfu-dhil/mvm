@@ -88,13 +88,8 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
     public function searchAction(Request $request, ManuscriptRepository $repo) {
         $q = $request->query->get('q');
         $digitized = $request->query->get('digitized', null);
-        if ($q) {
-            $query = $repo->searchQuery($q, $digitized);
-
-            $manuscripts = $this->paginator->paginate($query, $request->query->getInt('page', 1), 24);
-        } else {
-            $manuscripts = [];
-        }
+        $query = $repo->searchQuery($q, $digitized);
+        $manuscripts = $this->paginator->paginate($query, $request->query->getInt('page', 1), 24);
 
         return [
             'manuscripts' => $manuscripts,
