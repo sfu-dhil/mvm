@@ -1,7 +1,7 @@
 # Silence output slightly
 # .SILENT:
 
-DB := dhil_mvm
+DB := mvm
 PROJECT := mvm
 
 include etc/Makefile

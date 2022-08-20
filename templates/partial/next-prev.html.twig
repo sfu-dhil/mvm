@@ -1,5 +1,7 @@
+{# Partial for creating the next/previous links for pages in the About menu #}
 
-{% set currMenu = knp_menu_get('nines_blog_pages',['about']) %}
+{% set pageMenu = knp_menu_get('nines_blog_pages') %}
+{% set currMenu = pageMenu.children|first %}
 {% set children = currMenu.children[:-2] %}
 {% set len = children|length  %}
 {% set idx = -1 %}
@@ -8,13 +10,6 @@
         {% set idx = loop.index0 %}
     {% endif %}
 {% endfor %}
-
-
-{#
-{% set prev = idx < 2 ? null : children[idx - 1] %}
-{% set next = (idx == len - 2) ? null : children[idx + 1] %}
-#}
-
 
 {% if (idx > -1) %}
     <div class="nextPrev">
