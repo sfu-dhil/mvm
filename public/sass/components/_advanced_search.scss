@@ -1,0 +1,9 @@
+// Advancned filter form
+@import "../../yarn/tom-select/src/scss/tom-select.scss";
+
+
+form[name = 'ms_filter']{
+  .ts-control a{
+    border-bottom:none;
+  }
+}

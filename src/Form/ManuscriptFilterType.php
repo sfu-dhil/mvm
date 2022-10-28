@@ -37,17 +37,6 @@ use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 class ManuscriptFilterType extends AbstractType{
 
     public function buildForm(FormBuilderInterface $builder, array $options){
-        $builder->add('search', Filters\TextFilterType::class, [
-            'apply_filter' => function(QueryInterface $filterQuery, $field, $values){
-            if (empty($values['value'])) {
-                return null;
-            }
-
-            $expr = $filterQuery->getExpr();
-            return $expr;
-        }
-        ]);
-
         $builder->add('digitized', Filters\BooleanFilterType::class, [
             'placeholder' => '',
             'expanded' => true,

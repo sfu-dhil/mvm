@@ -57,8 +57,7 @@ class ManuscriptRepository extends ServiceEntityRepository {
             $qb->andWhere('e.digitized = 1');
         }
         $qb->orderBy('e.callNumber', 'ASC');
-
-        return $qb->getQuery();
+        return $qb;
     }
 
     public function getActiveFilters($form){
