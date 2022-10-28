@@ -848,4 +848,37 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
 
         return $this;
     }
+
+    /**
+     * Computed property of all years as integers
+     * @return int[]
+     */
+    public function getPeriodYears(){
+        $periodYears = array();
+        foreach($this->periods as $period){
+            $label = $period->getLabel();
+            preg_match_all('/\d{4}/', $label, $years);
+            foreach($years as $year){
+                array_push($periodYears,...$year);
+            }
+        }
+        return array_map('intval', $periodYears);
+    }
+
+    /**
+     * @return int
+     */
+    public function getEarliestYear(){
+        $periodYears = $this->getPeriodYears();
+        return reset($periodYears) ?: 0;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLatestYear(){
+        $periodYears = $this->getPeriodYears();
+        return end($periodYears) ?: 0;
+    }
+
 }

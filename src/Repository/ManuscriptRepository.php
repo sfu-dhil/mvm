@@ -28,7 +28,7 @@ class ManuscriptRepository extends ServiceEntityRepository {
 
     public function indexQuery(){
         $qb = $this->createQueryBuilder('e');
-        $qb->select('e')->orderBy('e.callNumber', 'ASC');
+        $qb->select('e');
         return $qb;
     }
 
@@ -58,6 +58,45 @@ class ManuscriptRepository extends ServiceEntityRepository {
         }
         $qb->orderBy('e.callNumber', 'ASC');
         return $qb;
+    }
+
+    public function getSortedResult($qb, $sort){
+        if (! $sort ){
+            return $qb->getQuery();
+        }
+        switch ($sort) {
+            case 'title_asc':
+                $qb->addOrderBy('e.title', 'ASC');
+                return $qb->getQuery();
+            case 'title_desc':
+                $qb->addOrderBy('e.title', 'DESC');
+                return $qb->getQuery();
+            case 'callNumber_desc':
+                $qb->addOrderBy('e.callNumber', 'DESC');
+                return $qb->getQuery();
+            case 'periods_asc':
+                $results = $qb->getQuery()->getResult();
+                uasort($results, function($a, $b){
+                    $ay = $a->getEarliestYear();
+                    $by = $b->getEarliestYear();
+                    if ($ay == 0) {
+                        return 1;
+                    }
+                    if ($by == 0){
+                        return -1;
+                    }
+                    if ($ay == $by){
+                        if ($a->getLatestYear() > $b->getLatestYear()){
+                            return 1;
+                        }
+                    }
+                    return $ay <=> $by;
+                });
+                return $results;
+            default:
+                $qb->addOrderBy('e.callNumber', 'ASC');
+                return $qb->getQuery();
+        }
     }
 
     public function getActiveFilters($form){

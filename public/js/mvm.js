@@ -73,6 +73,10 @@ function makeBetterSelects(){
         return;
     }
     advancedForm.querySelectorAll('select').forEach(sel => {
+        // If this is the sorter select, then we leave it as is
+        if (sel.id == 'sort'){
+            return sel;
+        }
         let multiple = sel.hasAttribute('multiple');
         sel.classList.remove('form-control');
         plugins['checkbox_options'] = multiple;
