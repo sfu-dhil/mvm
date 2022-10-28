@@ -15,8 +15,10 @@ use App\Form\ManuscriptContentsType;
 use App\Form\ManuscriptContributionsType;
 use App\Form\ManuscriptFeaturesType;
 use App\Form\ManuscriptType;
+use App\Form\ManuscriptFilterType;
 use App\Repository\ManuscriptRepository;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -42,16 +44,14 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      * @Route("/", name="manuscript_index", methods={"GET"})
      * @Template
      */
-    public function indexAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Manuscript::class, 'e')->orderBy('e.callNumber', 'ASC');
+    public function indexAction(Request $request, ManuscriptRepository $repo) {
+        $qb = $repo->indexQuery();
         $query = $qb->getQuery();
-
         $manuscripts = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
-
+        $form = $this->createForm(ManuscriptFilterType::class);
         return [
             'manuscripts' => $manuscripts,
+            'form' => $form->createView(),
         ];
     }
 
@@ -85,16 +85,22 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      *
      * @return array
      */
-    public function searchAction(Request $request, ManuscriptRepository $repo) {
-        $q = $request->query->get('q');
-        $digitized = $request->query->get('digitized', null);
-        $query = $repo->searchQuery($q, $digitized);
+    public function searchAction(Request $request, ManuscriptRepository $repo, FilterBuilderUpdaterInterface $filterBuilderUpdater) {
+        $qb = $repo->indexQuery();
+        $form = $this->createForm(ManuscriptFilterType::class);
+        $active = [];
+        if ($request->query->has($form->getName())){
+            $form->submit($request->query->get($form->getName()));
+            $filterBuilderUpdater->addFilterConditions($form, $qb);
+            $active = $repo->getActiveFilters($form);
+        };
+        $query = $qb->getQuery();
         $manuscripts = $this->paginator->paginate($query, $request->query->getInt('page', 1), 24);
 
         return [
             'manuscripts' => $manuscripts,
-            'q' => $q,
-            'digitized' => $digitized,
+            'form' => $form->createView(),
+            'active' => $active
         ];
     }
 

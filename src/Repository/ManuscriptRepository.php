@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Manuscript;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,6 +24,12 @@ use Doctrine\Persistence\ManagerRegistry;
 class ManuscriptRepository extends ServiceEntityRepository {
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Manuscript::class);
+    }
+
+    public function indexQuery(){
+        $qb = $this->createQueryBuilder('e');
+        $qb->select('e')->orderBy('e.callNumber', 'ASC');
+        return $qb;
     }
 
     public function typeaheadQuery($q) {
@@ -53,4 +60,29 @@ class ManuscriptRepository extends ServiceEntityRepository {
 
         return $qb->getQuery();
     }
+
+    public function getActiveFilters($form){
+        $active = [];
+        if ($form->getData()){
+            foreach ($form->getData() as $key => $value){
+                if ($value == null){
+                    continue;
+                }
+                if ($value instanceof \Traversable){
+                    if (count($value) > 0){
+                        $active[$key] = $value->toArray();
+                    }
+                    continue;
+                };
+                if (is_string($value)){
+                    $active[$key] = $value == 'y' ? 'True' : 'False';
+                    continue;
+                };
+                $active[$key] = array($value);
+            };
+        };
+        return $active;
+    }
+
+
 }

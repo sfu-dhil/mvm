@@ -1,22 +1,18 @@
-{% set extra %}
-    {% set checked %}{% if (digitized is defined) and (digitized == 'yes') %}checked='checked'{% endif %}{% endset %}
-    <div class='details'>
-    <details>
-        <summary>Search Options</summary>
-        <div class='checkbox'>
-            <label class='control-label'> <input type='checkbox' name='digitized' id='digitized' value='yes' {{ checked }}> Digitized
-                manuscripts only </label>
-            <p class="help-block">If this control is checked, only manuscripts that have been digitized will be included
-                in search results.</p>
+{{ form_start(form, {'action': path('manuscript_search'), 'method': 'GET' }) }}
+<div class='form-group'>
+    <label class='col-sm-2 control-label sr-only' for='q'>Search term</label>
+    <div class='col-sm-12'>
+        <div class='input-group'>
+            {{ form_widget(form.search) }}
+            <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <span class='glyphicon glyphicon-search'></span>
+                            Search
+                        </button>
+                    </span>
         </div>
-    </details>
     </div>
-{% endset %}
-{% include 'partial/search-form.html.twig' with {
-    'path': path('manuscript_search'),
-    'help': 'Search within call numbers, titles, descriptions, or formats.
-            To find specific manuscripts by call number or title, place part or
-            all of the call number or title in quotation marks (e.g. "M.b.23" or
-            "Poems").',
-    'extra': extra,
-} %}
+</div>
+<hr>
+{{ form_rest(form) }}
+{{ form_end(form) }}
