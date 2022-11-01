@@ -1,7 +1,13 @@
+
 {% if manuscripts|length > 0 %}
-    {% if sort is not defined and not null %}
+    {% if sort is defined %}
+        {# TODO: Make it possible to sort MS in other entities / places
+        where there are MS galleries #}
+        {# {% include 'manuscript/partial/sorter.html.twig' %} #}
+    {% else %}
         {% set manuscripts = manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
     {% endif %}
+
     <div class="gallery ms">
         {% for manuscript in manuscripts %}
             {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscript} %}

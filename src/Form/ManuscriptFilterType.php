@@ -62,6 +62,7 @@ class ManuscriptFilterType extends AbstractType{
         $builder->add('printSources', Filters\EntityFilterType::class,[
             'class' => PrintSource::class,
             'multiple' => true,
+            'label' => 'Print Sources',
             'row_attr' => ['class' => 'filter filter_entity filter_printSources'],
             'query_builder' => $this->sortByLabel(PrintSourceRepository::class)
         ]);
@@ -69,6 +70,7 @@ class ManuscriptFilterType extends AbstractType{
         $builder->add('majorThemes', Filters\EntityFilterType::class, [
             'class' => Theme::class,
             'multiple' => true,
+            'label' => 'Major Themes',
             'row_attr' => ['class' => 'filter filter_entity filter_majorThemes'],
             'query_builder' => $this->sortByLabel(ThemeRepository::class)
         ]);
@@ -103,7 +105,7 @@ class ManuscriptFilterType extends AbstractType{
                 };
                 $qbe->addOnce($qbe->getAlias().'.manuscriptContents', 'contents', $closure);
             },
-            'row_attr' => ['class' => 'filter filter_entity filter_manuscriptContents'],
+            'row_attr' => ['class' => 'filter filter_entity filter_collection filter_manuscriptContents'],
         ]);
 
         $builder->add('manuscriptContributions', Filters\CollectionAdapterFilterType::class, [
@@ -115,7 +117,7 @@ class ManuscriptFilterType extends AbstractType{
                 };
                 $qbe->addOnce($qbe->getAlias().'.manuscriptContributions', 'contributions', $closure);
             },
-            'row_attr' => ['class' => 'filter filter_entity filter_manuscriptContributions'],
+            'row_attr' => ['class' => 'filter filter_entity filter_collection filter_manuscriptContributions'],
         ]);
 
     }

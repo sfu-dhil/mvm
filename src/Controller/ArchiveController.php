@@ -144,7 +144,7 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
-     * Finds and displays a Archive entity.
+     * Finds and displays an Archive entity.
      *
      * @return array
      *
@@ -153,7 +153,7 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
      */
     public function showAction(Archive $archive) {
         return [
-            'archive' => $archive,
+            'archive' => $archive
         ];
     }
 

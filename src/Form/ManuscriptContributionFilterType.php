@@ -31,6 +31,7 @@ class ManuscriptContributionFilterType extends AbstractType implements EmbeddedF
         $builder->add('person', Filters\EntityFilterType::class, [
             'class' => Person::class,
             'multiple' => true,
+            'label' => 'Manuscript Contributor',
             'query_builder' => function(PersonRepository $repo){
                   return $repo->createQueryBuilder('u')
                         ->orderBy('u.sortableName', 'ASC');

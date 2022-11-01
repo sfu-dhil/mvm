@@ -31,7 +31,7 @@ class ManuscriptContentFilterType extends AbstractType implements EmbeddedFilter
         $builder->add('content', Filters\EntityFilterType::class, [
             'class' => Content::class,
             'multiple' => true,
-            'label' => 'Poem',
+            'label' => 'Poem in Manuscript',
             'query_builder' => function(ContentRepository $repo){
                   return $repo->createQueryBuilder('u')
                         ->orderBy('u.firstLine', 'ASC');

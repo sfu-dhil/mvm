@@ -1081,6 +1081,34 @@ table.table-condensed tbody tr:first-child td {
 form[name=ms_filter] .ts-control a {
   border-bottom: none;
 }
+form[name=ms_filter] .accordion {
+  border: 1px solid transparent;
+}
+form[name=ms_filter] .accordion[open] {
+  border-color: #f4f4f4;
+}
+
+.search_filters {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6666666667em 1em;
+}
+@media (max-width: 768px) {
+  .search_filters .form-group:not(.filter_boolean) {
+    grid-column: span 2;
+  }
+}
+
+.sorter {
+  margin-top: 1em;
+}
+
+.filter_collection.form-group {
+  margin-bottom: 0;
+}
+.filter_collection > div > .form-group > label {
+  display: none;
+}
 
 /*
  * Root

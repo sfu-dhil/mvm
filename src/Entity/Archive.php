@@ -59,7 +59,7 @@ class Archive extends AbstractSource {
     /**
      * Get manuscripts.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getManuscripts() {
         return $this->manuscripts;

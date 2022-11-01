@@ -47,13 +47,14 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
     public function indexAction(Request $request, ManuscriptRepository $repo) {
         $sort = $request->query->get('sort');
         $qb = $repo->indexQuery();
-        $query = $qb->getQuery();
         $result = $repo->getSortedResult($qb, $sort);
         $manuscripts = $this->paginator->paginate($result, $request->query->getint('page', 1), 24);
         $form = $this->createForm(ManuscriptFilterType::class);
         return [
             'manuscripts' => $manuscripts,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'data' => $form->getData(),
+            'sort' => $sort
         ];
     }
 
