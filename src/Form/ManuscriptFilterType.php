@@ -66,6 +66,13 @@ class ManuscriptFilterType extends AbstractType{
             'label' => 'Print Sources',
             'row_attr' => ['class' => 'filter filter_entity filter_printSources'],
         ]);
+        $builder->add('regions',Filters\EntityFilterType::class, [
+            'class' => Region::class,
+            'multiple' => true,
+            'row_attr' => ['class' => 'filter filter_entity filter_region'],
+            'query_builder' => $this->sortByName(RegionRepository::class)
+        ]);
+
 
         $builder->add('majorThemes', Filters\EntityFilterType::class, [
             'class' => Theme::class,
@@ -80,12 +87,6 @@ class ManuscriptFilterType extends AbstractType{
             'label' => 'Minor Themes',
             'row_attr' => ['class' => 'filter filter_entity filter_minorThemes'],
             'query_builder' => $this->sortByLabel(ThemeRepository::class)
-        ]);
-        $builder->add('regions',Filters\EntityFilterType::class, [
-            'class' => Region::class,
-            'multiple' => true,
-            'row_attr' => ['class' => 'filter filter_entity filter_region'],
-            'query_builder' => $this->sortByName(RegionRepository::class)
         ]);
 
         $builder->add('coteries', Filters\EntityFilterType::class, [
