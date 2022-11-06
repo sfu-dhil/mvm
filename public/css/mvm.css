@@ -1093,6 +1093,9 @@ form[name=ms_filter] .accordion[open] {
   grid-template-columns: repeat(2, 1fr);
   gap: 0.6666666667em 1em;
 }
+.search_filters > .help-block {
+  grid-column: span 2;
+}
 @media (max-width: 768px) {
   .search_filters .form-group:not(.filter_boolean) {
     grid-column: span 2;

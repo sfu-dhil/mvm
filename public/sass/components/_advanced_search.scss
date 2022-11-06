@@ -18,6 +18,9 @@ form[name = 'ms_filter'] {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: ms(-1) ms(0);
+  & > .help-block{
+    grid-column: span 2;
+  }
   .form-group:not(.filter_boolean){
     @media (max-width: 768px){
       grid-column: span 2;

@@ -36,9 +36,13 @@
         </span>
         Search Options
     </summary>
-    <p class="help-block">Filter manuscripts by associated values.</p>
-    <div class="search_filters">
 
+    <div class="search_filters">
+        {{ form_row(form.digitized) }}
+        {{ form_row(form.untitled) }}
+        <p class="help-block">Use the inputs to filter manuscripts by associated values. For example, all manuscripts
+        that are held by the Bodleian Library or the Folger Shakespeare Library and that feature
+        "Classical Themes."</p>
         {{ form_rest(form) }}
     </div>
 
@@ -47,8 +51,7 @@
     {% include 'manuscript/partial/sorter.html.twig' %}
     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">
-                            <span class='glyphicon glyphicon-search'></span>
-                            Search
+                            Submit
                         </button>
                     </span>
 </div>

@@ -24,6 +24,7 @@ use PHPUnit\Util\Filter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderExecuterInterface;
@@ -37,14 +38,14 @@ use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 class ManuscriptFilterType extends AbstractType{
 
     public function buildForm(FormBuilderInterface $builder, array $options){
-        $builder->add('digitized', Filters\BooleanFilterType::class, [
-            'placeholder' => '',
-            'expanded' => true,
+        $builder->add('digitized', Filters\CheckboxFilterType::class, [
+            'label' => 'Digitized manuscripts only',
+            'help' => 'If this control is checked, only manuscripts that have been digitized will be included in search results.',
             'row_attr' => ['class' => 'filter filter_boolean filter_digitized']
         ]);
-        $builder->add('untitled', Filters\BooleanFilterType::class, [
-            'placeholder' => '',
-            'expanded' => true,
+        $builder->add('untitled', Filters\CheckboxFilterType::class, [
+            'label' => 'Untitled',
+            'help' => 'If this control is checked, only manuscripts that are untitled will be included in search results.',
             'row_attr' => ['class' => 'filter filter_boolean filter_untitled']
         ]);
         $builder->add('archive', Filters\EntityFilterType::class, [
@@ -64,7 +65,6 @@ class ManuscriptFilterType extends AbstractType{
             'multiple' => true,
             'label' => 'Print Sources',
             'row_attr' => ['class' => 'filter filter_entity filter_printSources'],
-            'query_builder' => $this->sortByLabel(PrintSourceRepository::class)
         ]);
 
         $builder->add('majorThemes', Filters\EntityFilterType::class, [
