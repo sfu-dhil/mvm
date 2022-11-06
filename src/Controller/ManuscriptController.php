@@ -47,8 +47,8 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
     public function indexAction(Request $request, ManuscriptRepository $repo) {
         $sort = $request->query->get('sort');
         $qb = $repo->indexQuery();
-        $result = $repo->getSortedResult($qb, $sort);
-        $manuscripts = $this->paginator->paginate($result, $request->query->getint('page', 1), 24);
+        $sortedQuery = $repo->getSortedQuery($qb, $sort);
+        $manuscripts = $this->paginator->paginate($sortedQuery, $request->query->getint('page', 1), 24);
         $form = $this->createForm(ManuscriptFilterType::class);
         return [
             'manuscripts' => $manuscripts,
@@ -102,8 +102,8 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
             $filterBuilderUpdater->addFilterConditions($form, $qb);
             $active = $repo->getActiveFilters($form);
         };
-        $result = $repo->getSortedResult($qb, $sort);
-        $manuscripts = $this->paginator->paginate($result, $request->query->getInt('page', 1), 24);
+        $sortedQuery = $repo->getSortedQuery($qb, $sort);
+        $manuscripts = $this->paginator->paginate($sortedQuery, $request->query->getInt('page', 1), 24);
 
         return [
             'manuscripts' => $manuscripts,

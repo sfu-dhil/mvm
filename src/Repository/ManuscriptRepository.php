@@ -60,19 +60,22 @@ class ManuscriptRepository extends ServiceEntityRepository {
         return $qb;
     }
 
-    public function getSortedResult($qb, $sort){
+    public function getSortedQuery($qb, $sort){
         if (! $sort ){
             return $qb->getQuery();
         }
         switch ($sort) {
             case 'title_asc':
+                // Some untitled items have titles, so we have to catch this
+                $qb->orderBy('e.untitled', 'ASC');
                 $qb->addOrderBy('e.title', 'ASC');
                 return $qb->getQuery();
             case 'title_desc':
+                $qb->orderBy('e.untitled', 'ASC');
                 $qb->addOrderBy('e.title', 'DESC');
                 return $qb->getQuery();
             case 'callNumber_desc':
-                $qb->addOrderBy('e.callNumber', 'DESC');
+                $qb->orderBy('e.callNumber', 'DESC');
                 return $qb->getQuery();
             case 'periods_asc':
                 $results = $qb->getQuery()->getResult();
@@ -94,7 +97,7 @@ class ManuscriptRepository extends ServiceEntityRepository {
                 });
                 return $results;
             default:
-                $qb->addOrderBy('e.callNumber', 'ASC');
+                $qb->orderBy('e.callNumber', 'ASC');
                 return $qb->getQuery();
         }
     }
