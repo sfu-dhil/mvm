@@ -29,12 +29,12 @@ class ManuscriptRepositoryTest extends ServiceTestCase {
 
     public function testSearchQuery() : void {
         $query = $this->repo->searchQuery(self::TYPEAHEAD_QUERY);
-        $this->assertCount(4, $query->execute());
+        $this->assertCount(4, $query->getQuery()->execute());
     }
 
     public function testQuotedSearchQuery() : void {
         $query = $this->repo->searchQuery('"callnumber"');
-        $this->assertCount(4, $query->execute());
+        $this->assertCount(4, $query->getQuery()->execute());
     }
 
     protected function setUp() : void {

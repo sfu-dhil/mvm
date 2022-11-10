@@ -61,7 +61,7 @@ class ManuscriptFilterType extends AbstractType{
 
             },
         ]);
-        
+
         $builder->add('archive', Filters\EntityFilterType::class, [
             'class' => Archive::class,
             'label' => 'Archives',
