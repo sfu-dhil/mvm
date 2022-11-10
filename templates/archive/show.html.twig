@@ -15,5 +15,5 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': archive.manuscripts|sort((a,b) => a.callNumber <=> b.callNumber)} %}
+    {% include 'manuscript/partial/gallery.html.twig' with {'manuscripts': archive.manuscripts } %}
 {% endblock %}

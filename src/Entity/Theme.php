@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -43,14 +43,12 @@ class Theme extends AbstractTerm {
     /**
      * @return Collection<int, Manuscript>
      */
-    public function getMajorManuscripts(): Collection
-    {
+    public function getMajorManuscripts() : Collection {
         return $this->majorManuscripts;
     }
 
-    public function addMajorManuscript(Manuscript $majorManuscript): self
-    {
-        if (!$this->majorManuscripts->contains($majorManuscript)) {
+    public function addMajorManuscript(Manuscript $majorManuscript) : self {
+        if ( ! $this->majorManuscripts->contains($majorManuscript)) {
             $this->majorManuscripts[] = $majorManuscript;
             $majorManuscript->addMajorTheme($this);
         }
@@ -58,8 +56,7 @@ class Theme extends AbstractTerm {
         return $this;
     }
 
-    public function removeMajorManuscript(Manuscript $majorManuscript): self
-    {
+    public function removeMajorManuscript(Manuscript $majorManuscript) : self {
         if ($this->majorManuscripts->removeElement($majorManuscript)) {
             $majorManuscript->removeMajorTheme($this);
         }
@@ -70,14 +67,12 @@ class Theme extends AbstractTerm {
     /**
      * @return Collection<int, Manuscript>
      */
-    public function getOtherManuscripts(): Collection
-    {
+    public function getOtherManuscripts() : Collection {
         return $this->otherManuscripts;
     }
 
-    public function addOtherManuscript(Manuscript $otherManuscript): self
-    {
-        if (!$this->otherManuscripts->contains($otherManuscript)) {
+    public function addOtherManuscript(Manuscript $otherManuscript) : self {
+        if ( ! $this->otherManuscripts->contains($otherManuscript)) {
             $this->otherManuscripts[] = $otherManuscript;
             $otherManuscript->addOtherTheme($this);
         }
@@ -85,13 +80,11 @@ class Theme extends AbstractTerm {
         return $this;
     }
 
-    public function removeOtherManuscript(Manuscript $otherManuscript): self
-    {
+    public function removeOtherManuscript(Manuscript $otherManuscript) : self {
         if ($this->otherManuscripts->removeElement($otherManuscript)) {
             $otherManuscript->removeOtherTheme($this);
         }
 
         return $this;
     }
-
 }

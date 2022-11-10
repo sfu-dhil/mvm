@@ -29,6 +29,7 @@
  @import "components/carousel";
  @import "components/nextPrev";
  @import "components/table";
+@import "components/advanced_search";
 
 /*
  * Root
@@ -696,7 +697,7 @@ footer{
   }
 }
 
-@include dhil-details-accordion();
+@include dhil-details-accordion($use-summary: true);
 
 summary{
   padding: ms(0);

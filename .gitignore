@@ -42,3 +42,5 @@
 
 # Code coverage and QA reports
 public/dev
+
+.DS_Store

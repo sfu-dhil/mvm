@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -14,9 +14,11 @@ use App\Entity\Manuscript;
 use App\Form\ManuscriptContentsType;
 use App\Form\ManuscriptContributionsType;
 use App\Form\ManuscriptFeaturesType;
+use App\Form\ManuscriptFilterType;
 use App\Form\ManuscriptType;
 use App\Repository\ManuscriptRepository;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -42,16 +44,18 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      * @Route("/", name="manuscript_index", methods={"GET"})
      * @Template
      */
-    public function indexAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Manuscript::class, 'e')->orderBy('e.callNumber', 'ASC');
-        $query = $qb->getQuery();
-
-        $manuscripts = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
+    public function indexAction(Request $request, ManuscriptRepository $repo) {
+        $sort = $request->query->get('sort');
+        $qb = $repo->indexQuery();
+        $sortedQuery = $repo->getSortedQuery($qb, $sort);
+        $manuscripts = $this->paginator->paginate($sortedQuery, $request->query->getint('page', 1), 24);
+        $form = $this->createForm(ManuscriptFilterType::class);
 
         return [
             'manuscripts' => $manuscripts,
+            'form' => $form->createView(),
+            'data' => $form->getData(),
+            'sort' => $sort,
         ];
     }
 
@@ -85,16 +89,29 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
      *
      * @return array
      */
-    public function searchAction(Request $request, ManuscriptRepository $repo) {
+    public function searchAction(Request $request, ManuscriptRepository $repo, FilterBuilderUpdaterInterface $filterBuilderUpdater) {
         $q = $request->query->get('q');
-        $digitized = $request->query->get('digitized', null);
-        $query = $repo->searchQuery($q, $digitized);
-        $manuscripts = $this->paginator->paginate($query, $request->query->getInt('page', 1), 24);
+        $sort = $request->query->get('sort');
+        $qb = $repo->indexQuery();
+        if ($q) {
+            $qb = $repo->searchQuery($q);
+        }
+        $form = $this->createForm(ManuscriptFilterType::class);
+        $active = [];
+        if ($request->query->has($form->getName())) {
+            $form->submit($request->query->get($form->getName()));
+            $filterBuilderUpdater->addFilterConditions($form, $qb);
+            $active = $repo->getActiveFilters($form);
+        }
+        $sortedQuery = $repo->getSortedQuery($qb, $sort);
+        $manuscripts = $this->paginator->paginate($sortedQuery, $request->query->getInt('page', 1), 24);
 
         return [
             'manuscripts' => $manuscripts,
+            'active' => $active,
             'q' => $q,
-            'digitized' => $digitized,
+            'sort' => $sort,
+            'form' => $form->createView(),
         ];
     }
 

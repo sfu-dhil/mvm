@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -13,6 +13,7 @@ namespace App\Repository;
 use App\Entity\Manuscript;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Traversable;
 
 /**
  * ManuscriptRepository.
@@ -23,6 +24,13 @@ use Doctrine\Persistence\ManagerRegistry;
 class ManuscriptRepository extends ServiceEntityRepository {
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Manuscript::class);
+    }
+
+    public function indexQuery() {
+        $qb = $this->createQueryBuilder('e');
+        $qb->select('e');
+
+        return $qb;
     }
 
     public function typeaheadQuery($q) {
@@ -42,15 +50,123 @@ class ManuscriptRepository extends ServiceEntityRepository {
             $qb->where('e.callNumber LIKE :q');
             $qb->orWhere('e.title like :q');
             $qb->setParameter('q', "%${matches[1]}%");
-        } else if($q) {
-            $qb->where('MATCH(e.callNumber, e.description, e.format) AGAINST (:q BOOLEAN) > 0.0');
-            $qb->setParameter('q', $q);
+        } else {
+            if ($q) {
+                $qb->where('MATCH(e.callNumber, e.description, e.format) AGAINST (:q BOOLEAN) > 0.0');
+                $qb->setParameter('q', $q);
+            }
         }
-        if($digitized === 'yes') {
+        if ('yes' === $digitized) {
             $qb->andWhere('e.digitized = 1');
         }
         $qb->orderBy('e.callNumber', 'ASC');
 
-        return $qb->getQuery();
+        return $qb;
+    }
+
+    public function getSortedQuery($qb, $sort) {
+        if ( ! $sort) {
+            return $qb->getQuery();
+        }
+
+        switch ($sort) {
+            case 'title_asc':
+                // Some untitled items have titles, so we have to catch this
+                $qb->orderBy('e.untitled', 'ASC');
+                $qb->addOrderBy('e.title', 'ASC');
+
+                return $qb->getQuery();
+
+            case 'title_desc':
+                $qb->orderBy('e.untitled', 'ASC');
+                $qb->addOrderBy('e.title', 'DESC');
+
+                return $qb->getQuery();
+
+            case 'callNumber_desc':
+                $qb->orderBy('e.callNumber', 'DESC');
+
+                return $qb->getQuery();
+
+            case 'periods_asc':
+                $results = $qb->getQuery()->getResult();
+                uasort($results, function ($a, $b) {
+                    $ay = $a->getEarliestYear();
+                    $by = $b->getEarliestYear();
+                    if (0 === $ay) {
+                        return 1;
+                    }
+                    if (0 === $by) {
+                        return -1;
+                    }
+                    if ($ay === $by) {
+                        if ($a->getLatestYear() > $b->getLatestYear()) {
+                            return 1;
+                        }
+                    }
+
+                    return $ay <=> $by;
+                });
+
+                return $results;
+
+            default:
+                $qb->orderBy('e.callNumber', 'ASC');
+
+                return $qb->getQuery();
+        }
+    }
+
+    public function getActiveFilters($form) {
+        $active = [];
+        if ($form->getData()) {
+            foreach ($form->getData() as $key => $value) {
+                if (null === $value) {
+                    continue;
+                }
+                if (is_array($value)) {
+                    $flat = self::array_flatten($value);
+                    if (reset($flat) instanceof \Doctrine\Common\Collections\ArrayCollection) {
+                        $values = reset($flat);
+                        if (count($values) > 0) {
+                            $active[$key] = $values;
+                        }
+                    }
+
+                    continue;
+                }
+                if ($value instanceof Traversable) {
+                    if (count($value) > 0) {
+                        $active[$key] = $value->toArray();
+                    }
+
+                    continue;
+                }
+                if (is_string($value)) {
+                    $active[$key] = 'y' === $value ? 'True' : 'False';
+
+                    continue;
+                }
+                $active[$key] = [$value];
+            }
+        }
+
+        return $active;
+    }
+
+    public function array_flatten($array) {
+        if ( ! is_array($array)) {
+            return false;
+        }
+        $result = [];
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $result = array_merge($result, self::array_flatten($value));
+            } else {
+                $result = array_merge($result, [$key => $value]);
+            }
+        }
+
+        return $result;
     }
 }

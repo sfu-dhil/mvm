@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -144,7 +144,7 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
-     * Finds and displays a Archive entity.
+     * Finds and displays an Archive entity.
      *
      * @return array
      *

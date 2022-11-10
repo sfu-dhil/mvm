@@ -1,0 +1,20 @@
+{% set sort_opts = {
+    'callNumber_asc': 'Call Number (A-Z)',
+    'callNumber_desc': 'Call Number (Z-A)',
+    'title_asc': 'Title (A-Z)',
+    'title_desc': 'Title (Z-A)',
+    'periods_asc': 'Period (Ascending)',
+    'periods_desc': 'Period (Descending)'
+} %}
+
+<div class="sorter">
+    <label for="sort">Sort by:</label>
+    <select name="sort" id="sort">
+        {% for value, label in sort_opts %}
+            <option value="{{ value }}"
+                    {% if value == sort %} selected="selected"{% endif %}>
+                {{  label }}
+            </option>
+        {% endfor %}
+    </select>
+</div>

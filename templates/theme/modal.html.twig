@@ -12,5 +12,25 @@
     {{ theme.description|raw }}
 {% endblock %}
 
+{% block extra %}
+    {% if theme.majorManuscripts %}
+        <div>
+            <div class="dialog-content__heading">Major Manuscripts</div>
+            <ul{% if theme.majorManuscripts|length >= 10 %} class="columns"{% endif %}>
+                {{ _self.link_list(theme.majorManuscripts, 'manuscript_show') }}
+            </ul>
+        </div>
+    {% endif %}
+    {% if theme.otherManuscripts %}
+        <div>
+            <div class="dialog-content__heading">Minor Manuscripts</div>
+            <ul{% if theme.otherManuscripts|length >= 10 %} class="columns"{% endif %}>
+                {{ _self.link_list(theme.otherManuscripts, 'manuscript_show') }}
+            </ul>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
 
 

@@ -11,8 +11,10 @@
  */
 import Modals from 'dhilux/js/modals.bundle.js';
 import A11YTables from "dhilux/js/a11y_tables.js";
+import Accordion from 'dhilux/js/accordion.js';
 // core version + navigation, pagination modules:
 import Swiper, { Navigation } from 'swiper';
+import TomSelect from 'tom-select';
 
 /**
  * The current document id
@@ -30,8 +32,62 @@ const docId = document.querySelector('html').id;
     if (!(/(edit|new)\/?$/gi.test(location) || docId == 'index')) {
         makeModals();
     }
+    makeAccordions();
+    makeBetterSelects();
 })();
 
+function makeAccordions(){
+   let accordions =  [...document.querySelectorAll('details.accordion')].map(d => {
+       return new Accordion(d);
+   });
+   console.log(accordions);
+}
+
+function makeBetterSelects(){
+    const opts = {
+        maxOptions: null,
+        copyClassesToDropdown: true
+
+    }
+    const plugins = {
+        'clear_button':{
+            'title':'Remove all selected options',
+            'html' : function(thing){
+                return `<button class="btn clear-button">
+                        <svg viewBox="0 0 24 24" height="1rem" width="1rem">
+                            <line x1="0" x2="24" y1="0" y2="24" />
+                            <line x1="24" x2="0" y1="0" y2="24" />
+                        </svg>
+                        <span class="sr-only">Close</span>
+                    </button>`;
+            }
+        },
+        remove_button: {
+            title: 'Remove this item',
+        },
+        'checkbox_options': true
+    };
+
+    let advancedForm = document.querySelector('form[name="ms_filter"]');
+    if (!advancedForm){
+        return;
+    }
+    advancedForm.querySelectorAll('select').forEach(sel => {
+        // If this is the sorter select, then we leave it as is
+        if (sel.id == 'sort'){
+            return sel;
+        }
+        let multiple = sel.hasAttribute('multiple');
+        sel.classList.remove('form-control');
+        plugins['checkbox_options'] = multiple;
+        new TomSelect(sel, {
+            ...opts,
+            multiple,
+            plugins
+        });
+    });
+
+}
 
 /**
  * Create the homepage gallery slider, using Swiper

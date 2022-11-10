@@ -16,7 +16,8 @@
     "select2-bootstrap-css": "^1.4.6",
     "swiper": "^7.0.6",
     "symfony-collection": "^2.1.30",
-    "tinymce": "^5.4.0"
+    "tinymce": "^5.4.0",
+    "tom-select": "^2.2.2"
   },
   "devDependencies": {
     "webpack": "^5.53.0"
