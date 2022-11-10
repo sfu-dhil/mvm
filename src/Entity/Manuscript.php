@@ -145,7 +145,7 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
     /**
      * @var Collection|Theme[]
      * @ORM\ManyToMany(targetEntity="App\Entity\Theme", inversedBy="majorManuscripts")
-     * @ORM\OrderBy({"label" = "ASC"})
+     * @ORM\OrderBy({"label": "ASC"})
      * @ORM\JoinTable(name="manuscript_majortheme")
      */
     private $majorThemes;
@@ -153,7 +153,7 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
     /**
      * @var Collection|Theme[]
      * @ORM\ManyToMany(targetEntity="App\Entity\Theme", inversedBy="otherManuscripts")
-     * @ORM\OrderBy({"label" = "ASC"})
+     * @ORM\OrderBy({"label": "ASC"})
      * @ORM\JoinTable(name="manuscript_othertheme")
      */
     private $otherThemes;
@@ -850,35 +850,38 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
     }
 
     /**
-     * Computed property of all years as integers
+     * Computed property of all years as integers.
+     *
      * @return int[]
      */
-    public function getPeriodYears(){
-        $periodYears = array();
-        foreach($this->periods as $period){
+    public function getPeriodYears() {
+        $periodYears = [];
+        foreach ($this->periods as $period) {
             $label = $period->getLabel();
             preg_match_all('/\d{4}/', $label, $years);
-            foreach($years as $year){
-                array_push($periodYears,...$year);
+            foreach ($years as $year) {
+                array_push($periodYears, ...$year);
             }
         }
+
         return array_map('intval', $periodYears);
     }
 
     /**
      * @return int
      */
-    public function getEarliestYear(){
+    public function getEarliestYear() {
         $periodYears = $this->getPeriodYears();
+
         return reset($periodYears) ?: 0;
     }
 
     /**
      * @return int
      */
-    public function getLatestYear(){
+    public function getLatestYear() {
         $periodYears = $this->getPeriodYears();
+
         return end($periodYears) ?: 0;
     }
-
 }

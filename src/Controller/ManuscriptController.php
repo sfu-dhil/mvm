@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -14,8 +14,8 @@ use App\Entity\Manuscript;
 use App\Form\ManuscriptContentsType;
 use App\Form\ManuscriptContributionsType;
 use App\Form\ManuscriptFeaturesType;
-use App\Form\ManuscriptType;
 use App\Form\ManuscriptFilterType;
+use App\Form\ManuscriptType;
 use App\Repository\ManuscriptRepository;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
@@ -50,11 +50,12 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
         $sortedQuery = $repo->getSortedQuery($qb, $sort);
         $manuscripts = $this->paginator->paginate($sortedQuery, $request->query->getint('page', 1), 24);
         $form = $this->createForm(ManuscriptFilterType::class);
+
         return [
             'manuscripts' => $manuscripts,
             'form' => $form->createView(),
             'data' => $form->getData(),
-            'sort' => $sort
+            'sort' => $sort,
         ];
     }
 
@@ -92,16 +93,16 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
         $q = $request->query->get('q');
         $sort = $request->query->get('sort');
         $qb = $repo->indexQuery();
-        if ( $q ){
+        if ($q) {
             $qb = $repo->searchQuery($q);
         }
         $form = $this->createForm(ManuscriptFilterType::class);
         $active = [];
-        if ($request->query->has($form->getName())){
+        if ($request->query->has($form->getName())) {
             $form->submit($request->query->get($form->getName()));
             $filterBuilderUpdater->addFilterConditions($form, $qb);
             $active = $repo->getActiveFilters($form);
-        };
+        }
         $sortedQuery = $repo->getSortedQuery($qb, $sort);
         $manuscripts = $this->paginator->paginate($sortedQuery, $request->query->getInt('page', 1), 24);
 
@@ -110,7 +111,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
             'active' => $active,
             'q' => $q,
             'sort' => $sort,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ];
     }
 
