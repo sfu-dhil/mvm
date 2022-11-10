@@ -20,8 +20,8 @@ use App\Entity\Theme;
 use App\Entity\PrintSource;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr;
-use PHPUnit\Util\Filter;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -30,7 +30,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderExecuterInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
-use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface as FilterQueryInterface;
 
 /**
  * ManuscriptFilterType form.
@@ -44,12 +44,27 @@ class ManuscriptFilterType extends AbstractType{
             'row_attr' => ['class' => 'filter filter_boolean filter_digitized']
         ]);
         $builder->add('untitled', Filters\CheckboxFilterType::class, [
-            'label' => 'Untitled',
-            'help' => 'If this control is checked, only manuscripts that are untitled will be included in search results.',
-            'row_attr' => ['class' => 'filter filter_boolean filter_untitled']
+            'label' => 'Manuscripts with titles only',
+            'help' => 'If this control is checked, only manuscripts with titles will be included in search results.',
+            'row_attr' => ['class' => 'filter filter_boolean filter_untitled'],
+            // Need to apply custom filter
+            // to reverse the boolean (i.e. when checked,
+            // we look for manuscripts with untitled = false
+            'apply_filter' => function(FilterQueryInterface $filterQuery, $field, $values){
+                if (empty($values['value'])){
+                    return null;
+                }
+                $paramName = 'untitled';
+                $expression = $filterQuery->getExpr()->eq($field, ':'.$paramName);
+                $parameters = array($paramName => !$values['value']);
+                return $filterQuery->createCondition($expression, $parameters);
+
+            },
         ]);
+        
         $builder->add('archive', Filters\EntityFilterType::class, [
             'class' => Archive::class,
+            'label' => 'Archives',
             'multiple' => true,
             'row_attr' => ['class' => 'filter filter_entity filter_archive'],
             'query_builder' => $this->sortByLabel(ArchiveRepository::class)
