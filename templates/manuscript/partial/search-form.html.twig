@@ -3,7 +3,7 @@
 
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
-{% set filtered = active is defined and active|length > 0 %}
+{% set filtered = (active is defined and active|length > 0) or (untitled is defined and untitled == 'false') %}
 
 {{ form_start(form, {'method': 'GET', 'action': path('manuscript_search')}) }}
 <div class='form-group'>
@@ -39,7 +39,14 @@
 
     <div class="search_filters">
         {{ form_row(form.digitized) }}
-        {{ form_row(form.untitled) }}
+        {# TODO: Make this actually work in the Lexik/Filters #}
+        <div class="filter filter_boolean filter_untitled form-group">
+            <div class="checkbox">
+                <label for="titled">
+                    <input type="checkbox" id="titled" name="untitled" value="false"{% if untitled is defined and untitled == 'false' %}checked="checked"{% endif %}> Manuscripts with titles only</label>
+            </div>
+            <span id="ms_filter_untitled_help" class="help-block">If this control is checked, only manuscripts with titles will be included in search results.</span>
+        </div>
         <p class="help-block">Use the inputs to filter manuscripts by associated values. For example, all manuscripts
         that are held by the Bodleian Library or the Folger Shakespeare Library and that feature
         "Classical Themes."</p>
