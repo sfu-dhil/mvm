@@ -56,7 +56,7 @@ class ManuscriptRepository extends ServiceEntityRepository {
                 $qb->setParameter('q', $q);
             }
         }
-        if ($untitled === 'false'){
+        if ('false' === $untitled) {
             $qb->andWhere('e.untitled = 0');
         }
         $qb->orderBy('e.callNumber', 'ASC');

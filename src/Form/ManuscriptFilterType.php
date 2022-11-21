@@ -21,8 +21,6 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderExecuterInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
-use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface as FilterQueryInterface;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,7 +35,6 @@ class ManuscriptFilterType extends AbstractType {
             'help' => 'If this control is checked, only manuscripts that have been digitized will be included in search results.',
             'row_attr' => ['class' => 'filter filter_boolean filter_digitized'],
         ]);
-
 
         $builder->add('archive', Filters\EntityFilterType::class, [
             'class' => Archive::class,

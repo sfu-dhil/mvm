@@ -99,11 +99,9 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
         if ($request->query->has($form->getName())) {
             $form->submit($request->query->get($form->getName()));
             $filterBuilderUpdater->addFilterConditions($form, $qb);
-            dump($qb->getDql());
             $active = $repo->getActiveFilters($form);
         }
         $sortedQuery = $repo->getSortedQuery($qb, $sort);
-        dump($sortedQuery);
         $manuscripts = $this->paginator->paginate($sortedQuery, $request->query->getInt('page', 1), 24);
 
         return [
