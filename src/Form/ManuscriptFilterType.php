@@ -21,7 +21,6 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderExecuterInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
-use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface as FilterQueryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,24 +34,6 @@ class ManuscriptFilterType extends AbstractType {
             'label' => 'Digitized manuscripts only',
             'help' => 'If this control is checked, only manuscripts that have been digitized will be included in search results.',
             'row_attr' => ['class' => 'filter filter_boolean filter_digitized'],
-        ]);
-        $builder->add('untitled', Filters\CheckboxFilterType::class, [
-            'label' => 'Manuscripts with titles only',
-            'help' => 'If this control is checked, only manuscripts with titles will be included in search results.',
-            'row_attr' => ['class' => 'filter filter_boolean filter_untitled'],
-            // Need to apply custom filter
-            // to reverse the boolean (i.e. when checked,
-            // we look for manuscripts with untitled = false
-            'apply_filter' => function (FilterQueryInterface $filterQuery, $field, $values) {
-                if (empty($values['value'])) {
-                    return;
-                }
-                $paramName = 'untitled';
-                $expression = $filterQuery->getExpr()->eq($field, ':' . $paramName);
-                $parameters = [$paramName => ! $values['value']];
-
-                return $filterQuery->createCondition($expression, $parameters);
-            },
         ]);
 
         $builder->add('archive', Filters\EntityFilterType::class, [

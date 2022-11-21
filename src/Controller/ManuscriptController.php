@@ -92,10 +92,8 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
     public function searchAction(Request $request, ManuscriptRepository $repo, FilterBuilderUpdaterInterface $filterBuilderUpdater) {
         $q = $request->query->get('q');
         $sort = $request->query->get('sort');
-        $qb = $repo->indexQuery();
-        if ($q) {
-            $qb = $repo->searchQuery($q);
-        }
+        $untitled = $request->query->get('untitled');
+        $qb = $repo->searchQuery($q, $untitled);
         $form = $this->createForm(ManuscriptFilterType::class);
         $active = [];
         if ($request->query->has($form->getName())) {
@@ -111,6 +109,7 @@ class ManuscriptController extends AbstractController implements PaginatorAwareI
             'active' => $active,
             'q' => $q,
             'sort' => $sort,
+            'untitled' => $untitled,
             'form' => $form->createView(),
         ];
     }

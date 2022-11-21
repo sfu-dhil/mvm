@@ -43,7 +43,7 @@ class ManuscriptRepository extends ServiceEntityRepository {
         return $qb->getQuery();
     }
 
-    public function searchQuery($q = null, $digitized = null) {
+    public function searchQuery($q = null, $untitled = null) {
         $qb = $this->createQueryBuilder('e');
         $matches = [];
         if ($q && preg_match('/^\s*"(.*?)"\s*$/u', $q, $matches)) {
@@ -56,8 +56,8 @@ class ManuscriptRepository extends ServiceEntityRepository {
                 $qb->setParameter('q', $q);
             }
         }
-        if ('yes' === $digitized) {
-            $qb->andWhere('e.digitized = 1');
+        if ('false' === $untitled) {
+            $qb->andWhere('e.untitled = 0');
         }
         $qb->orderBy('e.callNumber', 'ASC');
 
