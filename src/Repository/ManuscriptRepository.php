@@ -66,7 +66,7 @@ class ManuscriptRepository extends ServiceEntityRepository {
 
     public function getSortedQuery($qb, $sort) {
         if ( ! $sort) {
-            return $qb->getQuery();
+            return $qb->orderBy('e.callNumber', 'ASC');
         }
 
         switch ($sort) {
