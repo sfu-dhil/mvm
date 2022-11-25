@@ -54,6 +54,7 @@ class ManuscriptFilterType extends AbstractType {
             'multiple' => true,
             'label' => 'Print Sources',
             'row_attr' => ['class' => 'filter filter_entity filter_printSources'],
+            'query_builder' => $this->sortByLabel(PrintSource::class),
         ]);
         $builder->add('regions', Filters\EntityFilterType::class, [
             'class' => Region::class,
