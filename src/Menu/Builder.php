@@ -154,7 +154,7 @@ class Builder implements ContainerAwareInterface {
         $menuItems['people']->addChild('Browse Poem Roles', [
             'route' => 'content_role_index',
         ]);
-        $menuItems['people']->addChild('Browse Manuscript Roles', [
+        $menuItems['people']->addChild('Browse Manuscript Contributions', [
             'route' => 'manuscript_role_index',
         ]);
         $menuItems['poems']->addChild('Browse all Poems', [
@@ -192,7 +192,7 @@ class Builder implements ContainerAwareInterface {
         $menu->addChild('Manuscripts', [
             'route' => 'manuscript_index',
         ]);
-        $menu->addChild('Manuscript Roles', [
+        $menu->addChild('Manuscript Contributions', [
             'route' => 'manuscript_role_index',
         ]);
         $menu->addChild('Periods', [
