@@ -70,52 +70,79 @@ class ManuscriptRepository extends ServiceEntityRepository {
         }
 
         switch ($sort) {
-            case 'title_asc':
-                /*'^(([[:punct:]]|((a|the)\\s))+)' */
-                // Some untitled items have titles, so we have to catch this
-                $qb->orderBy('e.untitled', 'ASC');
-                $qb->addOrderBy('e.title', 'ASC');
-
-                return $qb->getQuery();
-
-            case 'title_desc':
-                $qb->orderBy('e.untitled', 'ASC');
-                $qb->addOrderBy('e.title', 'DESC');
-
-                return $qb->getQuery();
+            case 'callNumber_asc':
+                return $qb->orderBy('e.callNumber', 'ASC');
 
             case 'callNumber_desc':
                 $qb->orderBy('e.callNumber', 'DESC');
 
                 return $qb->getQuery();
 
+            case 'title_asc':
+                return self::sortByTitles($qb, 'ASC');
+
+            case 'title_desc':
+                return self::sortByTitles($qb, 'DESC');
+
             case 'periods_asc':
-                $results = $qb->getQuery()->getResult();
-                uasort($results, function ($a, $b) {
-                    $ay = $a->getEarliestYear();
-                    $by = $b->getEarliestYear();
-                    if (0 === $ay) {
-                        return 1;
-                    }
-                    if (0 === $by) {
-                        return -1;
-                    }
-                    if ($ay === $by) {
-                        if ($a->getLatestYear() > $b->getLatestYear()) {
-                            return 1;
-                        }
-                    }
+                return self::sortByPeriods($qb, 'ASC');
 
-                    return $ay <=> $by;
-                });
-
-                return $results;
+            case 'periods_desc':
+                return self::sortByPeriods($qb, 'DESC');
 
             default:
                 $qb->orderBy('e.callNumber', 'ASC');
 
                 return $qb->getQuery();
         }
+    }
+
+    public function sortByPeriods($qb, $dir = 'ASC') {
+        $results = $qb->getQuery()->getResult();
+        uasort($results, function ($a, $b) use ($dir) {
+            $ay = $a->getEarliestYear();
+            $by = $b->getEarliestYear();
+            if (0 === $ay) {
+                return 1;
+            }
+            if (0 === $by) {
+                return -1;
+            }
+            if ($ay === $by) {
+                if ($a->getLatestYear() > $b->getLatestYear()) {
+                    return 1;
+                }
+            }
+            if ('ASC' === $dir) {
+                return $ay <=> $by;
+            }
+
+            return $by <=> $ay;
+        });
+
+        return $results;
+    }
+
+    public function sortByTitles($qb, $dir = 'ASC') {
+        $result = $qb->getQuery()->getResult();
+        $rex = '/^(([[:punct:]]|((a|the)\\s))+)/i';
+        uasort($result, function ($a, $b) use ($rex, $dir) {
+            if ($a->getUntitled()) {
+                return 1;
+            }
+            if ($b->getUntitled()) {
+                return -1;
+            }
+            $at = preg_replace($rex, '', mb_strtolower($a->getTitle()));
+            $bt = preg_replace($rex, '', mb_strtolower($b->getTitle()));
+            if ('ASC' === $dir) {
+                return strcmp($at, $bt);
+            }
+
+            return strcmp($bt, $at);
+        });
+
+        return $result;
     }
 
     public function getActiveFilters($form) {
