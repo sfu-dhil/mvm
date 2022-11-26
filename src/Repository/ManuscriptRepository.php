@@ -66,11 +66,12 @@ class ManuscriptRepository extends ServiceEntityRepository {
 
     public function getSortedQuery($qb, $sort) {
         if ( ! $sort) {
-            return $qb->getQuery();
+            return $qb->orderBy('e.callNumber', 'ASC');
         }
 
         switch ($sort) {
             case 'title_asc':
+                /*'^(([[:punct:]]|((a|the)\\s))+)' */
                 // Some untitled items have titles, so we have to catch this
                 $qb->orderBy('e.untitled', 'ASC');
                 $qb->addOrderBy('e.title', 'ASC');
