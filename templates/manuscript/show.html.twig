@@ -148,6 +148,14 @@
                     <td>{{ manuscript.bibliography|raw }}</td>
                 </tr>
                 <tr>
+                    <th>Citation (NEW)</th>
+                    <td>
+                        {% include 'partial/citation.html.twig' with {
+                            'page_title': manuscript.callNumber
+                        } %}
+                    </td>
+                </tr>
+                <tr>
                     <th>Citation</th>
                     <td>
                         {{ manuscript.citation|raw }}

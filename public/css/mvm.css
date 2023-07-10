@@ -21,19 +21,19 @@
   font-weight: 200;
   src: url("../fonts/nunito-sans-normal-200.woff2") format("woff2"), url("../fonts/nunito-sans-normal-200.woff") format("woff");
 }
-/* 'Nunito Sans' normal 300*/
-@font-face {
-  font-family: "Nunito Sans";
-  font-style: normal;
-  font-weight: 300;
-  src: url("../fonts/nunito-sans-normal-300.woff2") format("woff2"), url("../fonts/nunito-sans-normal-300.woff") format("woff");
-}
 /* 'Nunito Sans' italic 200*/
 @font-face {
   font-family: "Nunito Sans";
   font-style: italic;
   font-weight: 200;
   src: url("../fonts/nunito-sans-italic-200.woff2") format("woff2"), url("../fonts/nunito-sans-italic-200.woff") format("woff");
+}
+/* 'Nunito Sans' normal 300*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 300;
+  src: url("../fonts/nunito-sans-normal-300.woff2") format("woff2"), url("../fonts/nunito-sans-normal-300.woff") format("woff");
 }
 /* 'Nunito Sans' italic 300*/
 @font-face {
@@ -56,6 +56,20 @@
   font-weight: 400;
   src: url("../fonts/nunito-sans-italic-400.woff2") format("woff2"), url("../fonts/nunito-sans-italic-400.woff") format("woff");
 }
+/* 'Nunito Sans' normal 500*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/nunito-sans-normal-500.woff2") format("woff2"), url("../fonts/nunito-sans-normal-500.woff") format("woff");
+}
+/* 'Nunito Sans' italic 500*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 500;
+  src: url("../fonts/nunito-sans-italic-500.woff2") format("woff2"), url("../fonts/nunito-sans-italic-500.woff") format("woff");
+}
 /* 'Nunito Sans' normal 700*/
 @font-face {
   font-family: "Nunito Sans";
@@ -63,19 +77,19 @@
   font-weight: 700;
   src: url("../fonts/nunito-sans-normal-700.woff2") format("woff2"), url("../fonts/nunito-sans-normal-700.woff") format("woff");
 }
-/* 'Nunito Sans' normal 800*/
-@font-face {
-  font-family: "Nunito Sans";
-  font-style: normal;
-  font-weight: 800;
-  src: url("../fonts/nunito-sans-normal-800.woff2") format("woff2"), url("../fonts/nunito-sans-normal-800.woff") format("woff");
-}
 /* 'Nunito Sans' italic 700*/
 @font-face {
   font-family: "Nunito Sans";
   font-style: italic;
   font-weight: 700;
   src: url("../fonts/nunito-sans-italic-700.woff2") format("woff2"), url("../fonts/nunito-sans-italic-700.woff") format("woff");
+}
+/* 'Nunito Sans' normal 800*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 800;
+  src: url("../fonts/nunito-sans-normal-800.woff2") format("woff2"), url("../fonts/nunito-sans-normal-800.woff") format("woff");
 }
 /* 'Nunito Sans' italic 800*/
 @font-face {
@@ -105,12 +119,26 @@
   font-weight: 500;
   src: url("../fonts/eb-garamond-normal-500.woff2") format("woff2"), url("../fonts/eb-garamond-normal-500.woff") format("woff");
 }
+/* 'EB Garamond' italic 500*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 500;
+  src: url("../fonts/eb-garamond-italic-500.woff2") format("woff2"), url("../fonts/eb-garamond-italic-500.woff") format("woff");
+}
 /* 'EB Garamond' normal 600*/
 @font-face {
   font-family: "EB Garamond";
   font-style: normal;
   font-weight: 600;
   src: url("../fonts/eb-garamond-normal-600.woff2") format("woff2"), url("../fonts/eb-garamond-normal-600.woff") format("woff");
+}
+/* 'EB Garamond' italic 600*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 600;
+  src: url("../fonts/eb-garamond-italic-600.woff2") format("woff2"), url("../fonts/eb-garamond-italic-600.woff") format("woff");
 }
 /* 'EB Garamond' normal 700*/
 @font-face {
@@ -119,13 +147,6 @@
   font-weight: 700;
   src: url("../fonts/eb-garamond-normal-700.woff2") format("woff2"), url("../fonts/eb-garamond-normal-700.woff") format("woff");
 }
-/* 'EB Garamond' normal 800*/
-@font-face {
-  font-family: "EB Garamond";
-  font-style: normal;
-  font-weight: 800;
-  src: url("../fonts/eb-garamond-normal-800.woff2") format("woff2"), url("../fonts/eb-garamond-normal-800.woff") format("woff");
-}
 /* 'EB Garamond' italic 700*/
 @font-face {
   font-family: "EB Garamond";
@@ -133,26 +154,19 @@
   font-weight: 700;
   src: url("../fonts/eb-garamond-italic-700.woff2") format("woff2"), url("../fonts/eb-garamond-italic-700.woff") format("woff");
 }
+/* 'EB Garamond' normal 800*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 800;
+  src: url("../fonts/eb-garamond-normal-800.woff2") format("woff2"), url("../fonts/eb-garamond-normal-800.woff") format("woff");
+}
 /* 'EB Garamond' italic 800*/
 @font-face {
   font-family: "EB Garamond";
   font-style: italic;
   font-weight: 800;
   src: url("../fonts/eb-garamond-italic-800.woff2") format("woff2"), url("../fonts/eb-garamond-italic-800.woff") format("woff");
-}
-/* 'EB Garamond' italic 500*/
-@font-face {
-  font-family: "EB Garamond";
-  font-style: italic;
-  font-weight: 500;
-  src: url("../fonts/eb-garamond-italic-500.woff2") format("woff2"), url("../fonts/eb-garamond-italic-500.woff") format("woff");
-}
-/* 'EB Garamond' italic 600*/
-@font-face {
-  font-family: "EB Garamond";
-  font-style: italic;
-  font-weight: 600;
-  src: url("../fonts/eb-garamond-italic-600.woff2") format("woff2"), url("../fonts/eb-garamond-italic-600.woff") format("woff");
 }
 /* Mixins file, which we should try and use globally across DHIL projects,
 since there's stuff I tend to do quite a bit.
@@ -1113,6 +1127,16 @@ form[name=ms_filter] .accordion[open] {
   display: none;
 }
 
+.citation-title {
+  font-style: italic;
+}
+
+/* If hanging indent is desired */
+/*
+.citation{
+  padding-left: 1.5em;
+  text-indent: -1.5em;
+}*/
 /*
  * Root
  */
