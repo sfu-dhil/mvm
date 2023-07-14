@@ -7,10 +7,11 @@ twig:
         format: Y-m-d g:i:s A
         interval_format: '%%d days'
     form_themes:
-        - "@NinesUtil/form/fields.html.twig"
+        - '@NinesUtil/form/bootstrap_5_horizontal_layout.html.twig'
         - '@TetranzSelect2Entity/Form/fields.html.twig'
         - 'jquery.collection.html.twig'
     globals:
+        asset_prefix: '%env(default::string:ROUTE_BASE)%'
         nines_editor_config: js/editor-config.js
         text_service: '@Nines\UtilBundle\Services\Text'
         matomo_enabled: '%dhil.matomo_enabled%'
@@ -18,3 +19,12 @@ twig:
         matomo_siteid: '%dhil.matomo_siteid%'
         matomo_domain: '%dhil.matomo_domain%'
         linker: '@Nines\UtilBundle\Services\EntityLinker'
+        git_repo: '%env(default::string:GIT_REPO)%'
+        git_commit: '%env(default::string:GIT_COMMIT)%'
+        git_commit_short: '%env(default::string:GIT_COMMIT_SHORT)%'
+        git_branch: '%env(default::string:GIT_BRANCH)%'
+        git_tag: '%env(default::string:GIT_TAG)%'
+
+when@test:
+    twig:
+        strict_variables: true

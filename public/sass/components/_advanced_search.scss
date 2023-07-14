@@ -1,5 +1,5 @@
 // Advancned filter form
-@import "../../yarn/tom-select/src/scss/tom-select.scss";
+@import "../../node_modules/tom-select/src/scss/tom-select.scss";
 
 
 form[name = 'ms_filter'] {
@@ -27,10 +27,6 @@ form[name = 'ms_filter'] {
     }
   }
 
-}
-
-.sorter{
-  margin-top: ms(0);
 }
 
 

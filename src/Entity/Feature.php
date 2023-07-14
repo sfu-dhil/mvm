@@ -2,67 +2,39 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
+use App\Repository\FeatureRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
-/**
- * Feature.
- *
- * @ORM\Table(name="feature")
- * @ORM\Entity(repositoryClass="App\Repository\FeatureRepository")
- */
+#[ORM\Table(name: 'feature')]
+#[ORM\Entity(repositoryClass: FeatureRepository::class)]
 class Feature extends AbstractTerm {
     /**
      * @var Collection|ManuscriptFeature[]
-     * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptFeature", mappedBy="feature", cascade={"remove"})
      */
-    private $manuscriptFeatures;
+    #[ORM\OneToMany(targetEntity: ManuscriptFeature::class, mappedBy: 'feature', cascade: ['remove'])]
+    private Collection|array $manuscriptFeatures;
 
     public function __construct() {
         parent::__construct();
         $this->manuscriptFeatures = new ArrayCollection();
     }
 
-    /**
-     * Add manuscriptFeature.
-     *
-     * @param \App\Entity\ManuscriptFeature $manuscriptFeature
-     *
-     * @return Feature
-     */
-    public function addManuscriptFeature(ManuscriptFeature $manuscriptFeature) {
+    public function addManuscriptFeature(ManuscriptFeature $manuscriptFeature) : self {
         $this->manuscriptFeatures[] = $manuscriptFeature;
 
         return $this;
     }
 
-    /**
-     * Remove manuscriptFeature.
-     *
-     * @param \App\Entity\ManuscriptFeature $manuscriptFeature
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeManuscriptFeature(ManuscriptFeature $manuscriptFeature) {
+    public function removeManuscriptFeature(ManuscriptFeature $manuscriptFeature) : bool {
         return $this->manuscriptFeatures->removeElement($manuscriptFeature);
     }
 
-    /**
-     * Get manuscriptFeatures.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getManuscriptFeatures() {
+    public function getManuscriptFeatures() : Collection {
         return $this->manuscriptFeatures;
     }
 }

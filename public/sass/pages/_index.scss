@@ -18,7 +18,7 @@ article.container{
 
 .jumbotron{
     padding-top: 38px;
-    height: 42rem;
+    height: 45rem;
     background-image: url('../images/hero.jpg');
     background-attachment: fixed;
     background-size: cover;
@@ -42,7 +42,7 @@ article.container{
             margin-bottom:map.get($typescale, 4);
             backdrop-filter: blur(3px);
             /* Hide the overflow */
-            overflow: hidden; 
+            overflow: hidden;
             @media (max-width: 767px){
                 line-height: 1.3;
                 font-size: 1.3rem;
@@ -57,7 +57,7 @@ article.container{
                 max-height:unset;
                 text-overflow: ellipsis;
                 display: -webkit-box;
-                -webkit-line-clamp: $hero-max-lines; 
+                -webkit-line-clamp: $hero-max-lines;
                 -webkit-box-orient: vertical;
             }
         }
@@ -80,11 +80,11 @@ article.container{
              background-color: $mvm-white;
              color: $mvm-dark-purple;
              text-decoration:none;
-             
+
          }
       }
     }
-    
+
 }
 
 
@@ -107,14 +107,14 @@ ul.period-list{
         height:100%;
         padding: 0.5rem 0;
         transition:background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-        
+
         &:hover{
             background-color: $mvm-dark-purple;
             color:$mvm-white;
         }
         }
     }
-    
+
 }
 
 input.contributor{
@@ -187,17 +187,17 @@ ul.archive-gallery{
                 padding:1rem;
                 backdrop-filter: blur(1px);
                 background:rgba($mvm-black, 0.65);
-                
+
             }
         }
-        
+
     }
 }
 
 section{
     &:first-child{
         padding-top:0rem;
-        
+
     }
     & + section{
         border-top: 3px solid rgba(#290741, 0.66);
@@ -211,7 +211,7 @@ section{
             margin-right:1rem;
         }
     }
-    
+
 }
 
 }
@@ -227,14 +227,14 @@ section{
       article.container{
             margin-top:-2rem;
         }
-        
+
         section,
         section + section{
             width:90%;
             margin: 0 auto;
         }
     }
-    
+
 }
 
 

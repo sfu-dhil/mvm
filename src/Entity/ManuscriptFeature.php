@@ -2,118 +2,61 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
+use App\Repository\ManuscriptFeatureRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
-/**
- * ManuscriptFeature.
- *
- * @ORM\Table(name="manuscript_feature")
- * @ORM\Entity(repositoryClass="App\Repository\ManuscriptFeatureRepository")
- */
+#[ORM\Table(name: 'manuscript_feature')]
+#[ORM\Entity(repositoryClass: ManuscriptFeatureRepository::class)]
 class ManuscriptFeature extends AbstractEntity {
-    /**
-     * @var string
-     * @ORM\Column(type="text", nullable=false)
-     */
-    private $note;
+    #[ORM\Column(type: 'text', nullable: false)]
+    private ?string $note;
 
-    /**
-     * @var Feature
-     * @ORM\ManyToOne(targetEntity="App\Entity\Feature", inversedBy="manuscriptFeatures")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $feature;
+    #[ORM\ManyToOne(targetEntity: Feature::class, inversedBy: 'manuscriptFeatures')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Feature $feature = null;
 
-    /**
-     * @var Manuscript
-     * @ORM\ManyToOne(targetEntity="App\Entity\Manuscript", inversedBy="manuscriptFeatures")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $manuscript;
+    #[ORM\ManyToOne(targetEntity: Manuscript::class, inversedBy: 'manuscriptFeatures')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Manuscript $manuscript = null;
 
     public function __construct() {
         parent::__construct();
     }
 
-    /**
-     * Force all entities to provide a stringify function.
-     */
     public function __toString() : string {
         return implode(', ', [$this->manuscript, $this->feature]);
     }
 
-    /**
-     * Set feature.
-     *
-     * @param \App\Entity\Feature $feature
-     *
-     * @return ManuscriptFeature
-     */
-    public function setFeature(Feature $feature) {
+    public function setFeature(Feature $feature) : self {
         $this->feature = $feature;
 
         return $this;
     }
 
-    /**
-     * Get feature.
-     *
-     * @return \App\Entity\Feature
-     */
-    public function getFeature() {
+    public function getFeature() : Feature {
         return $this->feature;
     }
 
-    /**
-     * Set manuscript.
-     *
-     * @param \App\Entity\Manuscript $manuscript
-     *
-     * @return ManuscriptFeature
-     */
-    public function setManuscript(Manuscript $manuscript) {
+    public function setManuscript(Manuscript $manuscript) : self {
         $this->manuscript = $manuscript;
 
         return $this;
     }
 
-    /**
-     * Get manuscript.
-     *
-     * @return \App\Entity\Manuscript
-     */
-    public function getManuscript() {
+    public function getManuscript() : Manuscript {
         return $this->manuscript;
     }
 
-    /**
-     * Set note.
-     *
-     * @param string $note
-     *
-     * @return ManuscriptFeature
-     */
-    public function setNote($note) {
+    public function setNote(?string $note) : self {
         $this->note = $note;
 
         return $this;
     }
 
-    /**
-     * Get note.
-     *
-     * @return string
-     */
-    public function getNote() {
+    public function getNote() : ?string {
         return $this->note;
     }
 }

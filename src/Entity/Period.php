@@ -2,37 +2,28 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
+use App\Repository\PeriodRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
-/**
- * Period.
- *
- * @ORM\Table(name="period")
- * @ORM\Entity(repositoryClass="App\Repository\PeriodRepository")
- */
+#[ORM\Table(name: 'period')]
+#[ORM\Entity(repositoryClass: PeriodRepository::class)]
 class Period extends AbstractTerm {
     /**
      * @var Collection|Manuscript[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Manuscript", mappedBy="periods")
      */
-    private $manuscripts;
+    #[ORM\ManyToMany(targetEntity: Manuscript::class, mappedBy: 'periods')]
+    private Collection|array $manuscripts;
 
     /**
      * @var Collection|Coterie[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Coterie", mappedBy="periods")
      */
-    private $coteries;
+    #[ORM\ManyToMany(targetEntity: Coterie::class, mappedBy: 'periods')]
+    private Collection|array $coteries;
 
     public function __construct() {
         parent::__construct();
@@ -40,47 +31,25 @@ class Period extends AbstractTerm {
         $this->coteries = new ArrayCollection();
     }
 
-    /**
-     * Add manuscript.
-     *
-     * @param \App\Entity\Manuscript $manuscript
-     *
-     * @return Period
-     */
-    public function addManuscript(Manuscript $manuscript) {
+    public function addManuscript(Manuscript $manuscript) : self {
         $this->manuscripts[] = $manuscript;
 
         return $this;
     }
 
-    /**
-     * Remove manuscript.
-     *
-     * @param \App\Entity\Manuscript $manuscript
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeManuscript(Manuscript $manuscript) {
+    public function removeManuscript(Manuscript $manuscript) : bool {
         return $this->manuscripts->removeElement($manuscript);
     }
 
-    /**
-     * Get manuscripts.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getManuscripts() {
+    public function getManuscripts() : Collection {
         return $this->manuscripts;
     }
 
-    /**
-     * @return Collection|Period[]
-     */
     public function getCoteries() : Collection {
         return $this->coteries;
     }
 
-    public function addCotery(self $cotery) : self {
+    public function addCotery(Coterie $cotery) : self {
         if ( ! $this->coteries->contains($cotery)) {
             $this->coteries[] = $cotery;
             $cotery->addPeriod($this);
@@ -89,7 +58,7 @@ class Period extends AbstractTerm {
         return $this;
     }
 
-    public function removeCotery(self $cotery) : self {
+    public function removeCotery(Coterie $cotery) : self {
         if ($this->coteries->removeElement($cotery)) {
             $cotery->removePeriod($this);
         }

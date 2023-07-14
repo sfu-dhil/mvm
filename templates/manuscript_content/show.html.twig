@@ -17,7 +17,7 @@
             <tr>
                 <th>Poem</th>
                 <td>
-                    <a href="{{ path('content_show', { 'id': manuscriptContent.content.id}) }}">
+                    <a href="{{ path('content_show', {'id': manuscriptContent.content.id}) }}">
                         {{ manuscriptContent.content }}
                     </a>
                 </td>
@@ -25,7 +25,7 @@
             <tr>
                 <th>Manuscript</th>
                 <td>
-                    <a href="{{ path('manuscript_show', { 'id': manuscriptContent.manuscript.id}) }}">
+                    <a href="{{ path('manuscript_show', {'id': manuscriptContent.manuscript.id}) }}">
                         {{ manuscriptContent.manuscript }}
                     </a>
                 </td>
@@ -38,7 +38,7 @@
                 <th>Print Source</th>
                 <td>
                     {% if manuscriptContent.printSource %}
-                        <a href="{{ path('print_source_show', { 'id': manuscriptContent.printSource.id}) }}">
+                        <a href="{{ path('print_source_show', {'id': manuscriptContent.printSource.id}) }}">
                             {{ manuscriptContent.printSource }}
                         </a>
                     {% endif %}

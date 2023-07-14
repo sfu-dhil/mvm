@@ -7,14 +7,21 @@
     'periods_desc': 'Period (Descending)'
 } %}
 
-<div class="sorter">
-    <label for="sort">Sort by:</label>
-    <select name="sort" id="sort">
-        {% for value, label in sort_opts %}
-            <option value="{{ value }}"
-                    {% if value == sort %} selected="selected"{% endif %}>
-                {{  label }}
-            </option>
-        {% endfor %}
-    </select>
+<div class="input-group mt-3">
+    <div class="sorter">
+        <label for="sort">Sort by:</label>
+        <select name="sort" id="sort">
+            {% for value, label in sort_opts %}
+                <option value="{{ value }}"
+                        {% if value == sort %} selected="selected"{% endif %}>
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <span class="input-group-btn ms-auto">
+        <button class="btn btn-light" type="submit">
+            Submit
+        </button>
+    </span>
 </div>

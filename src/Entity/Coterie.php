@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
 use App\Repository\CoterieRepository;
@@ -16,35 +10,31 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
-/**
- * @ORM\Entity(repositoryClass=CoterieRepository::class)
- */
+#[ORM\Entity(repositoryClass: CoterieRepository::class)]
 class Coterie extends AbstractTerm {
     /**
      * @var Collection|Person[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person", inversedBy="coteries")
      */
-    private $people;
+    #[ORM\ManyToMany(targetEntity: Person::class, inversedBy: 'coteries')]
+    private Collection|array $people;
 
     /**
      * @var Collection|Manuscript[]
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Manuscript", inversedBy="coteries")
      */
-    private $manuscripts;
+    #[ORM\ManyToMany(targetEntity: Manuscript::class, inversedBy: 'coteries')]
+    private Collection|array $manuscripts;
 
     /**
      * @var Collection|Manuscript[]
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Region", inversedBy="coteries")
      */
-    private $regions;
+    #[ORM\ManyToMany(targetEntity: Region::class, inversedBy: 'coteries')]
+    private Collection|array $regions;
 
     /**
      * @var Collection|Period[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Period", inversedBy="coteries")
      */
-    private $periods;
+    #[ORM\ManyToMany(targetEntity: Period::class, inversedBy: 'coteries')]
+    private Collection|array $periods;
 
     public function __construct() {
         parent::__construct();
@@ -54,9 +44,6 @@ class Coterie extends AbstractTerm {
         $this->periods = new ArrayCollection();
     }
 
-    /**
-     * @return Collection|Person[]
-     */
     public function getPeople() : Collection {
         return $this->people;
     }
@@ -75,9 +62,6 @@ class Coterie extends AbstractTerm {
         return $this;
     }
 
-    /**
-     * @return Collection|Manuscript[]
-     */
     public function getManuscripts() : Collection {
         return $this->manuscripts;
     }
@@ -96,9 +80,6 @@ class Coterie extends AbstractTerm {
         return $this;
     }
 
-    /**
-     * @return Collection|Region[]
-     */
     public function getRegions() : Collection {
         return $this->regions;
     }
@@ -117,9 +98,6 @@ class Coterie extends AbstractTerm {
         return $this;
     }
 
-    /**
-     * @return Collection|Period[]
-     */
     public function getPeriods() : Collection {
         return $this->periods;
     }

@@ -2,18 +2,16 @@
 
 {% block title %}New Feature{% endblock %}
 
+{% block pageheader %}
+    <h1>New Feature</h1>
+{% endblock %}
 
 {% block body %}
-    <h1>New Feature</h1>
-
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <div class="form-group">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-10">
-            <input type="submit" value="Create" class="btn btn-primary" />
-            <a href="{{ path('feature_index') }}" class="btn btn-warning">Cancel</a>
-        </div>
+    <div class="text-center">
+        <input type="submit" value="Create" class="btn btn-primary" />
+        <a href="{{ path('feature_index') }}" class="btn btn-warning">Cancel</a>
     </div>
     {{ form_end(form) }}
 

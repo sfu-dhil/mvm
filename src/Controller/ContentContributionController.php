@@ -2,15 +2,10 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Controller;
 
 use App\Entity\ContentContribution;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -18,25 +13,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * ContentContribution controller.
- *
- * @Route("/content_contribution")
- */
+#[Route(path: '/content_contribution')]
 class ContentContributionController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
-    /**
-     * Lists all ContentContribution entities.
-     *
-     * @return array
-     *
-     * @Route("/", name="content_contribution_index", methods={"GET"})
-     * @Template
-     */
-    public function indexAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
+    #[Route(path: '/', name: 'content_contribution_index', methods: ['GET'])]
+    #[Template]
+    public function indexAction(EntityManagerInterface $entityManager, Request $request) : array {
+        $qb = $entityManager->createQueryBuilder();
         $qb->select('e')->from(ContentContribution::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
@@ -47,15 +31,9 @@ class ContentContributionController extends AbstractController implements Pagina
         ];
     }
 
-    /**
-     * Finds and displays a ContentContribution entity.
-     *
-     * @return array
-     *
-     * @Route("/{id}", name="content_contribution_show", methods={"GET"})
-     * @Template
-     */
-    public function showAction(ContentContribution $contentContribution) {
+    #[Route(path: '/{id}', name: 'content_contribution_show', methods: ['GET'])]
+    #[Template]
+    public function showAction(ContentContribution $contentContribution) : array {
         return [
             'contentContribution' => $contentContribution,
         ];

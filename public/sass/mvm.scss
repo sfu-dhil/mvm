@@ -19,17 +19,17 @@
  * Imports
  */
 
- @import "_variables.scss";
- @import "_fonts.scss";
- @import "_functions.scss";
- @import "../yarn/dhilux/scss/dhilux.scss";
+@import "_variables.scss";
+@import "_fonts.scss";
+@import "_functions.scss";
+@import "../node_modules/dhilux/scss/dhilux.scss";
 
-
- @import "components/breadcrumb";
- @import "components/carousel";
- @import "components/nextPrev";
- @import "components/table";
+@import "components/breadcrumb";
+@import "components/carousel";
+@import "components/nextPrev";
+@import "components/table";
 @import "components/advanced_search";
+@import "components/citation";
 
 /*
  * Root
@@ -71,6 +71,7 @@ html{
      border-radius:0;
      box-shadow:unset;
      border:none;
+     display: block;
      &:after{
          content:"";
          display:block;
@@ -204,7 +205,8 @@ form{
   margin-bottom:map.get($typescale, 4);
 }
 .navigation{
-  text-align:right;
+  padding: 20px 0px;
+  margin: auto;
 }
 
 
@@ -239,16 +241,6 @@ ul.nav-pills{
     font-size:map.get($typescale, 6);
     background: $mvm-grey;
     margin-left:0;
-    &.active{
-      & > a {
-        background: $mvm-dark-purple;
-        color:$mvm-white;
-        border-radius:0;
-        &:hover{
-          color:$mvm-white;
-        }
-      }
-    }
     a{
       color:$mvm-black;
       padding-bottom:.5rem;
@@ -260,7 +252,14 @@ ul.nav-pills{
       &:hover, &:visited{
         border-bottom:none;
       }
-
+    }
+    a.active {
+      background: $mvm-dark-purple;
+      color:$mvm-white;
+      border-radius:0;
+      &:hover{
+        color:$mvm-white;
+      }
     }
   }
 }
@@ -646,13 +645,13 @@ footer{
 .pagination{
     & > li{
         &.active{
-            & > a{
+            & > a,span{
                 background-color:$mvm-dark-purple;
                 border-color: $mvm-dark-purple;
                 color:$mvm-white;
             }
         }
-        & > a{
+        & > a,span{
             color:$mvm-dark-purple;
             &:hover{
                 background-color:$mvm-dark-purple;
@@ -667,6 +666,22 @@ footer{
       display:none;
     }
   }
+}
+
+div.collection span[class*="-collection-actions"] {
+  width: inherit !important;
+}
+
+div.collection-media > div:not(:last-child),
+div.collection-complex > div:not(:last-child) {
+  padding-top: 15px;
+  border: 1px solid rgba(128, 128, 128, 0.31);
+}
+
+label.required::after {
+  content: ' *';
+  color: red;
+  font-weight: bold;
 }
 
 .cat-description{
@@ -757,9 +772,8 @@ details {
   }
 }
 
+@import "pages/_index";
+@import "pages/_bornDigital";
 
- @import "pages/_index";
- @import "pages/_bornDigital";
-
- /* Alwys import media last */
-  @import "_media.scss";
+/* Alwys import media last */
+@import "_media.scss";

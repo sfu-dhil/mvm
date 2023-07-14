@@ -1,0 +1,18 @@
+{#  Basic template for a "Cite this Page" feature
+
+    REQUIRES: page_title
+#}
+
+{% set EL_NAME = "p" %}
+{# Date formatting string (which requires trailing period
+   after the month, if the date is abbreviated #}
+{% set DATEF = "now"|date('M') == "now"|date('F') ? "j M Y" : "j M. Y" %}
+
+<{{ EL_NAME }} class="citation citation-mla9">
+    “<span class="citation-page">{{ page_title|trim|trim('.', 'right') }}</span>.”
+    <span class="citation-title">Manuscript Verse Miscellanies, 1700–1820</span>,
+    edited by <span class="citation-editor">Betty A. Schellenberg</span>,
+    <span class="citation-publisher">Simon Fraser University</span>,
+    <a class="citation-link" href="{ app.request.uri }}">{{ app.request.uri }}</a>.
+    Accessed <time class="citation-accessed">{{ "now"|date("j M. Y") }}</time>.
+</{{ EL_NAME }}>

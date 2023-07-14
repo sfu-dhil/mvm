@@ -2,16 +2,11 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Repository;
 
 use App\Entity\Manuscript;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 use Traversable;
 
@@ -46,10 +41,10 @@ class ManuscriptRepository extends ServiceEntityRepository {
     public function searchQuery($q = null, $untitled = null) {
         $qb = $this->createQueryBuilder('e');
         $matches = [];
-        if ($q && preg_match('/^\s*"(.*?)"\s*$/u', $q, $matches)) {
+        if ($q && preg_match('/^\s*"(.*?)"\s*$/u', (string) $q, $matches)) {
             $qb->where('e.callNumber LIKE :q');
             $qb->orWhere('e.title like :q');
-            $qb->setParameter('q', "%${matches[1]}%");
+            $qb->setParameter('q', "%{$matches[1]}%");
         } else {
             if ($q) {
                 $qb->where('MATCH(e.callNumber, e.description, e.format) AGAINST (:q BOOLEAN) > 0.0');
@@ -133,8 +128,8 @@ class ManuscriptRepository extends ServiceEntityRepository {
             if ($b->getUntitled()) {
                 return -1;
             }
-            $at = preg_replace($rex, '', mb_strtolower($a->getTitle()));
-            $bt = preg_replace($rex, '', mb_strtolower($b->getTitle()));
+            $at = preg_replace($rex, '', mb_strtolower((string) $a->getTitle()));
+            $bt = preg_replace($rex, '', mb_strtolower((string) $b->getTitle()));
             if ('ASC' === $dir) {
                 return strcmp($at, $bt);
             }
@@ -154,7 +149,7 @@ class ManuscriptRepository extends ServiceEntityRepository {
                 }
                 if (is_array($value)) {
                     $flat = self::array_flatten($value);
-                    if (reset($flat) instanceof \Doctrine\Common\Collections\ArrayCollection) {
+                    if (reset($flat) instanceof ArrayCollection) {
                         $values = reset($flat);
                         if (count($values) > 0) {
                             $active[$key] = $values;

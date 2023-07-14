@@ -1,5 +1,5 @@
-@import "../../yarn/swiper/swiper";
-@import "../../yarn/swiper/modules/navigation/navigation";
+@import "../../node_modules/swiper/swiper";
+@import "../../node_modules/swiper/modules/navigation/navigation";
 
 :root{
   --swiper-theme-color: #{$mvm-tan};

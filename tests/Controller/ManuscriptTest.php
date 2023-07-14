@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Tests\Controller;
 
 use Nines\UserBundle\DataFixtures\UserFixtures;
@@ -97,7 +91,7 @@ class ManuscriptTest extends ControllerTestCase {
             return;
         }
         $this->assertSame('application/json', $response->headers->get('content-type'));
-        $json = json_decode($response->getContent());
+        $json = json_decode($response->getContent(), null, 512, JSON_THROW_ON_ERROR);
         $this->assertCount(4, $json);
     }
 
@@ -111,7 +105,7 @@ class ManuscriptTest extends ControllerTestCase {
         $response = $this->client->getResponse();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
-        $json = json_decode($response->getContent());
+        $json = json_decode($response->getContent(), null, 512, JSON_THROW_ON_ERROR);
         $this->assertCount(4, $json);
     }
 
@@ -125,7 +119,7 @@ class ManuscriptTest extends ControllerTestCase {
         $response = $this->client->getResponse();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
-        $json = json_decode($response->getContent());
+        $json = json_decode($response->getContent(), null, 512, JSON_THROW_ON_ERROR);
         $this->assertCount(4, $json);
     }
 
@@ -227,7 +221,8 @@ class ManuscriptTest extends ControllerTestCase {
         $this->assertSame(1, $responseCrawler->filter('td:contains("Updated Format")')->count());
         $this->assertSame(1, $responseCrawler->filter('td:contains("Updated Size")')->count());
         $this->assertSame(1, $responseCrawler->filter('td:contains("Updated FilledPageCount")')->count());
-        $this->assertSame(1, $responseCrawler->filter('td:contains("Updated CallNumber")')->count());
+        // call number and citation
+        $this->assertSame(2, $responseCrawler->filter('td:contains("Updated CallNumber")')->count());
     }
 
     /**
@@ -241,32 +236,12 @@ class ManuscriptTest extends ControllerTestCase {
     }
 
     /**
-     * @group anon
-     * @group new
-     */
-    public function testAnonNewPopup() : void {
-        $crawler = $this->client->request('GET', '/manuscript/new_popup');
-        $this->assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
-        $this->assertTrue($this->client->getResponse()->isRedirect());
-    }
-
-    /**
      * @group user
      * @group new
      */
     public function testUserNew() : void {
         $this->login(UserFixtures::USER);
         $crawler = $this->client->request('GET', '/manuscript/new');
-        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * @group user
-     * @group new
-     */
-    public function testUserNewPopup() : void {
-        $this->login(UserFixtures::USER);
-        $crawler = $this->client->request('GET', '/manuscript/new_popup');
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
@@ -304,6 +279,7 @@ class ManuscriptTest extends ControllerTestCase {
         $this->assertSame(1, $responseCrawler->filter('td:contains("New Format")')->count());
         $this->assertSame(1, $responseCrawler->filter('td:contains("New Size")')->count());
         $this->assertSame(1, $responseCrawler->filter('td:contains("New FilledPageCount")')->count());
-        $this->assertSame(1, $responseCrawler->filter('td:contains("New CallNumber")')->count());
+        // call number and citation
+        $this->assertSame(2, $responseCrawler->filter('td:contains("New CallNumber")')->count());
     }
 }

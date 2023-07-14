@@ -8,7 +8,7 @@ either in the body of a page or within the contents of a tab #}
 {% embed 'partial/gallery-item.html.twig' %}
     {% block item_class %}ms{% endblock %}
     {% block item_heading %}
-        <a href="{{ path('manuscript_show', { 'id': manuscript.id }) }}">{{ manuscript.callNumber }}</a>
+        <a href="{{ path('manuscript_show', {'id': manuscript.id}) }}">{{ manuscript.callNumber }}</a>
     {% endblock %}
     {% block item_top %}
         {% if not(manuscript.complete) and isAdmin %}
@@ -18,13 +18,13 @@ either in the body of a page or within the contents of a tab #}
             <tbody>
                 <tr>
                     <th>Title</th>
-                    <td>{% include 'manuscript/partial/title.html.twig' with {'title': manuscript.title|u.truncate(50,' [...]')} %}</td>
+                    <td>{% include 'manuscript/partial/title.html.twig' with {'title': manuscript.title|u.truncate(50, ' [...]')} %}</td>
                 </tr>
                 {% if manuscript.periods|length > 0 %}
                     <tr>
                         <th>Period</th>
-                        <td>{% for period in manuscript.periods|sort((a,b) => a.label <=> b.label) %}
-                                <a href="{{ path('period_show', { 'id': period.id}) }}">
+                        <td>{% for period in manuscript.periods|sort((a, b) => a.label <=> b.label) %}
+                                <a href="{{ path('period_show', {'id': period.id}) }}">
                                     {{ period }}
                                 </a>
                                 {%- if not loop.last %}, {% endif %}
@@ -36,7 +36,7 @@ either in the body of a page or within the contents of a tab #}
                     <tr>
                         <th>Archive</th>
                         <td>
-                            <a href="{{ path('archive_show', {'id' : manuscript.archive.id}) }}">{{ manuscript.archive }}</a>
+                            <a href="{{ path('archive_show', {'id': manuscript.archive.id}) }}">{{ manuscript.archive }}</a>
                         </td>
                     </tr>
                 {% endif %}
@@ -48,7 +48,7 @@ either in the body of a page or within the contents of a tab #}
             {% if callbackDescription is defined and callbackDescription is not null %}
                 {{ callbackDescription|raw }}
             {% else %}
-                {{ manuscript.description | raw }}
+                {{ manuscript.description|raw }}
             {% endif %}
         {% endif %}
     {% endblock %}

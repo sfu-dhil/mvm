@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Form;
 
 use App\Entity\Person;
@@ -26,11 +20,9 @@ class ManuscriptContributionFilterType extends AbstractType implements EmbeddedF
             'class' => Person::class,
             'multiple' => true,
             'label' => 'Manuscript Contributors',
-            'query_builder' => function (PersonRepository $repo) {
-                return $repo->createQueryBuilder('u')
-                    ->orderBy('u.sortableName', 'ASC')
-                ;
-            },
+            'query_builder' => fn (PersonRepository $repo) => $repo->createQueryBuilder('u')
+                ->orderBy('u.sortableName', 'ASC'),
+            'row_attr' => ['class' => 'mb-0'],
         ]);
     }
 

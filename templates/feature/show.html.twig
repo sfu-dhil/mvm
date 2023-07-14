@@ -12,13 +12,13 @@
 
  {% block admin %}
 
-     {% include 'partial/toolbar.html.twig' with {'edit': 'feature_edit', 'delete': 'feature_delete', 'id': feature.id } %}
+     {% include 'partial/toolbar.html.twig' with {'edit': 'feature_edit', 'delete': 'feature_delete', 'id': feature.id} %}
 
  {% endblock %}
 
 {% block body %}
 
-    {% if feature.manuscriptFeatures | length > 0 %}
+    {% if feature.manuscriptFeatures|length > 0 %}
         <table class="table">
             <thead>
                 <tr>
@@ -27,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for manuscriptFeature in feature.manuscriptFeatures|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
+                {% for manuscriptFeature in feature.manuscriptFeatures|sort((a, b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
                     <tr>
                         <td>
                             <a href="{{ path('manuscript_show', {'id': manuscriptFeature.manuscript.id}) }}">{{ manuscriptFeature.manuscript.callNumber }}

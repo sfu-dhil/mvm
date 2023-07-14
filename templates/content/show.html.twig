@@ -5,7 +5,7 @@
 {% block title %}{{ content.firstLine }}{% endblock %}
 
 {% block admin %}
-    {% include 'partial/toolbar.html.twig' with {'edit': 'content_edit', 'delete': 'content_delete', 'id': content.id } %}
+    {% include 'partial/toolbar.html.twig' with {'edit': 'content_edit', 'delete': 'content_delete', 'id': content.id} %}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -38,7 +38,7 @@
                                     <a href="{{ path('person_show', {'id': contribution.person.id}) }}">{{ contribution.person }}</a>
                                     {% if contribution.note|trim is not empty %}
                                         <div class="note">
-                                            {{ contribution.note | raw }}
+                                            {{ contribution.note|raw }}
                                         </div>
                                     {% endif %}
 
@@ -84,7 +84,7 @@
             <h4>Transcription</h4>
             <div class="transcription-body">
                 {% if content.transcription is not empty %}
-                    {{ content.transcription | raw }}
+                    {{ content.transcription|raw }}
                 {% else %}
                     <p>No transcription available.</p>
                 {% endif %}
@@ -95,7 +95,7 @@
     {% set manuscripts %}
         {% if content.manuscriptContents|length > 0 %}
             <div class="gallery">
-                {% for manuscriptContent in content.manuscriptContents|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
+                {% for manuscriptContent in content.manuscriptContents|sort((a, b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
                     {% include 'manuscript/partial/gallery-item.html.twig' with {'manuscript': manuscriptContent.manuscript, 'callbackDescription': manuscriptContent.context} %}
                 {% endfor %}
 

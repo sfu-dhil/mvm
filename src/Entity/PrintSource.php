@@ -2,43 +2,34 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
+use App\Repository\PrintSourceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
-/**
- * PrintSource.
- *
- * @ORM\Table(name="print_source")
- * @ORM\Entity(repositoryClass="App\Repository\PrintSourceRepository")
- */
+#[ORM\Table(name: 'print_source')]
+#[ORM\Entity(repositoryClass: PrintSourceRepository::class)]
 class PrintSource extends AbstractTerm {
     /**
      * @var Collection|Region[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Region", inversedBy="printSources")
      */
-    private $regions;
+    #[ORM\ManyToMany(targetEntity: Region::class, inversedBy: 'printSources')]
+    private Collection|array $regions;
 
     /**
      * @var Collection|ManuscriptContent
-     * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptContent", mappedBy="printSource")
      */
-    private $manuscriptContents;
+    #[ORM\OneToMany(targetEntity: ManuscriptContent::class, mappedBy: 'printSource')]
+    private Collection|array $manuscriptContents;
 
     /**
      * @var Collection|Manuscript
-     * @ORM\ManyToMany(targetEntity="App\Entity\Manuscript", mappedBy="printSources")
      */
-    private $manuscripts;
+    #[ORM\ManyToMany(targetEntity: Manuscript::class, mappedBy: 'printSources')]
+    private Collection|array $manuscripts;
 
     public function __construct() {
         parent::__construct();
@@ -47,80 +38,39 @@ class PrintSource extends AbstractTerm {
         $this->regions = new ArrayCollection();
     }
 
-    /**
-     * Add manuscript.
-     *
-     * @param \App\Entity\Manuscript $manuscript
-     *
-     * @return PrintSource
-     */
-    public function addManuscript(Manuscript $manuscript) {
+    public function addManuscript(Manuscript $manuscript) : self {
         $this->manuscripts[] = $manuscript;
 
         return $this;
     }
 
-    /**
-     * Remove manuscript.
-     *
-     * @param \App\Entity\Manuscript $manuscript
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeManuscript(Manuscript $manuscript) {
+    public function removeManuscript(Manuscript $manuscript) : bool {
         return $this->manuscripts->removeElement($manuscript);
     }
 
-    /**
-     * Get manuscripts.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getManuscripts() {
+    public function getManuscripts() : Collection {
         return $this->manuscripts;
     }
 
-    /**
-     * Add manuscriptContent.
-     *
-     * @param \App\Entity\ManuscriptContent $manuscriptContent
-     *
-     * @return PrintSource
-     */
-    public function addManuscriptContent(ManuscriptContent $manuscriptContent) {
+    public function addManuscriptContent(ManuscriptContent $manuscriptContent) : self {
         $this->manuscriptContents[] = $manuscriptContent;
 
         return $this;
     }
 
-    /**
-     * Remove manuscriptContent.
-     *
-     * @param \App\Entity\ManuscriptContent $manuscriptContent
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeManuscriptContent(ManuscriptContent $manuscriptContent) {
+    public function removeManuscriptContent(ManuscriptContent $manuscriptContent) : bool {
         return $this->manuscriptContents->removeElement($manuscriptContent);
     }
 
-    /**
-     * Get manuscriptContents.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getManuscriptContents() {
+    public function getManuscriptContents() : Collection {
         return $this->manuscriptContents;
     }
 
-    /**
-     * @return Collection|Region[]
-     */
     public function getRegions() : Collection {
         return $this->regions;
     }
 
-    public function setRegions($regions) : self {
+    public function setRegions(Collection|array $regions) : self {
         if ($regions instanceof Collection) {
             $this->regions = $regions;
         } else {

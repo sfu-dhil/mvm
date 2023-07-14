@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Form;
 
 use App\Entity\Person;
@@ -24,7 +18,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * PersonType form.
  */
 class PersonType extends AbstractType {
-    private ?LinkableMapper $mapper = null;
+    public function __construct(
+        public LinkableMapper $mapper,
+    ) {
+    }
 
     /**
      * Add form fields to $builder.
@@ -33,17 +30,13 @@ class PersonType extends AbstractType {
         $builder->add('anonymous', CheckboxType::class, [
             'label' => 'Anonymous',
             'required' => false,
-            'attr' => [
-                'help_block' => 'Is the person anonymous?',
-            ],
+            'help' => 'Is the person anonymous?',
         ]);
 
         $builder->add('fullName', null, [
             'label' => 'Full Name',
             'required' => true,
-            'attr' => [
-                'help_block' => 'A canonical name for a person if known, or a descriptive identifier. Do not include square brackets.',
-            ],
+            'help' => 'A canonical name for a person if known, or a descriptive identifier. Do not include square brackets.',
         ]);
         $builder->add('variantNames', null, [
             'label' => 'Variant Names',
@@ -56,7 +49,6 @@ class PersonType extends AbstractType {
             ],
             'required' => false,
             'attr' => [
-                'help_block' => '',
                 'class' => 'collection collection-simple',
             ],
         ]);
@@ -64,9 +56,6 @@ class PersonType extends AbstractType {
         $builder->add('sortableName', null, [
             'label' => 'Sortable Name',
             'required' => true,
-            'attr' => [
-                'help_block' => '',
-            ],
         ]);
 
         $builder->add('gender', ChoiceType::class, [
@@ -85,7 +74,6 @@ class PersonType extends AbstractType {
             'label' => 'Description',
             'required' => false,
             'attr' => [
-                'help_block' => '',
                 'class' => 'tinymce',
             ],
         ]);
@@ -93,26 +81,15 @@ class PersonType extends AbstractType {
         $builder->add('birthDate', TextType::class, [
             'label' => 'Birth Date',
             'required' => false,
-            'attr' => [
-                'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
-            ],
+            'help' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
         ]);
         $builder->add('deathDate', TextType::class, [
             'label' => 'Death Date',
             'required' => false,
-            'attr' => [
-                'help_block' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
-            ],
+            'help' => 'A four digit year, if known for certain. Uncertain date ranges (1901-1903) and circa dates (c1902) are supported here',
         ]);
         LinkableType::add($builder, $options);
         $builder->setDataMapper($this->mapper);
-    }
-
-    /**
-     * @required
-     */
-    public function setMapper(LinkableMapper $mapper) : void {
-        $this->mapper = $mapper;
     }
 
     /**
@@ -123,7 +100,7 @@ class PersonType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) : void {
         $resolver->setDefaults([
-            'data_class' => 'App\Entity\Person',
+            'data_class' => Person::class,
         ]);
     }
 }

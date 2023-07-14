@@ -12,7 +12,7 @@
  {% endblock %}
 
  {% block admin %}
-     {% include 'partial/toolbar.html.twig' with {'edit': 'content_role_edit', 'delete': 'content_role_delete', 'id': contentRole.id } %}
+     {% include 'partial/toolbar.html.twig' with {'edit': 'content_role_edit', 'delete': 'content_role_delete', 'id': contentRole.id} %}
  {% endblock %}
 
 {% block body %}
@@ -25,14 +25,14 @@
                 {% set key = contribution.person.id %}
                 {% if contributors[key] is defined %}
                 {% else %}
-                    {% set this = { key : key } %}
+                    {% set this = {key: key} %}
                     {% set contributors = contributors|merge(this) %}
                 {% endif %}
 
             {% endfor %}
         </div>
     {% endif %}
-    {% if contentRole.contributions | length > 0 %}
+    {% if contentRole.contributions|length > 0 %}
         <table class="table">
             <thead>
                 <tr>
@@ -45,7 +45,7 @@
                 {% set people = (person in people) ? people : people|merge([person]) %}
             {% endfor %}
 
-            {% for person in people|sort((a,b) => a.sortableName <=> b.sortableName) %}
+            {% for person in people|sort((a, b) => a.sortableName <=> b.sortableName) %}
                 <tr>
                     <td>
                         <a href="{{ path('person_show', {'id': person.id}) }}">
@@ -53,7 +53,7 @@
                     </td>
                     <td>
                         <ul>
-                            {% for contribution in contentRole.contributions|filter(c => c.person == person)|sort((a,b) => a.content <=> b.content ) %}
+                            {% for contribution in contentRole.contributions|filter(c => c.person == person)|sort((a, b) => a.content <=> b.content ) %}
                                 <li>
                                     <a href="{{ path('content_show', {'id': contribution.content.id}) }}">
                                         {{ contribution.content }}

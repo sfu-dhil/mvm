@@ -4,7 +4,7 @@
             {% embed 'partial/gallery-item.html.twig' %}
                 {% block item_class %}coterie{% endblock %}
                 {% block item_heading %}
-                    <a href="{{ path('coterie_show', { 'id': coterie.id }) }}">{{ coterie }}</a>
+                    <a href="{{ path('coterie_show', {'id': coterie.id}) }}">{{ coterie }}</a>
                 {% endblock %}
                 {% block item_top %}
                 {% endblock %}

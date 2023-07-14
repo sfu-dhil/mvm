@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block body %}
-    {% if manuscriptRole.contributions | length > 0 %}
+    {% if manuscriptRole.contributions|length > 0 %}
         <table class="table">
             <thead>
                 <tr>
@@ -32,12 +32,12 @@
                     {% set people = people|merge([person]) %}
                 {% endif %}
             {% endfor %}
-            {% for person in people|sort((a,b) => a.sortableName <=> b.sortableName) %}
+            {% for person in people|sort((a, b) => a.sortableName <=> b.sortableName) %}
                 <tr>
                     <td><a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a></td>
                     <td>
                         <ul>
-                            {% for contribution in manuscriptRole.contributions|filter(c => c.person == person)|sort((a,b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
+                            {% for contribution in manuscriptRole.contributions|filter(c => c.person == person)|sort((a, b) => a.manuscript.callNumber <=> b.manuscript.callNumber) %}
                                 <li>
                                     <a href="{{ path('manuscript_show', {'id': contribution.manuscript.id}) }}">{{ contribution.manuscript }}</a>
                                 </li>

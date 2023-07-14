@@ -2,147 +2,75 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
+use App\Repository\ManuscriptContributionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
-/**
- * ManuscriptContribution.
- *
- * @ORM\Table(name="manuscript_contribution")
- * @ORM\Entity(repositoryClass="App\Repository\ManuscriptContributionRepository")
- */
+#[ORM\Table(name: 'manuscript_contribution')]
+#[ORM\Entity(repositoryClass: ManuscriptContributionRepository::class)]
 class ManuscriptContribution extends AbstractEntity {
-    /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $note;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $note;
 
-    /**
-     * @var Person
-     * @ORM\ManyToOne(targetEntity="App\Entity\Person", inversedBy="manuscriptContributions")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $person;
+    #[ORM\ManyToOne(targetEntity: Person::class, inversedBy: 'manuscriptContributions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Person $person = null;
 
-    /**
-     * @var Role
-     * @ORM\ManyToOne(targetEntity="App\Entity\ManuscriptRole", inversedBy="contributions")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $role;
+    #[ORM\ManyToOne(targetEntity: ManuscriptRole::class, inversedBy: 'contributions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ManuscriptRole $role = null;
 
-    /**
-     * @var Manuscript
-     * @ORM\ManyToOne(targetEntity="App\Entity\Manuscript", inversedBy="manuscriptContributions")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $manuscript;
+    #[ORM\ManyToOne(targetEntity: Manuscript::class, inversedBy: 'manuscriptContributions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Manuscript $manuscript = null;
 
     public function __construct() {
         parent::__construct();
     }
 
-    /**
-     * Force all entities to provide a stringify function.
-     */
     public function __toString() : string {
         return implode(', ', [$this->person, $this->role, $this->manuscript]);
     }
 
-    /**
-     * Set person.
-     *
-     * @param \App\Entity\Person $person
-     *
-     * @return ManuscriptContribution
-     */
-    public function setPerson(Person $person) {
+    public function setPerson(Person $person) : self {
         $this->person = $person;
 
         return $this;
     }
 
-    /**
-     * Get person.
-     *
-     * @return \App\Entity\Person
-     */
-    public function getPerson() {
+    public function getPerson() : Person {
         return $this->person;
     }
 
-    /**
-     * Set role.
-     *
-     * @param \App\Entity\ManuscriptRole $role
-     *
-     * @return ManuscriptContribution
-     */
-    public function setRole(ManuscriptRole $role) {
+    public function setRole(ManuscriptRole $role) : self {
         $this->role = $role;
 
         return $this;
     }
 
-    /**
-     * Get role.
-     *
-     * @return \App\Entity\ManuscriptRole
-     */
-    public function getRole() {
+    public function getRole() : ManuscriptRole {
         return $this->role;
     }
 
-    /**
-     * Set manuscript.
-     *
-     * @param \App\Entity\Manuscript $manuscript
-     *
-     * @return ManuscriptContribution
-     */
-    public function setManuscript(Manuscript $manuscript) {
+    public function setManuscript(Manuscript $manuscript) : self {
         $this->manuscript = $manuscript;
 
         return $this;
     }
 
-    /**
-     * Get manuscript.
-     *
-     * @return \App\Entity\Manuscript
-     */
-    public function getManuscript() {
+    public function getManuscript() : Manuscript {
         return $this->manuscript;
     }
 
-    /**
-     * Set note.
-     *
-     * @param string $note
-     *
-     * @return ManuscriptContribution
-     */
-    public function setNote($note) {
+    public function setNote(?string $note) : self {
         $this->note = $note;
 
         return $this;
     }
 
-    /**
-     * Get note.
-     *
-     * @return string
-     */
-    public function getNote() {
+    public function getNote() : ?string {
         return $this->note;
     }
 }

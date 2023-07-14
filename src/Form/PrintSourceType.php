@@ -2,14 +2,9 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Form;
 
+use App\Entity\PrintSource;
 use App\Entity\Region;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,7 +27,7 @@ class PrintSourceType extends ArchiveType {
             'required' => false,
             'allow_clear' => true,
             'attr' => [
-                'add_path' => 'region_new_popup',
+                'add_path' => 'region_new',
                 'add_label' => 'Add Region',
             ],
         ]);
@@ -46,7 +41,7 @@ class PrintSourceType extends ArchiveType {
      */
     public function configureOptions(OptionsResolver $resolver) : void {
         $resolver->setDefaults([
-            'data_class' => 'App\Entity\PrintSource',
+            'data_class' => PrintSource::class,
         ]);
     }
 }

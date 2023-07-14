@@ -1,19 +1,23 @@
 {% set params = app.request.uri|split('?') %}
 {% set params = params|length > 1 ? '?' ~ params[1] : null %}
 
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% form_theme form with [
+    '@NinesUtil/form/bootstrap_5_layout.html.twig',
+    '@TetranzSelect2Entity/Form/fields.html.twig',
+    'jquery.collection.html.twig',
+] only %}
 
 {% set filtered = (active is defined and active|length > 0) or (untitled is defined and untitled == 'false') %}
 
 {{ form_start(form, {'method': 'GET', 'action': path('manuscript_search')}) }}
 <div class='form-group'>
-    <label class="control-label sr-only" for='q'>Search term</label>
+    <label class="control-label visually-hidden" for='q'>Search term</label>
     <div>
         <div class="input-group">
             <input type='text' name='q' id='q' class='form-control' placeholder="Search..." value="{{ q|default('') }}">
             <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
-                            <span class='glyphicon glyphicon-search'></span>
+                        <button class="btn btn-light" type="submit">
+                            <i class="bi bi-search"></i>
                             Search
                         </button>
                     </span>
@@ -41,11 +45,11 @@
         {{ form_row(form.digitized) }}
         {# TODO: Make this actually work in the Lexik/Filters #}
         <div class="filter filter_boolean filter_untitled form-group">
-            <div class="checkbox">
-                <label for="titled">
-                    <input type="checkbox" id="titled" name="untitled" value="false"{% if untitled is defined and untitled == 'false' %}checked="checked"{% endif %}> Manuscripts with titles only</label>
+            <div class="form-check">
+                <input type="checkbox" id="untitled" name="untitled" aria-describedby="ms_filter_untitled_help" class="form-check-input" value="false" {% if untitled is defined and untitled == 'false' %}checked="checked"{% endif %}>
+                <label class="form-check-label" for="untitled">Manuscripts with titles only</label>
             </div>
-            <span id="ms_filter_untitled_help" class="help-block">If this control is checked, only manuscripts with titles will be included in search results.</span>
+            <div id="ms_filter_untitled_help" class="form-text mb-0 help-text">If this control is checked, only manuscripts with titles will be included in search results.</div>
         </div>
         <p class="help-block">Use the inputs to filter manuscripts by associated values. For example, all manuscripts
         that are held by the Bodleian Library or the Folger Shakespeare Library and that feature
@@ -54,14 +58,7 @@
     </div>
 
 </details>
-<div class="input-group">
-    {% include 'manuscript/partial/sorter.html.twig' %}
-    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
-                            Submit
-                        </button>
-                    </span>
-</div>
+{% include 'manuscript/partial/sorter.html.twig' %}
 
 {{ form_end(form) }}
 

@@ -2,21 +2,19 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Form;
 
 use App\Entity\Archive;
 use App\Entity\Coterie;
 use App\Entity\Period;
-
 use App\Entity\PrintSource;
 use App\Entity\Region;
 use App\Entity\Theme;
+use App\Repository\ArchiveRepository;
+use App\Repository\CoterieRepository;
+use App\Repository\PeriodRepository;
+use App\Repository\RegionRepository;
+use App\Repository\ThemeRepository;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderExecuterInterface;
@@ -94,6 +92,9 @@ class ManuscriptFilterType extends AbstractType {
                 };
                 $qbe->addOnce($qbe->getAlias() . '.manuscriptContents', 'contents', $closure);
             },
+            'entry_options' => [
+                'label' => false,
+            ],
             'row_attr' => ['class' => 'filter filter_entity filter_collection filter_manuscriptContents'],
         ]);
 
@@ -106,6 +107,9 @@ class ManuscriptFilterType extends AbstractType {
                 };
                 $qbe->addOnce($qbe->getAlias() . '.manuscriptContributions', 'contributions', $closure);
             },
+            'entry_options' => [
+                'label' => false,
+            ],
             'row_attr' => ['class' => 'filter filter_entity filter_collection filter_manuscriptContributions'],
         ]);
     }
@@ -122,18 +126,14 @@ class ManuscriptFilterType extends AbstractType {
     }
 
     public function sortByLabel($repo) {
-        return function ($repo) {
-            return $repo->createQueryBuilder('u')
-                ->orderBy('u.label', 'ASC')
-            ;
-        };
+        return fn ($repo) => $repo->createQueryBuilder('u')
+            ->orderBy('u.label', 'ASC')
+        ;
     }
 
     public function sortByName($repo) {
-        return function ($repo) {
-            return $repo->createQueryBuilder('u')
-                ->orderBy('u.name', 'ASC')
-            ;
-        };
+        return fn ($repo) => $repo->createQueryBuilder('u')
+            ->orderBy('u.name', 'ASC')
+        ;
     }
 }

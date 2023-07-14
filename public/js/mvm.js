@@ -40,7 +40,6 @@ function makeAccordions(){
    let accordions =  [...document.querySelectorAll('details.accordion')].map(d => {
        return new Accordion(d);
    });
-   console.log(accordions);
 }
 
 function makeBetterSelects(){
@@ -58,7 +57,7 @@ function makeBetterSelects(){
                             <line x1="0" x2="24" y1="0" y2="24" />
                             <line x1="24" x2="0" y1="0" y2="24" />
                         </svg>
-                        <span class="sr-only">Close</span>
+                        <span class="visually-hidden">Close</span>
                     </button>`;
             }
         },

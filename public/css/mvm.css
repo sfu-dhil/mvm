@@ -19,140 +19,154 @@
   font-family: "Nunito Sans";
   font-style: normal;
   font-weight: 200;
-  src: url("../fonts/nunito-sans-normal-200.woff2") format("woff2"), url("../fonts/nunito-sans-normal-200.woff") format("woff");
-}
-/* 'Nunito Sans' normal 300*/
-@font-face {
-  font-family: "Nunito Sans";
-  font-style: normal;
-  font-weight: 300;
-  src: url("../fonts/nunito-sans-normal-300.woff2") format("woff2"), url("../fonts/nunito-sans-normal-300.woff") format("woff");
+  src: url(.././fonts/nunito-sans-normal-200.woff2) format("woff2"), url(.././fonts/nunito-sans-normal-200.woff) format("woff");
 }
 /* 'Nunito Sans' italic 200*/
 @font-face {
   font-family: "Nunito Sans";
   font-style: italic;
   font-weight: 200;
-  src: url("../fonts/nunito-sans-italic-200.woff2") format("woff2"), url("../fonts/nunito-sans-italic-200.woff") format("woff");
+  src: url(.././fonts/nunito-sans-italic-200.woff2) format("woff2"), url(.././fonts/nunito-sans-italic-200.woff) format("woff");
+}
+/* 'Nunito Sans' normal 300*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 300;
+  src: url(.././fonts/nunito-sans-normal-300.woff2) format("woff2"), url(.././fonts/nunito-sans-normal-300.woff) format("woff");
 }
 /* 'Nunito Sans' italic 300*/
 @font-face {
   font-family: "Nunito Sans";
   font-style: italic;
   font-weight: 300;
-  src: url("../fonts/nunito-sans-italic-300.woff2") format("woff2"), url("../fonts/nunito-sans-italic-300.woff") format("woff");
+  src: url(.././fonts/nunito-sans-italic-300.woff2) format("woff2"), url(.././fonts/nunito-sans-italic-300.woff) format("woff");
 }
 /* 'Nunito Sans' normal 400*/
 @font-face {
   font-family: "Nunito Sans";
   font-style: normal;
   font-weight: 400;
-  src: url("../fonts/nunito-sans-normal-400.woff2") format("woff2"), url("../fonts/nunito-sans-normal-400.woff") format("woff");
+  src: url(.././fonts/nunito-sans-normal-400.woff2) format("woff2"), url(.././fonts/nunito-sans-normal-400.woff) format("woff");
 }
 /* 'Nunito Sans' italic 400*/
 @font-face {
   font-family: "Nunito Sans";
   font-style: italic;
   font-weight: 400;
-  src: url("../fonts/nunito-sans-italic-400.woff2") format("woff2"), url("../fonts/nunito-sans-italic-400.woff") format("woff");
+  src: url(.././fonts/nunito-sans-italic-400.woff2) format("woff2"), url(.././fonts/nunito-sans-italic-400.woff) format("woff");
+}
+/* 'Nunito Sans' normal 500*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 500;
+  src: url(.././fonts/nunito-sans-normal-500.woff2) format("woff2"), url(.././fonts/nunito-sans-normal-500.woff) format("woff");
+}
+/* 'Nunito Sans' italic 500*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: italic;
+  font-weight: 500;
+  src: url(.././fonts/nunito-sans-italic-500.woff2) format("woff2"), url(.././fonts/nunito-sans-italic-500.woff) format("woff");
 }
 /* 'Nunito Sans' normal 700*/
 @font-face {
   font-family: "Nunito Sans";
   font-style: normal;
   font-weight: 700;
-  src: url("../fonts/nunito-sans-normal-700.woff2") format("woff2"), url("../fonts/nunito-sans-normal-700.woff") format("woff");
-}
-/* 'Nunito Sans' normal 800*/
-@font-face {
-  font-family: "Nunito Sans";
-  font-style: normal;
-  font-weight: 800;
-  src: url("../fonts/nunito-sans-normal-800.woff2") format("woff2"), url("../fonts/nunito-sans-normal-800.woff") format("woff");
+  src: url(.././fonts/nunito-sans-normal-700.woff2) format("woff2"), url(.././fonts/nunito-sans-normal-700.woff) format("woff");
 }
 /* 'Nunito Sans' italic 700*/
 @font-face {
   font-family: "Nunito Sans";
   font-style: italic;
   font-weight: 700;
-  src: url("../fonts/nunito-sans-italic-700.woff2") format("woff2"), url("../fonts/nunito-sans-italic-700.woff") format("woff");
+  src: url(.././fonts/nunito-sans-italic-700.woff2) format("woff2"), url(.././fonts/nunito-sans-italic-700.woff) format("woff");
+}
+/* 'Nunito Sans' normal 800*/
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 800;
+  src: url(.././fonts/nunito-sans-normal-800.woff2) format("woff2"), url(.././fonts/nunito-sans-normal-800.woff) format("woff");
 }
 /* 'Nunito Sans' italic 800*/
 @font-face {
   font-family: "Nunito Sans";
   font-style: italic;
   font-weight: 800;
-  src: url("../fonts/nunito-sans-italic-800.woff2") format("woff2"), url("../fonts/nunito-sans-italic-800.woff") format("woff");
+  src: url(.././fonts/nunito-sans-italic-800.woff2) format("woff2"), url(.././fonts/nunito-sans-italic-800.woff) format("woff");
 }
 /* 'Nunito Sans' normal 900*/
 @font-face {
   font-family: "Nunito Sans";
   font-style: normal;
   font-weight: 900;
-  src: url("../fonts/nunito-sans-normal-900.woff2") format("woff2"), url("../fonts/nunito-sans-normal-900.woff") format("woff");
+  src: url(.././fonts/nunito-sans-normal-900.woff2) format("woff2"), url(.././fonts/nunito-sans-normal-900.woff) format("woff");
 }
 /* 'Nunito Sans' italic 900*/
 @font-face {
   font-family: "Nunito Sans";
   font-style: italic;
   font-weight: 900;
-  src: url("../fonts/nunito-sans-italic-900.woff2") format("woff2"), url("../fonts/nunito-sans-italic-900.woff") format("woff");
+  src: url(.././fonts/nunito-sans-italic-900.woff2) format("woff2"), url(.././fonts/nunito-sans-italic-900.woff) format("woff");
 }
 /* 'EB Garamond' normal 500*/
 @font-face {
   font-family: "EB Garamond";
   font-style: normal;
   font-weight: 500;
-  src: url("../fonts/eb-garamond-normal-500.woff2") format("woff2"), url("../fonts/eb-garamond-normal-500.woff") format("woff");
-}
-/* 'EB Garamond' normal 600*/
-@font-face {
-  font-family: "EB Garamond";
-  font-style: normal;
-  font-weight: 600;
-  src: url("../fonts/eb-garamond-normal-600.woff2") format("woff2"), url("../fonts/eb-garamond-normal-600.woff") format("woff");
-}
-/* 'EB Garamond' normal 700*/
-@font-face {
-  font-family: "EB Garamond";
-  font-style: normal;
-  font-weight: 700;
-  src: url("../fonts/eb-garamond-normal-700.woff2") format("woff2"), url("../fonts/eb-garamond-normal-700.woff") format("woff");
-}
-/* 'EB Garamond' normal 800*/
-@font-face {
-  font-family: "EB Garamond";
-  font-style: normal;
-  font-weight: 800;
-  src: url("../fonts/eb-garamond-normal-800.woff2") format("woff2"), url("../fonts/eb-garamond-normal-800.woff") format("woff");
-}
-/* 'EB Garamond' italic 700*/
-@font-face {
-  font-family: "EB Garamond";
-  font-style: italic;
-  font-weight: 700;
-  src: url("../fonts/eb-garamond-italic-700.woff2") format("woff2"), url("../fonts/eb-garamond-italic-700.woff") format("woff");
-}
-/* 'EB Garamond' italic 800*/
-@font-face {
-  font-family: "EB Garamond";
-  font-style: italic;
-  font-weight: 800;
-  src: url("../fonts/eb-garamond-italic-800.woff2") format("woff2"), url("../fonts/eb-garamond-italic-800.woff") format("woff");
+  src: url(.././fonts/eb-garamond-normal-500.woff2) format("woff2"), url(.././fonts/eb-garamond-normal-500.woff) format("woff");
 }
 /* 'EB Garamond' italic 500*/
 @font-face {
   font-family: "EB Garamond";
   font-style: italic;
   font-weight: 500;
-  src: url("../fonts/eb-garamond-italic-500.woff2") format("woff2"), url("../fonts/eb-garamond-italic-500.woff") format("woff");
+  src: url(.././fonts/eb-garamond-italic-500.woff2) format("woff2"), url(.././fonts/eb-garamond-italic-500.woff) format("woff");
+}
+/* 'EB Garamond' normal 600*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 600;
+  src: url(.././fonts/eb-garamond-normal-600.woff2) format("woff2"), url(.././fonts/eb-garamond-normal-600.woff) format("woff");
 }
 /* 'EB Garamond' italic 600*/
 @font-face {
   font-family: "EB Garamond";
   font-style: italic;
   font-weight: 600;
-  src: url("../fonts/eb-garamond-italic-600.woff2") format("woff2"), url("../fonts/eb-garamond-italic-600.woff") format("woff");
+  src: url(.././fonts/eb-garamond-italic-600.woff2) format("woff2"), url(.././fonts/eb-garamond-italic-600.woff) format("woff");
+}
+/* 'EB Garamond' normal 700*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 700;
+  src: url(.././fonts/eb-garamond-normal-700.woff2) format("woff2"), url(.././fonts/eb-garamond-normal-700.woff) format("woff");
+}
+/* 'EB Garamond' italic 700*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 700;
+  src: url(.././fonts/eb-garamond-italic-700.woff2) format("woff2"), url(.././fonts/eb-garamond-italic-700.woff) format("woff");
+}
+/* 'EB Garamond' normal 800*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 800;
+  src: url(.././fonts/eb-garamond-normal-800.woff2) format("woff2"), url(.././fonts/eb-garamond-normal-800.woff) format("woff");
+}
+/* 'EB Garamond' italic 800*/
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 800;
+  src: url(.././fonts/eb-garamond-italic-800.woff2) format("woff2"), url(.././fonts/eb-garamond-italic-800.woff) format("woff");
 }
 /* Mixins file, which we should try and use globally across DHIL projects,
 since there's stuff I tend to do quite a bit.
@@ -424,10 +438,8 @@ li > .breadcrumbs .current {
 /* CSS Mode */
 .swiper-css-mode > .swiper-wrapper {
   overflow: auto;
-  scrollbar-width: none;
-  /* For Firefox */
-  -ms-overflow-style: none;
-  /* For Internet Explorer and Edge */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
 }
 .swiper-css-mode > .swiper-wrapper::-webkit-scrollbar {
   display: none;
@@ -1085,7 +1097,7 @@ form[name=ms_filter] .accordion {
   border: 1px solid transparent;
 }
 form[name=ms_filter] .accordion[open] {
-  border-color: #f4f4f4;
+  border-color: rgb(244, 244, 244);
 }
 
 .search_filters {
@@ -1102,10 +1114,6 @@ form[name=ms_filter] .accordion[open] {
   }
 }
 
-.sorter {
-  margin-top: 1em;
-}
-
 .filter_collection.form-group {
   margin-bottom: 0;
 }
@@ -1113,6 +1121,16 @@ form[name=ms_filter] .accordion[open] {
   display: none;
 }
 
+.citation-title {
+  font-style: italic;
+}
+
+/* If hanging indent is desired */
+/*
+.citation{
+    padding-left: 1.5em;
+    text-indent: -1.5em;
+}*/
 /*
  * Root
  */
@@ -1150,6 +1168,7 @@ nav.navbar {
   border-radius: 0;
   box-shadow: unset;
   border: none;
+  display: block;
 }
 nav.navbar:after {
   content: "";
@@ -1440,7 +1459,8 @@ form {
 }
 
 .navigation {
-  text-align: right;
+  padding: 20px 0px;
+  margin: auto;
 }
 
 main {
@@ -1474,14 +1494,6 @@ ul.nav-pills > li.nav-item {
   background: #E7E7E7;
   margin-left: 0;
 }
-ul.nav-pills > li.nav-item.active > a {
-  background: #39253B;
-  color: #FFFFFF;
-  border-radius: 0;
-}
-ul.nav-pills > li.nav-item.active > a:hover {
-  color: #FFFFFF;
-}
 ul.nav-pills > li.nav-item a {
   color: #010101;
   padding-bottom: 0.5rem;
@@ -1493,6 +1505,14 @@ ul.nav-pills > li.nav-item a {
 }
 ul.nav-pills > li.nav-item a:hover, ul.nav-pills > li.nav-item a:visited {
   border-bottom: none;
+}
+ul.nav-pills > li.nav-item a.active {
+  background: #39253B;
+  color: #FFFFFF;
+  border-radius: 0;
+}
+ul.nav-pills > li.nav-item a.active:hover {
+  color: #FFFFFF;
 }
 
 /* Now the nav stuff at the top */
@@ -1845,7 +1865,7 @@ footer > .container:after {
 }
 footer > .container:before {
   content: "";
-  background: url("../images/fleur.svg");
+  background: url(.././images/fleur.svg);
   height: 2rem;
   background-size: contain;
   display: block;
@@ -1912,15 +1932,15 @@ footer .footer-imgs img:hover {
   filter: grayscale(100%);
 }
 
-.pagination > li.active > a {
+.pagination > li.active > a, .pagination > li.active span {
   background-color: #39253B;
   border-color: #39253B;
   color: #FFFFFF;
 }
-.pagination > li > a {
+.pagination > li > a, .pagination > li span {
   color: #39253B;
 }
-.pagination > li > a:hover {
+.pagination > li > a:hover, .pagination > li span:hover {
   background-color: #39253B;
   border-color: #39253B;
   color: white;
@@ -1929,6 +1949,22 @@ footer .footer-imgs img:hover {
   .pagination .page-label {
     display: none;
   }
+}
+
+div.collection span[class*=-collection-actions] {
+  width: inherit !important;
+}
+
+div.collection-media > div:not(:last-child),
+div.collection-complex > div:not(:last-child) {
+  padding-top: 15px;
+  border: 1px solid rgba(128, 128, 128, 0.31);
+}
+
+label.required::after {
+  content: " *";
+  color: red;
+  font-weight: bold;
 }
 
 .cat-description > p {
@@ -1992,7 +2028,7 @@ details.accordion summary {
   font-variant: small-caps;
   font-size: 1rem;
   font-weight: 500;
-  background-color: #f4f4f4;
+  background-color: rgb(244, 244, 244);
   transition: background-color 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
   cursor: pointer;
 }
@@ -2060,8 +2096,8 @@ details > div {
 }
 #index .jumbotron {
   padding-top: 38px;
-  height: 42rem;
-  background-image: url("../images/hero.jpg");
+  height: 45rem;
+  background-image: url(.././images/hero.jpg);
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
@@ -2120,7 +2156,7 @@ details > div {
   text-decoration: none;
   /* Max this flush right with the paragraph */
 }
-@supports (margin-right: 0px) {
+@supports (margin-right: max(0px)) {
   #index .jumbotron > .container a.readMore {
     margin-right: max((100% - 60rem) / 2, 0px);
   }
@@ -2185,7 +2221,7 @@ details > div {
 }
 #index ul.archive-gallery > li:before {
   content: "";
-  background-image: url("../images/marble.jpeg");
+  background-image: url(.././images/marble.jpeg);
   position: absolute;
   top: 0;
   left: 0;
@@ -2249,7 +2285,7 @@ details > div {
     margin-top: -2rem;
   }
   #index section,
-#index section + section {
+  #index section + section {
     width: 90%;
     margin: 0 auto;
   }
@@ -2316,7 +2352,6 @@ details > div {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
-
   nav.navbar .navbar-toggle {
     transition: all 0.3s ease-in-out;
     color: #FFFFFF;
@@ -2343,17 +2378,15 @@ details > div {
     background: #FFFFFF;
     color: #39253B;
   }
-
   header .list-group-horizontal {
     flex-direction: column;
   }
   header .list-group-horizontal li {
     border-left: none !important;
   }
-
   .body-nav .btn-toolbar {
     margin-left: auto;
   }
 }
 
-/*# sourceMappingURL=mvm.css.map */
+/*# sourceMappingURL=mvm.css.map*/

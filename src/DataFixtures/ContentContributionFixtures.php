@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\DataFixtures;
 
 use App\Entity\ContentContribution;
@@ -21,9 +15,6 @@ class ContentContributionFixtures extends Fixture implements DependentFixtureInt
         return ['dev', 'test'];
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(ObjectManager $manager) : void {
         for ($i = 1; $i <= 4; $i++) {
             $fixture = new ContentContribution();
@@ -37,9 +28,6 @@ class ContentContributionFixtures extends Fixture implements DependentFixtureInt
         $manager->flush();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDependencies() {
         return [
             ContentRoleFixtures::class,
