@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Tests\Controller;
 
 use Nines\UserBundle\DataFixtures\UserFixtures;
@@ -97,7 +91,7 @@ class ContentTest extends ControllerTestCase {
             return;
         }
         $this->assertSame('application/json', $response->headers->get('content-type'));
-        $json = json_decode($response->getContent());
+        $json = json_decode($response->getContent(), null, 512, JSON_THROW_ON_ERROR);
         $this->assertCount(4, $json);
     }
 
@@ -111,7 +105,7 @@ class ContentTest extends ControllerTestCase {
         $response = $this->client->getResponse();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
-        $json = json_decode($response->getContent());
+        $json = json_decode($response->getContent(), null, 512, JSON_THROW_ON_ERROR);
         $this->assertCount(4, $json);
     }
 
@@ -125,7 +119,7 @@ class ContentTest extends ControllerTestCase {
         $response = $this->client->getResponse();
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
-        $json = json_decode($response->getContent());
+        $json = json_decode($response->getContent(), null, 512, JSON_THROW_ON_ERROR);
         $this->assertCount(4, $json);
     }
 
@@ -225,16 +219,6 @@ class ContentTest extends ControllerTestCase {
     }
 
     /**
-     * @group anon
-     * @group new
-     */
-    public function testAnonNewPopup() : void {
-        $crawler = $this->client->request('GET', '/content/new_popup');
-        $this->assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
-        $this->assertTrue($this->client->getResponse()->isRedirect());
-    }
-
-    /**
      * @group user
      * @group new
      */
@@ -245,45 +229,12 @@ class ContentTest extends ControllerTestCase {
     }
 
     /**
-     * @group user
-     * @group new
-     */
-    public function testUserNewPopup() : void {
-        $this->login(UserFixtures::USER);
-        $crawler = $this->client->request('GET', '/content/new_popup');
-        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
-    }
-
-    /**
      * @group admin
      * @group new
      */
     public function testAdminNew() : void {
         $this->login(UserFixtures::ADMIN);
         $formCrawler = $this->client->request('GET', '/content/new');
-        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-
-        $form = $formCrawler->selectButton('Create')->form([
-            'content[firstLine]' => 'New FirstLine',
-            'content[title]' => 'New Title',
-            'content[transcription]' => 'New Transcription',
-            'content[description]' => 'New Description',
-        ]);
-
-        $this->client->submit($form);
-        $this->assertTrue($this->client->getResponse()->isRedirect());
-        $responseCrawler = $this->client->followRedirect();
-        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-        $this->assertSame(1, $responseCrawler->filter('h1:contains("New FirstLine")')->count());
-    }
-
-    /**
-     * @group admin
-     * @group new
-     */
-    public function testAdminNewPopup() : void {
-        $this->login(UserFixtures::ADMIN);
-        $formCrawler = $this->client->request('GET', '/content/new_popup');
         $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Create')->form([

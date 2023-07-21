@@ -11,13 +11,13 @@
 {% endblock %}
 
 {% block admin %}
-    {% include 'partial/toolbar.html.twig' with {'edit':'person_edit', 'delete': 'person_delete', 'id': person.id } %}
+    {% include 'partial/toolbar.html.twig' with {'edit':'person_edit', 'delete': 'person_delete', 'id': person.id} %}
 {% endblock %}
 
 {% set entity = person %}
 
 {% block body %}
-    {% set detailsContent %}
+    {% set details_content %}
 
         <table class="table">
             <tbody>
@@ -63,7 +63,7 @@
     {% endset %}
 
     {% set contentContent %}
-        {% if person.contentContributions | length > 0 %}
+        {% if person.contentContributions|length > 0 %}
             <table class="table">
                 <thead>
                     <tr>
@@ -112,7 +112,7 @@
             {% endfor %}
 
             <div class="gallery">
-                {% for manuscript in manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
+                {% for manuscript in manuscripts|sort((a, b) => a.callNumber <=> b.callNumber) %}
                     {% set roles = person.manuscriptContributions|filter(m => m.manuscript == manuscript)|map(m => m.role) %}
                     {% set callbackDescription %}
                         <p>Role{% if roles|length > 1 %}s{% endif %}: {{ roles|join(', ') }}</p>
@@ -124,7 +124,7 @@
     {% endset %}
 
     {% set tabs = {
-        'Details': detailsContent,
+        'Details': details_content,
         'Manuscript Contributions': manuscriptContent,
         'Poem Contributions': contentContent
     } %}

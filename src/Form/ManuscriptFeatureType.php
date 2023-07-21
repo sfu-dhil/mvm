@@ -2,15 +2,10 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Form;
 
 use App\Entity\Feature;
+use App\Entity\ManuscriptFeature;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,7 +27,7 @@ class ManuscriptFeatureType extends AbstractType {
             'required' => true,
             'allow_clear' => true,
             'attr' => [
-                'add_path' => 'feature_new_popup',
+                'add_path' => 'feature_new',
                 'add_label' => 'Add Feature',
             ],
         ]);
@@ -40,7 +35,6 @@ class ManuscriptFeatureType extends AbstractType {
             'label' => 'Note',
             'required' => true,
             'attr' => [
-                'help_block' => '',
                 'class' => 'tinymce small',
             ],
         ]);
@@ -54,7 +48,7 @@ class ManuscriptFeatureType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) : void {
         $resolver->setDefaults([
-            'data_class' => 'App\Entity\ManuscriptFeature',
+            'data_class' => ManuscriptFeature::class,
         ]);
     }
 }

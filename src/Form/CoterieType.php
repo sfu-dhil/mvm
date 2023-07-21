@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Form;
 
 use App\Entity\Coterie;
@@ -37,7 +31,7 @@ class CoterieType extends TermType {
             'required' => false,
             'allow_clear' => true,
             'attr' => [
-                'add_path' => 'person_new_popup',
+                'add_path' => 'person_new',
                 'add_label' => 'Add Person',
             ],
         ]);
@@ -49,7 +43,7 @@ class CoterieType extends TermType {
             'required' => false,
             'allow_clear' => true,
             'attr' => [
-                'add_path' => 'manuscript_new_popup',
+                'add_path' => 'manuscript_new',
                 'add_label' => 'Add Manuscript',
             ],
         ]);
@@ -61,7 +55,7 @@ class CoterieType extends TermType {
             'required' => false,
             'allow_clear' => true,
             'attr' => [
-                'add_path' => 'region_new_popup',
+                'add_path' => 'region_new',
                 'add_label' => 'Add Region',
             ],
         ]);
@@ -73,7 +67,7 @@ class CoterieType extends TermType {
             'required' => false,
             'allow_clear' => true,
             'attr' => [
-                'add_path' => 'period_new_popup',
+                'add_path' => 'period_new',
                 'add_label' => 'Add Period',
             ],
         ]);

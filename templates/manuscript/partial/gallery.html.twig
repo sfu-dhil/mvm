@@ -5,7 +5,7 @@
         where there are MS galleries #}
         {# {% include 'manuscript/partial/sorter.html.twig' %} #}
     {% else %}
-        {% set manuscripts = manuscripts|sort((a,b) => a.callNumber <=> b.callNumber) %}
+        {% set manuscripts = manuscripts|sort((a, b) => a.callNumber <=> b.callNumber) %}
     {% endif %}
 
     <div class="gallery ms">

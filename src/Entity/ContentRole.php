@@ -2,67 +2,39 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
+use App\Repository\ContentRoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
-/**
- * ContentRole.
- *
- * @ORM\Table(name="content_role")
- * @ORM\Entity(repositoryClass="App\Repository\ContentRoleRepository")
- */
+#[ORM\Table(name: 'content_role')]
+#[ORM\Entity(repositoryClass: ContentRoleRepository::class)]
 class ContentRole extends AbstractTerm {
     /**
      * @var Collection|ContentContribution[]
-     * @ORM\OneToMany(targetEntity="App\Entity\ContentContribution", mappedBy="role")
      */
-    private $contributions;
+    #[ORM\OneToMany(targetEntity: ContentContribution::class, mappedBy: 'role')]
+    private Collection|array $contributions;
 
     public function __construct() {
         parent::__construct();
         $this->contributions = new ArrayCollection();
     }
 
-    /**
-     * Add contribution.
-     *
-     * @param \App\Entity\ContentContribution $contribution
-     *
-     * @return ContentRole
-     */
-    public function addContribution(ContentContribution $contribution) {
+    public function addContribution(ContentContribution $contribution) : self {
         $this->contributions[] = $contribution;
 
         return $this;
     }
 
-    /**
-     * Remove contribution.
-     *
-     * @param \App\Entity\ContentContribution $contribution
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeContribution(ContentContribution $contribution) {
+    public function removeContribution(ContentContribution $contribution) : bool {
         return $this->contributions->removeElement($contribution);
     }
 
-    /**
-     * Get contributions.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getContributions() {
+    public function getContributions() : Collection {
         return $this->contributions;
     }
 }

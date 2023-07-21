@@ -2,17 +2,12 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Controller;
 
 use App\Entity\Region;
 use App\Form\RegionType;
 use App\Repository\RegionRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -23,25 +18,17 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Region controller.
- *
- * @Route("/region")
- */
+#[Route(path: '/region')]
 class RegionController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**
-     * Lists all Region entities.
-     *
      * @return array
-     *
-     * @Route("/", name="region_index", methods={"GET"})
-     * @Template
      */
-    public function indexAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
+    #[Route(path: '/', name: 'region_index', methods: ['GET'])]
+    #[Template]
+    public function indexAction(EntityManagerInterface $entityManager, Request $request) {
+        $qb = $entityManager->createQueryBuilder();
         $qb->select('e')->from(Region::class, 'e')->orderBy('e.name', 'ASC');
         $query = $qb->getQuery();
 
@@ -53,12 +40,9 @@ class RegionController extends AbstractController implements PaginatorAwareInter
     }
 
     /**
-     * Typeahead API endpoint for Region entities.
-     *
-     * @Route("/typeahead", name="region_typeahead", methods={"GET"})
-     *
      * @return JsonResponse
      */
+    #[Route(path: '/typeahead', name: 'region_typeahead', methods: ['GET'])]
     public function typeahead(Request $request, RegionRepository $repo) {
         $q = $request->query->get('q');
         if ( ! $q) {
@@ -77,13 +61,10 @@ class RegionController extends AbstractController implements PaginatorAwareInter
     }
 
     /**
-     * Search for Region entities.
-     *
-     * @Route("/search", name="region_search", methods={"GET"})
-     * @Template
-     *
      * @return array
      */
+    #[Route(path: '/search', name: 'region_search', methods: ['GET'])]
+    #[Template]
     public function searchAction(Request $request, RegionRepository $repo) {
         $q = $request->query->get('q');
         if ($q) {
@@ -101,23 +82,19 @@ class RegionController extends AbstractController implements PaginatorAwareInter
     }
 
     /**
-     * Creates a new Region entity.
-     *
      * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="region_new", methods={"GET", "POST"})
-     * @Template
      */
-    public function newAction(Request $request) {
+    #[Route(path: '/new', name: 'region_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function newAction(EntityManagerInterface $entityManager, Request $request) {
         $region = new Region();
         $form = $this->createForm(RegionType::class, $region);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($region);
-            $em->flush();
+            $entityManager->persist($region);
+            $entityManager->flush();
 
             $this->addFlash('success', 'The new region was created.');
 
@@ -131,26 +108,10 @@ class RegionController extends AbstractController implements PaginatorAwareInter
     }
 
     /**
-     * Creates a new Region entity in a popup.
-     *
-     * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="region_new_popup", methods={"GET", "POST"})
-     * @Template
-     */
-    public function newPopupAction(Request $request) {
-        return $this->newAction($request);
-    }
-
-    /**
-     * Finds and displays a Region entity.
-     *
      * @return array
-     *
-     * @Route("/{id}", name="region_show", methods={"GET"})
-     * @Template
      */
+    #[Route(path: '/{id}', name: 'region_show', methods: ['GET'])]
+    #[Template]
     public function showAction(Region $region) {
         return [
             'region' => $region,
@@ -158,13 +119,10 @@ class RegionController extends AbstractController implements PaginatorAwareInter
     }
 
     /**
-     * Finds and displays a Region modal.
-     *
      * @return array
-     *
-     * @Route("/{id}/modal", name="region_modal", methods={"GET"})
-     * @Template
      */
+    #[Route(path: '/{id}/modal', name: 'region_modal', methods: ['GET'])]
+    #[Template]
     public function modalAction(Region $region) {
         return [
             'region' => $region,
@@ -172,21 +130,17 @@ class RegionController extends AbstractController implements PaginatorAwareInter
     }
 
     /**
-     * Displays a form to edit an existing Region entity.
-     *
      * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="region_edit", methods={"GET", "POST"})
-     * @Template
      */
-    public function editAction(Request $request, Region $region) {
+    #[Route(path: '/{id}/edit', name: 'region_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function editAction(EntityManagerInterface $entityManager, Request $request, Region $region) {
         $editForm = $this->createForm(RegionType::class, $region);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $entityManager->flush();
             $this->addFlash('success', 'The region has been updated.');
 
             return $this->redirectToRoute('region_show', ['id' => $region->getId()]);
@@ -199,17 +153,13 @@ class RegionController extends AbstractController implements PaginatorAwareInter
     }
 
     /**
-     * Deletes a Region entity.
-     *
      * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/delete", name="region_delete", methods={"GET"})
      */
-    public function deleteAction(Request $request, Region $region) {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($region);
-        $em->flush();
+    #[Route(path: '/{id}/delete', name: 'region_delete', methods: ['GET'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    public function deleteAction(EntityManagerInterface $entityManager, Request $request, Region $region) {
+        $entityManager->remove($region);
+        $entityManager->flush();
         $this->addFlash('success', 'The region was deleted.');
 
         return $this->redirectToRoute('region_index');

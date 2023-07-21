@@ -2,147 +2,75 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
+use App\Repository\ManuscriptContentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
-/**
- * ManuscriptContent.
- *
- * @ORM\Table(name="manuscript_content")
- * @ORM\Entity(repositoryClass="App\Repository\ManuscriptContentRepository")
- */
+#[ORM\Table(name: 'manuscript_content')]
+#[ORM\Entity(repositoryClass: ManuscriptContentRepository::class)]
 class ManuscriptContent extends AbstractEntity {
-    /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $context;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $context;
 
-    /**
-     * @var Content
-     * @ORM\ManyToOne(targetEntity="App\Entity\Content", inversedBy="manuscriptContents")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $content;
+    #[ORM\ManyToOne(targetEntity: Content::class, inversedBy: 'manuscriptContents')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Content $content = null;
 
-    /**
-     * @var Manuscript
-     * @ORM\ManyToOne(targetEntity="App\Entity\Manuscript", inversedBy="manuscriptContents")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $manuscript;
+    #[ORM\ManyToOne(targetEntity: Manuscript::class, inversedBy: 'manuscriptContents')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Manuscript $manuscript = null;
 
-    /**
-     * @var PrintSource
-     * @ORM\ManyToOne(targetEntity="App\Entity\PrintSource", inversedBy="manuscriptContents")
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     */
-    private $printSource;
+    #[ORM\ManyToOne(targetEntity: PrintSource::class, inversedBy: 'manuscriptContents')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private ?PrintSource $printSource = null;
 
     public function __construct() {
         parent::__construct();
     }
 
-    /**
-     * Force all entities to provide a stringify function.
-     */
     public function __toString() : string {
         return implode(', ', [$this->content, $this->manuscript]);
     }
 
-    /**
-     * Set context.
-     *
-     * @param null|string $context
-     *
-     * @return ManuscriptContent
-     */
-    public function setContext($context = null) {
+    public function setContext(?string $context = null) : self {
         $this->context = $context;
 
         return $this;
     }
 
-    /**
-     * Get context.
-     *
-     * @return null|string
-     */
-    public function getContext() {
+    public function getContext() : ?string {
         return $this->context;
     }
 
-    /**
-     * Set content.
-     *
-     * @param \App\Entity\Content $content
-     *
-     * @return ManuscriptContent
-     */
-    public function setContent(Content $content) {
+    public function setContent(Content $content) : self {
         $this->content = $content;
 
         return $this;
     }
 
-    /**
-     * Get content.
-     *
-     * @return \App\Entity\Content
-     */
-    public function getContent() {
+    public function getContent() : Content {
         return $this->content;
     }
 
-    /**
-     * Set manuscript.
-     *
-     * @param \App\Entity\Manuscript $manuscript
-     *
-     * @return ManuscriptContent
-     */
-    public function setManuscript(Manuscript $manuscript) {
+    public function setManuscript(Manuscript $manuscript) : self {
         $this->manuscript = $manuscript;
 
         return $this;
     }
 
-    /**
-     * Get manuscript.
-     *
-     * @return \App\Entity\Manuscript
-     */
-    public function getManuscript() {
+    public function getManuscript() : Manuscript {
         return $this->manuscript;
     }
 
-    /**
-     * Set printSource.
-     *
-     * @param \App\Entity\PrintSource $printSource
-     *
-     * @return ManuscriptContent
-     */
-    public function setPrintSource(PrintSource $printSource) {
+    public function setPrintSource(?PrintSource $printSource) : self {
         $this->printSource = $printSource;
 
         return $this;
     }
 
-    /**
-     * Get printSource.
-     *
-     * @return \App\Entity\PrintSource
-     */
-    public function getPrintSource() {
+    public function getPrintSource() : ?PrintSource {
         return $this->printSource;
     }
 }

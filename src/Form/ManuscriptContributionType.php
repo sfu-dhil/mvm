@@ -2,14 +2,9 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Form;
 
+use App\Entity\ManuscriptContribution;
 use App\Entity\ManuscriptRole;
 use App\Entity\Person;
 use Symfony\Component\Form\AbstractType;
@@ -33,7 +28,7 @@ class ManuscriptContributionType extends AbstractType {
             'required' => true,
             'allow_clear' => true,
             'attr' => [
-                'add_path' => 'person_new_popup',
+                'add_path' => 'person_new',
                 'add_label' => 'Add Person',
             ],
         ]);
@@ -45,7 +40,7 @@ class ManuscriptContributionType extends AbstractType {
             'required' => true,
             'allow_clear' => true,
             'attr' => [
-                'add_path' => 'manuscript_role_new_popup',
+                'add_path' => 'manuscript_role_new',
                 'add_label' => 'Add Role',
             ],
         ]);
@@ -53,7 +48,6 @@ class ManuscriptContributionType extends AbstractType {
             'label' => 'Note',
             'required' => true,
             'attr' => [
-                'help_block' => '',
                 'class' => 'tinymce',
             ],
         ]);
@@ -67,7 +61,7 @@ class ManuscriptContributionType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) : void {
         $resolver->setDefaults([
-            'data_class' => 'App\Entity\ManuscriptContribution',
+            'data_class' => ManuscriptContribution::class,
         ]);
     }
 }

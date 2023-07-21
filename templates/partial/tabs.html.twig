@@ -2,11 +2,11 @@
 {% if tabs|length > 0 %}
     <ul class="nav nav-pills" id="tabs" role="tablist">
         {% for key,val in tabs %}
-            {% set active = loop.first ? ' active' %}
+            {% set active = loop.first ? 'active' : '' %}
             {% set id = key|replace({'&amp;': ''})|u.camel %}
-            <li class="nav-item{{ active }}">
-                <a class="nav-link{{ active }}" id="{{ id }}-tab" href="#{{ id }}"
-                        data-toggle="tab" role="tab" aria-controls="{{ id }}"
+            <li class="nav-item">
+                <a class="nav-link {{ active }}" id="{{ id }}-tab" href="#{{ id }}"
+                        data-bs-toggle="tab" role="tab" aria-controls="{{ id }}"
                         aria-selected="{{ loop.first }}">{{ key|raw }}</a>
             </li>
         {% endfor %}
@@ -14,7 +14,7 @@
     <div class="tab-content" id="tabContent">
         {% for key,val in tabs %}
             {% set id = key|replace({'&amp;': ''})|u.camel %}
-            <div class="tab-pane {% if loop.first %}active{% else %}fade{% endif %}" id="{{ id }}" role="tabpanel" aria-labelledby="{{ id }}-tab">
+            <div class="tab-pane {{ loop.first ? 'active' : 'fade' }}" id="{{ id }}" role="tabpanel" aria-labelledby="{{ id }}-tab">
                 {{ val|raw }}
             </div>
         {% endfor %}

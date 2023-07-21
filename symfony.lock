@@ -259,8 +259,7 @@
         },
         "files": [
             ".env.test",
-            "phpunit.xml.dist",
-            "tests/bootstrap.php"
+            "phpunit.xml.dist"
         ]
     },
     "pimple/pimple": {
@@ -353,6 +352,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "sfu-dhil/nines": {
+        "version": "dev-develop"
+    },
     "solarium/solarium": {
         "version": "6.1.3"
     },
@@ -383,8 +385,7 @@
             "ref": "fead3ab2e80622c61d13dac0d21a3430a45efae8"
         },
         "files": [
-            "bin/console",
-            "config/bootstrap.php"
+            "bin/console"
         ]
     },
     "symfony/css-selector": {
@@ -462,7 +463,6 @@
             "ref": "23ecaccc551fe2f74baf613811ae529eb07762fa"
         },
         "files": [
-            "config/bootstrap.php",
             "config/packages/cache.yaml",
             "config/packages/framework.yaml",
             "config/packages/test/framework.yaml",
@@ -546,7 +546,6 @@
         "files": [
             ".env.test",
             "bin/phpunit",
-            "config/bootstrap.php",
             "phpunit.xml.dist",
             "tests/.gitignore"
         ]
@@ -729,9 +728,6 @@
     },
     "twig/twig": {
         "version": "v3.0.1"
-    },
-    "ubermichael/nines": {
-        "version": "4.x-dev"
     },
     "webmozart/assert": {
         "version": "1.6.0"

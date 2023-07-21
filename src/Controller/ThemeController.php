@@ -2,17 +2,12 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Controller;
 
 use App\Entity\Theme;
 use App\Form\ThemeType;
 use App\Repository\ThemeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -23,25 +18,17 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Theme controller.
- *
- * @Route("/theme")
- */
+#[Route(path: '/theme')]
 class ThemeController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**
-     * Lists all Theme entities.
-     *
      * @return array
-     *
-     * @Route("/", name="theme_index", methods={"GET"})
-     * @Template
      */
-    public function indexAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
+    #[Route(path: '/', name: 'theme_index', methods: ['GET'])]
+    #[Template]
+    public function indexAction(EntityManagerInterface $entityManager, Request $request) {
+        $qb = $entityManager->createQueryBuilder();
         $qb->select('e')->from(Theme::class, 'e')->orderBy('e.label', 'ASC');
         $query = $qb->getQuery();
 
@@ -53,14 +40,9 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
     }
 
     /**
-     * Typeahead API endpoint for Theme entities.
-     *
-     * To make this work, add something like this to ThemeRepository:
-     *
-     * @Route("/typeahead", name="theme_typeahead", methods={"GET"})
-     *
      * @return JsonResponse
      */
+    #[Route(path: '/typeahead', name: 'theme_typeahead', methods: ['GET'])]
     public function typeahead(Request $request, ThemeRepository $repo) {
         $q = $request->query->get('q');
         if ( ! $q) {
@@ -79,11 +61,10 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
     }
 
     /**
-     * @Route("/search", name="theme_search", methods={"GET"})
-     * @Template
-     *
      * @return array
      */
+    #[Route(path: '/search', name: 'theme_search', methods: ['GET'])]
+    #[Template]
     public function searchAction(Request $request, ThemeRepository $repo) {
         $q = $request->query->get('q');
         if ($q) {
@@ -101,23 +82,19 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
     }
 
     /**
-     * Creates a new Theme entity.
-     *
      * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="theme_new", methods={"GET", "POST"})
-     * @Template
      */
-    public function newAction(Request $request) {
+    #[Route(path: '/new', name: 'theme_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function newAction(EntityManagerInterface $entityManager, Request $request) {
         $theme = new Theme();
         $form = $this->createForm(ThemeType::class, $theme);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($theme);
-            $em->flush();
+            $entityManager->persist($theme);
+            $entityManager->flush();
 
             $this->addFlash('success', 'The new theme was created.');
 
@@ -131,26 +108,10 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
     }
 
     /**
-     * Creates a new Theme entity in a popup.
-     *
-     * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="theme_new_popup", methods={"GET", "POST"})
-     * @Template
-     */
-    public function newPopupAction(Request $request) {
-        return $this->newAction($request);
-    }
-
-    /**
-     * Finds and displays a Theme entity.
-     *
      * @return array
-     *
-     * @Route("/{id}", name="theme_show", methods={"GET"})
-     * @Template
      */
+    #[Route(path: '/{id}', name: 'theme_show', methods: ['GET'])]
+    #[Template]
     public function showAction(Theme $theme) {
         return [
             'theme' => $theme,
@@ -158,13 +119,10 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
     }
 
     /**
-     * Finds and displays a Theme modal.
-     *
      * @return array
-     *
-     * @Route("/{id}/modal", name="theme_modal", methods={"GET"})
-     * @Template
      */
+    #[Route(path: '/{id}/modal', name: 'theme_modal', methods: ['GET'])]
+    #[Template]
     public function modalAction(Theme $theme) {
         return [
             'theme' => $theme,
@@ -172,21 +130,17 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
     }
 
     /**
-     * Displays a form to edit an existing Theme entity.
-     *
      * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="theme_edit", methods={"GET", "POST"})
-     * @Template
      */
-    public function editAction(Request $request, Theme $theme) {
+    #[Route(path: '/{id}/edit', name: 'theme_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function editAction(EntityManagerInterface $entityManager, Request $request, Theme $theme) {
         $editForm = $this->createForm(ThemeType::class, $theme);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $entityManager->flush();
             $this->addFlash('success', 'The theme has been updated.');
 
             return $this->redirectToRoute('theme_show', ['id' => $theme->getId()]);
@@ -199,17 +153,13 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
     }
 
     /**
-     * Deletes a Theme entity.
-     *
      * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/delete", name="theme_delete", methods={"GET"})
      */
-    public function deleteAction(Request $request, Theme $theme) {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($theme);
-        $em->flush();
+    #[Route(path: '/{id}/delete', name: 'theme_delete', methods: ['GET'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    public function deleteAction(EntityManagerInterface $entityManager, Request $request, Theme $theme) {
+        $entityManager->remove($theme);
+        $entityManager->flush();
         $this->addFlash('success', 'The theme was deleted.');
 
         return $this->redirectToRoute('theme_index');

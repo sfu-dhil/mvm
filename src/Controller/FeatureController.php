@@ -2,17 +2,12 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Controller;
 
 use App\Entity\Feature;
 use App\Form\FeatureType;
 use App\Repository\FeatureRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -23,25 +18,17 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Feature controller.
- *
- * @Route("/feature")
- */
+#[Route(path: '/feature')]
 class FeatureController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**
-     * Lists all Feature entities.
-     *
      * @return array
-     *
-     * @Route("/", name="feature_index", methods={"GET"})
-     * @Template
      */
-    public function indexAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
+    #[Route(path: '/', name: 'feature_index', methods: ['GET'])]
+    #[Template]
+    public function indexAction(EntityManagerInterface $entityManager, Request $request) {
+        $qb = $entityManager->createQueryBuilder();
         $qb->select('e')->from(Feature::class, 'e')->orderBy('e.label', 'ASC');
         $query = $qb->getQuery();
 
@@ -53,12 +40,9 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
-     * Typeahead API endpoint for Feature entities.
-     *
-     * @Route("/typeahead", name="feature_typeahead", methods={"GET"})
-     *
      * @return JsonResponse
      */
+    #[Route(path: '/typeahead', name: 'feature_typeahead', methods: ['GET'])]
     public function typeahead(Request $request, FeatureRepository $repo) {
         $q = $request->query->get('q');
         if ( ! $q) {
@@ -77,11 +61,10 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
-     * @Route("/search", name="feature_search", methods={"GET"})
-     * @Template
-     *
      * @return array
      */
+    #[Route(path: '/search', name: 'feature_search', methods: ['GET'])]
+    #[Template]
     public function searchAction(Request $request, FeatureRepository $repo) {
         $q = $request->query->get('q');
         if ($q) {
@@ -99,23 +82,19 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
-     * Creates a new Feature entity.
-     *
      * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="feature_new", methods={"GET", "POST"})
-     * @Template
      */
-    public function newAction(Request $request) {
+    #[Route(path: '/new', name: 'feature_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function newAction(EntityManagerInterface $entityManager, Request $request) {
         $feature = new Feature();
         $form = $this->createForm(FeatureType::class, $feature);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($feature);
-            $em->flush();
+            $entityManager->persist($feature);
+            $entityManager->flush();
 
             $this->addFlash('success', 'The new feature was created.');
 
@@ -129,26 +108,10 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
-     * Creates a new Feature entity in a popup.
-     *
-     * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="feature_new_popup", methods={"GET", "POST"})
-     * @Template
-     */
-    public function newPopupAction(Request $request) {
-        return $this->newAction($request);
-    }
-
-    /**
-     * Finds and displays a Feature entity.
-     *
      * @return array
-     *
-     * @Route("/{id}", name="feature_show", methods={"GET"})
-     * @Template
      */
+    #[Route(path: '/{id}', name: 'feature_show', methods: ['GET'])]
+    #[Template]
     public function showAction(Feature $feature) {
         return [
             'feature' => $feature,
@@ -156,21 +119,17 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
-     * Displays a form to edit an existing Feature entity.
-     *
      * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="feature_edit", methods={"GET", "POST"})
-     * @Template
      */
-    public function editAction(Request $request, Feature $feature) {
+    #[Route(path: '/{id}/edit', name: 'feature_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function editAction(EntityManagerInterface $entityManager, Request $request, Feature $feature) {
         $editForm = $this->createForm(FeatureType::class, $feature);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $entityManager->flush();
             $this->addFlash('success', 'The feature has been updated.');
 
             return $this->redirectToRoute('feature_show', ['id' => $feature->getId()]);
@@ -183,17 +142,13 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
     }
 
     /**
-     * Deletes a Feature entity.
-     *
      * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/delete", name="feature_delete", methods={"GET"})
      */
-    public function deleteAction(Request $request, Feature $feature) {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($feature);
-        $em->flush();
+    #[Route(path: '/{id}/delete', name: 'feature_delete', methods: ['GET'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    public function deleteAction(EntityManagerInterface $entityManager, Request $request, Feature $feature) {
+        $entityManager->remove($feature);
+        $entityManager->flush();
         $this->addFlash('success', 'The feature was deleted.');
 
         return $this->redirectToRoute('feature_index');

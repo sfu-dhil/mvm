@@ -10,7 +10,7 @@
 {% set tags = attribute(entity, att) %}
 {% if tags|length > 0 %}
     {% if sort is defined %}
-        {% set tags = tags|sort((a,b) => attribute(a,sort) <=> attribute(b,sort)) %}
+        {% set tags = tags|sort((a, b) => attribute(a,sort) <=> attribute(b,sort)) %}
     {% endif %}
     <ul class="tag-list">
         {% for tag in tags %}

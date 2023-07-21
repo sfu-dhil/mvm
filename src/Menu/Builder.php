@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Menu;
 
 use Knp\Menu\FactoryInterface;
@@ -24,40 +18,16 @@ class Builder implements ContainerAwareInterface {
     use ContainerAwareTrait;
 
     // U+25BE, black down-pointing small triangle.
-    public const CARET = ' ▾';
+    final public const CARET = ' ▾';
 
-    /**
-     * @var FactoryInterface
-     */
-    private $factory;
-
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $authChecker;
-
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
-     * Build the menu builder.
-     */
-    public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker, TokenStorageInterface $tokenStorage) {
-        $this->factory = $factory;
-        $this->authChecker = $authChecker;
-        $this->tokenStorage = $tokenStorage;
+    public function __construct(
+        private FactoryInterface $factory,
+        private AuthorizationCheckerInterface $authChecker,
+        private TokenStorageInterface $tokenStorage
+    ) {
     }
 
-    /**
-     * Check if the current user is both logged in and granted a role.
-     *
-     * @param string $role
-     *
-     * @return bool
-     */
-    private function hasRole($role) {
+    private function hasRole(string $role) : bool {
         if ( ! $this->tokenStorage->getToken()) {
             return false;
         }
@@ -65,12 +35,7 @@ class Builder implements ContainerAwareInterface {
         return $this->authChecker->isGranted($role);
     }
 
-    /**
-     * Build the navigation menu and return it.
-     *
-     * @return ItemInterface
-     */
-    public function mainMenu(array $options) {
+    public function mainMenu(array $options) : ItemInterface {
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes([
             'class' => 'nav navbar-nav',
@@ -83,93 +48,146 @@ class Builder implements ContainerAwareInterface {
         foreach ($menuItems as $name => $label) {
             $menuItems[$name] = $menu->addChild($name, [
                 'uri' => '#',
-                'label' => $label . self::CARET,
+                'label' => $label . " " . $this::CARET,
+                'attributes' => [
+                    'class' => 'nav-item dropdown',
+                ],
+                'linkAttributes' => [
+                    'class' => 'nav-link dropdown-toggle',
+                    'role' => 'button',
+                    'data-bs-toggle' => 'dropdown',
+                    'id' => "{$name}-dropdown",
+                ],
+                'childrenAttributes' => [
+                    'class' => 'dropdown-menu text-small shadow dropdown-menu-end',
+                    'aria-labelledby' => "{$name}-dropdown",
+                ],
             ]);
-            $menuItems[$name]->setAttribute('dropdown', true);
-            $menuItems[$name]->setAttribute('class', 'dropdown-toggle');
-            $menuItems[$name]->setLinkAttribute('data-toggle', 'dropdown');
-            $menuItems[$name]->setChildrenAttribute('class', 'dropdown-menu');
         }
         $menuItems['manuscripts']->addChild('Browse all MSS', [
             'route' => 'manuscript_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
         $menuItems['manuscripts']->addChild('Browse MSS by Archive', [
             'route' => 'archive_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
         $menuItems['manuscripts']->addChild('Browse MSS by Period', [
             'route' => 'period_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
         $menuItems['manuscripts']->addChild('Browse MSS by Feature', [
             'route' => 'feature_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
         $menuItems['manuscripts']->addChild('Browse MSS by Themes', [
             'route' => 'theme_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
         $menuItems['manuscripts']->addChild('Browse MSS by Print Sources', [
             'route' => 'print_source_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
         $menuItems['manuscripts']->addChild('Browse MSS by Region', [
             'route' => 'region_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
         if ($this->hasRole('ROLE_USER')) {
-            $divider = $menuItems['manuscripts']->addChild('divider', [
-                'label' => '',
-            ]);
-            $divider->setAttributes([
-                'role' => 'separator',
-                'class' => 'divider',
+            $menuItems['manuscripts']->addChild('divider1', [
+                'label' => '<hr class="dropdown-divider">',
+                'extras' => [
+                    'safe_label' => true,
+                ],
             ]);
             $menuItems['manuscripts']->addChild('Poem Contributions', [
                 'route' => 'content_contribution_index',
+                'linkAttributes' => [
+                    'class' => 'dropdown-item',
+                ],
             ]);
             $menuItems['manuscripts']->addChild('Manuscript Poems', [
                 'route' => 'manuscript_content_index',
+                'linkAttributes' => [
+                    'class' => 'dropdown-item',
+                ],
             ]);
             $menuItems['manuscripts']->addChild('Manuscript Contributions', [
                 'route' => 'manuscript_contribution_index',
+                'linkAttributes' => [
+                    'class' => 'dropdown-item',
+                ],
             ]);
             $menuItems['manuscripts']->addChild('Manuscript Features', [
                 'route' => 'manuscript_feature_index',
+                'linkAttributes' => [
+                    'class' => 'dropdown-item',
+                ],
             ]);
         }
 
         if ($this->hasRole('ROLE_ADMIN')) {
-            $divider2 = $menuItems['manuscripts']->addChild('divider2', [
-                'label' => '',
-            ]);
-            $divider2->setAttributes([
-                'role' => 'separator',
-                'class' => 'divider',
+            $menuItems['manuscripts']->addChild('divider2', [
+                'label' => '<hr class="dropdown-divider">',
+                'extras' => [
+                    'safe_label' => true,
+                ],
             ]);
             $menuItems['manuscripts']->addChild('Links', [
                 'route' => 'nines_media_link_index',
+                'linkAttributes' => [
+                    'class' => 'dropdown-item',
+                ],
             ]);
         }
         $menuItems['people']->addChild('Browse all People', [
             'route' => 'person_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
         $menuItems['people']->addChild('Browse all Coteries', [
             'route' => 'coterie_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
         $menuItems['people']->addChild('Browse Poem Roles', [
             'route' => 'content_role_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
         $menuItems['people']->addChild('Browse Manuscript Contributions', [
             'route' => 'manuscript_role_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
         $menuItems['poems']->addChild('Browse all Poems', [
             'route' => 'content_index',
+            'linkAttributes' => [
+                'class' => 'dropdown-item',
+            ],
         ]);
 
         return $menu;
     }
 
-    /**
-     * Build a menu the footer.
-     *
-     * @return ItemInterface
-     */
-    public function footerMenu(array $options) {
+    public function footerMenu(array $options) : ItemInterface {
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes([
             'class' => 'footer-links',

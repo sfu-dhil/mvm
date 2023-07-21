@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\DataFixtures;
 
 use App\Entity\ManuscriptContent;
@@ -21,9 +15,6 @@ class ManuscriptContentFixtures extends Fixture implements DependentFixtureInter
         return ['dev', 'test'];
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(ObjectManager $manager) : void {
         for ($i = 1; $i <= 4; $i++) {
             $fixture = new ManuscriptContent();
@@ -37,9 +28,6 @@ class ManuscriptContentFixtures extends Fixture implements DependentFixtureInter
         $manager->flush();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDependencies() {
         return [
             ContentFixtures::class,

@@ -2,14 +2,9 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
+use App\Repository\ManuscriptRepository;
 use ArrayIterator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -18,176 +13,121 @@ use Nines\MediaBundle\Entity\LinkableInterface;
 use Nines\MediaBundle\Entity\LinkableTrait;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
-/**
- * Manuscript.
- *
- * @ORM\Table(name="manuscript", indexes={
- *     @ORM\Index(name="manuscript_ft", columns={"call_number", "description", "format"}, flags={"fulltext"}),
- *     @ORM\Index(name="manuscript_call_idx", columns={"call_number"})
- * })
- * @ORM\Entity(repositoryClass="App\Repository\ManuscriptRepository")
- */
+#[ORM\Table(name: 'manuscript')]
+#[ORM\Index(name: 'manuscript_ft', columns: ['call_number', 'description', 'format'], flags: ['fulltext'])]
+#[ORM\Index(name: 'manuscript_call_idx', columns: ['call_number'])]
+#[ORM\Entity(repositoryClass: ManuscriptRepository::class)]
+#[ORM\Index(name: 'manuscript_ft', columns: ['call_number', 'description', 'format'], flags: ['fulltext'])]
+#[ORM\Index(name: 'manuscript_call_idx', columns: ['call_number'])]
 class Manuscript extends AbstractEntity implements LinkableInterface {
     use LinkableTrait {
         LinkableTrait::__construct as linkable_constructor;
 
     }
 
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean")
-     */
-    private $untitled;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $untitled;
 
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=512, nullable=true)
-     */
-    private $title;
+    #[ORM\Column(type: 'string', length: 512, nullable: true)]
+    private ?string $title;
 
-    /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description;
 
-    /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $bibliography;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $bibliography;
 
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $firstLineIndex;
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $firstLineIndex;
 
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $digitized;
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $digitized;
 
-    /**
-     * @var bool
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $format;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $format;
 
-    /**
-     * @var bool
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $size;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $size;
 
-    /**
-     * @var int
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $filledPageCount;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $filledPageCount;
 
-    /**
-     * @var int
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $itemCount;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $itemCount;
 
-    /**
-     * @var int
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $poemCount;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $poemCount;
 
-    /**
-     * @var array|string[]
-     * @ORM\Column(type="array")
-     */
-    private $additionalGenres;
+    #[ORM\Column(type: 'array')]
+    private ?array $additionalGenres;
 
-    /**
-     * @var string
-     * @ORM\Column(type="string")
-     */
-    private $callNumber;
+    #[ORM\Column(type: 'string')]
+    private ?string $callNumber;
 
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean")
-     */
-    private $complete;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $complete;
 
-    /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $citation;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $citation = null;
 
     /**
      * @var Collection|Period[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Period", inversedBy="manuscripts")
      */
-    private $periods;
+    #[ORM\ManyToMany(targetEntity: Period::class, inversedBy: 'manuscripts')]
+    private Collection|array $periods;
 
-    /**
-     * @var Archive
-     * @ORM\ManyToOne(targetEntity="App\Entity\Archive", inversedBy="manuscripts")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $archive;
+    #[ORM\ManyToOne(targetEntity: Archive::class, inversedBy: 'manuscripts')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Archive $archive = null;
 
     /**
      * @var Collection|PrintSource[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\PrintSource", inversedBy="manuscripts")
      */
-    private $printSources;
+    #[ORM\ManyToMany(targetEntity: PrintSource::class, inversedBy: 'manuscripts')]
+    private Collection|array $printSources;
 
     /**
      * @var Collection|Theme[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Theme", inversedBy="majorManuscripts")
-     * @ORM\OrderBy({"label": "ASC"})
-     * @ORM\JoinTable(name="manuscript_majortheme")
      */
-    private $majorThemes;
+    #[ORM\JoinTable(name: 'manuscript_majortheme')]
+    #[ORM\ManyToMany(targetEntity: Theme::class, inversedBy: 'majorManuscripts')]
+    #[ORM\OrderBy(['label' => 'ASC'])]
+    private Collection|array $majorThemes;
 
     /**
      * @var Collection|Theme[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Theme", inversedBy="otherManuscripts")
-     * @ORM\OrderBy({"label": "ASC"})
-     * @ORM\JoinTable(name="manuscript_othertheme")
      */
-    private $otherThemes;
+    #[ORM\JoinTable(name: 'manuscript_othertheme')]
+    #[ORM\ManyToMany(targetEntity: Theme::class, inversedBy: 'otherManuscripts')]
+    #[ORM\OrderBy(['label' => 'ASC'])]
+    private Collection|array $otherThemes;
 
-    /**
-     * @var Region
-     * @ORM\ManyToMany(targetEntity="App\Entity\Region", inversedBy="manuscripts")
-     */
-    private $regions;
+    #[ORM\ManyToMany(targetEntity: Region::class, inversedBy: 'manuscripts')]
+    private Collection|array $regions;
 
     /**
      * @var Collection|Coterie[]
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Coterie", mappedBy="manuscripts")
      */
-    private $coteries;
+    #[ORM\ManyToMany(targetEntity: Coterie::class, mappedBy: 'manuscripts')]
+    private Collection|array $coteries;
 
     /**
      * @var Collection|ManuscriptContribution[]
-     * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptContribution", mappedBy="manuscript", cascade={"persist", "remove"})
      */
-    private $manuscriptContributions;
+    #[ORM\OneToMany(targetEntity: ManuscriptContribution::class, mappedBy: 'manuscript', cascade: ['persist', 'remove'])]
+    private Collection|array $manuscriptContributions;
 
     /**
      * @var Collection|ManuscriptContent[]
-     * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptContent", mappedBy="manuscript", cascade={"persist", "remove"})
      */
-    private $manuscriptContents;
+    #[ORM\OneToMany(targetEntity: ManuscriptContent::class, mappedBy: 'manuscript', cascade: ['persist', 'remove'])]
+    private Collection|array $manuscriptContents;
 
     /**
      * @var Collection|ManuscriptFeature[]
-     * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptFeature", mappedBy="manuscript", cascade={"persist", "remove"})
      */
-    private $manuscriptFeatures;
+    #[ORM\OneToMany(targetEntity: ManuscriptFeature::class, mappedBy: 'manuscript', cascade: ['persist', 'remove'])]
+    private Collection|array $manuscriptFeatures;
 
     public function __construct() {
         parent::__construct();
@@ -204,100 +144,45 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         $this->coteries = new ArrayCollection();
     }
 
-    /**
-     * Force all entities to provide a stringify function.
-     */
     public function __toString() : string {
         return $this->callNumber;
     }
 
-    /**
-     * Set archive.
-     *
-     * @param \App\Entity\Archive $archive
-     *
-     * @return Manuscript
-     */
-    public function setArchive(Archive $archive) {
+    public function setArchive(?Archive $archive) : self {
         $this->archive = $archive;
 
         return $this;
     }
 
-    /**
-     * Get archive.
-     *
-     * @return \App\Entity\Archive
-     */
-    public function getArchive() {
+    public function getArchive() : ?Archive {
         return $this->archive;
     }
 
-    /**
-     * Add manuscriptContribution.
-     *
-     * @param \App\Entity\ManuscriptContribution $manuscriptContribution
-     *
-     * @return Manuscript
-     */
-    public function addManuscriptContribution(ManuscriptContribution $manuscriptContribution) {
+    public function addManuscriptContribution(ManuscriptContribution $manuscriptContribution) : self {
         $this->manuscriptContributions[] = $manuscriptContribution;
 
         return $this;
     }
 
-    /**
-     * Remove manuscriptContribution.
-     *
-     * @param \App\Entity\ManuscriptContribution $manuscriptContribution
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeManuscriptContribution(ManuscriptContribution $manuscriptContribution) {
+    public function removeManuscriptContribution(ManuscriptContribution $manuscriptContribution) : bool {
         return $this->manuscriptContributions->removeElement($manuscriptContribution);
     }
 
-    /**
-     * Get manuscriptContributions.
-     *
-     * @return Collection
-     */
-    public function getManuscriptContributions() {
+    public function getManuscriptContributions() : Collection {
         return $this->manuscriptContributions;
     }
 
-    /**
-     * Add manuscriptFeature.
-     *
-     * @param \App\Entity\ManuscriptFeature $manuscriptFeature
-     *
-     * @return Manuscript
-     */
-    public function addManuscriptFeature(ManuscriptFeature $manuscriptFeature) {
+    public function addManuscriptFeature(ManuscriptFeature $manuscriptFeature) : self {
         $this->manuscriptFeatures[] = $manuscriptFeature;
 
         return $this;
     }
 
-    /**
-     * Remove manuscriptFeature.
-     *
-     * @param \App\Entity\ManuscriptFeature $manuscriptFeature
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeManuscriptFeature(ManuscriptFeature $manuscriptFeature) {
+    public function removeManuscriptFeature(ManuscriptFeature $manuscriptFeature) : bool {
         return $this->manuscriptFeatures->removeElement($manuscriptFeature);
     }
 
-    /**
-     * Get manuscriptFeatures.
-     *
-     * @param bool $sort
-     *
-     * @return ArrayIterator|Collection|ManuscriptFeature[]
-     */
-    public function getManuscriptFeatures($sort = false) {
+    public function getManuscriptFeatures(bool $sort = false) : ArrayIterator|Collection {
         if ($sort) {
             $iterator = $this->manuscriptFeatures->getIterator();
             $iterator->uasort(fn (ManuscriptFeature $a, ManuscriptFeature $b) => strcasecmp($a->getFeature()->getLabel(), $b->getFeature()->getLabel()));
@@ -308,474 +193,205 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         return $this->manuscriptFeatures;
     }
 
-    /**
-     * Add printSource.
-     *
-     * @param \App\Entity\PrintSource $printSource
-     *
-     * @return Manuscript
-     */
-    public function addPrintSource(PrintSource $printSource) {
+    public function addPrintSource(PrintSource $printSource) : self {
         $this->printSources[] = $printSource;
 
         return $this;
     }
 
-    /**
-     * Remove printSource.
-     *
-     * @param \App\Entity\PrintSource $printSource
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removePrintSource(PrintSource $printSource) {
+    public function removePrintSource(PrintSource $printSource) : bool {
         return $this->printSources->removeElement($printSource);
     }
 
-    /**
-     * Get printSources.
-     *
-     * @return Collection
-     */
-    public function getPrintSources() {
+    public function getPrintSources() : Collection {
         return $this->printSources;
     }
 
-    /**
-     * Set title.
-     *
-     * @param string $title
-     *
-     * @return Manuscript
-     */
-    public function setTitle($title) {
+    public function setTitle(?string $title) : self {
         $this->title = $title;
 
         return $this;
     }
 
-    /**
-     * Get title.
-     *
-     * @return string
-     */
-    public function getTitle() {
+    public function getTitle() : ?string {
         return $this->title;
     }
 
-    /**
-     * Set description.
-     *
-     * @param string $description
-     *
-     * @return Manuscript
-     */
-    public function setDescription($description) {
+    public function setDescription(?string $description) : self {
         $this->description = $description;
 
         return $this;
     }
 
-    /**
-     * Get description.
-     *
-     * @return string
-     */
-    public function getDescription() {
+    public function getDescription() : ?string {
         return $this->description;
     }
 
-    /**
-     * Set blankPageCount.
-     *
-     * @param int $blankPageCount
-     *
-     * @return Manuscript
-     */
-    public function setBlankPageCount($blankPageCount) {
-        $this->blankPageCount = $blankPageCount;
-
-        return $this;
-    }
-
-    /**
-     * Get blankPageCount.
-     *
-     * @return int
-     */
-    public function getBlankPageCount() {
-        return $this->blankPageCount;
-    }
-
-    /**
-     * Set filledPageCount.
-     *
-     * @param int $filledPageCount
-     *
-     * @return Manuscript
-     */
-    public function setFilledPageCount($filledPageCount) {
+    public function setFilledPageCount(?string $filledPageCount) : self {
         $this->filledPageCount = $filledPageCount;
 
         return $this;
     }
 
-    /**
-     * Get filledPageCount.
-     *
-     * @return int
-     */
-    public function getFilledPageCount() {
+    public function getFilledPageCount() : ?string {
         return $this->filledPageCount;
     }
 
-    /**
-     * Set itemCount.
-     *
-     * @param int $itemCount
-     *
-     * @return Manuscript
-     */
-    public function setItemCount($itemCount) {
+    public function setItemCount(?int $itemCount) : self {
         $this->itemCount = $itemCount;
 
         return $this;
     }
 
-    /**
-     * Get itemCount.
-     *
-     * @return int
-     */
-    public function getItemCount() {
+    public function getItemCount() : ?int {
         return $this->itemCount;
     }
 
-    /**
-     * Set poemCount.
-     *
-     * @param int $poemCount
-     *
-     * @return Manuscript
-     */
-    public function setPoemCount($poemCount) {
+    public function setPoemCount(?int $poemCount) : self {
         $this->poemCount = $poemCount;
 
         return $this;
     }
 
-    /**
-     * Get poemCount.
-     *
-     * @return int
-     */
-    public function getPoemCount() {
+    public function getPoemCount() : ?int {
         return $this->poemCount;
     }
 
-    /**
-     * Set additionalGenres.
-     *
-     * @param array $additionalGenres
-     *
-     * @return Manuscript
-     */
-    public function setAdditionalGenres($additionalGenres) {
+    public function setAdditionalGenres(array $additionalGenres) : self {
         $this->additionalGenres = $additionalGenres;
 
         return $this;
     }
 
-    /**
-     * Get additionalGenres.
-     *
-     * @return array
-     */
-    public function getAdditionalGenres() {
+    public function getAdditionalGenres() : array {
         return $this->additionalGenres;
     }
 
-    /**
-     * Set callNumber.
-     *
-     * @param string $callNumber
-     *
-     * @return Manuscript
-     */
-    public function setCallNumber($callNumber) {
+    public function setCallNumber(string $callNumber) : self {
         $this->callNumber = $callNumber;
 
         return $this;
     }
 
-    /**
-     * Get callNumber.
-     *
-     * @return string
-     */
-    public function getCallNumber() {
+    public function getCallNumber() : string {
         return $this->callNumber;
     }
 
-    /**
-     * Set bibliography.
-     *
-     * @param string $bibliography
-     *
-     * @return Manuscript
-     */
-    public function setBibliography($bibliography) {
+    public function setBibliography(?string $bibliography) : self {
         $this->bibliography = $bibliography;
 
         return $this;
     }
 
-    /**
-     * Get bibliography.
-     *
-     * @return string
-     */
-    public function getBibliography() {
+    public function getBibliography() : ?string {
         return $this->bibliography;
     }
 
-    /**
-     * Set untitled.
-     *
-     * @param bool $untitled
-     *
-     * @return Manuscript
-     */
-    public function setUntitled($untitled) {
+    public function setUntitled(bool $untitled) : self {
         $this->untitled = $untitled;
 
         return $this;
     }
 
-    /**
-     * Get untitled.
-     *
-     * @return bool
-     */
-    public function getUntitled() {
+    public function getUntitled() : bool {
         return $this->untitled;
     }
 
-    /**
-     * Set firstLineIndex.
-     *
-     * @param null|bool $firstLineIndex
-     *
-     * @return Manuscript
-     */
-    public function setFirstLineIndex($firstLineIndex = null) {
+    public function setFirstLineIndex(?bool $firstLineIndex = null) : self {
         $this->firstLineIndex = $firstLineIndex;
 
         return $this;
     }
 
-    /**
-     * Get firstLineIndex.
-     *
-     * @return null|bool
-     */
-    public function getFirstLineIndex() {
+    public function getFirstLineIndex() : ?bool {
         return $this->firstLineIndex;
     }
 
-    /**
-     * Set digitized.
-     *
-     * @param null|bool $digitized
-     *
-     * @return Manuscript
-     */
-    public function setDigitized($digitized = null) {
+    public function setDigitized(?bool $digitized = null) : self {
         $this->digitized = $digitized;
 
         return $this;
     }
 
-    /**
-     * Get digitized.
-     *
-     * @return null|bool
-     */
-    public function getDigitized() {
+    public function getDigitized() : ?bool {
         return $this->digitized;
     }
 
-    /**
-     * Set format.
-     *
-     * @param null|string $format
-     *
-     * @return Manuscript
-     */
-    public function setFormat($format = null) {
+    public function setFormat(?string $format = null) : self {
         $this->format = $format;
 
         return $this;
     }
 
-    /**
-     * Get format.
-     *
-     * @return null|string
-     */
-    public function getFormat() {
+    public function getFormat() : ?string {
         return $this->format;
     }
 
-    /**
-     * Set size.
-     *
-     * @param null|string $size
-     *
-     * @return Manuscript
-     */
-    public function setSize($size = null) {
+    public function setSize(?string $size = null) : self {
         $this->size = $size;
 
         return $this;
     }
 
-    /**
-     * Get size.
-     *
-     * @return null|string
-     */
-    public function getSize() {
+    public function getSize() : ?string {
         return $this->size;
     }
 
-    /**
-     * Set complete.
-     *
-     * @param bool $complete
-     *
-     * @return Manuscript
-     */
-    public function setComplete($complete) {
+    public function setComplete(bool $complete) : self {
         $this->complete = $complete;
 
         return $this;
     }
 
-    /**
-     * Get complete.
-     *
-     * @return bool
-     */
-    public function getComplete() {
+    public function getComplete() : bool {
         return $this->complete;
     }
 
-    /**
-     * Add manuscriptContent.
-     *
-     * @param \App\Entity\ManuscriptContent $manuscriptContent
-     *
-     * @return Manuscript
-     */
-    public function addManuscriptContent(ManuscriptContent $manuscriptContent) {
+    public function addManuscriptContent(ManuscriptContent $manuscriptContent) : self {
         $this->manuscriptContents[] = $manuscriptContent;
 
         return $this;
     }
 
-    /**
-     * Remove manuscriptContent.
-     *
-     * @param \App\Entity\ManuscriptContent $manuscriptContent
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeManuscriptContent(ManuscriptContent $manuscriptContent) {
+    public function removeManuscriptContent(ManuscriptContent $manuscriptContent) : bool {
         return $this->manuscriptContents->removeElement($manuscriptContent);
     }
 
-    /**
-     * Get manuscriptContents.
-     *
-     * @return Collection
-     */
-    public function getManuscriptContents() {
+    public function getManuscriptContents() : Collection {
         $iterator = $this->manuscriptContents->getIterator();
         $iterator->uasort(fn (ManuscriptContent $a, ManuscriptContent $b) => strcmp($a->getContent()->getFirstLine(), $b->getContent()->getFirstLine()));
 
         return new ArrayCollection($iterator->getArrayCopy());
     }
 
-    /**
-     * Add period.
-     *
-     * @param \App\Entity\Period $period
-     *
-     * @return Manuscript
-     */
-    public function addPeriod(Period $period) {
+    public function addPeriod(Period $period) : self {
         $this->periods[] = $period;
 
         return $this;
     }
 
-    /**
-     * Remove period.
-     *
-     * @param \App\Entity\Period $period
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removePeriod(Period $period) {
+    public function removePeriod(Period $period) : bool {
         return $this->periods->removeElement($period);
     }
 
-    /**
-     * Get periods.
-     *
-     * @return Collection
-     */
-    public function getPeriods() {
+    public function getPeriods() : Collection {
         return $this->periods;
     }
 
-    /**
-     * Add region.
-     *
-     * @param \App\Entity\Region $region
-     *
-     * @return Manuscript
-     */
-    public function addRegion(Region $region) {
+    public function addRegion(Region $region) : self {
         $this->regions[] = $region;
 
         return $this;
     }
 
-    /**
-     * Remove region.
-     *
-     * @param \App\Entity\Region $region
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeRegion(Region $region) {
+    public function removeRegion(Region $region) : bool {
         return $this->regions->removeElement($region);
     }
 
-    /**
-     * Get regions.
-     *
-     * @return Collection
-     */
-    public function getRegions() {
+    public function getRegions() : Collection {
         return $this->regions;
     }
 
-    /**
-     * @return Collection|Coterie[]
-     */
     public function getCoteries() : Collection {
         return $this->coteries;
     }
@@ -807,9 +423,6 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         return $this;
     }
 
-    /**
-     * @return Collection<int, Theme>
-     */
     public function getMajorThemes() : Collection {
         return $this->majorThemes;
     }
@@ -828,9 +441,6 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         return $this;
     }
 
-    /**
-     * @return Collection<int, Theme>
-     */
     public function getOtherThemes() : Collection {
         return $this->otherThemes;
     }
@@ -849,16 +459,11 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         return $this;
     }
 
-    /**
-     * Computed property of all years as integers.
-     *
-     * @return int[]
-     */
-    public function getPeriodYears() {
+    public function getPeriodYears() : array {
         $periodYears = [];
         foreach ($this->periods as $period) {
             $label = $period->getLabel();
-            preg_match_all('/\d{4}/', $label, $years);
+            preg_match_all('/\d{4}/', (string) $label, $years);
             foreach ($years as $year) {
                 array_push($periodYears, ...$year);
             }
@@ -867,19 +472,13 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         return array_map('intval', $periodYears);
     }
 
-    /**
-     * @return int
-     */
-    public function getEarliestYear() {
+    public function getEarliestYear() : int {
         $periodYears = $this->getPeriodYears();
 
         return reset($periodYears) ?: 0;
     }
 
-    /**
-     * @return int
-     */
-    public function getLatestYear() {
+    public function getLatestYear() : int {
         $periodYears = $this->getPeriodYears();
 
         return end($periodYears) ?: 0;

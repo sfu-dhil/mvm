@@ -1,9 +1,9 @@
 <div class="gallery person">
-    {% for person in people|sort((a,b) => (a.sortableName <=> b.sortableName)) %}
+    {% for person in people|sort((a, b) => (a.sortableName <=> b.sortableName)) %}
         {% embed 'partial/gallery-item.html.twig' %}
             {% block item_class %}person{% endblock %}
             {% block item_heading %}
-                <a href="{{ path('person_show', { 'id': person.id }) }}">{{ person }}</a>
+                <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a>
             {% endblock %}
             {% block item_top %}
                 {% include 'person/partial/dates.html.twig' %}

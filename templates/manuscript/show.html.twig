@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block body %}
-    {% set detailsContent %}
+    {% set details_content %}
 
         <table class="table">
             <tbody>
@@ -29,7 +29,7 @@
                     <th>Archive</th>
                     <td>
                         {% if manuscript.archive %}
-                            <a class="tag" href="{{ path('archive_show', { 'id': manuscript.archive.id}) }}">
+                            <a class="tag" href="{{ path('archive_show', {'id': manuscript.archive.id}) }}">
                                 {{ manuscript.archive }}
                             </a>
                         {% endif %}
@@ -102,7 +102,7 @@
                     <th>Additional Genres</th>
                     <td>
                         {% if manuscript.additionalGenres %}
-                            {{ manuscript.additionalGenres|sort((a,b) => a <=> b)|join(', ') }}
+                            {{ manuscript.additionalGenres|sort((a, b) => a <=> b)|join(', ') }}
                         {% endif %}
                     </td>
                 </tr>
@@ -150,10 +150,18 @@
                 <tr>
                     <th>Citation</th>
                     <td>
+                        {% include 'partial/citation.html.twig' with {
+                            'page_title': manuscript.callNumber
+                        } %}
+                    </td>
+                </tr>
+                {# <tr>
+                    <th>Citation</th>
+                    <td>
                         {{ manuscript.citation|raw }}
                         Accessed {{ "now"|date("j M. Y") }}.
                     </td>
-                </tr>
+                </tr> #}
                 <tr>
                     <th>Created</th>
                     <td>{% if manuscript.created %}{{ manuscript.created|date }}{% endif %}</td>
@@ -166,13 +174,13 @@
         </table>
     {% endset %}
 
-    {% set contributionsContent %}
+    {% set contributions_content %}
         {% if isAdmin %}
             {% include 'partial/toolbar.html.twig' with {'edit': 'manuscript_contributions', 'id': manuscript.id} %}
         {% endif %}
 
 
-        {% if manuscript.manuscriptContributions | length > 0 %}
+        {% if manuscript.manuscriptContributions|length > 0 %}
             <table class="table">
                 <thead>
                     <tr>
@@ -186,7 +194,7 @@
                     {% set people = (contribution.person in people) ? people : people|merge([contribution.person]) %}
                 {% endfor %}
 
-                {% for person in people|sort((a,b) => a.sortableName <=> b.sortableName) %}
+                {% for person in people|sort((a, b) => a.sortableName <=> b.sortableName) %}
                     <tr>
                         <td>
                             <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a>
@@ -216,7 +224,7 @@
 
     {% set contentsContent %}
         {% if isAdmin %}
-            {% include 'partial/toolbar.html.twig' with {'edit': 'manuscript_contents', 'id': manuscript.id } %}
+            {% include 'partial/toolbar.html.twig' with {'edit': 'manuscript_contents', 'id': manuscript.id} %}
         {% endif %}
 
         {% if manuscript.manuscriptContents|length > 0 %}
@@ -233,13 +241,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for manuscriptContent in manuscript.manuscriptContents|sort((a,b) => a.content.firstLine <=> b.content.firstLine) %}
+                    {% for manuscriptContent in manuscript.manuscriptContents|sort((a, b) => a.content.firstLine <=> b.content.firstLine) %}
                         <tr>
                             <td>
                                 <a href="{{ path('content_show', {'id': manuscriptContent.content.id}) }}">{{ manuscriptContent.content.firstLine }}
                             </td>
                             <td>
-                                {{ manuscriptContent.context | raw }}
+                                {{ manuscriptContent.context|raw }}
                             </td>
                             {% if showPrintSource %}
                                 <td>
@@ -286,8 +294,8 @@
     {% endset %}
 
     {% set tabs = {
-        'Details': detailsContent,
-        'Contributors': contributionsContent,
+        'Details': details_content,
+        'Contributors': contributions_content,
         'Poems': contentsContent,
         'Features': featuresContent
     } %}

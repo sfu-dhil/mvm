@@ -2,15 +2,10 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Controller;
 
 use App\Entity\ManuscriptContent;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -20,23 +15,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * ManuscriptContent controller.
- *
- * @Route("/manuscript_content")
  */
+#[Route(path: '/manuscript_content')]
 class ManuscriptContentController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**
-     * Lists all ManuscriptContent entities.
-     *
      * @return array
-     *
-     * @Route("/", name="manuscript_content_index", methods={"GET"})
-     * @Template
      */
-    public function indexAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
+    #[Route(path: '/', name: 'manuscript_content_index', methods: ['GET'])]
+    #[Template]
+    public function indexAction(EntityManagerInterface $entityManager, Request $request) {
+        $qb = $entityManager->createQueryBuilder();
         $qb->select('e')
             ->from(ManuscriptContent::class, 'e')
             ->leftJoin('e.content', 'c')
@@ -54,13 +44,10 @@ class ManuscriptContentController extends AbstractController implements Paginato
     }
 
     /**
-     * Finds and displays a ManuscriptContent entity.
-     *
      * @return array
-     *
-     * @Route("/{id}", name="manuscript_content_show", methods={"GET"})
-     * @Template
      */
+    #[Route(path: '/{id}', name: 'manuscript_content_show', methods: ['GET'])]
+    #[Template]
     public function showAction(ManuscriptContent $manuscriptContent) {
         return [
             'manuscriptContent' => $manuscriptContent,

@@ -2,37 +2,28 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
+use App\Repository\ThemeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Nines\UtilBundle\Entity\AbstractTerm;
 
-/**
- * Theme.
- *
- * @ORM\Table(name="theme")
- * @ORM\Entity(repositoryClass="App\Repository\ThemeRepository")
- */
+#[ORM\Table(name: 'theme')]
+#[ORM\Entity(repositoryClass: ThemeRepository::class)]
 class Theme extends AbstractTerm {
     /**
      * @var Collection|Manuscript[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Manuscript", mappedBy="majorThemes")
      */
-    private $majorManuscripts;
+    #[ORM\ManyToMany(targetEntity: Manuscript::class, mappedBy: 'majorThemes')]
+    private Collection|array $majorManuscripts;
 
     /**
      * @var Collection|Manuscript[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Manuscript", mappedBy="otherThemes")
      */
-    private $otherManuscripts;
+    #[ORM\ManyToMany(targetEntity: Manuscript::class, mappedBy: 'otherThemes')]
+    private Collection|array $otherManuscripts;
 
     public function __construct() {
         parent::__construct();
@@ -40,9 +31,6 @@ class Theme extends AbstractTerm {
         $this->otherManuscripts = new ArrayCollection();
     }
 
-    /**
-     * @return Collection<int, Manuscript>
-     */
     public function getMajorManuscripts() : Collection {
         return $this->majorManuscripts;
     }
@@ -64,9 +52,6 @@ class Theme extends AbstractTerm {
         return $this;
     }
 
-    /**
-     * @return Collection<int, Manuscript>
-     */
     public function getOtherManuscripts() : Collection {
         return $this->otherManuscripts;
     }

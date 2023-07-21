@@ -2,15 +2,10 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Form;
 
 use App\Entity\Content;
+use App\Entity\ManuscriptContent;
 use App\Entity\PrintSource;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,7 +28,7 @@ class ManuscriptContentType extends AbstractType {
             'required' => true,
             'allow_clear' => true,
             'attr' => [
-                'add_path' => 'content_new_popup',
+                'add_path' => 'content_new',
                 'add_label' => 'Add Content',
             ],
         ]);
@@ -46,7 +41,7 @@ class ManuscriptContentType extends AbstractType {
             'required' => true,
             'allow_clear' => true,
             'attr' => [
-                'add_path' => 'print_source_new_popup',
+                'add_path' => 'print_source_new',
                 'add_label' => 'Add Print Source',
             ],
         ]);
@@ -55,7 +50,6 @@ class ManuscriptContentType extends AbstractType {
             'label' => 'Context',
             'required' => false,
             'attr' => [
-                'help_block' => '',
                 'class' => 'tinymce',
             ],
         ]);
@@ -69,7 +63,7 @@ class ManuscriptContentType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) : void {
         $resolver->setDefaults([
-            'data_class' => 'App\Entity\ManuscriptContent',
+            'data_class' => ManuscriptContent::class,
         ]);
     }
 }

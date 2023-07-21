@@ -2,18 +2,13 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Controller;
 
 use App\Entity\Content;
 use App\Form\ContentContributionsType;
 use App\Form\ContentType;
 use App\Repository\ContentRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -24,25 +19,14 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Content controller.
- *
- * @Route("/content")
- */
+#[Route(path: '/content')]
 class ContentController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
-    /**
-     * Lists all Content entities.
-     *
-     * @return array
-     *
-     * @Route("/", name="content_index", methods={"GET"})
-     * @Template
-     */
-    public function indexAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
+    #[Route(path: '/', name: 'content_index', methods: ['GET'])]
+    #[Template]
+    public function indexAction(EntityManagerInterface $entityManager, Request $request) : array {
+        $qb = $entityManager->createQueryBuilder();
         $qb->select('e')->from(Content::class, 'e')->orderBy('e.firstLine', 'ASC')->addOrderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
@@ -53,14 +37,8 @@ class ContentController extends AbstractController implements PaginatorAwareInte
         ];
     }
 
-    /**
-     * Typeahead API endpoint for Content entities.
-     *
-     * @Route("/typeahead", name="content_typeahead", methods={"GET"})
-     *
-     * @return JsonResponse
-     */
-    public function typeahead(Request $request, ContentRepository $repo) {
+    #[Route(path: '/typeahead', name: 'content_typeahead', methods: ['GET'])]
+    public function typeahead(Request $request, ContentRepository $repo) : JsonResponse {
         $q = $request->query->get('q');
         if ( ! $q) {
             return new JsonResponse([]);
@@ -77,15 +55,9 @@ class ContentController extends AbstractController implements PaginatorAwareInte
         return new JsonResponse($data);
     }
 
-    /**
-     * Search for Content entities.
-     *
-     * @Route("/search", name="content_search", methods={"GET"})
-     * @Template
-     *
-     * @return array
-     */
-    public function searchAction(Request $request, ContentRepository $repo) {
+    #[Route(path: '/search', name: 'content_search', methods: ['GET'])]
+    #[Template]
+    public function searchAction(Request $request, ContentRepository $repo) : array {
         $q = $request->query->get('q');
         if ($q) {
             $query = $repo->searchQuery($q);
@@ -101,24 +73,17 @@ class ContentController extends AbstractController implements PaginatorAwareInte
         ];
     }
 
-    /**
-     * Creates a new Content entity.
-     *
-     * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new", name="content_new", methods={"GET", "POST"})
-     * @Template
-     */
-    public function newAction(Request $request) {
+    #[Route(path: '/new', name: 'content_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function newAction(EntityManagerInterface $entityManager, Request $request) : array|RedirectResponse {
         $content = new Content();
         $form = $this->createForm(ContentType::class, $content);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($content);
-            $em->flush();
+            $entityManager->persist($content);
+            $entityManager->flush();
 
             $this->addFlash('success', 'The new content was created.');
 
@@ -131,49 +96,23 @@ class ContentController extends AbstractController implements PaginatorAwareInte
         ];
     }
 
-    /**
-     * Creates a new Content entity in a popup.
-     *
-     * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/new_popup", name="content_new_popup", methods={"GET", "POST"})
-     * @Template
-     */
-    public function newPopupAction(Request $request) {
-        return $this->newAction($request);
-    }
-
-    /**
-     * Finds and displays a Content entity.
-     *
-     * @return array
-     *
-     * @Route("/{id}", name="content_show", methods={"GET"})
-     * @Template
-     */
-    public function showAction(Content $content) {
+    #[Route(path: '/{id}', name: 'content_show', methods: ['GET'])]
+    #[Template]
+    public function showAction(Content $content) : array {
         return [
             'content' => $content,
         ];
     }
 
-    /**
-     * Displays a form to edit an existing Content entity.
-     *
-     * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/edit", name="content_edit", methods={"GET", "POST"})
-     * @Template
-     */
-    public function editAction(Request $request, Content $content) {
+    #[Route(path: '/{id}/edit', name: 'content_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function editAction(EntityManagerInterface $entityManager, Request $request, Content $content) : array|RedirectResponse {
         $editForm = $this->createForm(ContentType::class, $content);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $entityManager->flush();
             $this->addFlash('success', 'The content has been updated.');
 
             return $this->redirectToRoute('content_show', ['id' => $content->getId()]);
@@ -185,41 +124,27 @@ class ContentController extends AbstractController implements PaginatorAwareInte
         ];
     }
 
-    /**
-     * Deletes a Content entity.
-     *
-     * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/delete", name="content_delete", methods={"GET"})
-     */
-    public function deleteAction(Request $request, Content $content) {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($content);
-        $em->flush();
+    #[Route(path: '/{id}/delete', name: 'content_delete', methods: ['GET'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    public function deleteAction(EntityManagerInterface $entityManager, Request $request, Content $content) : array|RedirectResponse {
+        $entityManager->remove($content);
+        $entityManager->flush();
         $this->addFlash('success', 'The content was deleted.');
 
         return $this->redirectToRoute('content_index');
     }
 
-    /**
-     * Edit the contributions to a piece of content.
-     *
-     * @return array|RedirectResponse
-     *
-     * @IsGranted("ROLE_CONTENT_ADMIN")
-     * @Route("/{id}/contributions", name="content_contributions", methods={"GET", "POST"})
-     * @Template
-     */
-    public function contributionsAction(Request $request, Content $content) {
+    #[Route(path: '/{id}/contributions', name: 'content_contributions', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTENT_ADMIN')]
+    #[Template]
+    public function contributionsAction(EntityManagerInterface $entityManager, Request $request, Content $content) : array|RedirectResponse {
         $editForm = $this->createForm(ContentContributionsType::class, $content);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             foreach ($content->getContributions() as $contribution) {
                 $contribution->setContent($content);
             }
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $entityManager->flush();
             $this->addFlash('success', 'The content has been updated.');
 
             return $this->redirectToRoute('content_show', ['id' => $content->getId()]);

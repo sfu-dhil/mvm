@@ -2,78 +2,53 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
+use App\Repository\ContentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
 use Nines\MediaBundle\Entity\LinkableInterface;
 use Nines\MediaBundle\Entity\LinkableTrait;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
-/**
- * Content.
- *
- * @ORM\Table(name="content", indexes={
- *     @ORM\Index(name="content_ft", columns={"first_line", "transcription", "description"}, flags={"fulltext"}),
- *     @ORM\Index(name="content_firstline_idx", columns={"first_line"})
- * })
- * @ORM\Entity(repositoryClass="App\Repository\ContentRepository")
- */
+#[ORM\Table(name: 'content')]
+#[ORM\Index(name: 'content_ft', columns: ['first_line', 'transcription', 'description'], flags: ['fulltext'])]
+#[ORM\Index(name: 'content_firstline_idx', columns: ['first_line'])]
+#[ORM\Entity(repositoryClass: ContentRepository::class)]
+#[ORM\Index(name: 'content_ft', columns: ['first_line', 'transcription', 'description'], flags: ['fulltext'])]
+#[ORM\Index(name: 'content_firstline_idx', columns: ['first_line'])]
 class Content extends AbstractEntity implements LinkableInterface {
     use LinkableTrait {
         LinkableTrait::__construct as linkable_constructor;
-
     }
 
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=false)
-     */
-    private $firstLine;
+    #[ORM\Column(type: 'string', nullable: false)]
+    private ?string $firstLine;
 
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $title;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $title;
 
-    /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $transcription;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $transcription;
 
-    /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description;
 
-    /**
-     * @var CircaDate
-     * @ORM\OneToOne(targetEntity="App\Entity\CircaDate", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    private $date;
+    #[ORM\OneToOne(targetEntity: CircaDate::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private ?CircaDate $date = null;
 
     /**
      * @var Collection|ContentContribution[]
-     * @ORM\OneToMany(targetEntity="App\Entity\ContentContribution", mappedBy="content", cascade={"persist", "remove"})
      */
-    private $contributions;
+    #[ORM\OneToMany(targetEntity: ContentContribution::class, mappedBy: 'content', cascade: ['persist', 'remove'])]
+    private Collection|array $contributions;
 
     /**
      * @var Collection|ManuscriptContent
-     * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptContent", mappedBy="content", cascade={"persist", "remove"})
      */
-    private $manuscriptContents;
+    #[ORM\OneToMany(targetEntity: ManuscriptContent::class, mappedBy: 'content', cascade: ['persist', 'remove'])]
+    private Collection|array $manuscriptContents;
 
     public function __construct() {
         parent::__construct();
@@ -82,171 +57,85 @@ class Content extends AbstractEntity implements LinkableInterface {
         $this->manuscriptContents = new ArrayCollection();
     }
 
-    /**
-     * Force all entities to provide a stringify function.
-     */
     public function __toString() : string {
         return $this->firstLine;
     }
 
-    /**
-     * Add contribution.
-     *
-     * @return Content
-     */
-    public function addContribution(ContentContribution $contribution) {
+    public function addContribution(ContentContribution $contribution) : self {
         $this->contributions[] = $contribution;
 
         return $this;
     }
 
-    /**
-     * Remove contribution.
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeContribution(ContentContribution $contribution) {
+    public function removeContribution(ContentContribution $contribution) : bool {
         return $this->contributions->removeElement($contribution);
     }
 
-    /**
-     * Get contributions.
-     *
-     * @return Collection|ContentContribution[]
-     */
-    public function getContributions() {
+    public function getContributions() : Collection {
         return $this->contributions;
     }
 
-    /**
-     * @return null|Person
-     */
-    public function getAuthor() {
+    public function getAuthor() : ?Person {
         foreach ($this->contributions as $contribution) {
             if ('author' === $contribution->getRole()->getName()) {
                 return $contribution->getPerson();
             }
         }
+
+        return null;
     }
 
-    /**
-     * Set title.
-     *
-     * @param string $title
-     *
-     * @return Content
-     */
-    public function setTitle($title) {
+    public function setTitle(?string $title) : self {
         $this->title = $title;
 
         return $this;
     }
 
-    /**
-     * Get title.
-     *
-     * @return string
-     */
-    public function getTitle() {
+    public function getTitle() : ?string {
         return $this->title;
     }
 
-    /**
-     * Set transcription.
-     *
-     * @param null|string $transcription
-     *
-     * @return Content
-     */
-    public function setTranscription($transcription = null) {
+    public function setTranscription(?string $transcription = null) : self {
         $this->transcription = $transcription;
 
         return $this;
     }
 
-    /**
-     * Get transcription.
-     *
-     * @return null|string
-     */
-    public function getTranscription() {
+    public function getTranscription() : ?string {
         return $this->transcription;
     }
 
-    /**
-     * Set description.
-     *
-     * @param null|string $description
-     *
-     * @return Content
-     */
-    public function setDescription($description = null) {
+    public function setDescription(?string $description = null) : self {
         $this->description = $description;
 
         return $this;
     }
 
-    /**
-     * Get description.
-     *
-     * @return null|string
-     */
-    public function getDescription() {
+    public function getDescription() : ?string {
         return $this->description;
     }
 
-    /**
-     * Set firstLine.
-     *
-     * @param string $firstLine
-     *
-     * @return Content
-     */
-    public function setFirstLine($firstLine) {
+    public function setFirstLine(string $firstLine) : self {
         $this->firstLine = $firstLine;
 
         return $this;
     }
 
-    /**
-     * Get firstLine.
-     *
-     * @return string
-     */
-    public function getFirstLine() {
+    public function getFirstLine() : string {
         return $this->firstLine;
     }
 
-    /**
-     * Add manuscriptContent.
-     *
-     * @param \App\Entity\ManuscriptContent $manuscriptContent
-     *
-     * @return Content
-     */
-    public function addManuscriptContent(ManuscriptContent $manuscriptContent) {
+    public function addManuscriptContent(ManuscriptContent $manuscriptContent) : self {
         $this->manuscriptContents[] = $manuscriptContent;
 
         return $this;
     }
 
-    /**
-     * Remove manuscriptContent.
-     *
-     * @param \App\Entity\ManuscriptContent $manuscriptContent
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeManuscriptContent(ManuscriptContent $manuscriptContent) {
+    public function removeManuscriptContent(ManuscriptContent $manuscriptContent) : bool {
         return $this->manuscriptContents->removeElement($manuscriptContent);
     }
 
-    /**
-     * Get manuscriptContents.
-     *
-     * @return Collection
-     */
-    public function getManuscriptContents() {
+    public function getManuscriptContents() : Collection {
         return $this->manuscriptContents;
     }
 
@@ -254,16 +143,7 @@ class Content extends AbstractEntity implements LinkableInterface {
         return $this->date;
     }
 
-    /**
-     * Set deathDate.
-     *
-     * @param null|CircaDate $date
-     *
-     * @throws Exception
-     *
-     * @return Content
-     */
-    public function setDate($date = null) {
+    public function setDate(mixed $date = null) : self {
         if (is_string($date) || is_numeric($date)) {
             $dateYear = new CircaDate();
             $dateYear->setValue($date);

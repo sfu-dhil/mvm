@@ -2,14 +2,9 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Form;
 
+use App\Entity\Manuscript;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,7 +29,6 @@ class ManuscriptContentsType extends AbstractType {
             ],
             'required' => false,
             'attr' => [
-                'help_block' => '',
                 'class' => 'collection collection-complex',
             ],
         ]);
@@ -48,7 +42,7 @@ class ManuscriptContentsType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) : void {
         $resolver->setDefaults([
-            'data_class' => 'App\Entity\Manuscript',
+            'data_class' => Manuscript::class,
         ]);
     }
 }

@@ -2,105 +2,70 @@
 
 declare(strict_types=1);
 
-/*
- * (c) 2022 Michael Joyce <mjoyce@sfu.ca>
- * This source file is subject to the GPL v2, bundled
- * with this source code in the file LICENSE.
- */
-
 namespace App\Entity;
 
+use App\Repository\PersonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
 use Nines\MediaBundle\Entity\LinkableInterface;
 use Nines\MediaBundle\Entity\LinkableTrait;
 use Nines\UtilBundle\Entity\AbstractEntity;
 
-/**
- * Person.
- *
- * @ORM\Table(name="person", indexes={
- *     @ORM\Index(name="person_ft", columns={"full_name", "variant_names"}, flags={"fulltext"})
- * })
- * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
- */
+#[ORM\Table(name: 'person')]
+#[ORM\Index(name: 'person_ft', columns: ['full_name', 'variant_names'], flags: ['fulltext'])]
+#[ORM\Entity(repositoryClass: PersonRepository::class)]
+#[ORM\Index(name: 'person_ft', columns: ['full_name', 'variant_names'], flags: ['fulltext'])]
 class Person extends AbstractEntity implements LinkableInterface {
     use LinkableTrait {
         LinkableTrait::__construct as linkable_constructor;
-
     }
 
-    public const MALE = 'M';
+    final public const MALE = 'M';
 
-    public const FEMALE = 'F';
+    final public const FEMALE = 'F';
 
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean")
-     */
-    private $anonymous;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $anonymous;
 
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=false)
-     */
-    private $fullName;
+    #[ORM\Column(type: 'string', nullable: false)]
+    private ?string $fullName;
 
-    /**
-     * @var array
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $variantNames;
+    #[ORM\Column(type: 'array', nullable: true)]
+    private ?array $variantNames;
 
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=false)
-     */
-    private $sortableName;
+    #[ORM\Column(type: 'string', nullable: false)]
+    private ?string $sortableName;
 
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=1, nullable=true)
-     */
-    private $gender;
+    #[ORM\Column(type: 'string', length: 1, nullable: true)]
+    private ?string $gender;
 
-    /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description;
 
-    /**
-     * @var CircaDate
-     * @ORM\OneToOne(targetEntity="App\Entity\CircaDate", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    private $birthDate;
+    #[ORM\OneToOne(targetEntity: CircaDate::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private ?CircaDate $birthDate = null;
 
-    /**
-     * @var CircaDate
-     * @ORM\OneToOne(targetEntity="App\Entity\CircaDate", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    private $deathDate;
+    #[ORM\OneToOne(targetEntity: CircaDate::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private ?CircaDate $deathDate = null;
 
     /**
      * @var Collection|ContentContribution[]
-     * @ORM\OneToMany(targetEntity="App\Entity\ContentContribution", mappedBy="person")
      */
-    private $contentContributions;
+    #[ORM\OneToMany(targetEntity: ContentContribution::class, mappedBy: 'person')]
+    private Collection|array $contentContributions;
 
     /**
      * @var Collection|ManuscriptContribution[]
-     * @ORM\OneToMany(targetEntity="App\Entity\ManuscriptContribution", mappedBy="person")
      */
-    private $manuscriptContributions;
+    #[ORM\OneToMany(targetEntity: ManuscriptContribution::class, mappedBy: 'person')]
+    private Collection|array $manuscriptContributions;
 
     /**
      * @var Collection|Coterie[]
-     * @ORM\ManyToMany(targetEntity="App\Entity\Coterie", mappedBy="people")
      */
-    private $coteries;
+    #[ORM\ManyToMany(targetEntity: Coterie::class, mappedBy: 'people')]
+    private Collection|array $coteries;
 
     public function __construct() {
         parent::__construct();
@@ -110,9 +75,6 @@ class Person extends AbstractEntity implements LinkableInterface {
         $this->coteries = new ArrayCollection();
     }
 
-    /**
-     * Force all entities to provide a stringify function.
-     */
     public function __toString() : string {
         if ( ! $this->anonymous) {
             return $this->fullName;
@@ -121,16 +83,7 @@ class Person extends AbstractEntity implements LinkableInterface {
         return '[' . $this->fullName . ']';
     }
 
-    /**
-     * Set birthDate.
-     *
-     * @param null|\App\Entity\CircaDate $birthDate
-     *
-     * @throws Exception
-     *
-     * @return Person
-     */
-    public function setBirthDate($birthDate = null) {
+    public function setBirthDate(mixed $birthDate = null) : self {
         if (is_string($birthDate) || is_numeric($birthDate)) {
             $dateYear = new CircaDate();
             $dateYear->setValue($birthDate);
@@ -142,25 +95,11 @@ class Person extends AbstractEntity implements LinkableInterface {
         return $this;
     }
 
-    /**
-     * Get birthDate.
-     *
-     * @return null|\App\Entity\CircaDate
-     */
-    public function getBirthDate() {
+    public function getBirthDate() : ?CircaDate {
         return $this->birthDate;
     }
 
-    /**
-     * Set deathDate.
-     *
-     * @param null|\App\Entity\CircaDate $deathDate
-     *
-     * @throws Exception
-     *
-     * @return Person
-     */
-    public function setDeathDate($deathDate = null) {
+    public function setDeathDate(mixed $deathDate = null) : self {
         if (is_string($deathDate) || is_numeric($deathDate)) {
             $dateYear = new CircaDate();
             $dateYear->setValue($deathDate);
@@ -172,216 +111,98 @@ class Person extends AbstractEntity implements LinkableInterface {
         return $this;
     }
 
-    /**
-     * Get deathDate.
-     *
-     * @return null|\App\Entity\CircaDate
-     */
-    public function getDeathDate() {
+    public function getDeathDate() : ?CircaDate {
         return $this->deathDate;
     }
 
-    /**
-     * Add contentContribution.
-     *
-     * @param \App\Entity\ContentContribution $contentContribution
-     *
-     * @return Person
-     */
-    public function addContentContribution(ContentContribution $contentContribution) {
+    public function addContentContribution(ContentContribution $contentContribution) : self {
         $this->contentContributions[] = $contentContribution;
 
         return $this;
     }
 
-    /**
-     * Remove contentContribution.
-     *
-     * @param \App\Entity\ContentContribution $contentContribution
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeContentContribution(ContentContribution $contentContribution) {
+    public function removeContentContribution(ContentContribution $contentContribution) : bool {
         return $this->contentContributions->removeElement($contentContribution);
     }
 
-    /**
-     * Get contentContributions.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getContentContributions() {
+    public function getContentContributions() : Collection {
         return $this->contentContributions;
     }
 
-    /**
-     * Add manuscriptContribution.
-     *
-     * @param \App\Entity\ManuscriptContribution $manuscriptContribution
-     *
-     * @return Person
-     */
-    public function addManuscriptContribution(ManuscriptContribution $manuscriptContribution) {
+    public function addManuscriptContribution(ManuscriptContribution $manuscriptContribution) : self {
         $this->manuscriptContributions[] = $manuscriptContribution;
 
         return $this;
     }
 
-    /**
-     * Remove manuscriptContribution.
-     *
-     * @param \App\Entity\ManuscriptContribution $manuscriptContribution
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeManuscriptContribution(ManuscriptContribution $manuscriptContribution) {
+    public function removeManuscriptContribution(ManuscriptContribution $manuscriptContribution) : bool {
         return $this->manuscriptContributions->removeElement($manuscriptContribution);
     }
 
-    /**
-     * Get manuscriptContributions.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getManuscriptContributions() {
+    public function getManuscriptContributions() : Collection {
         return $this->manuscriptContributions;
     }
 
-    /**
-     * Set fullName.
-     *
-     * @param string $fullName
-     *
-     * @return Person
-     */
-    public function setFullName($fullName) {
+    public function setFullName(string $fullName) : self {
         $this->fullName = $fullName;
 
         return $this;
     }
 
-    /**
-     * Get fullName.
-     *
-     * @return string
-     */
-    public function getFullName() {
+    public function getFullName() : string {
         return $this->fullName;
     }
 
-    /**
-     * Set sortableName.
-     *
-     * @param string $sortableName
-     *
-     * @return Person
-     */
-    public function setSortableName($sortableName) {
+    public function setSortableName(string $sortableName) : self {
         $this->sortableName = $sortableName;
 
         return $this;
     }
 
-    /**
-     * Get sortableName.
-     *
-     * @return string
-     */
-    public function getSortableName() {
+    public function getSortableName() : string {
         return $this->sortableName;
     }
 
-    /**
-     * Set variantNames.
-     *
-     * @param null|array $variantNames
-     *
-     * @return Person
-     */
-    public function setVariantNames($variantNames = null) {
+    public function setVariantNames(?array $variantNames = null) : self {
         $this->variantNames = $variantNames;
 
         return $this;
     }
 
-    /**
-     * Get variantNames.
-     *
-     * @return null|array
-     */
-    public function getVariantNames() {
+    public function getVariantNames() : ?array {
         return $this->variantNames;
     }
 
-    /**
-     * Set description.
-     *
-     * @param string $description
-     *
-     * @return Person
-     */
-    public function setDescription($description) {
+    public function setDescription(?string $description) : self {
         $this->description = $description;
 
         return $this;
     }
 
-    /**
-     * Get description.
-     *
-     * @return string
-     */
-    public function getDescription() {
+    public function getDescription() : ?string {
         return $this->description;
     }
 
-    /**
-     * Set anonymous.
-     *
-     * @param bool $anonymous
-     *
-     * @return Person
-     */
-    public function setAnonymous($anonymous) {
+    public function setAnonymous(bool $anonymous) : self {
         $this->anonymous = $anonymous;
 
         return $this;
     }
 
-    /**
-     * Get anonymous.
-     *
-     * @return bool
-     */
-    public function getAnonymous() {
+    public function getAnonymous() : bool {
         return $this->anonymous;
     }
 
-    /**
-     * Set gender.
-     *
-     * @param null|string $gender
-     *
-     * @return Person
-     */
-    public function setGender($gender = null) {
+    public function setGender(?string $gender = null) : self {
         $this->gender = $gender;
 
         return $this;
     }
 
-    /**
-     * Get gender.
-     *
-     * @return null|string
-     */
-    public function getGender() {
+    public function getGender() : ?string {
         return $this->gender;
     }
 
-    /**
-     * @return Collection|Coterie[]
-     */
     public function getCoteries() : Collection {
         return $this->coteries;
     }

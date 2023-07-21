@@ -14,7 +14,7 @@
 
 
 {% block admin %}
-    {% include 'partial/toolbar.html.twig' with {'new': 'feature_new' } %}
+    {% include 'partial/toolbar.html.twig' with {'new': 'feature_new'} %}
 {% endblock %}
 
 {% block body %}
@@ -35,8 +35,8 @@
                             {{ feature }}
                         </a>
                     </td>
-                    <td>{{ feature.description | raw }}</td>
-                    <td class="number">{{ feature.manuscriptFeatures | length }}</td>
+                    <td>{{ feature.description|raw }}</td>
+                    <td class="number">{{ feature.manuscriptFeatures|length }}</td>
                 </tr>
 
             {% endfor %}
