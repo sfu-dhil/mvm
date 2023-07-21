@@ -48,7 +48,7 @@ class Builder implements ContainerAwareInterface {
         foreach ($menuItems as $name => $label) {
             $menuItems[$name] = $menu->addChild($name, [
                 'uri' => '#',
-                'label' => $label . " " . $this::CARET,
+                'label' => $label . ' ' . $this::CARET,
                 'attributes' => [
                     'class' => 'nav-item dropdown',
                 ],

@@ -40,4 +40,9 @@ class Kernel extends BaseKernel {
         $containerConfigurator->import($confDir.'/{services}'.self::CONFIG_EXTS, 'glob');
         $containerConfigurator->import($confDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
     }
+
+    private function getBundlesPath(): string
+    {
+        return $this->getProjectDir().'/config/bundles.php';
+    }
 }

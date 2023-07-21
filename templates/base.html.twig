@@ -91,6 +91,13 @@
             <div class="container">
                 <div class="footer-menu">
                     {{ knp_menu_render('footer') }}
+                    <div class="mx-auto">
+                        {% if git_repo and (git_tag or git_commit) %}
+                            <a href="{{ git_repo ~ '/tree/' ~ (git_tag ? git_tag : git_commit) }}" class="text-center small p-0 m-0 link-secondary text-decoration-none ignore-external" target="_blank">
+                                <i class="bi bi-github"></i> MVM {{ git_tag ? git_tag : 'commit ' ~ git_commit_short }}
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="footer-imgs">
                     <ul>
