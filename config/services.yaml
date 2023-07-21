@@ -19,8 +19,6 @@ parameters:
     dhil.matomo_siteid: 44
     dhil.matomo_domain: dhil.lib.sfu.ca/mvm
 
-    nines.editor.upload_dir: '%kernel.project_dir%/public/images/blog'
-
     page_size: 24
 
 services:
