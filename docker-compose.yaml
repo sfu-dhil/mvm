@@ -10,8 +10,7 @@ services:
       - ./docker/mariadb/custom.cnf:/etc/mysql/conf.d/custom.cnf
       - ./docker/mariadb/init:/docker-entrypoint-initdb.d
       # # HACK: easy sql script running for setting up db
-      # - ./mvm-data.sql:/mvm-data.sql
-      # - ./mvm-schema.sql:/mvm-schema.sql
+      # - ./mvm.sql:/mvm.sql
     environment:
       MARIADB_ROOT_PASSWORD: root
       MARIADB_DATABASE: mvm
@@ -36,6 +35,7 @@ services:
 
       # use the container's var (for cache, etc)
       - /var/www/html/var
+      # persist file uploads in .data
       - .data/app/log:/var/www/html/var/log
 
       # use the container's node_modules & vendor folders (don't override)

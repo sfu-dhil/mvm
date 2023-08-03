@@ -7,7 +7,7 @@ compiled manuscripts.
 ## Requirements
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-- A copy of the `mvm-schema.sql` and `mvm-data.sql` database files. If you are not sure what these are or where to get them, you should contact the [Digital Humanities Innovation Lab](mailto:dhil@sfu.ca) for access. These files should be placed in the root folder.
+- A copy of the `mvm.sql` database sql file. If you are not sure what these are or where to get them, you should contact the [Digital Humanities Innovation Lab](mailto:dhil@sfu.ca) for access. This file should be placed in the root folder.
 
 ## Initialize the Application
 
@@ -15,8 +15,7 @@ First you must setup the database for the first time
 
     docker compose up -d db
     # wait 30 after the command has fully completed
-    docker exec -it mvm_db bash -c "mysql -u mvm -ppassword mvm < /mvm-schema.sql"
-    docker exec -it mvm_db bash -c "mysql -u mvm -ppassword mvm < /mvm-data.sql"
+    docker exec -it mvm_db bash -c "mysql -u mvm -ppassword mvm < /mvm.sql"
 
 Next you must start the whole application
 

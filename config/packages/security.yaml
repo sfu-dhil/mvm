@@ -32,7 +32,7 @@ security:
                 path: '%router.request_context.base_url%'
                 samesite: strict
                 httponly: true
-                name: AMP_REMEMBER_ME
+                name: MVM_REMEMBER_ME
                 remember_me_parameter: remember_me
 
     role_hierarchy:
