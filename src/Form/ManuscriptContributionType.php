@@ -31,6 +31,7 @@ class ManuscriptContributionType extends AbstractType {
                 'add_path' => 'person_new',
                 'add_label' => 'Add Person',
             ],
+            'placeholder' => 'Search for an existing person by name',
         ]);
         $builder->add('role', Select2EntityType::class, [
             'label' => 'Manuscript Role',
@@ -43,6 +44,7 @@ class ManuscriptContributionType extends AbstractType {
                 'add_path' => 'manuscript_role_new',
                 'add_label' => 'Add Role',
             ],
+            'placeholder' => 'Search for an existing role source by name',
         ]);
         $builder->add('note', null, [
             'label' => 'Note',

@@ -31,6 +31,7 @@ class ManuscriptContentType extends AbstractType {
                 'add_path' => 'content_new',
                 'add_label' => 'Add Content',
             ],
+            'placeholder' => 'Search for an existing content by title or first line',
         ]);
 
         $builder->add('printSource', Select2EntityType::class, [
@@ -44,6 +45,7 @@ class ManuscriptContentType extends AbstractType {
                 'add_path' => 'print_source_new',
                 'add_label' => 'Add Print Source',
             ],
+            'placeholder' => 'Search for an existing print source by name, description or region name',
         ]);
 
         $builder->add('context', null, [

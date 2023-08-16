@@ -34,6 +34,7 @@ class CoterieType extends TermType {
                 'add_path' => 'person_new',
                 'add_label' => 'Add Person',
             ],
+            'placeholder' => 'Search for an existing person by name',
         ]);
         $builder->add('manuscripts', Select2EntityType::class, [
             'label' => 'Manuscripts',
@@ -46,6 +47,7 @@ class CoterieType extends TermType {
                 'add_path' => 'manuscript_new',
                 'add_label' => 'Add Manuscript',
             ],
+            'placeholder' => 'Search for an existing manuscript by title or call number',
         ]);
         $builder->add('regions', Select2EntityType::class, [
             'label' => 'Regions',
@@ -58,6 +60,7 @@ class CoterieType extends TermType {
                 'add_path' => 'region_new',
                 'add_label' => 'Add Region',
             ],
+            'placeholder' => 'Search for an existing region by name',
         ]);
         $builder->add('periods', Select2EntityType::class, [
             'label' => 'Periods',
@@ -70,6 +73,7 @@ class CoterieType extends TermType {
                 'add_path' => 'period_new',
                 'add_label' => 'Add Period',
             ],
+            'placeholder' => 'Search for an existing period by name',
         ]);
     }
 

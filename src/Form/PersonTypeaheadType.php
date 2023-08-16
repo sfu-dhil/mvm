@@ -25,6 +25,7 @@ class PersonTypeaheadType extends AbstractType {
             'class' => Person::class,
             'required' => false,
             'allow_clear' => true,
+            'placeholder' => 'Search for an existing person by name',
         ]);
     }
 

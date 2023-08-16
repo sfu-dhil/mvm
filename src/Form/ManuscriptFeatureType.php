@@ -30,6 +30,7 @@ class ManuscriptFeatureType extends AbstractType {
                 'add_path' => 'feature_new',
                 'add_label' => 'Add Feature',
             ],
+            'placeholder' => 'Search for an existing feature by name',
         ]);
         $builder->add('note', null, [
             'label' => 'Note',

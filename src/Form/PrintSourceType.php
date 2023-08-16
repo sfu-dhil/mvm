@@ -30,6 +30,7 @@ class PrintSourceType extends ArchiveType {
                 'add_path' => 'region_new',
                 'add_label' => 'Add Region',
             ],
+            'placeholder' => 'Search for an existing region by name',
         ]);
     }
 

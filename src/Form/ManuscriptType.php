@@ -58,6 +58,7 @@ class ManuscriptType extends AbstractType {
                 'add_path' => 'archive_new',
                 'add_label' => 'Add Archive Source',
             ],
+            'placeholder' => 'Search for an existing archive source by name',
         ]);
         $builder->add('periods', Select2EntityType::class, [
             'label' => 'Periods',
@@ -70,6 +71,7 @@ class ManuscriptType extends AbstractType {
                 'add_path' => 'period_new',
                 'add_label' => 'Add Period',
             ],
+            'placeholder' => 'Search for an existing period by name',
         ]);
         $builder->add('format', TextType::class, [
             'label' => 'Format',
@@ -115,6 +117,7 @@ class ManuscriptType extends AbstractType {
                 'add_path' => 'region_new',
                 'add_label' => 'Add Region',
             ],
+            'placeholder' => 'Search for an existing region by name',
         ]);
         $builder->add('additionalGenres', CollectionType::class, [
             'label' => 'Additional Genres',
@@ -140,6 +143,7 @@ class ManuscriptType extends AbstractType {
                 'add_path' => 'print_source_new',
                 'add_label' => 'Add Print Source',
             ],
+            'placeholder' => 'Search for an existing print source by name, description or region name',
         ]);
         $builder->add('majorThemes', Select2EntityType::class, [
             'label' => 'Major Themes',
@@ -152,6 +156,7 @@ class ManuscriptType extends AbstractType {
                 'add_path' => 'theme_new',
                 'add_label' => 'Add Theme',
             ],
+            'placeholder' => 'Search for an existing theme by name',
         ]);
         $builder->add('otherThemes', Select2EntityType::class, [
             'label' => 'Minor Themes',
@@ -164,6 +169,7 @@ class ManuscriptType extends AbstractType {
                 'add_path' => 'theme_new',
                 'add_label' => 'Add Theme',
             ],
+            'placeholder' => 'Search for an existing theme by name',
         ]);
         $builder->add('description', null, [
             'label' => 'Description',
