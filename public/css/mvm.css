@@ -1178,10 +1178,6 @@ nav.navbar:after {
 nav.navbar .navbar-nav .brand {
   margin-right: 1rem;
 }
-nav.navbar .navbar-nav > li {
-  margin-top: 0.4rem;
-  margin-bottom: -0.2rem;
-}
 nav.navbar .navbar-nav > li.open > a, nav.navbar .navbar-nav > li.open > a:hover, nav.navbar .navbar-nav > li.open > a:focus {
   background: #fff;
   color: black;
