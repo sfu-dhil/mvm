@@ -611,7 +611,7 @@ li > .breadcrumbs .current {
 
 table.table,
 table.table-condensed {
-  border-collapse: separate;
+  border-collapse: collapse;
   border-color: rgba(132, 108, 91, 0.15);
 }
 table.table tbody th, table.table tbody td, table.table thead th, table.table thead td,
@@ -1635,6 +1635,7 @@ table.table ul > li {
   padding-bottom: 0.8rem;
 }
 .tab-pane.active[id*=Transcription] > div table th[role=rowheader] {
+  border-bottom: none;
   width: unset;
 }
 .tab-pane.active[id*=Transcription] > div table .note {
@@ -2075,6 +2076,10 @@ details[aria-expanded=true] .icon {
 }
 details > div {
   padding: 1em 0.6666666667em;
+}
+
+.help-block {
+  color: var(--bs-secondary-color);
 }
 
 /* Special styling rules for the index page only */

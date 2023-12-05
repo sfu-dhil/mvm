@@ -10,7 +10,7 @@
 
 table.table,
 table.table-condensed {
-  border-collapse:separate;
+  border-collapse:collapse;
   border-color: rgba($mvm-brown, 0.15);
   tbody, thead{
     th, td{

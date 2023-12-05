@@ -402,6 +402,7 @@ table.table ul{
         }
       }
       th[role='rowheader']{
+        border-bottom: none;
         width:unset;
       }
       .note{
@@ -768,6 +769,10 @@ details {
   > div {
     padding: ms(0) ms(-1);
   }
+}
+
+.help-block {
+  color: var(--bs-secondary-color)
 }
 
 @import "pages/_index";

@@ -151,17 +151,10 @@
                     <th>Citation</th>
                     <td>
                         {% include 'partial/citation.html.twig' with {
-                            'page_title': manuscript.callNumber
+                            'page_title': manuscript.callNumber,
                         } %}
                     </td>
                 </tr>
-                {# <tr>
-                    <th>Citation</th>
-                    <td>
-                        {{ manuscript.citation|raw }}
-                        Accessed {{ "now"|date("j M. Y") }}.
-                    </td>
-                </tr> #}
                 <tr>
                     <th>Created</th>
                     <td>{% if manuscript.created %}{{ manuscript.created|date }}{% endif %}</td>
