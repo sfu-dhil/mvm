@@ -49,7 +49,6 @@ jobs:
         pull: true
         tags: dhilsfu/mvm:latest
         cache-from: type=registry,ref=dhilsfu/mvm:buildcache
-        cache-to: type=registry,ref=dhilsfu/mvm:buildcache,mode=max
 
     - name: Run Unit Tests
       run: |

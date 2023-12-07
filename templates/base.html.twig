@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-
-
-{% set isAdmin =  is_granted('ROLE_CONTENT_ADMIN') %}
-{% set route = app.request.attributes.get('_route') %}
-{% set routeParams = app.request.attributes.get('_route_params') %}
-{% set bornDigital = route matches '/(blog|privacy)/' %}
-
-
+{%- set isAdmin =  is_granted('ROLE_CONTENT_ADMIN') -%}
+{%- set route = app.request.attributes.get('_route') -%}
+{%- set routeParams = app.request.attributes.get('_route_params') -%}
+{%- set bornDigital = route matches '/(blog|privacy)/' -%}
 <html lang="en" id="{% block id %}{{ routeParams|length > 0 ? route ~ '_' ~ routeParams|join('_') : route }}{% endblock %}">
     <head>
         <meta charset="UTF-8" />
@@ -37,7 +33,7 @@
     </head>
     <body{% if isAdmin %} class="admin"{% endif %}>
 
-        <nav class="navbar navbar-dark navbar-expand-lg pb-3">
+        <nav class="navbar navbar-dark navbar-expand-lg py-0">
             <div class="container">
                 <a class="navbar-brand" href="{{ path('homepage') }}">
                     <span class="visually-hidden">Home</span>
