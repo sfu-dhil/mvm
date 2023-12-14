@@ -143,23 +143,23 @@ class Person extends AbstractEntity implements LinkableInterface {
         return $this->manuscriptContributions;
     }
 
-    public function setFullName(string $fullName) : self {
+    public function setFullName(?string $fullName) : self {
         $this->fullName = $fullName;
 
         return $this;
     }
 
-    public function getFullName() : string {
+    public function getFullName() : ?string {
         return $this->fullName;
     }
 
-    public function setSortableName(string $sortableName) : self {
+    public function setSortableName(?string $sortableName) : self {
         $this->sortableName = $sortableName;
 
         return $this;
     }
 
-    public function getSortableName() : string {
+    public function getSortableName() : ?string {
         return $this->sortableName;
     }
 
@@ -183,13 +183,13 @@ class Person extends AbstractEntity implements LinkableInterface {
         return $this->description;
     }
 
-    public function setAnonymous(bool $anonymous) : self {
+    public function setAnonymous(?bool $anonymous) : self {
         $this->anonymous = $anonymous;
 
         return $this;
     }
 
-    public function getAnonymous() : bool {
+    public function getAnonymous() : ?bool {
         return $this->anonymous;
     }
 

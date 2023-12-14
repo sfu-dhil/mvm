@@ -27,7 +27,7 @@ class ManuscriptContentsType extends AbstractType {
             'entry_options' => [
                 'label' => false,
             ],
-            'required' => false,
+            'required' => true,
             'attr' => [
                 'class' => 'collection collection-complex',
             ],

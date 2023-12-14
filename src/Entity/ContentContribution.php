@@ -34,33 +34,33 @@ class ContentContribution extends AbstractEntity {
         return implode(', ', [$this->person, $this->role, $this->content]);
     }
 
-    public function setRole(ContentRole $role) : self {
+    public function setRole(?ContentRole $role) : self {
         $this->role = $role;
 
         return $this;
     }
 
-    public function getRole() : ContentRole {
+    public function getRole() : ?ContentRole {
         return $this->role;
     }
 
-    public function setPerson(Person $person) : self {
+    public function setPerson(?Person $person) : self {
         $this->person = $person;
 
         return $this;
     }
 
-    public function getPerson() : Person {
+    public function getPerson() : ?Person {
         return $this->person;
     }
 
-    public function setContent(Content $content) : self {
+    public function setContent(?Content $content) : self {
         $this->content = $content;
 
         return $this;
     }
 
-    public function getContent() : Content {
+    public function getContent() : ?Content {
         return $this->content;
     }
 

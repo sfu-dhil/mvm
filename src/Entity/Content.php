@@ -115,13 +115,13 @@ class Content extends AbstractEntity implements LinkableInterface {
         return $this->description;
     }
 
-    public function setFirstLine(string $firstLine) : self {
+    public function setFirstLine(?string $firstLine) : self {
         $this->firstLine = $firstLine;
 
         return $this;
     }
 
-    public function getFirstLine() : string {
+    public function getFirstLine() : ?string {
         return $this->firstLine;
     }
 

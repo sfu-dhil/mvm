@@ -22,7 +22,6 @@ class ManuscriptContentType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
         $builder->add('content', Select2EntityType::class, [
             'label' => 'Content',
-            'multiple' => false,
             'remote_route' => 'content_typeahead',
             'class' => Content::class,
             'required' => true,
@@ -36,7 +35,6 @@ class ManuscriptContentType extends AbstractType {
 
         $builder->add('printSource', Select2EntityType::class, [
             'label' => 'Print Source',
-            'multiple' => false,
             'remote_route' => 'print_source_typeahead',
             'class' => PrintSource::class,
             'required' => true,

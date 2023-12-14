@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * ManuscriptFeatureType form.
+ * ManuscriptContributionsType form.
  */
 class ManuscriptContributionsType extends AbstractType {
     /**
@@ -23,11 +23,13 @@ class ManuscriptContributionsType extends AbstractType {
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
+            'by_reference' => false,
+            'delete_empty' => true,
             'entry_type' => ManuscriptContributionType::class,
             'entry_options' => [
                 'label' => false,
             ],
-            'required' => false,
+            'required' => true,
             'attr' => [
                 'class' => 'collection collection-complex',
             ],

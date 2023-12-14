@@ -22,9 +22,9 @@ class ManuscriptFeatureType extends AbstractType {
         $builder->add('feature', Select2EntityType::class, [
             'label' => 'Feature',
             'multiple' => false,
-            'remote_route' => 'feature_typeahead',
-            'class' => Feature::class,
             'required' => true,
+            'class' => Feature::class,
+            'remote_route' => 'feature_typeahead',
             'allow_clear' => true,
             'attr' => [
                 'add_path' => 'feature_new',

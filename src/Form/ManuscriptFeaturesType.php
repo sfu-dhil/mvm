@@ -20,14 +20,16 @@ class ManuscriptFeaturesType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
         $builder->add('manuscript_features', CollectionType::class, [
             'label' => 'Features',
+            'required' => true,
             'allow_add' => true,
             'allow_delete' => true,
-            'prototype' => true,
+            'delete_empty' => true,
             'entry_type' => ManuscriptFeatureType::class,
             'entry_options' => [
                 'label' => false,
             ],
-            'required' => false,
+            'prototype' => true,
+            'by_reference' => false,
             'attr' => [
                 'class' => 'collection collection-complex',
             ],

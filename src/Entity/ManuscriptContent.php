@@ -44,23 +44,23 @@ class ManuscriptContent extends AbstractEntity {
         return $this->context;
     }
 
-    public function setContent(Content $content) : self {
+    public function setContent(?Content $content) : self {
         $this->content = $content;
 
         return $this;
     }
 
-    public function getContent() : Content {
+    public function getContent() : ?Content {
         return $this->content;
     }
 
-    public function setManuscript(Manuscript $manuscript) : self {
+    public function setManuscript(?Manuscript $manuscript) : self {
         $this->manuscript = $manuscript;
 
         return $this;
     }
 
-    public function getManuscript() : Manuscript {
+    public function getManuscript() : ?Manuscript {
         return $this->manuscript;
     }
 

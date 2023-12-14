@@ -257,23 +257,23 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         return $this->poemCount;
     }
 
-    public function setAdditionalGenres(array $additionalGenres) : self {
+    public function setAdditionalGenres(?array $additionalGenres) : self {
         $this->additionalGenres = $additionalGenres;
 
         return $this;
     }
 
-    public function getAdditionalGenres() : array {
+    public function getAdditionalGenres() : ?array {
         return $this->additionalGenres;
     }
 
-    public function setCallNumber(string $callNumber) : self {
+    public function setCallNumber(?string $callNumber) : self {
         $this->callNumber = $callNumber;
 
         return $this;
     }
 
-    public function getCallNumber() : string {
+    public function getCallNumber() : ?string {
         return $this->callNumber;
     }
 
@@ -287,13 +287,13 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         return $this->bibliography;
     }
 
-    public function setUntitled(bool $untitled) : self {
+    public function setUntitled(?bool $untitled) : self {
         $this->untitled = $untitled;
 
         return $this;
     }
 
-    public function getUntitled() : bool {
+    public function getUntitled() : ?bool {
         return $this->untitled;
     }
 
@@ -337,13 +337,13 @@ class Manuscript extends AbstractEntity implements LinkableInterface {
         return $this->size;
     }
 
-    public function setComplete(bool $complete) : self {
+    public function setComplete(?bool $complete) : self {
         $this->complete = $complete;
 
         return $this;
     }
 
-    public function getComplete() : bool {
+    public function getComplete() : ?bool {
         return $this->complete;
     }
 

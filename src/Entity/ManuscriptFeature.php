@@ -30,23 +30,23 @@ class ManuscriptFeature extends AbstractEntity {
         return implode(', ', [$this->manuscript, $this->feature]);
     }
 
-    public function setFeature(Feature $feature) : self {
+    public function setFeature(?Feature $feature) : self {
         $this->feature = $feature;
 
         return $this;
     }
 
-    public function getFeature() : Feature {
+    public function getFeature() : ?Feature {
         return $this->feature;
     }
 
-    public function setManuscript(Manuscript $manuscript) : self {
+    public function setManuscript(?Manuscript $manuscript) : self {
         $this->manuscript = $manuscript;
 
         return $this;
     }
 
-    public function getManuscript() : Manuscript {
+    public function getManuscript() : ?Manuscript {
         return $this->manuscript;
     }
 

@@ -34,23 +34,23 @@ class ManuscriptContribution extends AbstractEntity {
         return implode(', ', [$this->person, $this->role, $this->manuscript]);
     }
 
-    public function setPerson(Person $person) : self {
+    public function setPerson(?Person $person) : self {
         $this->person = $person;
 
         return $this;
     }
 
-    public function getPerson() : Person {
+    public function getPerson() : ?Person {
         return $this->person;
     }
 
-    public function setRole(ManuscriptRole $role) : self {
+    public function setRole(?ManuscriptRole $role) : self {
         $this->role = $role;
 
         return $this;
     }
 
-    public function getRole() : ManuscriptRole {
+    public function getRole() : ?ManuscriptRole {
         return $this->role;
     }
 
