@@ -53,12 +53,17 @@
         {% endblock %}
         <article class="container mx-auto {{ bornDigital ? 'born-digital' : '' }}">
             <nav class="body-nav">
-                {% block breadcrumb %}
-                {% endblock %}
-                {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                    {% block admin %}
+                <ul class="breadcrumbs">
+                    {% block breadcrumb %}
                     {% endblock %}
-                {% endif %}
+                </ul>
+
+                <div class="btn-toolbar">
+                    <div class="btn-group ms-auto">
+                        {% block action_buttons %}
+                        {% endblock %}
+                    </div>
+                </div>
             </nav>
             {% if block('pageheader') is defined %}
                 <header>

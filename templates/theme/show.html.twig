@@ -10,7 +10,7 @@
      {% include 'partial/breadcrumb.html.twig' with {'index': 'theme', 'show': theme} %}
  {% endblock %}
 
-{% block admin %}
+{% block action_buttons %}
     {% include 'partial/toolbar.html.twig' with {'edit': 'theme_edit', 'delete': 'theme_delete', 'id': theme.id} %}
 {% endblock %}
 

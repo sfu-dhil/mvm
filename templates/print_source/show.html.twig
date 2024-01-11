@@ -25,7 +25,7 @@
      {% include 'partial/breadcrumb.html.twig' with {'index': 'print_source', 'index_label': 'Print Sources', 'show': printSource.label} %}
  {% endblock %}
 
-{% block admin %}
+{% block action_buttons %}
     {% include 'partial/toolbar.html.twig' with {'edit': 'print_source_edit', 'delete': 'print_source_delete', 'id': printSource.id} %}
 {% endblock %}
 

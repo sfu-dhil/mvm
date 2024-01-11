@@ -11,7 +11,7 @@
      {% include 'partial/breadcrumb.html.twig' with {'index': 'content_role', 'index_label': 'Poem Roles', 'show': contentRole} %}
  {% endblock %}
 
- {% block admin %}
+ {% block action_buttons %}
      {% include 'partial/toolbar.html.twig' with {'edit': 'content_role_edit', 'delete': 'content_role_delete', 'id': contentRole.id} %}
  {% endblock %}
 

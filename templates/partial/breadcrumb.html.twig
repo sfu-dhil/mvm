@@ -14,13 +14,10 @@
     {% endif %}
 {% endset %}
 
-
-<ul class="breadcrumbs">
-    <li><a href="{{ path('homepage') }}">Home</a></li>
-    {% if show is defined %}
-        <li><a href="{{ path }}">{{ label }}</a></li>
-        <li><span class="current">{{ show }}</span></li>
-    {% else %}
-        <li><span class="current">{{ label }}</span></li>
-    {% endif %}
-</ul>
+<li><a href="{{ path('homepage') }}">Home</a></li>
+{% if show is defined %}
+    <li><a href="{{ path }}">{{ label }}</a></li>
+    <li><span class="current">{{ show }}</span></li>
+{% else %}
+    <li><span class="current">{{ label }}</span></li>
+{% endif %}

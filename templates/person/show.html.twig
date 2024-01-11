@@ -10,7 +10,7 @@
     {% include 'partial/term-index.html.twig' with {'term': person} %}
 {% endblock %}
 
-{% block admin %}
+{% block action_buttons %}
     {% include 'partial/toolbar.html.twig' with {'edit':'person_edit', 'delete': 'person_delete', 'id': person.id} %}
 {% endblock %}
 

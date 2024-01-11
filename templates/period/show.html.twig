@@ -11,7 +11,7 @@
      {% include 'partial/breadcrumb.html.twig' with {'index': 'period', 'show': period.label} %}
  {% endblock %}
 
-{% block admin %}
+{% block action_buttons %}
     {% include 'partial/toolbar.html.twig' with {'edit':'period_edit', 'delete': 'period_delete', 'id': period.id} %}
 {% endblock %}
 

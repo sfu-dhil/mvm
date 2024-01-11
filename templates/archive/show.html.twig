@@ -10,7 +10,7 @@
     {% include 'partial/term-index.html.twig' with {'term': archive} %}
 {% endblock %}
 
-{% block admin %}
+{% block action_buttons %}
     {% include 'partial/toolbar.html.twig' with {'id': archive.id, edit: 'archive_edit', 'delete': 'archive_delete'} %}
 {% endblock %}
 

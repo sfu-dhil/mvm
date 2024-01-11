@@ -278,7 +278,7 @@ https://css-tricks.com/snippets/sass/easing-map-get-function/
   z-index: 2;
 }
 
-/*Now small, project specific 
+/*Now small, project specific
 paddings etc*/
 .breadcrumbs li:first-child > * {
   padding-left: 1rem;
