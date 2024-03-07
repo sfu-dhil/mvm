@@ -1,4 +1,4 @@
-FROM node:20.4 AS mvm-webpack
+FROM node:21.6-slim AS mvm-webpack
 WORKDIR /app
 
 RUN apt-get update \
