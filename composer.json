@@ -115,7 +115,8 @@
         "post-update-cmd": [
             "@auto-scripts",
             "Fuz\\Symfony\\Collection\\ScriptHandler::postUpdate"
-        ]
+        ],
+        "phpstan": "vendor/bin/phpstan -c phpstan.neon"
     },
     "conflict": {
         "symfony/symfony": "*"

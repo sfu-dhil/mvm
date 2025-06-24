@@ -6,21 +6,10 @@
 {% endblock %}
 
 {% block action_buttons %}
-    <div class='btn-toolbar'>
-        <div class='btn-group ms-auto'>
-
-            <a href="{{ path('nines_blog_page_new') }}" class="btn btn-light">
-                <i class="bi bi-plus-lg"></i> New
-            </a>
-            <a href="{{ path('nines_blog_page_sort') }}" class="btn btn-light">
-                <i class="bi bi-arrow-down-up"></i> Sort
-            </a>
-            <a href="{{ path('nines_blog_page_search') }}" class="btn btn-light">
-                <i class="bi bi-search"></i> Search
-            </a>
-        </div>
-    </div>
-
+    {% include 'partial/toolbar.html.twig' with {'new': 'nines_blog_page_new', 'sort_action': 'nines_blog_page_sort'} %}
+    <a href="{{ path('nines_blog_page_search') }}" class="btn btn-light">
+        <i class="bi bi-search"></i> Search
+    </a>
 {% endblock %}
 
 {% block body %}

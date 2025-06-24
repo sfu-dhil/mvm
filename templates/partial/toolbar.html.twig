@@ -5,6 +5,12 @@
         </a>
     {% endif %}
 
+    {% if sort_action is defined %}
+        <a href="{{ path(sort_action) }}" class="btn btn-light">
+            <i class="bi bi-arrow-down-up"></i> Sort
+        </a>
+    {% endif %}
+
     {% if edit is defined %}
         <a href="{{ path(edit, {'id': id}) }}" class="btn btn-light">
             <i class="bi bi-pencil-square"></i> Edit
