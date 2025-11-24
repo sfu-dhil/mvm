@@ -118,9 +118,5 @@
         <script src="{{ asset_prefix|default('') ~ asset('js/dist/mvm.js') }}"></script>
         {% block javascripts %}
         {% endblock %}
-
-        {% if matomo_enabled %}
-            {% include '@NinesUtil/matomo.html.twig' %}
-        {% endif %}
     </body>
 </html>
