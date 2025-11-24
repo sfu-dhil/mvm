@@ -228,8 +228,12 @@ class Builder implements ContainerAwareInterface {
         $menu->addChild('Themes', [
             'route' => 'theme_index',
         ]);
-        $menu->addChild('Privacy', [
-            'route' => 'privacy',
+        $menu->addChild('privacy', [
+            'label' => 'Privacy',
+            'uri' => 'https://docs.dhil.lib.sfu.ca/privacy.html',
+            'linkAttributes' => [
+                'target' => '_blank',
+            ],
         ]);
 
         return $menu;

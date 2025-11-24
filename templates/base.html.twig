@@ -2,7 +2,7 @@
 {%- set isAdmin =  is_granted('ROLE_CONTENT_ADMIN') -%}
 {%- set route = app.request.attributes.get('_route') -%}
 {%- set routeParams = app.request.attributes.get('_route_params') -%}
-{%- set bornDigital = route matches '/(blog|privacy)/' -%}
+{%- set bornDigital = route matches '/(blog)/' -%}
 <html lang="en" id="{% block id %}{{ routeParams|length > 0 ? route ~ '_' ~ routeParams|join('_') : route }}{% endblock %}">
     <head>
         <meta charset="UTF-8" />
