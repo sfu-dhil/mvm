@@ -22,7 +22,7 @@ services:
 
   app:
     container_name: mvm_app
-    # image: dhil/mvm
+    # image: ghcr.io/sfu-dhil/mvm
     build:
       context: .
       target: mvm
