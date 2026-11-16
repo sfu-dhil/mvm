@@ -8,9 +8,13 @@
                 <th>Manuscripts</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-gallery">
             {% for source in printSources %}
-                <tr>
+                <tr class="table-item"
+                    data-name="{{ source.name|striptags|e('html_attr') }}"
+                    data-description="{{ source.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|striptags|e('html_attr') }}"
+                    data-regions="{{ source.regions|join(' | ')|striptags|e('html_attr') }}"
+                >
                     <td><a href="{{ path('print_source_show',{'id': source.id}) }}">{{ source.label }}</a></td>
                     <td>
                         {% if source.regions|length > 0 %}
@@ -24,7 +28,7 @@
                         {% endif %}
                     </td>
                     <td>
-                        {{ source.description|raw }}
+                        {{ source.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}
                     </td>
                     <td class="number">
                         {{ source.manuscripts|length }}

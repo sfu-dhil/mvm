@@ -19,9 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/print_source')]
-class PrintSourceController extends AbstractController implements PaginatorAwareInterface {
-    use PaginatorTrait;
-
+class PrintSourceController extends AbstractController {
     /**
      * @return array
      */
@@ -32,52 +30,12 @@ class PrintSourceController extends AbstractController implements PaginatorAware
         $qb->select('e')->from(PrintSource::class, 'e')->orderBy('e.label', 'ASC');
         $query = $qb->getQuery();
 
-        $printSources = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $printSources = $query->execute();
 
+        // $qb->where('MATCH(print_source.label, print_source.description) AGAINST (:q BOOLEAN) > 0.0');
+        // $qb->orWhere('MATCH(region.name) AGAINST (:q BOOLEAN) > 0.0');
         return [
             'printSources' => $printSources,
-        ];
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    #[Route(path: '/typeahead', name: 'print_source_typeahead', methods: ['GET'])]
-    public function typeahead(Request $request, PrintSourceRepository $repo) {
-        $q = $request->query->get('q');
-        if ( ! $q) {
-            return new JsonResponse([]);
-        }
-        $data = [];
-
-        foreach ($repo->typeaheadQuery($q)->execute() as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => (string) $result,
-            ];
-        }
-
-        return new JsonResponse($data);
-    }
-
-    /**
-     * @return array
-     */
-    #[Route(path: '/search', name: 'print_source_search', methods: ['GET'])]
-    #[Template]
-    public function searchAction(Request $request, PrintSourceRepository $repo) {
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
-
-            $printSources = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $printSources = [];
-        }
-
-        return [
-            'printSources' => $printSources,
-            'q' => $q,
         ];
     }
 

@@ -7,21 +7,26 @@
             <th class="removable">Manuscripts</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-gallery">
         {% for content in contents %}
-            <tr>
+            {% set author = content.author %}
+            <tr class="table-item"
+                data-first-line="{{ content.firstLine|striptags|e('html_attr') }}"
+                data-transcription="{{ content.transcription|striptags|e('html_attr') }}"
+                data-description="{{ content.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|striptags|e('html_attr') }}"
+                data-author="{{ author|striptags|e('html_attr') }}"
+            >
                 <td>
                     <a href="{{ path('content_show', {'id': content.id}) }}">
                         {{ content.firstLine }}
                     </a>
                 </td>
                 <td>
-                    {% set author = content.author %}
                     {% if author is not null %}
                         <a href='{{ path('person_show', {'id': author.id}) }}'>{{ author }}</a>
                     {% endif %}
                 </td>
-                <td>{{ content.description|raw }}</td>
+                <td>{{ content.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}</td>
                 <td class="number removable">{{ content.manuscriptContents|length }}</td>
             </tr>
         {% endfor %}

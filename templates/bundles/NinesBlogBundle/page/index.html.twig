@@ -7,9 +7,6 @@
 
 {% block action_buttons %}
     {% include 'partial/toolbar.html.twig' with {'new': 'nines_blog_page_new', 'sort_action': 'nines_blog_page_sort'} %}
-    <a href="{{ path('nines_blog_page_search') }}" class="btn btn-light">
-        <i class="bi bi-search"></i> Search
-    </a>
 {% endblock %}
 
 {% block body %}

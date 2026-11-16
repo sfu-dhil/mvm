@@ -8,8 +8,6 @@ use App\Entity\Region;
 use App\Form\RegionType;
 use App\Repository\RegionRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,9 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/region')]
-class RegionController extends AbstractController implements PaginatorAwareInterface {
-    use PaginatorTrait;
-
+class RegionController extends AbstractController {
     /**
      * @return array
      */
@@ -32,52 +28,10 @@ class RegionController extends AbstractController implements PaginatorAwareInter
         $qb->select('e')->from(Region::class, 'e')->orderBy('e.name', 'ASC');
         $query = $qb->getQuery();
 
-        $regions = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $regions = $query->execute();
 
         return [
             'regions' => $regions,
-        ];
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    #[Route(path: '/typeahead', name: 'region_typeahead', methods: ['GET'])]
-    public function typeahead(Request $request, RegionRepository $repo) {
-        $q = $request->query->get('q');
-        if ( ! $q) {
-            return new JsonResponse([]);
-        }
-        $data = [];
-
-        foreach ($repo->typeaheadQuery($q)->execute() as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => (string) $result,
-            ];
-        }
-
-        return new JsonResponse($data);
-    }
-
-    /**
-     * @return array
-     */
-    #[Route(path: '/search', name: 'region_search', methods: ['GET'])]
-    #[Template]
-    public function searchAction(Request $request, RegionRepository $repo) {
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
-
-            $regions = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $regions = [];
-        }
-
-        return [
-            'regions' => $regions,
-            'q' => $q,
         ];
     }
 

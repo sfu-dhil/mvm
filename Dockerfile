@@ -41,3 +41,9 @@ RUN mkdir -p data/prod data/dev data/test var/cache/prod var/cache/dev var/cache
     && chmod -R 775 data var \
     && composer install \
     && ./bin/console cache:clear
+
+RUN a2enmod ssl
+COPY docker/docker-entrypoint.sh /docker-entrypoint.sh
+COPY docker/apache.conf /etc/apache2/sites-enabled/000-default.conf
+COPY docker/certs/cert.pem /etc/apache2/ssl/cert.pem
+COPY docker/certs/key.pem /etc/apache2/ssl/key.pem

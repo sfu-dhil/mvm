@@ -8,7 +8,7 @@ use App\Entity\Person;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * PersonType form.
@@ -18,14 +18,16 @@ class PersonTypeaheadType extends AbstractType {
      * Add form fields to $builder.
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
-        $builder->add('person', Select2EntityType::class, [
+        $builder->add('person', EntityType::class, [
             'label' => 'Contributor',
             'multiple' => false,
-            'remote_route' => 'person_typeahead',
             'class' => Person::class,
             'required' => false,
-            'allow_clear' => true,
             'placeholder' => 'Search for an existing person by name',
+            'attr' => [
+                'class' => 'select2',
+                'data-theme' => 'bootstrap-5',
+            ],
         ]);
     }
 

@@ -36,32 +36,32 @@ class CoterieType extends TermType {
             ],
             'placeholder' => 'Search for an existing person by name',
         ]);
-        $builder->add('manuscripts', Select2EntityType::class, [
-            'label' => 'Manuscripts',
-            'multiple' => true,
-            'remote_route' => 'manuscript_typeahead',
-            'class' => Manuscript::class,
-            'required' => false,
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'manuscript_new',
-                'add_label' => 'Add Manuscript',
-            ],
-            'placeholder' => 'Search for an existing manuscript by title or call number',
-        ]);
-        $builder->add('regions', Select2EntityType::class, [
-            'label' => 'Regions',
-            'multiple' => true,
-            'remote_route' => 'region_typeahead',
-            'class' => Region::class,
-            'required' => false,
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'region_new',
-                'add_label' => 'Add Region',
-            ],
-            'placeholder' => 'Search for an existing region by name',
-        ]);
+        // $builder->add('manuscripts', Select2EntityType::class, [
+        //     'label' => 'Manuscripts',
+        //     'multiple' => true,
+        //     'remote_route' => 'manuscript_typeahead',
+        //     'class' => Manuscript::class,
+        //     'required' => false,
+        //     'allow_clear' => true,
+        //     'attr' => [
+        //         'add_path' => 'manuscript_new',
+        //         'add_label' => 'Add Manuscript',
+        //     ],
+        //     'placeholder' => 'Search for an existing manuscript by title or call number',
+        // ]);
+        // $builder->add('regions', Select2EntityType::class, [
+        //     'label' => 'Regions',
+        //     'multiple' => true,
+        //     'remote_route' => 'region_typeahead',
+        //     'class' => Region::class,
+        //     'required' => false,
+        //     'allow_clear' => true,
+        //     'attr' => [
+        //         'add_path' => 'region_new',
+        //         'add_label' => 'Add Region',
+        //     ],
+        //     'placeholder' => 'Search for an existing region by name',
+        // ]);
         $builder->add('periods', Select2EntityType::class, [
             'label' => 'Periods',
             'multiple' => true,

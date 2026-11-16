@@ -18,20 +18,20 @@ class PrintSourceType extends ArchiveType {
      * Add form fields to $builder.
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
-        parent::buildForm($builder, $options);
-        $builder->add('regions', Select2EntityType::class, [
-            'label' => 'Regions',
-            'multiple' => true,
-            'remote_route' => 'region_typeahead',
-            'class' => Region::class,
-            'required' => false,
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'region_new',
-                'add_label' => 'Add Region',
-            ],
-            'placeholder' => 'Search for an existing region by name',
-        ]);
+        // parent::buildForm($builder, $options);
+        // $builder->add('regions', Select2EntityType::class, [
+        //     'label' => 'Regions',
+        //     'multiple' => true,
+        //     'remote_route' => 'region_typeahead',
+        //     'class' => Region::class,
+        //     'required' => false,
+        //     'allow_clear' => true,
+        //     'attr' => [
+        //         'add_path' => 'region_new',
+        //         'add_label' => 'Add Region',
+        //     ],
+        //     'placeholder' => 'Search for an existing region by name',
+        // ]);
     }
 
     /**

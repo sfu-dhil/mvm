@@ -9,7 +9,7 @@
 {% block label %}<a href="{{ path('archive_index') }}">Archive</a>{% endblock %}
 
 {% block description %}
-    {{ archive.description|raw }}
+    {{ archive.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}
 {% endblock %}
 
 

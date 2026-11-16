@@ -6,11 +6,14 @@
             <th class="number">Manuscripts</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-gallery">
         {% for archive in archives %}
-            <tr>
+            <tr class="table-item"
+                data-label="{{ archive.label|striptags|e('html_attr') }}"
+                data-description="{{ archive.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|striptags|e('html_attr') }}"
+            >
                 <td><a href="{{ path('archive_show', {'id': archive.id}) }}">{{ archive }}</a></td>
-                <td>{{ archive.description|raw }}</td>
+                <td>{{ archive.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}</td>
                 <td class="number">{{ archive.manuscripts|length }}</td>
             </tr>
         {% endfor %}

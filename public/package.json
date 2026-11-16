@@ -8,6 +8,7 @@
     "watch": "node_modules/.bin/webpack-cli --config=webpack.config.js --watch"
   },
   "dependencies": {
+    "advanced-filter-system": "^1.8.3",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
     "dhilux": "https://github.com/sfu-dhil/dhilux",

@@ -8,8 +8,6 @@ use App\Entity\ContentRole;
 use App\Form\ContentRoleType;
 use App\Repository\ContentRoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,9 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/content_role')]
-class ContentRoleController extends AbstractController implements PaginatorAwareInterface {
-    use PaginatorTrait;
-
+class ContentRoleController extends AbstractController {
     /**
      * @return array
      */
@@ -32,32 +28,11 @@ class ContentRoleController extends AbstractController implements PaginatorAware
         $qb->select('e')->from(ContentRole::class, 'e')->orderBy('e.label', 'ASC');
         $query = $qb->getQuery();
 
-        $contentRoles = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $contentRoles = $query->execute();
 
         return [
             'contentRoles' => $contentRoles,
         ];
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    #[Route(path: '/typeahead', name: 'content_role_typeahead', methods: ['GET'])]
-    public function typeahead(Request $request, ContentRoleRepository $repo) {
-        $q = $request->query->get('q');
-        if ( ! $q) {
-            return new JsonResponse([]);
-        }
-        $data = [];
-
-        foreach ($repo->typeaheadQuery($q)->execute() as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => (string) $result,
-            ];
-        }
-
-        return new JsonResponse($data);
     }
 
     /**

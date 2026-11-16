@@ -10,11 +10,16 @@ use App\Entity\Period;
 use App\Entity\PrintSource;
 use App\Entity\Region;
 use App\Entity\Theme;
+use App\Entity\Content;
+use App\Entity\Person;
 use App\Repository\ArchiveRepository;
 use App\Repository\CoterieRepository;
 use App\Repository\PeriodRepository;
+use App\Repository\PrintSourceRepository;
 use App\Repository\RegionRepository;
 use App\Repository\ThemeRepository;
+use App\Repository\ContentRepository;
+use App\Repository\PersonRepository;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderExecuterInterface;
@@ -22,6 +27,7 @@ use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * ManuscriptFilterType form.
@@ -34,83 +40,149 @@ class ManuscriptFilterType extends AbstractType {
             'row_attr' => ['class' => 'filter filter_boolean filter_digitized'],
         ]);
 
-        $builder->add('archive', Filters\EntityFilterType::class, [
-            'class' => Archive::class,
+        $builder->add('archive', EntityType::class, [
             'label' => 'Archives',
             'multiple' => true,
-            'row_attr' => ['class' => 'filter filter_entity filter_archive'],
-            'query_builder' => $this->sortByLabel(ArchiveRepository::class),
+            'class' => Archive::class,
+            'choice_value' => function (?Archive $archive): string {
+                return $archive ? "archiveId:{$archive->getId()}" : '';
+            },
+            'query_builder' => function (ArchiveRepository $repo): QueryBuilder {
+                return $repo->createQueryBuilder('u')->orderBy('u.label', 'ASC');
+            },
+            'required' => false,
+            'placeholder' => 'Select one or more archives',
+            'attr' => [
+                'data-filter-type' => 'archiveId',
+            ],
         ]);
-        $builder->add('periods', Filters\EntityFilterType::class, [
+        $builder->add('periods', EntityType::class, [
+            'label' => 'Periods',
+            'multiple' => true,
             'class' => Period::class,
-            'multiple' => true,
-            'row_attr' => ['class' => 'filter filter_entity filter_periods'],
-            'query_builder' => $this->sortByLabel(PeriodRepository::class),
+            'choice_value' => function (?Period $period): string {
+                return $period ? "periodId:{$period->getId()}" : '';
+            },
+            'query_builder' => function (PeriodRepository $repo): QueryBuilder {
+                return $repo->createQueryBuilder('u')->orderBy('u.label', 'ASC');
+            },
+            'required' => false,
+            'placeholder' => 'Select one or more periods',
+            'attr' => [
+                'data-filter-type' => 'periodId',
+            ],
         ]);
-        $builder->add('printSources', Filters\EntityFilterType::class, [
-            'class' => PrintSource::class,
-            'multiple' => true,
+        $builder->add('printSources', EntityType::class, [
             'label' => 'Print Sources',
-            'row_attr' => ['class' => 'filter filter_entity filter_printSources'],
-            'query_builder' => $this->sortByLabel(PrintSource::class),
+            'multiple' => true,
+            'class' => PrintSource::class,
+            'choice_value' => function (?PrintSource $printSource): string {
+                return $printSource ? "printSourceId:{$printSource->getId()}" : '';
+            },
+            'query_builder' => function (PrintSourceRepository $repo): QueryBuilder {
+                return $repo->createQueryBuilder('u')->orderBy('u.label', 'ASC');
+            },
+            'required' => false,
+            'placeholder' => 'Select one or more print sources',
+            'attr' => [
+                'data-filter-type' => 'printSourceId',
+            ],
         ]);
-        $builder->add('regions', Filters\EntityFilterType::class, [
+        $builder->add('regions', EntityType::class, [
+            'label' => 'Regions',
+            'multiple' => true,
             'class' => Region::class,
-            'multiple' => true,
-            'row_attr' => ['class' => 'filter filter_entity filter_region'],
-            'query_builder' => $this->sortByName(RegionRepository::class),
+            'choice_value' => function (?Region $region): string {
+                return $region ? "regionId:{$region->getId()}" : '';
+            },
+            'query_builder' => function (RegionRepository $repo): QueryBuilder {
+                return $repo->createQueryBuilder('u')->orderBy('u.name', 'ASC');
+            },
+            'required' => false,
+            'placeholder' => 'Select one or more regions',
+            'attr' => [
+                'data-filter-type' => 'printSourceId',
+            ],
         ]);
-
-        $builder->add('majorThemes', Filters\EntityFilterType::class, [
-            'class' => Theme::class,
-            'multiple' => true,
+        $builder->add('majorThemes', EntityType::class, [
             'label' => 'Major Themes',
-            'row_attr' => ['class' => 'filter filter_entity filter_majorThemes'],
-            'query_builder' => $this->sortByLabel(ThemeRepository::class),
-        ]);
-        $builder->add('otherThemes', Filters\EntityFilterType::class, [
+            'multiple' => true,
             'class' => Theme::class,
-            'multiple' => true,
+            'choice_value' => function (?Theme $theme): string {
+                return $theme ? "majorThemeId:{$theme->getId()}" : '';
+            },
+            'query_builder' => function (ThemeRepository $repo): QueryBuilder {
+                return $repo->createQueryBuilder('u')->orderBy('u.label', 'ASC');
+            },
+            'required' => false,
+            'placeholder' => 'Select one or more major themes',
+            'attr' => [
+                'data-filter-type' => 'majorThemeId',
+            ],
+        ]);
+        $builder->add('otherThemes', EntityType::class, [
             'label' => 'Minor Themes',
-            'row_attr' => ['class' => 'filter filter_entity filter_minorThemes'],
-            'query_builder' => $this->sortByLabel(ThemeRepository::class),
-        ]);
-
-        $builder->add('coteries', Filters\EntityFilterType::class, [
-            'class' => Coterie::class,
             'multiple' => true,
-            'row_attr' => ['class' => 'filter filter_entity filter_coterie'],
-            'query_builder' => $this->sortByLabel(CoterieRepository::class),
-        ]);
-
-        $builder->add('manuscriptContents', Filters\CollectionAdapterFilterType::class, [
-            'entry_type' => ManuscriptContentFilterType::class,
-            'label' => false,
-            'add_shared' => function (FilterBuilderExecuterInterface $qbe) : void {
-                $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) : void {
-                    $filterBuilder->leftJoin($alias . '.manuscriptContents', $joinAlias);
-                };
-                $qbe->addOnce($qbe->getAlias() . '.manuscriptContents', 'contents', $closure);
+            'class' => Theme::class,
+            'choice_value' => function (?Theme $theme): string {
+                return $theme ? "otherThemeId:{$theme->getId()}" : '';
             },
-            'entry_options' => [
-                'label' => false,
-            ],
-            'row_attr' => ['class' => 'filter filter_entity filter_collection filter_manuscriptContents'],
-        ]);
-
-        $builder->add('manuscriptContributions', Filters\CollectionAdapterFilterType::class, [
-            'entry_type' => ManuscriptContributionFilterType::class,
-            'label' => false,
-            'add_shared' => function (FilterBuilderExecuterInterface $qbe) : void {
-                $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) : void {
-                    $filterBuilder->leftJoin($alias . '.manuscriptContributions', $joinAlias);
-                };
-                $qbe->addOnce($qbe->getAlias() . '.manuscriptContributions', 'contributions', $closure);
+            'query_builder' => function (ThemeRepository $repo): QueryBuilder {
+                return $repo->createQueryBuilder('u')->orderBy('u.label', 'ASC');
             },
-            'entry_options' => [
-                'label' => false,
+            'required' => false,
+            'placeholder' => 'Select one or more minor themes',
+            'attr' => [
+                'data-filter-type' => 'otherThemeId',
             ],
-            'row_attr' => ['class' => 'filter filter_entity filter_collection filter_manuscriptContributions'],
+        ]);
+        $builder->add('coteries', EntityType::class, [
+            'label' => 'Coteries',
+            'multiple' => true,
+            'class' => Coterie::class,
+            'choice_value' => function (?Coterie $coterie): string {
+                return $coterie ? "coterieId:{$coterie->getId()}" : '';
+            },
+            'query_builder' => function (CoterieRepository $repo): QueryBuilder {
+                return $repo->createQueryBuilder('u')->orderBy('u.label', 'ASC');
+            },
+            'required' => false,
+            'placeholder' => 'Select one or more coteries',
+            'attr' => [
+                'data-filter-type' => 'coterieId',
+            ],
+        ]);
+        $builder->add('manuscriptContents', EntityType::class, [
+            'label' => 'Poems in Manuscript',
+            'multiple' => true,
+            'class' => Content::class,
+            'choice_value' => function (?Content $content): string {
+                return $content ? "contentId:{$content->getId()}" : '';
+            },
+            'query_builder' => function (ContentRepository $repo): QueryBuilder {
+                return $repo->createQueryBuilder('u')->orderBy('u.firstLine', 'ASC');
+            },
+            'required' => false,
+            'placeholder' => 'Select one or more poems',
+            'attr' => [
+                'data-filter-type' => 'contentId',
+            ],
+        ]);
+        $builder->add('manuscriptContributions', EntityType::class, [
+            'label' => 'Manuscript Contributors',
+            'multiple' => true,
+            'class' => Person::class,
+            'choice_value' => function (?Person $person): string {
+                return $person ? "personId:{$person->getId()}" : '';
+            },
+            'query_builder' => function (PersonRepository $repo): QueryBuilder {
+                return $repo->createQueryBuilder('u')->orderBy('u.sortableName', 'ASC');
+            },
+            'required' => false,
+            'placeholder' => 'Select one or contributors',
+            'attr' => [
+                'data-filter-type' => 'personId',
+            ],
         ]);
     }
 

@@ -6,10 +6,12 @@
 *
 **/
 
+// suppress console logging
+console.log = function () {};
+
 /**
  * Imports
  */
-import Modals from 'dhilux/js/modals.bundle.js';
 import A11YTables from "dhilux/js/a11y_tables.js";
 import Accordion from 'dhilux/js/accordion.js';
 // core version + navigation, pagination modules:
@@ -29,11 +31,24 @@ const docId = document.querySelector('html').id;
 (function(){
     makeHomepageGallery();
     makeA11YTables();
-    if (!(/(edit|new)\/?$/gi.test(location) || docId == 'index')) {
-        makeModals();
-    }
     makeAccordions();
     makeBetterSelects();
+
+    // add base path to citation-link
+    const citationLinks = [...document.getElementsByClassName('citation-link')]
+    citationLinks.forEach((citationLink) => {
+        if (window.location.protocol === 'file:') {
+            citationLink.innerHTML = citationLink.href = `${window.location.protocol}//${window.location.pathname}`
+        } else {
+            citationLink.innerHTML = citationLink.href = `${window.location.origin}${window.location.pathname}`
+        }
+    })
+    // update date on citation accessed
+    const citationAccessedDates = [...document.getElementsByClassName('citation-accessed')]
+    citationAccessedDates.forEach((citationAccessedDate) => {
+        const date = new Date()
+        citationAccessedDate.innerHTML = date.toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric'})
+    })
 })();
 
 function makeAccordions(){
@@ -67,7 +82,7 @@ function makeBetterSelects(){
         'checkbox_options': true
     };
 
-    let advancedForm = document.querySelector('form[name="ms_filter"]');
+    let advancedForm = document.querySelector('.search_filters');
     if (!advancedForm){
         return;
     }
@@ -131,40 +146,6 @@ function makeHomepageGallery() {
         const carousel = new Swiper('.swiper', cfg);
         return true;
     } catch(e) {
-        return false;
-    }
-}
-
-/**
- * Function to create the modals using DHILUX's Modal
- * @return {boolean} True if successful, false otherwise
- */
-function makeModals(){
-    try{
-        //Filter the entities
-        const entities = ['person','theme','region','period','coterie', 'print_source', 'archive'].filter(isIndex);
-        // Selector string for all entities
-        const selector = entities.map(ent => `a[href*="${ent}"]`).join(', ');
-        let modals = new Modals(selector);
-        modals.el = document.querySelector('main');
-        modals.filterParentsSelector = '.gallery, html[id$="_index"], header, p';
-        modals.linkFilter = (link) => {
-            if (/^manuscript_show_\d+/.test(docId)){
-                return true;
-            }
-            let table = link.closest('table');
-            // We only want modals to appear on non-listing tables
-            // (i.e. the tables that don't have heads
-            if (table){
-                let thead = table.querySelector('thead');
-                return (thead === null);
-            }
-        }
-
-        modals.init();
-        return true;
-    } catch(e) {
-        console.log(e);
         return false;
     }
 }

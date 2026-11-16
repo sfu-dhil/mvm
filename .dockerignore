@@ -46,3 +46,10 @@ public/dev
 # Docker image specific
 /docs
 /.github/
+
+# static archive
+/static/_build
+/static/_site
+/static/lib/staticSearch
+/static/tmp/*
+!/static/tmp/.gitkeep

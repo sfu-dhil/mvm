@@ -5,7 +5,7 @@
 {% block pageheader %}
     <h1>Manuscript Contributions</h1>
     <p>Roles played by individuals in relation to manuscript miscellanies</p>
-    {% include 'partial/count.html.twig' with {'index': manuscriptRoles, 'label': 'manuscript roles'} %}
+    <p class="count">Displaying {{ manuscriptRoles|length }} manuscript roles</p>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -31,16 +31,11 @@
                 <tr>
                     <td><a href="{{ path('manuscript_role_show', {'id': role.id}) }}">{{ role.label }}</a></td>
 
-                    <td>{{ role.description|raw }}</td>
+                    <td>{{ role.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}</td>
                     <td class="number">{{ role.contributions|length }}</td>
                 </tr>
 
             {% endfor %}
         </tbody>
     </table>
-
-    <div class="navigation">
-        {{ knp_pagination_render(manuscriptRoles) }}
-    </div>
-
 {% endblock %}

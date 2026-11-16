@@ -1469,10 +1469,10 @@ form {
   margin: auto;
 }
 
-main {
+div.main {
   /* Note that breadcrumbs are handled in their own module */
 }
-main a:hover, main a:focus {
+div.main a:hover, div.main a:focus {
   text-decoration: none;
 }
 
@@ -1939,23 +1939,73 @@ footer .footer-imgs img:hover {
   filter: grayscale(100%);
 }
 
-.pagination > li.active > a, .pagination > li.active span {
-  background-color: #39253B;
-  border-color: #39253B;
-  color: #FFFFFF;
+.afs-pagination-container .pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
 }
-.pagination > li > a, .pagination > li span {
+
+/* Collapse adjacent borders just like Bootstrap's .page-item + .page-item */
+.afs-pagination-container .page-link,
+.afs-pagination-container .afs-pagination-ellipsis {
+  position: relative;
+  display: block;
+  margin-left: -1px;
+  border-radius: 0;
   color: #39253B;
+  background-color: #FFFFFF;
+  padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+  border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
 }
-.pagination > li > a:hover, .pagination > li span:hover {
+
+/* Round the first and last buttons */
+.afs-pagination-container .page-link:first-child {
+  margin-left: 0;
+  border-top-left-radius: var(--bs-pagination-border-radius, 0.375rem);
+  border-bottom-left-radius: var(--bs-pagination-border-radius, 0.375rem);
+}
+
+.afs-pagination-container .page-link:last-child {
+  border-top-right-radius: var(--bs-pagination-border-radius, 0.375rem);
+  border-bottom-right-radius: var(--bs-pagination-border-radius, 0.375rem);
+}
+
+/* Match Bootstrap 5 active state (since .active is on the button, not a parent <li>) */
+.afs-pagination-container .page-link.active,
+.afs-pagination-container .page-link:hover {
+  z-index: 3;
+  color: #FFFFFF;
   background-color: #39253B;
   border-color: #39253B;
-  color: white;
 }
-@media (max-width: 768px) {
-  .pagination .page-label {
-    display: none;
-  }
+
+/* Match Bootstrap 5 disabled state */
+.afs-pagination-container .page-link:disabled,
+.afs-pagination-container .page-link.disabled,
+.afs-pagination-container .afs-pagination-ellipsis {
+  color: var(--bs-pagination-disabled-color);
+  pointer-events: none;
+  background-color: var(--bs-pagination-disabled-bg);
+  border-color: var(--bs-pagination-disabled-border-color);
+}
+
+.afs-pagination-container .afs-pagination-prev,
+.afs-pagination-container .afs-pagination-next {
+  font-size: 0px;
+}
+
+.afs-pagination-container .afs-pagination-prev::before {
+  content: "« Previous";
+  font-size: var(--bs-pagination-font-size);
+}
+
+.afs-pagination-container .afs-pagination-next::before {
+  content: "Next »";
+  font-size: var(--bs-pagination-font-size);
+}
+
+.table-gallery .table-item {
+  transform: none !important;
 }
 
 div.collection span[class*=-collection-actions] {
@@ -2311,7 +2361,7 @@ details > div {
   display: flex;
   flex-direction: column;
 }
-.born-digital main {
+.born-digital div.main {
   display: flex;
   height: 100%;
   flex-direction: column;

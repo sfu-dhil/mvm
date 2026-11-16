@@ -9,7 +9,7 @@
 {% block label %}<a href="{{ path('period_index') }}">Period</a>{% endblock %}
 
 {% block description %}
-    {{ period.description|raw }}
+    {{ period.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}
 {% endblock %}
 
 

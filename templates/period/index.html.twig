@@ -8,7 +8,7 @@
 {% block pageheader %}
     <h1>Periods</h1>
     <p>Time periods within which the miscellanies in this database were created (30-year intervals)</p>
-    {% include 'partial/count.html.twig' with {'index': periods, 'label': 'periods'} %}
+    <p class="count">Displaying {{ periods|length }} periods</p>
 {% endblock %}
 
 {% block action_buttons %}
@@ -17,9 +17,4 @@
 
 {% block body %}
     {% include 'period/partial/index.html.twig' with {'periods': periods} %}
-
-    <div class="navigation">
-        {{ knp_pagination_render(periods) }}
-    </div>
-
 {% endblock %}

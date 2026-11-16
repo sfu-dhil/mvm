@@ -8,8 +8,6 @@ use App\Entity\Person;
 use App\Form\PersonType;
 use App\Repository\PersonRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,9 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/person')]
-class PersonController extends AbstractController implements PaginatorAwareInterface {
-    use PaginatorTrait;
-
+class PersonController extends AbstractController {
     /**
      * @return array
      */
@@ -32,52 +28,10 @@ class PersonController extends AbstractController implements PaginatorAwareInter
         $qb->select('e')->from(Person::class, 'e')->orderBy('e.sortableName', 'ASC');
         $query = $qb->getQuery();
 
-        $people = $this->paginator->paginate($query, $request->query->getint('page', 1), 24);
+        $people = $query->execute();
 
         return [
             'people' => $people,
-        ];
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    #[Route(path: '/typeahead', name: 'person_typeahead', methods: ['GET'])]
-    public function typeahead(Request $request, PersonRepository $repo) {
-        $q = $request->query->get('q');
-        if ( ! $q) {
-            return new JsonResponse([]);
-        }
-        $data = [];
-
-        foreach ($repo->typeaheadQuery($q)->execute() as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => (string) $result,
-            ];
-        }
-
-        return new JsonResponse($data);
-    }
-
-    /**
-     * @return array
-     */
-    #[Route(path: '/search', name: 'person_search', methods: ['GET'])]
-    #[Template]
-    public function searchAction(Request $request, PersonRepository $repo) {
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
-
-            $people = $this->paginator->paginate($query, $request->query->getInt('page', 1), 24);
-        } else {
-            $people = [];
-        }
-
-        return [
-            'people' => $people,
-            'q' => $q,
         ];
     }
 

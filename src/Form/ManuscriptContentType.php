@@ -20,31 +20,31 @@ class ManuscriptContentType extends AbstractType {
      * Add form fields to $builder.
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
-        $builder->add('content', Select2EntityType::class, [
-            'label' => 'Content',
-            'remote_route' => 'content_typeahead',
-            'class' => Content::class,
-            'required' => true,
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'content_new',
-                'add_label' => 'Add Content',
-            ],
-            'placeholder' => 'Search for an existing content by title or first line',
-        ]);
+        // $builder->add('content', Select2EntityType::class, [
+        //     'label' => 'Content',
+        //     'remote_route' => 'content_typeahead',
+        //     'class' => Content::class,
+        //     'required' => true,
+        //     'allow_clear' => true,
+        //     'attr' => [
+        //         'add_path' => 'content_new',
+        //         'add_label' => 'Add Content',
+        //     ],
+        //     'placeholder' => 'Search for an existing content by title or first line',
+        // ]);
 
-        $builder->add('printSource', Select2EntityType::class, [
-            'label' => 'Print Source',
-            'remote_route' => 'print_source_typeahead',
-            'class' => PrintSource::class,
-            'required' => true,
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'print_source_new',
-                'add_label' => 'Add Print Source',
-            ],
-            'placeholder' => 'Search for an existing print source by name, description or region name',
-        ]);
+        // $builder->add('printSource', Select2EntityType::class, [
+        //     'label' => 'Print Source',
+        //     'remote_route' => 'print_source_typeahead',
+        //     'class' => PrintSource::class,
+        //     'required' => true,
+        //     'allow_clear' => true,
+        //     'attr' => [
+        //         'add_path' => 'print_source_new',
+        //         'add_label' => 'Add Print Source',
+        //     ],
+        //     'placeholder' => 'Search for an existing print source by name, description or region name',
+        // ]);
 
         $builder->add('context', null, [
             'label' => 'Context',

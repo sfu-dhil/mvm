@@ -195,6 +195,7 @@
         }
         imageModals();
         menuTabs();
+        $('.select2').select2();
     });
 
 })(jQuery, window);

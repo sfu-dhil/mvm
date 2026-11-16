@@ -18,21 +18,4 @@ class RegionRepository extends ServiceEntityRepository {
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Region::class);
     }
-
-    public function typeaheadQuery($q) {
-        $qb = $this->createQueryBuilder('e');
-        $qb->andWhere('e.name LIKE :q');
-        $qb->orderBy('e.name');
-        $qb->setParameter('q', "{$q}%");
-
-        return $qb->getQuery();
-    }
-
-    public function searchQuery($q) {
-        $qb = $this->createQueryBuilder('e');
-        $qb->where('MATCH (e.name) AGAINST(:q BOOLEAN) > 0');
-        $qb->setParameter('q', $q);
-
-        return $qb->getQuery();
-    }
 }

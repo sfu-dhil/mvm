@@ -6,7 +6,7 @@
     <h1>Coteries</h1>
     <p>A social network of individuals whose activities feature the exchange of original poetry and other literary
         pursuits</p>
-    {% include 'partial/count.html.twig' with {'index': coteries, 'label': 'coteries'} %}
+    <div class="afs-filter-counter"></div>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -19,11 +19,63 @@
 
 
 {% block body %}
-
-    {% include 'coterie/partial/search-form.html.twig'%}
-    {% include 'coterie/partial/index.html.twig' %}
-
-    <div class="navigation">
-        {{ knp_pagination_render(coteries) }}
+    <div class="input-group">
+        <input type="search" id="search" name="search" class="form-control filter-search mb-5" placeholder="Search by name, description, or associated region..." />
+        <span class="input-group-btn">
+            <button id="filter-reset" class="btn btn-light" type="submit">
+                <i class="bi bi-arrow-clockwise"></i>
+                Reset
+            </button>
+        </span>
     </div>
+    {% include 'coterie/partial/index.html.twig' %}
+    <div class="navigation">
+        <nav>
+            <div class="afs-pagination-container pagination justify-content-end"></div>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            const afs = new window.AFS.AFS({
+                containerSelector: '.gallery',
+                itemSelector: '.item',
+                searchInputSelector: '#search',
+                searchKeys: ['name', 'description', 'regions'],
+                minSearchLength: 1,
+                pagination: {
+                    enabled: true,
+                    itemsPerPage: 24,
+                    maxButtons: 6,
+                    container: '.afs-pagination-container',
+                    containerClass: 'justify-content-end gap-0',
+                    pageButtonClass: 'page-link',
+                    activePageClass: 'active',
+                    showPrevNext: true,
+                    scrollToTop: true,
+                },
+                counterSelector: '.afs-filter-counter',
+                counter: {
+                    template: 'Displaying {visible} coteries',
+                    showFiltered: true,
+                    noResultsTemplate: 'No results found',
+                },
+                animation: { type: 'fade', duration: 0 },
+            })
+
+            const resetFilterBtn = document.getElementById('filter-reset')
+            resetFilterBtn.addEventListener("click", () => {
+                afs.search.clearSearch('')
+                afs.pagination.firstPage()
+            })
+
+            const queryParams = new URLSearchParams(window.location.search);
+            if (queryParams.has("search")) {
+                document.getElementById("search").value = queryParams.get("search")
+                afs.search.search(queryParams.get("search"))
+            }
+        })
+    </script>
 {% endblock %}

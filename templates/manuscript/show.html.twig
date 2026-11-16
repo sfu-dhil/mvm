@@ -2,6 +2,23 @@
 
 {% set entity = manuscript %}
 
+{% block static_search_metadata %}
+<meta name="docTitle" class="staticSearch_docTitle" content="{% if manuscript.untitled %}Untitled{% else %}{{ title|default(manuscript.title)|striptags|e('html_attr') }}{% endif %}"/>
+<meta name="Document type" class="staticSearch_desc" content="Manuscript"/>
+{% if manuscript.archive %}<meta name="Archive" class="staticSearch_desc" content="{{ manuscript.archive|striptags|e('html_attr') }}"/>{% endif %}
+<meta name="Complete" class="staticSearch_bool" content="{{ manuscript.complete ? 'true' : 'false' }}"/>
+<meta name="Format" class="staticSearch_desc" content="{{ manuscript.format|striptags|e('html_attr') }}"/>
+{% for period in manuscript.periods %}<meta name="Period" class="staticSearch_desc" content="{{ period|striptags|e('html_attr') }}"/>{% endfor %}
+<meta name="First Line Indexed?" class="staticSearch_bool" content="{{ manuscript.firstLineIndex ? 'true' : 'false' }}"/>
+<meta name="Digitized" class="staticSearch_bool" content="{{ manuscript.digitized ? 'true' : 'false' }}"/>
+{% for region in manuscript.regions %}<meta name="Region" class="staticSearch_desc" content="{{ region|striptags|e('html_attr') }}"/>{% endfor %}
+{% for additionalGenre in manuscript.additionalGenres %}<meta name="Additional Genres" class="staticSearch_desc" content="{{ additionalGenre|striptags|e('html_attr') }}"/>{% endfor %}
+{% for printSource in manuscript.printSources %}<meta name="Print Sources" class="staticSearch_desc" content="{{ printSource|striptags|e('html_attr') }}"/>{% endfor %}
+{% for majorTheme in manuscript.majorThemes %}<meta name="Major Themes" class="staticSearch_desc" content="{{ majorTheme|striptags|e('html_attr') }}"/>{% endfor %}
+{% for otherTheme in manuscript.otherThemes %}<meta name="Minor Themes" class="staticSearch_desc" content="{{ otherTheme|striptags|e('html_attr') }}"/>{% endfor %}
+{% for contribution in manuscript.manuscriptContributions %}<meta name="Contributors" class="staticSearch_desc" content="{{ contribution.person|striptags|e('html_attr') }}"/>{% endfor %}
+{% endblock %}
+
 {% block title %}{{ manuscript.callNumber }} {% endblock %}
 
 {% block breadcrumb %}
@@ -46,7 +63,7 @@
 
                 <tr>
                     <th>Description</th>
-                    <td>{{ manuscript.description|raw }}</td>
+                    <td>{{ manuscript.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}</td>
                 </tr>
                 <tr>
                     <th>Format</th>
@@ -237,7 +254,7 @@
                     {% for manuscriptContent in manuscript.manuscriptContents|sort((a, b) => a.content.firstLine <=> b.content.firstLine) %}
                         <tr>
                             <td>
-                                <a href="{{ path('content_show', {'id': manuscriptContent.content.id}) }}">{{ manuscriptContent.content.firstLine }}
+                                <a href="{{ path('content_show', {'id': manuscriptContent.content.id}) }}">{{ manuscriptContent.content.firstLine }}</a>
                             </td>
                             <td>
                                 {{ manuscriptContent.context|raw }}
@@ -272,13 +289,13 @@
                 </thead>
                 <tbody>
                     {% for manuscriptFeature in manuscript.getManuscriptFeatures(true) %}
-                        <tr>
+                        <tr class="manuscript-notes-row">
                             <td>
                                 <a href="{{ path('feature_show', {'id': manuscriptFeature.feature.id}) }}">
                                     {{ manuscriptFeature.feature.label }}
                                 </a>
                             </td>
-                            <td>{{ manuscriptFeature.note|raw }}</td>
+                            <td class="manuscript-notes-value">{{ manuscriptFeature.note|raw }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

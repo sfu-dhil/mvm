@@ -24,48 +24,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/manuscript')]
-class ManuscriptController extends AbstractController implements PaginatorAwareInterface {
-    use PaginatorTrait;
-
+class ManuscriptController extends AbstractController {
     /**
      * @return array
      */
     #[Route(path: '/', name: 'manuscript_index', methods: ['GET'])]
     #[Template]
     public function indexAction(Request $request, ManuscriptRepository $repo) {
-        $sort = $request->query->get('sort');
         $qb = $repo->indexQuery();
-        $sortedQuery = $repo->getSortedQuery($qb, $sort);
-        $manuscripts = $this->paginator->paginate($sortedQuery, $request->query->getint('page', 1), 24);
+        $manuscripts = $qb->orderBy('e.callNumber', 'ASC')->getQuery()->execute();
         $form = $this->createForm(ManuscriptFilterType::class);
 
         return [
             'manuscripts' => $manuscripts,
             'form' => $form->createView(),
             'data' => $form->getData(),
-            'sort' => $sort,
         ];
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    #[Route(path: '/typeahead', name: 'manuscript_typeahead', methods: ['GET'])]
-    public function typeahead(Request $request, ManuscriptRepository $repo) {
-        $q = $request->query->get('q');
-        if ( ! $q) {
-            return new JsonResponse([]);
-        }
-        $data = [];
-
-        foreach ($repo->typeaheadQuery($q)->execute() as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => (string) $result . ' ' . $result->getCallNumber(),
-            ];
-        }
-
-        return new JsonResponse($data);
     }
 
     /**

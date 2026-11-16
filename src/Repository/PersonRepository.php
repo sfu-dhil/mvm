@@ -19,15 +19,6 @@ class PersonRepository extends ServiceEntityRepository {
         parent::__construct($registry, Person::class);
     }
 
-    public function typeaheadQuery($q) {
-        $qb = $this->createQueryBuilder('e');
-        $qb->andWhere('e.fullName LIKE :q');
-        $qb->orderBy('e.sortableName');
-        $qb->setParameter('q', "%{$q}%");
-
-        return $qb->getQuery();
-    }
-
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
         $qb->where('MATCH (e.fullName, e.variantNames) AGAINST(:q BOOLEAN) > 0');

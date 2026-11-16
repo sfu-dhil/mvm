@@ -19,19 +19,19 @@ class ManuscriptFeatureType extends AbstractType {
      * Add form fields to $builder.
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
-        $builder->add('feature', Select2EntityType::class, [
-            'label' => 'Feature',
-            'multiple' => false,
-            'required' => true,
-            'class' => Feature::class,
-            'remote_route' => 'feature_typeahead',
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'feature_new',
-                'add_label' => 'Add Feature',
-            ],
-            'placeholder' => 'Search for an existing feature by name',
-        ]);
+        // $builder->add('feature', Select2EntityType::class, [
+        //     'label' => 'Feature',
+        //     'multiple' => false,
+        //     'required' => true,
+        //     'class' => Feature::class,
+        //     'remote_route' => 'feature_typeahead',
+        //     'allow_clear' => true,
+        //     'attr' => [
+        //         'add_path' => 'feature_new',
+        //         'add_label' => 'Add Feature',
+        //     ],
+        //     'placeholder' => 'Search for an existing feature by name',
+        // ]);
         $builder->add('note', null, [
             'label' => 'Note',
             'required' => true,

@@ -29,46 +29,10 @@ class ArchiveController extends AbstractController implements PaginatorAwareInte
         $qb->select('e')->from(Archive::class, 'e')->orderBy('e.label', 'ASC');
         $query = $qb->getQuery();
 
-        $archives = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $archives = $query->execute();
 
         return [
             'archives' => $archives,
-        ];
-    }
-
-    #[Route(path: '/typeahead', name: 'archive_typeahead', methods: ['GET'])]
-    public function typeahead(Request $request, ArchiveRepository $repo) : JsonResponse {
-        $q = $request->query->get('q');
-        if ( ! $q) {
-            return new JsonResponse([]);
-        }
-        $data = [];
-
-        foreach ($repo->typeaheadQuery($q)->execute() as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => (string) $result,
-            ];
-        }
-
-        return new JsonResponse($data);
-    }
-
-    #[Route(path: '/search', name: 'archive_search', methods: ['GET'])]
-    #[Template]
-    public function searchAction(Request $request, ArchiveRepository $repo) : array {
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
-
-            $archives = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $archives = [];
-        }
-
-        return [
-            'archives' => $archives,
-            'q' => $q,
         ];
     }
 

@@ -1,6 +1,10 @@
 <div class="gallery person">
     {% for person in people|sort((a, b) => (a.sortableName <=> b.sortableName)) %}
         {% embed 'partial/gallery-item.html.twig' %}
+            {% block data %}
+                data-full-name="{{ person.fullName|striptags|e('html_attr') }}"
+                data-variant-names="{{ person.variantNames|join(' ')|striptags|e('html_attr') }}"
+            {% endblock %}
             {% block item_class %}person{% endblock %}
             {% block item_heading %}
                 <a href="{{ path('person_show', {'id': person.id}) }}">{{ person }}</a>
@@ -20,13 +24,13 @@
                             <tr>
                                 <th>Coteries</th>
                                 <td>{{ arr|join(', ',', and ')|raw }}</td>
+                            </tr>
                         </tbody>
-
                     </table>
                 {% endif %}
             {% endblock %}
             {% block item_body %}
-                {{ person.description|raw }}
+                {{ person.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}
             {% endblock %}
         {% endembed %}
     {% endfor %}

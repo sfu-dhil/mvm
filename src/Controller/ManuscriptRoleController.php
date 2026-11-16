@@ -8,8 +8,6 @@ use App\Entity\ManuscriptRole;
 use App\Form\ManuscriptRoleType;
 use App\Repository\ManuscriptRoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,9 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/manuscript_role')]
-class ManuscriptRoleController extends AbstractController implements PaginatorAwareInterface {
-    use PaginatorTrait;
-
+class ManuscriptRoleController extends AbstractController {
     /**
      * @return array
      */
@@ -32,32 +28,11 @@ class ManuscriptRoleController extends AbstractController implements PaginatorAw
         $qb->select('e')->from(ManuscriptRole::class, 'e')->orderBy('e.label', 'ASC');
         $query = $qb->getQuery();
 
-        $manuscriptRoles = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $manuscriptRoles = $query->execute();
 
         return [
             'manuscriptRoles' => $manuscriptRoles,
         ];
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    #[Route(path: '/typeahead', name: 'manuscript_role_typeahead', methods: ['GET'])]
-    public function typeahead(Request $request, ManuscriptRoleRepository $repo) {
-        $q = $request->query->get('q');
-        if ( ! $q) {
-            return new JsonResponse([]);
-        }
-        $data = [];
-
-        foreach ($repo->typeaheadQuery($q)->execute() as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => (string) $result,
-            ];
-        }
-
-        return new JsonResponse($data);
     }
 
     /**

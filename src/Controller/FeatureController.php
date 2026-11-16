@@ -32,52 +32,10 @@ class FeatureController extends AbstractController implements PaginatorAwareInte
         $qb->select('e')->from(Feature::class, 'e')->orderBy('e.label', 'ASC');
         $query = $qb->getQuery();
 
-        $features = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $features = $query->execute();
 
         return [
             'features' => $features,
-        ];
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    #[Route(path: '/typeahead', name: 'feature_typeahead', methods: ['GET'])]
-    public function typeahead(Request $request, FeatureRepository $repo) {
-        $q = $request->query->get('q');
-        if ( ! $q) {
-            return new JsonResponse([]);
-        }
-        $data = [];
-
-        foreach ($repo->typeaheadQuery($q)->execute() as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => (string) $result,
-            ];
-        }
-
-        return new JsonResponse($data);
-    }
-
-    /**
-     * @return array
-     */
-    #[Route(path: '/search', name: 'feature_search', methods: ['GET'])]
-    #[Template]
-    public function searchAction(Request $request, FeatureRepository $repo) {
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
-
-            $features = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $features = [];
-        }
-
-        return [
-            'features' => $features,
-            'q' => $q,
         ];
     }
 

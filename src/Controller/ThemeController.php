@@ -8,8 +8,6 @@ use App\Entity\Theme;
 use App\Form\ThemeType;
 use App\Repository\ThemeRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,9 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/theme')]
-class ThemeController extends AbstractController implements PaginatorAwareInterface {
-    use PaginatorTrait;
-
+class ThemeController extends AbstractController {
     /**
      * @return array
      */
@@ -32,54 +28,13 @@ class ThemeController extends AbstractController implements PaginatorAwareInterf
         $qb->select('e')->from(Theme::class, 'e')->orderBy('e.label', 'ASC');
         $query = $qb->getQuery();
 
-        $themes = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $themes = $query->execute();
 
         return [
             'themes' => $themes,
         ];
     }
 
-    /**
-     * @return JsonResponse
-     */
-    #[Route(path: '/typeahead', name: 'theme_typeahead', methods: ['GET'])]
-    public function typeahead(Request $request, ThemeRepository $repo) {
-        $q = $request->query->get('q');
-        if ( ! $q) {
-            return new JsonResponse([]);
-        }
-        $data = [];
-
-        foreach ($repo->typeaheadQuery($q)->execute() as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => (string) $result,
-            ];
-        }
-
-        return new JsonResponse($data);
-    }
-
-    /**
-     * @return array
-     */
-    #[Route(path: '/search', name: 'theme_search', methods: ['GET'])]
-    #[Template]
-    public function searchAction(Request $request, ThemeRepository $repo) {
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
-
-            $themes = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $themes = [];
-        }
-
-        return [
-            'themes' => $themes,
-            'q' => $q,
-        ];
-    }
 
     /**
      * @return array|RedirectResponse

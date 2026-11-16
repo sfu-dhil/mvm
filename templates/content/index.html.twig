@@ -6,7 +6,7 @@
     <h1>Poems</h1>
     <p>A selection of poems notable for frequency of appearance, significance to their miscellany context, or
         meta-reflection on the subject of compiling a poetry book</p>
-    {% include 'partial/count.html.twig' with {'index': contents, 'label': 'poems'} %}
+    <div class="afs-filter-counter"></div>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -18,10 +18,63 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'content/partial/search-form.html.twig' %}
-    {% include 'content/partial/index.html.twig' %}
-
-    <div class="navigation">
-        {{ knp_pagination_render(contents) }}
+    <div class="input-group">
+        <input type="search" id="search" name="search" class="form-control filter-search mb-5" placeholder="Search by first line, transcription, description, or author name" />
+        <span class="input-group-btn">
+            <button id="filter-reset" class="btn btn-light" type="submit">
+                <i class="bi bi-arrow-clockwise"></i>
+                Reset
+            </button>
+        </span>
     </div>
+    {% include 'content/partial/index.html.twig' %}
+    <div class="navigation">
+        <nav>
+            <div class="afs-pagination-container pagination justify-content-end"></div>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            const afs = new window.AFS.AFS({
+                containerSelector: '.table-gallery',
+                itemSelector: '.table-item',
+                searchInputSelector: '#search',
+                searchKeys: ['firstLine', 'transcription', 'description', 'author'],
+                minSearchLength: 1,
+                pagination: {
+                    enabled: true,
+                    itemsPerPage: 25,
+                    maxButtons: 6,
+                    container: '.afs-pagination-container',
+                    containerClass: 'justify-content-end gap-0',
+                    pageButtonClass: 'page-link',
+                    activePageClass: 'active',
+                    showPrevNext: true,
+                    scrollToTop: true,
+                },
+                counterSelector: '.afs-filter-counter',
+                counter: {
+                    template: 'Displaying {visible} poems',
+                    showFiltered: true,
+                    noResultsTemplate: 'No results found',
+                },
+                animation: { type: 'fade', duration: 0 },
+            })
+
+            const resetFilterBtn = document.getElementById('filter-reset')
+            resetFilterBtn.addEventListener("click", () => {
+                afs.search.clearSearch('')
+                afs.pagination.firstPage()
+            })
+
+            const queryParams = new URLSearchParams(window.location.search);
+            if (queryParams.has("search")) {
+                document.getElementById("search").value = queryParams.get("search")
+                afs.search.search(queryParams.get("search"))
+            }
+        })
+    </script>
 {% endblock %}

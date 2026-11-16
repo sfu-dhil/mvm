@@ -9,7 +9,7 @@
 {% block pageheader %}
     <h1>Manuscripts</h1>
     <p>Poetry miscellanies examined on-site or in digitized form by the research team</p>
-    {% include 'partial/count.html.twig' with {'index': manuscripts, 'label': 'manuscripts'} %}
+    <div class="afs-filter-counter"></div>
 {% endblock %}
 
 {% block action_buttons %}
@@ -17,9 +17,177 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'manuscript/partial/search-form.html.twig' %}
+    <div class="input-group">
+        <input type="search" id="search" name="search" class="form-control filter-search mb-3" placeholder="Search by call number, title, description, or format.." />
+        <span class="input-group-btn">
+            <button id="filter-reset" class="btn btn-light" type="submit">
+                <i class="bi bi-arrow-clockwise"></i>
+                Reset
+            </button>
+        </span>
+    </div>
+    {% form_theme form with [
+        '@NinesUtil/form/bootstrap_5_layout.html.twig',
+        '@TetranzSelect2Entity/Form/fields.html.twig',
+        'jquery.collection.html.twig',
+    ] only %}
+
+    {% set filtered = (active is defined and active|length > 0) or (untitled is defined and untitled == 'false') %}
+
+    <details id="filter-accordion" class="accordion">
+        <summary>
+            <span class="icon">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+            </span>
+            Search Options
+        </summary>
+
+        <div class="search_filters">
+            {{ form_row(form.digitized) }}
+            <div class="filter filter_boolean filter_untitled form-group">
+                <div class="form-check">
+                    <input type="checkbox" id="untitled" name="untitled" aria-describedby="ms_filter_untitled_help" class="form-check-input" value="false" {% if untitled is defined and untitled == 'false' %}checked="checked"{% endif %} />
+                    <label class="form-check-label" for="untitled">Manuscripts with titles only</label>
+                </div>
+                <div id="ms_filter_untitled_help" class="form-text mb-0 help-text">If this control is checked, only manuscripts with titles will be included in search results.</div>
+            </div>
+            <p class="help-block">Use the inputs to filter manuscripts by associated values. For example, all manuscripts
+            that are held by the Bodleian Library or the Folger Shakespeare Library and that feature
+            "Classical Themes."</p>
+            {{ form_rest(form) }}
+        </div>
+    </details>
+    <div class="input-group my-3">
+        {% set sort_opts = {
+            'callNumber_asc': 'Archive (A-Z)',
+            'callNumber_desc': 'Archive (Z-A)',
+            'title_asc': 'Title (A-Z)',
+            'title_desc': 'Title (Z-A)',
+            'earliestPeriod_asc': 'Period (Ascending)',
+            'earliestPeriod_desc': 'Period (Descending)'
+        } %}
+        <div class="sorter">
+            <label for="sort-dropdown">Sort by:</label>
+            <select name="sort-dropdown" id="sort-dropdown">
+                {% for value, label in sort_opts %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
     {% include 'manuscript/partial/gallery.html.twig' %}
     <div class="navigation">
-        {{ knp_pagination_render(manuscripts) }}
+        <nav>
+            <div class="afs-pagination-container pagination justify-content-end"></div>
+        </nav>
     </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            const afs = new window.AFS.AFS({
+                containerSelector: '.gallery',
+                itemSelector: '.item',
+                searchInputSelector: '#search',
+                searchKeys: ['callNumber', 'title', 'description', 'format'],
+                minSearchLength: 1,
+                groupMode: 'AND',
+                filterCategoryMode: 'mixed',
+                pagination: {
+                    enabled: true,
+                    itemsPerPage: 24,
+                    maxButtons: 6,
+                    container: '.afs-pagination-container',
+                    containerClass: 'justify-content-end gap-0',
+                    pageButtonClass: 'page-link',
+                    activePageClass: 'active',
+                    showPrevNext: true,
+                    scrollToTop: true,
+                },
+                counterSelector: '.afs-filter-counter',
+                counter: {
+                    template: 'Displaying {visible} manuscripts',
+                    showFiltered: true,
+                    noResultsTemplate: 'No results found',
+                },
+                animation: { type: 'fade', duration: 0 },
+            })
+
+            const resetFilterBtn = document.getElementById('filter-reset')
+            resetFilterBtn.addEventListener("click", () => {
+                afs.search.clearSearch('')
+                afs.pagination.firstPage()
+            })
+
+            const queryParams = new URLSearchParams(window.location.search)
+            if (queryParams.has("search")) {
+                document.getElementById("search").value = queryParams.get("search")
+                afs.search.search(queryParams.get("search"))
+            }
+
+            const sortDropdown = document.getElementById('sort-dropdown')
+            if (queryParams.has("sort")) {
+                const page = queryParams.get("page")
+                const [key, direction] = queryParams.get("sort").split(',')
+                sortDropdown.value = `${key}_${direction}`
+                afs.sort.sort(key, direction)
+                if (page) {
+                   afs.pagination.goToPage(page)
+                }
+            }
+            sortDropdown.addEventListener("change", (event) => {
+                const [key, direction] = event.target.value.split('_')
+                afs.sort.sort(key, direction)
+            })
+
+            const filterAccordion = document.getElementById('filter-accordion')
+            const initFilterAccordionOpen = () => {
+                filterAccordion.open = true
+                filterAccordion.setAttribute('aria-expanded', true)
+            }
+
+            // need a bit of a workaround to get afs working with the fancy select used
+            // (can't directly us afs hooks due to styling issues and select value change doesn't buddle properly)
+            const initDropdownFilter = (el, categoryId) => {
+                el.addEventListener("change", (event) => {
+                    afs.filter.clearFilterCategory(categoryId)
+                    const filters = Array.from(event.target.selectedOptions).map(option => option.value)
+                    if (filters.length > 0) {
+                        afs.filter.activeFilters.delete('*')
+                        filters.forEach((filter) => afs.filter.activeFilters.add(filter))
+                    }
+                    afs.filter.applyFilters()
+                })
+                if (queryParams.has(categoryId)) {
+                    const categoryIds = new Set(queryParams.get(categoryId).split(',').map((value) => `${categoryId}:${value}`))
+                    Array.from(el.options).forEach(option => {
+                        option.selected = categoryIds.has(option.value)
+                        if (option.selected) {
+                            afs.filter.activeFilters.delete('*')
+                            el.tomselect.addItem(option.value, true)
+                            afs.filter.activeFilters.add(option.value)
+                        }
+                    })
+                    initFilterAccordionOpen()
+                }
+            }
+            initDropdownFilter(document.getElementById('ms_filter_archive'), 'archiveId')
+            initDropdownFilter(document.getElementById('ms_filter_periods'), 'periodId')
+            initDropdownFilter(document.getElementById('ms_filter_printSources'), 'printSourceId')
+            initDropdownFilter(document.getElementById('ms_filter_regions'), 'regionId')
+            initDropdownFilter(document.getElementById('ms_filter_majorThemes'), 'majorThemeId')
+            initDropdownFilter(document.getElementById('ms_filter_otherThemes'), 'otherThemeId')
+            initDropdownFilter(document.getElementById('ms_filter_coteries'), 'coterieId')
+            initDropdownFilter(document.getElementById('ms_filter_manuscriptContents'), 'contentId')
+            initDropdownFilter(document.getElementById('ms_filter_manuscriptContributions'), 'personId')
+
+            afs.filter.applyFilters()
+        })
+    </script>
 {% endblock %}

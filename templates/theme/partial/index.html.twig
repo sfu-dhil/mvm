@@ -7,11 +7,14 @@
             <th>Minor Theme</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-gallery">
         {% for theme in themes %}
-            <tr>
+            <tr class="table-item"
+                data-label="{{ theme.label|striptags|e('html_attr') }}"
+                data-description="{{ theme.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|striptags|e('html_attr') }}"
+            >
                 <td><a href="{{ path('theme_show',{'id':theme.id}) }}">{{ theme.label }}</a></td>
-                <td>{{ theme.description|raw }}</td>
+                <td>{{ theme.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}</td>
                 <td class="number">{{ theme.majorManuscripts|length }}</td>
                 <td class="number">{{ theme.otherManuscripts|length }}</td>
             </tr>

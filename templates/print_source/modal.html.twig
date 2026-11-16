@@ -11,7 +11,7 @@
 {% block label %} <a href="{{ path('print_source_index') }}">Print Source</a>{% endblock %}
 
 {% block description %}
-    {{ printSource.description|raw }}
+    {{ printSource.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}
 {% endblock %}
 
 

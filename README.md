@@ -189,3 +189,121 @@ Automatically fix some standards errors
     docker exec -it mvm_app make dump.params
     docker exec -it mvm_app make dump.router
     docker exec -it mvm_app make dump.twig
+
+# Build static archive
+
+## Add Static search
+
+Get static search
+```bash
+docker run --rm -it \
+    --platform linux/arm64 \
+    --volume ${PWD}/static:/var/www \
+    dhilsfu/static-base:latest ant getStaticSearch
+```
+
+edit `<target name="validate.html">` in `static/lib/staticSearch/build.xml` to add the the xmlcatalog
+
+```xml
+  <target name="validate.html">
+    <description>
+      TARGET: validate.html
+      Target to check input files as well-formed XHTML. Note that this DOES
+      NOT check whether or not it is valid XHTML: only that it is well-formed. This target also
+      checks the config file and sees if it's invalid. We don't fail if it's invalid, though, since
+      we must assume that some people just don't care: but raise the error anyway.
+    </description>
+    <echo message="Validating ${ssCollectionDirName.converted} for well-formedness"/>
+    <!--@lenient='true' since we are only checking well-formedness-->
+    <xmlvalidate lenient="true">
+      <!--TODO: This should really validate the actual set of files, and not just any-->
+      <fileset dir="${ssCollectionDirName.converted}" casesensitive="false">
+        <filename regex=".+\..?htm.?$"/>
+        <!--Don't validate items that may be in a different staticSearch output-->
+        <exclude name="**/${staticSearchTempFolder}/**"/>
+        <exclude name="**/staticSearch_report.html"/>
+      </fileset>
+      <!-- THIS IS THE NEW STUFF -->
+      <xmlcatalog>
+        <dtd publicId="-//W3C//DTD XHTML 1.0 Transitional//EN" location="../../xhtml1-transitional.dtd"/>
+      </xmlcatalog>
+    </xmlvalidate>
+  </target>
+```
+
+edit `<target name="tokenize">` in `static/lib/staticSearch/build.xml` to add the the xmlcatalog
+
+```xml
+  <target name="tokenize">
+    <description>
+      TARGET: tokenize
+      This target runs the multi-stage tokenization process on the
+      XHTML collection and creates a stash of tokenized and cleaned up files from which we generate
+      the individual token JSONs. The XSLT is run on itself and uses the information in the config
+      XSLT module (generated in the config task) to determine the input files, et cetera. </description>
+    <echo message="Creating tokenized XHTML files..."/>
+    <loadfile srcFile="${ssPatternsetFile}" property="ptn" failonerror="true"/>
+
+    <xslt
+      style="${ssBaseDir.converted}/xsl/tokenize.xsl" classpath="${ssSaxon}" destdir="${staticSearchTempDir}"
+       reloadstylesheet="true"
+       force="true"
+      useimplicitfileset="false">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <fileset id="siteFiles" dir="${ssCollectionDirName.converted}" casesensitive="no">
+        <includesfile name="${ssPatternsetFile}"/>
+        <!--Exclude the temporary directory's basename-->
+        <exclude name="**/${staticSearchTempFolder}/**"/>
+      </fileset>
+      <!-- THIS IS THE NEW STUFF -->
+      <xmlcatalog>
+        <dtd publicId="-//W3C//DTD XHTML 1.0 Transitional//EN" location="../../xhtml1-transitional.dtd"/>
+      </xmlcatalog>
+
+       <regexpmapper from="^(.*)\.([^\.]+$)" to="\1_tokenized.html"/>
+    </xslt>
+    <!--Necessary to delete any empty files (i.e. files excluded by
+        the configuration) -->
+    <delete verbose="${ssVerbose}">
+      <fileset dir="${staticSearchTempDir}">
+        <size value="0"/>
+      </fileset>
+    </delete>
+  </target>
+```
+
+
+## Crawl for archive
+
+```bash
+docker compose up -d --build
+docker exec -it mvm_app mkdir -p /var/www/html/var/cache/prod
+docker exec -it mvm_app chown www-data:www-data /var/www/html/var/cache/prod
+```
+
+```bash
+wget --execute robots=off --user-agent=mozilla --recursive --level=0 --parent=off \
+    --clobber=off --page-requisites --ignore-case --content-disposition --trust-server-names \
+    --convert-links --adjust-extension --restrict-file-names=windows \
+    --wait 0 --tries=0 --retry-connrefused --retry-on-http-error='*,!404' \
+    --reject-regex='^data:image\/svg\+xml,.*$|^data:application\/font-woff;charset=utf-8;base64,.*$' \
+    --no-host-directories -P ./static/_build \
+    --no-check-certificate \
+    https://localhost
+```
+
+## Add static search to archive
+
+Run static search
+```bash
+docker run --rm -it \
+    --platform linux/arm64 \
+    --volume ${PWD}/static:/var/www \
+    dhilsfu/static-base:latest ant
+```
+
+## Run static website
+
+```bash
+docker run --rm -p 8080:80 -v "$(pwd)/static/_site:/usr/share/nginx/html:ro" --name mvm_static nginx:1.31-alpine
+```

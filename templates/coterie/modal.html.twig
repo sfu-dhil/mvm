@@ -9,7 +9,7 @@
 {% block label %}<a href="{{ path('coterie_index') }}">Coterie</a>{% endblock %}
 
 {% block description %}
-    {{ coterie.description|raw }}
+    {{ coterie.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}
 {% endblock %}
 
 

@@ -20,9 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/content')]
-class ContentController extends AbstractController implements PaginatorAwareInterface {
-    use PaginatorTrait;
-
+class ContentController extends AbstractController {
     #[Route(path: '/', name: 'content_index', methods: ['GET'])]
     #[Template]
     public function indexAction(EntityManagerInterface $entityManager, Request $request) : array {
@@ -30,48 +28,37 @@ class ContentController extends AbstractController implements PaginatorAwareInte
         $qb->select('e')->from(Content::class, 'e')->orderBy('e.firstLine', 'ASC')->addOrderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
-        $contents = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $contents = $query->execute();
 
         return [
             'contents' => $contents,
         ];
     }
 
-    #[Route(path: '/typeahead', name: 'content_typeahead', methods: ['GET'])]
-    public function typeahead(Request $request, ContentRepository $repo) : JsonResponse {
-        $q = $request->query->get('q');
-        if ( ! $q) {
-            return new JsonResponse([]);
-        }
-        $data = [];
+    // public function searchQuery($q) {
+    //     $qb = $this->createQueryBuilder('e');
 
-        foreach ($repo->typeaheadQuery($q)->execute() as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => (string) $result,
-            ];
-        }
+    //     // join the contributions, person, and role tables to query the author
+    //     $qb->leftJoin('e.contributions', 'c');
+    //     $qb->leftJoin('c.person', 'p');
+    //     $qb->leftJoin('c.role', 'r');
 
-        return new JsonResponse($data);
-    }
+    //     // content matches
+    //     $qb->where('MATCH (e.firstLine, e.transcription, e.description) AGAINST(:q BOOLEAN) > 0.0');
 
-    #[Route(path: '/search', name: 'content_search', methods: ['GET'])]
-    #[Template]
-    public function searchAction(Request $request, ContentRepository $repo) : array {
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
+    //     // author matches
+    //     $qb->orWhere(
+    //         $qb->expr()->andX(
+    //             $qb->expr()->gt('MATCH(p.fullName, p.variantNames) AGAINST (:q BOOLEAN)', 0.0),
+    //             $qb->expr()->eq('r.name', '\'author\'')
+    //         )
+    //     );
 
-            $contents = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $contents = [];
-        }
+    //     $qb->orderBy('e.firstLine');
+    //     $qb->setParameter('q', $q);
 
-        return [
-            'contents' => $contents,
-            'q' => $q,
-        ];
-    }
+    //     return $qb->getQuery();
+    // }
 
     #[Route(path: '/new', name: 'content_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_CONTENT_ADMIN')]

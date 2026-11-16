@@ -22,7 +22,7 @@
 
 
 {% block description %}
-    {{ person.description|raw }}
+    {{ person.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}
 {% endblock %}
 
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="lib/staticSearch/schema/staticSearch.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="lib/staticSearch/schema/staticSearch.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<config xmlns="http://hcmc.uvic.ca/ns/staticSearch" version="2">
+   <params>
+      <searchPage file="_site/index.html"/>
+      <index recurse="true"/>
+      <stopwords file="lib/staticSearch/stopwords/stopwords_en.txt"/>
+      <dictionary file="lib/staticSearch/dicts/words_en.txt"/>
+      <tokenizer minWordLength="3"/>
+      <scoringAlgorithm name="raw"/>
+      <stemmer dir="en"/>
+      <createContexts create="true"
+                      phrasalSearch="true"
+                      wildcardSearch="true"
+                      maxKwicLength="15"
+                      kwicTruncateString="..."/>
+      <results resultsPerPage="20"
+               maxKwicsToShow="1000"/>
+      <version file="1.0"/>
+      <output dir="staticSearch"/>
+   </params>
+   <rules>
+      <!-- Manuscript -->
+      <rule match="td[preceding-sibling::th[contains(., 'Title')]]" weight="4"/>
+      <rule match="td[preceding-sibling::th[contains(., 'Description')]]" weight="2"/>
+      <rule match="td[preceding-sibling::th[contains(., 'Call Number')]]" weight="3"/>
+      <rule match="td[preceding-sibling::th[contains(., 'Links')]]" weight="2"/>
+      <rule match="td[preceding-sibling::th[contains(., 'Bibliography')]]" weight="2"/>
+      <rule match="tr[@class='manuscript-notes-value']" weight="2"/>
+
+      <!-- Content/Poem -->
+      <rule match="td[preceding-sibling::th[contains(., 'First Line')]]" weight="4"/>
+      <!-- same Description rule -->
+      <rule match="div[@class='transcription-body']" weight="3"/>
+
+      <!-- Misc -->
+      <rule match="header | dt | th | legend | nav | img | button | script | style | code" weight="0"/>
+   </rules>
+   <contexts>
+      <!-- Manuscript -->
+      <context match="td[preceding-sibling::th[contains(., 'Title')]]" label="Title"/>
+      <context match="td[preceding-sibling::th[contains(., 'Description')]]" label="Description"/>
+      <context match="td[preceding-sibling::th[contains(., 'Call Number')]]" label="Call Number"/>
+      <context match="td[preceding-sibling::th[contains(., 'Links')]]" label="Link"/>
+      <context match="td[preceding-sibling::th[contains(., 'Bibliography')]]" label="Bibliography"/>
+      <context match="tr[@class='manuscript-notes-row']" label="Notes"/>
+
+      <!-- Content/Poem -->
+      <context match="td[preceding-sibling::th[contains(., 'First Line')]]" label="First Line"/>
+      <!-- same Description context -->
+      <context match="div[@class='transcription-body']" label="Transcription"/>
+   </contexts>
+   <excludes>
+      <exclude type="index" match="html [not( descendant::meta [@name='Document type'] [@content='Manuscript' or @content='Poem'] )]"/>
+      <!-- <exclude type="index" match="html [not( starts-with(@id, 'manuscript_show_') )]"/> -->
+   </excludes>
+</config>

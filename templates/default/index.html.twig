@@ -45,6 +45,11 @@
                 {% endfor %}
             </ul>
         </section>
+        <section>
+            <h2>Keyword Search</h2>
+            <!-- insert static search here -->
+            <div id="staticSearch"></div>
+        </section>
 {% endblock %}
 
 {% block javascripts %}
@@ -56,7 +61,7 @@
             let $select = $('#person_typeahead_person');
             $select.on('change', function (e) {
                 e.preventDefault();
-                window.location = "{{ base }}/person/" + $select.val();
+                window.location = `./person/${$select.val()}.html`;
             });
         });
     </script>

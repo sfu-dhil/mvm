@@ -8,8 +8,6 @@ use App\Entity\Period;
 use App\Form\PeriodType;
 use App\Repository\PeriodRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,9 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/period')]
-class PeriodController extends AbstractController implements PaginatorAwareInterface {
-    use PaginatorTrait;
-
+class PeriodController extends AbstractController {
     /**
      * @return array
      */
@@ -32,7 +28,7 @@ class PeriodController extends AbstractController implements PaginatorAwareInter
         $qb->select('e')->from(Period::class, 'e')->orderBy('e.label', 'ASC');
         $query = $qb->getQuery();
 
-        $periods = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $periods = $query->execute();
 
         return [
             'periods' => $periods,

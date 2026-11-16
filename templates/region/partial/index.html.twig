@@ -8,9 +8,11 @@
                 <th class="number">Manuscripts</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-gallery">
             {% for region in regions %}
-                <tr>
+                <tr class="table-item"
+                    data-name="{{ region.name|striptags|e('html_attr') }}"
+                >
                     <td>
                         <a href="{{ path('region_show', {'id': region.id}) }}">
                             {{ region.name }}

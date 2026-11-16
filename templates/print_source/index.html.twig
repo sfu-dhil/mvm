@@ -9,7 +9,7 @@
 {% block pageheader %}
     <h1>Print Sources</h1>
     <p>Periodical, newspaper, miscellany, or anthology sources named in at least one manuscript</p>
-    {% include 'partial/count.html.twig' with {'index': printSources, 'label': 'print sources'} %}
+    <div class="afs-filter-counter"></div>
 {% endblock %}
 
 {% block action_buttons %}
@@ -17,9 +17,64 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'print_source/partial/search-form.html.twig' %}
+    <div class="input-group">
+        <input type="search" id="search" name="search" class="form-control filter-search mb-5" placeholder="Search by name, description, or associated region" />
+        <span class="input-group-btn">
+            <button id="filter-reset" class="btn btn-light" type="submit">
+                <i class="bi bi-arrow-clockwise"></i>
+                Reset
+            </button>
+        </span>
+    </div>
+
     {% include 'print_source/partial/index.html.twig' %}
     <div class="navigation">
-        {{ knp_pagination_render(printSources) }}
+        <nav>
+            <div class="afs-pagination-container pagination justify-content-end"></div>
+        </nav>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="module">
+        $(function () {
+            const afs = new window.AFS.AFS({
+                containerSelector: '.table-gallery',
+                itemSelector: '.table-item',
+                searchInputSelector: '#search',
+                searchKeys: ['name', 'description', 'regions'],
+                minSearchLength: 1,
+                pagination: {
+                    enabled: true,
+                    itemsPerPage: 25,
+                    maxButtons: 6,
+                    container: '.afs-pagination-container',
+                    containerClass: 'justify-content-end gap-0',
+                    pageButtonClass: 'page-link',
+                    activePageClass: 'active',
+                    showPrevNext: true,
+                    scrollToTop: true,
+                },
+                counterSelector: '.afs-filter-counter',
+                counter: {
+                    template: 'Displaying {visible} print sources',
+                    showFiltered: true,
+                    noResultsTemplate: 'No results found',
+                },
+                animation: { type: 'fade', duration: 0 },
+            })
+
+            const resetFilterBtn = document.getElementById('filter-reset')
+            resetFilterBtn.addEventListener("click", () => {
+                afs.search.clearSearch('')
+                afs.pagination.firstPage()
+            })
+
+            const queryParams = new URLSearchParams(window.location.search);
+            if (queryParams.has("search")) {
+                document.getElementById("search").value = queryParams.get("search")
+                afs.search.search(queryParams.get("search"))
+            }
+        })
+    </script>
 {% endblock %}

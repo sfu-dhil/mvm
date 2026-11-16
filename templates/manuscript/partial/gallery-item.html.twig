@@ -7,6 +7,14 @@ either in the body of a page or within the contents of a tab #}
 
 {% embed 'partial/gallery-item.html.twig' %}
     {% block item_class %}ms{% endblock %}
+    {% block data %}
+        data-call-number="{{ manuscript.callNumber|striptags|e('html_attr') }}"
+        data-title="{{ manuscript.title|striptags|e('html_attr') }}"
+        data-description="{{ manuscript.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|striptags|e('html_attr') }}"
+        data-format="{{ manuscript.format|striptags|e('html_attr') }}"
+        data-earliest-period="{{ manuscript.getEarliestYear|striptags|e('html_attr') }}"
+        data-categories="archiveId:{{ manuscript.archive.id|striptags|e('html_attr') }} {% for period in manuscript.periods %}periodId:{{ period.id }} {% endfor %} {% for printSource in manuscript.printSources %}printSourceId:{{ printSource.id }} {% endfor %} {% for region in manuscript.regions %}regionId:{{ region.id }} {% endfor %} {% for majorTheme in manuscript.majorThemes %}majorThemeId:{{ majorTheme.id }} {% endfor %} {% for otherTheme in manuscript.otherThemes %}otherThemeId:{{ otherTheme.id }} {% endfor %} {% for coterie in manuscript.coteries %}coterieId:{{ coterie.id }} {% endfor %} {% for manuscriptContent in manuscript.manuscriptContents %}contentId:{{ manuscriptContent.content.id }} {% endfor %} {% for manuscriptContribution in manuscript.manuscriptContributions %}personId:{{ manuscriptContribution.person.id }} {% endfor %}"
+    {% endblock %}
     {% block item_heading %}
         <a href="{{ path('manuscript_show', {'id': manuscript.id}) }}">{{ manuscript.callNumber }}</a>
     {% endblock %}
@@ -48,7 +56,7 @@ either in the body of a page or within the contents of a tab #}
             {% if callbackDescription is defined and callbackDescription is not null %}
                 {{ callbackDescription|raw }}
             {% else %}
-                {{ manuscript.description|raw }}
+                {{ manuscript.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}
             {% endif %}
         {% endif %}
     {% endblock %}

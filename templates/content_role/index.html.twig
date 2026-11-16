@@ -5,7 +5,7 @@
 {% block pageheader %}
     <h1>Poem Roles</h1>
     <p>Roles played by individuals in relation to specific poems</p>
-    {% include 'partial/count.html.twig' with {'index': contentRoles, 'label': 'content roles'} %}
+    <p class="count">Displaying {{ contentRoles|length }} content roles</p>
 {% endblock %}
 
 
@@ -32,17 +32,10 @@
             {% for role in contentRoles %}
                 <tr>
                     <td><a href="{{ path('content_role_show', {'id': role.id}) }}">{{ role }}</a></td>
-                    <td>{{ role.description|raw }}</td>
+                    <td>{{ role.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}</td>
                     <td class="number">{{ role.contributions|length }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-
-
-
-    <div class="navigation">
-        {{ knp_pagination_render(contentRoles) }}
-    </div>
-
 {% endblock %}

@@ -2,6 +2,13 @@
 
 {% set entity = content %}
 
+{% block static_search_metadata %}
+<meta name="docTitle" class="staticSearch_docTitle" content="{{ content.firstLine|striptags|e('html_attr') }}"/>
+<meta name="Document type" class="staticSearch_desc" content="Poem"/>
+{% for contribution in content.contributions %}<meta name="Contributors" class="staticSearch_desc" content="{{ contribution.person|striptags|e('html_attr') }}"/>{% endfor %}
+{% if content.date is not null %}<meta name="Date" class="staticSearch_date" content="{{ content.date }}"/>{% endif %}
+{% endblock %}
+
 {% block title %}{{ content.firstLine }}{% endblock %}
 
 {% block action_buttons %}
@@ -53,7 +60,7 @@
                         {% endif %}
                         <tr>
                             <th>Description</th>
-                            <td>{{ content.description|raw }}</td>
+                            <td>{{ content.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}</td>
                         </tr>
                         {% if content.links|length > 0 %}
                             <tr>

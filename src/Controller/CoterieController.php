@@ -8,8 +8,6 @@ use App\Entity\Coterie;
 use App\Form\CoterieType;
 use App\Repository\CoterieRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,59 +17,24 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/coterie')]
-class CoterieController extends AbstractController implements PaginatorAwareInterface {
-    use PaginatorTrait;
-
+class CoterieController extends AbstractController {
     #[Route(path: '/', name: 'coterie_index', methods: ['GET'])]
     #[Template]
     public function index(Request $request, CoterieRepository $coterieRepository) : array {
         $query = $coterieRepository->indexQuery();
-        $coteries = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $coteries = $query->execute();
+
+        // $qb = $this->createQueryBuilder('coterie');
+        // $qb->leftJoin('coterie.regions', 'region');
+        // $qb->where('MATCH(coterie.label, coterie.description) AGAINST (:q BOOLEAN) > 0.0');
+        // $qb->orWhere('MATCH(region.name) AGAINST (:q BOOLEAN) > 0.0');
+        // $qb->setParameter('q', $q);
+
+        // return $qb->getQuery();
 
         return [
             'coteries' => $coteries,
         ];
-    }
-
-    /**
-     * @return array
-     */
-    #[Route(path: '/search', name: 'coterie_search', methods: ['GET'])]
-    #[Template]
-    public function search(Request $request, CoterieRepository $coterieRepository) {
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $coterieRepository->searchQuery($q);
-            $coteries = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
-        } else {
-            $coteries = [];
-        }
-
-        return [
-            'coteries' => $coteries,
-            'q' => $q,
-        ];
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    #[Route(path: '/typeahead', name: 'coterie_typeahead', methods: ['GET'])]
-    public function typeahead(Request $request, CoterieRepository $coterieRepository) {
-        $q = $request->query->get('q');
-        if ( ! $q) {
-            return new JsonResponse([]);
-        }
-        $data = [];
-
-        foreach ($coterieRepository->typeaheadQuery($q)->execute() as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => (string) $result,
-            ];
-        }
-
-        return new JsonResponse($data);
     }
 
     /**

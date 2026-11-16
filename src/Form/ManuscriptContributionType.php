@@ -33,19 +33,19 @@ class ManuscriptContributionType extends AbstractType {
             ],
             'placeholder' => 'Search for an existing person by name',
         ]);
-        $builder->add('role', Select2EntityType::class, [
-            'label' => 'Manuscript Role',
-            'multiple' => false,
-            'remote_route' => 'manuscript_role_typeahead',
-            'class' => ManuscriptRole::class,
-            'required' => true,
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'manuscript_role_new',
-                'add_label' => 'Add Role',
-            ],
-            'placeholder' => 'Search for an existing role source by name',
-        ]);
+        // $builder->add('role', Select2EntityType::class, [
+        //     'label' => 'Manuscript Role',
+        //     'multiple' => false,
+        //     'remote_route' => 'manuscript_role_typeahead',
+        //     'class' => ManuscriptRole::class,
+        //     'required' => true,
+        //     'allow_clear' => true,
+        //     'attr' => [
+        //         'add_path' => 'manuscript_role_new',
+        //         'add_label' => 'Add Role',
+        //     ],
+        //     'placeholder' => 'Search for an existing role source by name',
+        // ]);
         $builder->add('note', null, [
             'label' => 'Note',
             'required' => true,

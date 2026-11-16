@@ -2,6 +2,11 @@
     <div class="gallery coterie">
         {% for coterie in coteries %}
             {% embed 'partial/gallery-item.html.twig' %}
+                {% block data %}
+                    data-name="{{ coterie.name|striptags|e('html_attr') }}"
+                    data-description="{{ coterie.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|striptags|e('html_attr') }}"
+                    data-regions="{{ coterie.regions|join(' | ')|striptags|e('html_attr') }}"
+                {% endblock %}
                 {% block item_class %}coterie{% endblock %}
                 {% block item_heading %}
                     <a href="{{ path('coterie_show', {'id': coterie.id}) }}">{{ coterie }}</a>
@@ -9,7 +14,7 @@
                 {% block item_top %}
                 {% endblock %}
                 {% block item_body %}
-                    {{ coterie.description|raw }}
+                    {{ coterie.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}
                     {% if coterie.people|length > 0 %}
                         <div class="description">
                             <h5>Members</h5>

@@ -240,6 +240,11 @@ acorn@^8.14.0, acorn@^8.7.1:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.15.0.tgz#a360898bc415edaac46c8241f6383975b930b816"
   integrity sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==
 
+advanced-filter-system@^1.8.3:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/advanced-filter-system/-/advanced-filter-system-1.8.3.tgz#020ad5c2ba412c7bb2f9497052df39cca4055864"
+  integrity sha512-EJ1dM7I24Tdb1o6Ba1Rcm8KFeARGtpWc87N4Y3P14f6r3mUSWqtrmDV34l91Xx5VPumc+8+Tisjfd8mqe0zf+A==
+
 ajv-formats@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ajv-formats/-/ajv-formats-2.1.1.tgz#6e669400659eb74973bbf2e33327180a0996b520"

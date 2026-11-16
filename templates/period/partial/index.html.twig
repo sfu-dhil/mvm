@@ -13,7 +13,7 @@
                 <td>
                     <a href="{{ path('period_show', {'id': period.id}) }}">{{ period }}</a>
                 </td>
-                <td>{{ period.description|raw }}</td>
+                <td>{{ period.description|replace({'https://mvm.dhil.lib.sfu.ca/': '../', 'https://dhil.lib.sfu.ca/mvm/': '../'})|raw }}</td>
                 <td class="number">{{ period.manuscripts|length }}</td>
                 <td class="number">{{ period.coteries|length }}</td>
             </tr>

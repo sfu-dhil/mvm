@@ -20,19 +20,19 @@ class ContentContributionType extends AbstractType {
      * Add form fields to $builder.
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
-        $builder->add('role', Select2EntityType::class, [
-            'label' => 'Content Role',
-            'multiple' => false,
-            'remote_route' => 'content_role_typeahead',
-            'class' => ContentRole::class,
-            'required' => true,
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'content_role_new',
-                'add_label' => 'Add Role',
-            ],
-            'placeholder' => 'Search for an existing role by name',
-        ]);
+        // $builder->add('role', Select2EntityType::class, [
+        //     'label' => 'Content Role',
+        //     'multiple' => false,
+        //     'remote_route' => 'content_role_typeahead',
+        //     'class' => ContentRole::class,
+        //     'required' => true,
+        //     'allow_clear' => true,
+        //     'attr' => [
+        //         'add_path' => 'content_role_new',
+        //         'add_label' => 'Add Role',
+        //     ],
+        //     'placeholder' => 'Search for an existing role by name',
+        // ]);
         $builder->add('person', Select2EntityType::class, [
             'label' => 'Contributor',
             'multiple' => false,

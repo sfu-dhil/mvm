@@ -47,19 +47,19 @@ class ManuscriptType extends AbstractType {
             'required' => true,
             'help' => 'May also be called shelf mark. Do not include the name of the institution here, unless it is part of the call number.',
         ]);
-        $builder->add('archive', Select2EntityType::class, [
-            'label' => 'Archive',
-            'multiple' => false,
-            'remote_route' => 'archive_typeahead',
-            'class' => Archive::class,
-            'required' => false,
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'archive_new',
-                'add_label' => 'Add Archive Source',
-            ],
-            'placeholder' => 'Search for an existing archive source by name',
-        ]);
+        // $builder->add('archive', Select2EntityType::class, [
+        //     'label' => 'Archive',
+        //     'multiple' => false,
+        //     'remote_route' => 'archive_typeahead',
+        //     'class' => Archive::class,
+        //     'required' => false,
+        //     'allow_clear' => true,
+        //     'attr' => [
+        //         'add_path' => 'archive_new',
+        //         'add_label' => 'Add Archive Source',
+        //     ],
+        //     'placeholder' => 'Search for an existing archive source by name',
+        // ]);
         $builder->add('periods', Select2EntityType::class, [
             'label' => 'Periods',
             'multiple' => true,
@@ -106,19 +106,19 @@ class ManuscriptType extends AbstractType {
             'label' => 'Poem Count',
             'required' => false,
         ]);
-        $builder->add('regions', Select2EntityType::class, [
-            'label' => 'Region',
-            'multiple' => true,
-            'remote_route' => 'region_typeahead',
-            'class' => Region::class,
-            'required' => false,
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'region_new',
-                'add_label' => 'Add Region',
-            ],
-            'placeholder' => 'Search for an existing region by name',
-        ]);
+        // $builder->add('regions', Select2EntityType::class, [
+        //     'label' => 'Region',
+        //     'multiple' => true,
+        //     'remote_route' => 'region_typeahead',
+        //     'class' => Region::class,
+        //     'required' => false,
+        //     'allow_clear' => true,
+        //     'attr' => [
+        //         'add_path' => 'region_new',
+        //         'add_label' => 'Add Region',
+        //     ],
+        //     'placeholder' => 'Search for an existing region by name',
+        // ]);
         $builder->add('additionalGenres', CollectionType::class, [
             'label' => 'Additional Genres',
             'allow_add' => true,
@@ -131,46 +131,46 @@ class ManuscriptType extends AbstractType {
                 'class' => 'collection collection-simple',
             ],
         ]);
-        $builder->add('printSources', Select2EntityType::class, [
-            'label' => 'Print Sources',
-            'multiple' => true,
-            'remote_route' => 'print_source_typeahead',
-            'class' => PrintSource::class,
-            'required' => false,
-            'allow_clear' => true,
-            'help' => 'Any print sources of the content listed in the manuscript, if not included with selected content entries.',
-            'attr' => [
-                'add_path' => 'print_source_new',
-                'add_label' => 'Add Print Source',
-            ],
-            'placeholder' => 'Search for an existing print source by name, description or region name',
-        ]);
-        $builder->add('majorThemes', Select2EntityType::class, [
-            'label' => 'Major Themes',
-            'multiple' => true,
-            'remote_route' => 'theme_typeahead',
-            'class' => Theme::class,
-            'required' => false,
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'theme_new',
-                'add_label' => 'Add Theme',
-            ],
-            'placeholder' => 'Search for an existing theme by name',
-        ]);
-        $builder->add('otherThemes', Select2EntityType::class, [
-            'label' => 'Minor Themes',
-            'multiple' => true,
-            'remote_route' => 'theme_typeahead',
-            'class' => Theme::class,
-            'required' => false,
-            'allow_clear' => true,
-            'attr' => [
-                'add_path' => 'theme_new',
-                'add_label' => 'Add Theme',
-            ],
-            'placeholder' => 'Search for an existing theme by name',
-        ]);
+        // $builder->add('printSources', Select2EntityType::class, [
+        //     'label' => 'Print Sources',
+        //     'multiple' => true,
+        //     'remote_route' => 'print_source_typeahead',
+        //     'class' => PrintSource::class,
+        //     'required' => false,
+        //     'allow_clear' => true,
+        //     'help' => 'Any print sources of the content listed in the manuscript, if not included with selected content entries.',
+        //     'attr' => [
+        //         'add_path' => 'print_source_new',
+        //         'add_label' => 'Add Print Source',
+        //     ],
+        //     'placeholder' => 'Search for an existing print source by name, description or region name',
+        // ]);
+        // $builder->add('majorThemes', Select2EntityType::class, [
+        //     'label' => 'Major Themes',
+        //     'multiple' => true,
+        //     'remote_route' => 'theme_typeahead',
+        //     'class' => Theme::class,
+        //     'required' => false,
+        //     'allow_clear' => true,
+        //     'attr' => [
+        //         'add_path' => 'theme_new',
+        //         'add_label' => 'Add Theme',
+        //     ],
+        //     'placeholder' => 'Search for an existing theme by name',
+        // ]);
+        // $builder->add('otherThemes', Select2EntityType::class, [
+        //     'label' => 'Minor Themes',
+        //     'multiple' => true,
+        //     'remote_route' => 'theme_typeahead',
+        //     'class' => Theme::class,
+        //     'required' => false,
+        //     'allow_clear' => true,
+        //     'attr' => [
+        //         'add_path' => 'theme_new',
+        //         'add_label' => 'Add Theme',
+        //     ],
+        //     'placeholder' => 'Search for an existing theme by name',
+        // ]);
         $builder->add('description', null, [
             'label' => 'Description',
             'required' => false,

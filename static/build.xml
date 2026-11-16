@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="buildMVM" default="all">
+    <property name="ssTarget" value="basic"/>
+
+    <target name="all"
+        description="Full site build"
+        depends="init, copy, search"/>
+
+    <target name="init"
+        description="Refresh the _site directory">
+        <delete dir="_site"/>
+        <mkdir dir="_site"/>
+    </target>
+
+    <target name="copy" description="Copy assets to the _site directory">
+        <copy todir="_site">
+            <fileset dir="${basedir}/_build">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="search" description="Runs the entire search process">
+        <ant antfile="lib/staticSearch/build.xml" inheritall="false" target="${ssTarget}">
+            <property name="ssConfigFile" value="${basedir}/staticSearch_config.xml"/>
+        </ant>
+    </target>
+
+    <!--Not run directly; only run if needed-->
+    <target name="getStaticSearch" description="Get archived release of staticSearch from GitHub">
+        <get
+            skipexisting="true"
+            usetimestamp="true"
+            src="https://github.com/projectEndings/staticSearch/archive/refs/tags/v2.0.3.zip" dest="tmp/staticSearch.zip" />
+        <unzip src="tmp/staticSearch.zip" dest="${basedir}/lib/staticSearch">
+            <cutdirsmapper dirs="1"/>
+        </unzip>
+    </target>
+</project>
